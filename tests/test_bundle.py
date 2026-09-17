@@ -15,7 +15,9 @@ def original(tmp_path_factory):
     return root / 'bundle'
 
 
-@pytest.mark.parametrize('field,value', [('channels', ['renamed']), ('target_channel', 100), ('policy_features', 3)])
+@pytest.mark.parametrize('field,value', [
+    ('channels', ['renamed']), ('target_channel', 100), ('policy_features', 3),
+])
 def test_bundle_rejects_inconsistent_manifest_schema(original, tmp_path, field, value):
     from asofcast.bundle import load_bundle
     bundle = tmp_path / 'copy'
@@ -45,3 +47,11 @@ def test_bundle_rejects_out_of_range_replay_origins(original, tmp_path):
     manifest_path.write_text(json.dumps(manifest))
     with pytest.raises(ValueError, match='origin'):
         load_bundle(bundle)
+
+
+def test_serving_forecaster_prefers_calibrated_model(original):
+    from asofcast.bundle import load_bundle, select_serving_forecaster
+    bundle = load_bundle(original)
+    model, name = select_serving_forecaster(bundle)
+    assert model is bundle.calibrated
+    assert name == 'staleness_calibrated_dlinear'

@@ -1,6 +1,14 @@
 {
   "arrival_seed": 811,
   "batch_size": 128,
+  "calibration_ridges": [
+    1.0,
+    10.0,
+    100.0,
+    1000.0,
+    10000.0,
+    100000.0
+  ],
   "cpu_threads": 2,
   "delay_cost": 0.02,
   "epochs": 25,

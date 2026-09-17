@@ -11,7 +11,7 @@ import numpy as np
 import torch
 from torch import nn
 
-from asofcast.bundle import load_bundle
+from asofcast.bundle import load_bundle, select_serving_forecaster
 from asofcast.data import write_json
 from asofcast.experiment import build_examples, build_policy_states
 from asofcast.metrics import score
@@ -61,8 +61,9 @@ def benchmark_bundle(directory: Path, output: Path, *, repeats: int = 300) -> di
     target = bundle.manifest['target_channel']
     x,y = build_examples(timeline,bundle.test_origins,bundle.config,target)
     flat = x.reshape((-1,)+x.shape[2:])
-    candidate,notes = dynamic_int8(bundle.arrival)
-    fp = predict(bundle.arrival,flat).reshape(x.shape[:2])
+    forecaster, forecaster_name = select_serving_forecaster(bundle)
+    candidate,notes = dynamic_int8(forecaster)
+    fp = predict(forecaster,flat).reshape(x.shape[:2])
     qp = predict(candidate,flat).reshape(x.shape[:2])
     waits = bundle.config['waits_seconds']
     threshold = bundle.report['policy_selection']['threshold']
@@ -72,16 +73,16 @@ def benchmark_bundle(directory: Path, output: Path, *, repeats: int = 300) -> di
     fp_quality = score(y*scale+mean,fp*scale+mean,fp_steps,waits)
     qp_quality = score(y*scale+mean,qp*scale+mean,qp_steps,waits)
     sample = torch.from_numpy(flat[:1].copy())
-    fp_latency = measure_latency(bundle.arrival,sample,repeats=repeats)
+    fp_latency = measure_latency(forecaster,sample,repeats=repeats)
     qp_latency = measure_latency(candidate,sample,repeats=repeats)
     action_change = float(np.mean(fp_steps != qp_steps))
     gate = {'p95_improved':qp_latency['p95_ms'] < fp_latency['p95_ms'],
             'mae_within_one_percent':qp_quality['mae'] <= fp_quality['mae']*1.01+1e-8,
             'action_changes_within_five_percent':action_change <= .05}
-    result = {'run_id':bundle.report['run_id'], 'source_kind':bundle.report['source']['kind'],
+    result = {'run_id':bundle.report['run_id'], 'source_kind':bundle.report['source']['kind'], 'forecaster':forecaster_name,
               'method':'torch.ao dynamic quantization of Linear layers; CPU',
               'torch_version':torch.__version__, 'onnx_executed':False,
-              'fp32':{'latency':fp_latency,'quality':fp_quality,'serialized_weight_bytes':_weight_bytes(bundle.arrival)},
+              'fp32':{'latency':fp_latency,'quality':fp_quality,'serialized_weight_bytes':_weight_bytes(forecaster)},
               'int8':{'latency':qp_latency,'quality':qp_quality,'serialized_weight_bytes':_weight_bytes(candidate)},
               'max_prediction_drift_native':float(np.abs(fp-qp).max()*scale),
               'policy_action_change_rate':action_change, 'gates':gate,

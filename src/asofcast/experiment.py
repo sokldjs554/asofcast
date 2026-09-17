@@ -13,6 +13,7 @@ import torch
 from pydantic import BaseModel, ConfigDict, Field
 
 from asofcast import __version__
+from asofcast.calibration import StalenessCalibratedForecaster, fit_ridge_calibrator
 from asofcast.data import load_source, sha256_file, write_json
 from asofcast.metrics import random_matched_score, score
 from asofcast.models import ArrivalForecaster, BaselineForecaster
@@ -36,6 +37,7 @@ class RunConfig(BaseModel):
     arrival_seed: int = Field(default=811, ge=0, le=2**31-1)
     delay_cost: float = Field(default=.02, ge=0, le=1000)
     thresholds: list[float] = Field(default_factory=lambda: [0., .01, .02, .05, .1, .2, 1e6])
+    calibration_ridges: list[float] = Field(default_factory=lambda: [1., 10., 100., 1000., 10000., 100000.])
     target: str = 'OT'
     cpu_threads: int = Field(default=2, ge=1, le=16)
 
@@ -60,7 +62,8 @@ def _predict_decisions(model, x: np.ndarray) -> np.ndarray:
 
 
 def evaluate(y: np.ndarray, predictions: dict, states: np.ndarray, policy: GainPolicy,
-             threshold: float, waits: list[float], scale: float, mean: float) -> tuple[dict, np.ndarray]:
+             threshold: float, waits: list[float], scale: float, mean: float,
+             policy_model: str = 'calibrated') -> tuple[dict, np.ndarray]:
     native_y = y.astype(float) * scale + mean
     metrics = {}
     for name, pred in predictions.items():
@@ -69,9 +72,9 @@ def evaluate(y: np.ndarray, predictions: dict, states: np.ndarray, policy: GainP
             suffix = 'immediate' if step == 0 else ('deadline' if step == len(waits)-1 else f'fixed_{int(waits[step])}s')
             metrics[f'{name}_{suffix}'] = score(native_y, native_pred, np.full(len(y), step, dtype=int), waits)
     chosen = choose_steps(states, policy, threshold, waits)
-    native_arrival = predictions['arrival'].astype(float) * scale + mean
-    metrics['arrival_learned'] = score(native_y, native_arrival, chosen, waits)
-    metrics['arrival_random_matched'] = random_matched_score(native_y, native_arrival, chosen, waits)
+    native_policy = predictions[policy_model].astype(float) * scale + mean
+    metrics[f'{policy_model}_learned'] = score(native_y, native_policy, chosen, waits)
+    metrics[f'{policy_model}_random_matched'] = random_matched_score(native_y, native_policy, chosen, waits)
     return metrics, chosen
 
 
@@ -116,8 +119,26 @@ def run_experiment(csv_path: Path, output_dir: Path, config: dict, *, source_kin
         history[name] = train_regressor(model, training_x, training_y, epochs=cfg['epochs'],
                                         learning_rate=cfg['learning_rate'], batch_size=cfg['batch_size'],
                                         seed=cfg['seed'])
+    if not cfg['calibration_ridges'] or any((not np.isfinite(value) or value <= 0) for value in cfg['calibration_ridges']):
+        raise ValueError('calibration_ridges must contain positive finite values')
+    val_x, val_y = examples['validation']
+    calibration_candidates = []
+    for ridge in cfg['calibration_ridges']:
+        candidate = StalenessCalibratedForecaster.from_baseline(
+            models['dlinear'], lookback=cfg['lookback'], channels=len(raw.columns), target_channel=target)
+        fit = fit_ridge_calibrator(candidate, training_x, training_y, ridge=float(ridge))
+        val_prediction = _predict_decisions(candidate, val_x)
+        val_mae = float(np.mean(np.abs(val_prediction - val_y[:, None])))
+        calibration_candidates.append({'ridge': float(ridge), 'validation_mae_standardized': val_mae, **fit})
+    selected_record = min(calibration_candidates, key=lambda row: (row['validation_mae_standardized'], row['ridge']))
+    calibrated = StalenessCalibratedForecaster.from_baseline(
+        models['dlinear'], lookback=cfg['lookback'], channels=len(raw.columns), target_channel=target)
+    selected_fit = fit_ridge_calibrator(calibrated, training_x, training_y, ridge=selected_record['ridge'])
+    models['calibrated'] = calibrated
+    history['calibration'] = {'selected_ridge': selected_record['ridge'], 'fit': selected_fit,
+                              'validation_candidates': calibration_candidates}
     policy_x, policy_y = examples['policy']
-    policy_pred = _predict_decisions(models['arrival'], policy_x)
+    policy_pred = _predict_decisions(models['calibrated'], policy_x)
     policy_states = build_policy_states(policy_x, policy_pred, waits)
     features = policy_states[:, :-1].reshape(-1, policy_states.shape[-1])
     gains = gain_targets(policy_pred, policy_y).reshape(-1)
@@ -126,14 +147,13 @@ def run_experiment(csv_path: Path, output_dir: Path, config: dict, *, source_kin
     policy.fit_scaling(features, gains)
     history['policy'] = train_regressor(policy, features, gains, epochs=cfg['policy_epochs'],
                                         learning_rate=.003, batch_size=cfg['batch_size'], seed=cfg['seed'] + 1)
-    val_x, val_y = examples['validation']
-    val_pred = _predict_decisions(models['arrival'], val_x)
+    val_pred = _predict_decisions(models['calibrated'], val_x)
     val_states = build_policy_states(val_x, val_pred, waits)
     threshold, validation_table = select_threshold(val_states, val_pred, val_y, policy, waits,
                                                   cfg['delay_cost'], cfg['thresholds'])
     test_x, test_y = examples['test']
     test_predictions = {name: _predict_decisions(model, test_x) for name, model in models.items()}
-    test_states = build_policy_states(test_x, test_predictions['arrival'], waits)
+    test_states = build_policy_states(test_x, test_predictions['calibrated'], waits)
     target_scale, target_mean = float(scaler.scale[target]), float(scaler.mean[target])
     test_metrics, chosen = evaluate(test_y, test_predictions, test_states, policy, threshold, waits,
                                     target_scale, target_mean)
@@ -141,7 +161,7 @@ def run_experiment(csv_path: Path, output_dir: Path, config: dict, *, source_kin
     shifted = Timeline(raw.times, standardized.values, outage_arrivals, raw.columns)
     shift_x, shift_y = build_examples(shifted, origins['test'], cfg, target)
     shift_pred = {name: _predict_decisions(model, shift_x) for name, model in models.items()}
-    shift_states = build_policy_states(shift_x, shift_pred['arrival'], waits)
+    shift_states = build_policy_states(shift_x, shift_pred['calibrated'], waits)
     shift_metrics, _ = evaluate(shift_y, shift_pred, shift_states, policy, threshold, waits,
                                 target_scale, target_mean)
     partitions = {}
@@ -152,11 +172,14 @@ def run_experiment(csv_path: Path, output_dir: Path, config: dict, *, source_kin
                             'latest_target_time': int(raw.times[indices[-1] + cfg['horizon']]),
                             'label_cutoff': int(raw.times[bounds[name][1]-1]) if name in ('train','policy') else None}
     run_id = hashlib.sha256((source['sha256'] + json.dumps(cfg, sort_keys=True)).encode()).hexdigest()[:16]
-    error = np.abs(test_predictions['arrival'] - test_y[:, None]) * target_scale
+    error = np.abs(test_predictions['calibrated'] - test_y[:, None]) * target_scale
     report = {'version': __version__, 'run_id': run_id, 'status': 'local_experiment_completed',
               'source': source, 'config': cfg, 'partitions': partitions,
               'removed_unarrived_training_labels': removed_labels,
-              'policy_selection': {'split': 'validation', 'threshold': threshold,
+              'calibration_selection': {'split': 'validation', 'ridge': selected_record['ridge'],
+                                        'objective': 'mean standardized MAE across decision times',
+                                        'validation_candidates': calibration_candidates},
+              'policy_selection': {'split': 'validation', 'forecaster': 'calibrated', 'threshold': threshold,
                                    'objective': 'normalized MAE + delay_cost * mean_wait/deadline',
                                    'validation_candidates': validation_table},
               'test_metrics': test_metrics, 'outage_test_metrics': shift_metrics,
@@ -197,10 +220,12 @@ def run_experiment(csv_path: Path, output_dir: Path, config: dict, *, source_kin
                                 'dlinear': float(test_predictions['dlinear'][i,k]*target_scale+target_mean),
                                 'value_only': float(test_predictions['value_only'][i,k]*target_scale+target_mean),
                                 'arrival': float(test_predictions['arrival'][i,k]*target_scale+target_mean),
+                                'calibrated': float(test_predictions['calibrated'][i,k]*target_scale+target_mean),
                                 'policy_selected': bool(chosen[i] == k)})
     pd.DataFrame(result_rows).to_csv(output_dir / 'test_predictions.csv', index=False)
     files = {p.name: sha256_file(p) for p in sorted(output_dir.iterdir()) if p.is_file()}
-    write_json(output_dir / 'manifest.json', {'bundle_version': 1, 'run_id': run_id,
+    write_json(output_dir / 'manifest.json', {'bundle_version': 2, 'run_id': run_id,
                'target_channel': target, 'channels': list(raw.columns), 'policy_features': features.shape[-1],
+               'calibration_features': len(raw.columns) * 4 + 1,
                'files': files, 'status': 'complete'})
     return report

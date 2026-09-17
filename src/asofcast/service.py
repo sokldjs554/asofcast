@@ -18,7 +18,7 @@ from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, ConfigDict, Field, FiniteFloat
 
-from asofcast.bundle import Bundle, load_bundle
+from asofcast.bundle import Bundle, load_bundle, select_serving_forecaster
 from asofcast.policy import policy_features
 from asofcast.preprocessing import simulate_arrivals
 from asofcast.timeline import Snapshot, Timeline
@@ -41,7 +41,8 @@ def _infer(bundle: Bundle, normalized: Snapshot, raw: Snapshot, step: int) -> di
     started = time.perf_counter()
     waits = bundle.config['waits_seconds']
     x = normalized.features()[None]
-    prediction = float(predict(bundle.arrival, x)[0])
+    forecaster, _ = select_serving_forecaster(bundle)
+    prediction = float(predict(forecaster, x)[0])
     baseline = float(predict(bundle.dlinear, x)[0])
     target = bundle.manifest['target_channel']
     scale, mean = bundle.scaler.scale[target], bundle.scaler.mean[target]
@@ -105,6 +106,7 @@ def create_app(artifact_dir: Path) -> FastAPI:
     @app.get('/api/metadata')
     def metadata(bundle: Bundle = Depends(require_bundle)):
         return {'run_id':bundle.report['run_id'], 'source_kind':bundle.report['source']['kind'],
+                'serving_forecaster':select_serving_forecaster(bundle)[1],
                 'source':bundle.report['source'], 'cases':len(bundle.test_origins),
                 'columns':list(bundle.timeline.columns), 'config':bundle.config,
                 'test_metrics':bundle.report['test_metrics'],
@@ -128,6 +130,7 @@ def create_app(artifact_dir: Path) -> FastAPI:
         chosen = next((s['step'] for s in steps if s['action']=='COMMIT'), len(steps)-1)
         target = bundle.manifest['target_channel']
         return {'run_id':bundle.report['run_id'], 'source_kind':bundle.report['source']['kind'],
+                'serving_forecaster':select_serving_forecaster(bundle)[1],
                 'scenario':scenario, 'case_id':case_id, 'origin_time':int(raw.times[origin]),
                 'target_time':int(raw.times[origin]+bundle.config['horizon']*raw.grid_seconds),
                 'target_actual':float(raw.values[origin+bundle.config['horizon'],target]),

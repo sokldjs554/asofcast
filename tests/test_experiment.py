@@ -9,7 +9,7 @@ def small_config():
     return {'lookback': 12, 'horizon': 6, 'stride': 4, 'waits_seconds': [0, 1800, 3600],
             'epochs': 2, 'policy_epochs': 3, 'batch_size': 64, 'learning_rate': .003,
             'seed': 42, 'arrival_seed': 811, 'delay_cost': .02,
-            'thresholds': [0., .02, .1, 1e6], 'target': 'OT', 'cpu_threads': 2}
+            'thresholds': [0., .02, .1, 1e6], 'calibration_ridges': [1.0, 100.0], 'target': 'OT', 'cpu_threads': 2}
 
 
 def test_real_training_pipeline_exports_loadable_verified_bundle(tmp_path):
@@ -26,11 +26,18 @@ def test_real_training_pipeline_exports_loadable_verified_bundle(tmp_path):
     assert report['cloud_deployed'] is False
     assert report['partitions']['test']['samples'] > 0
     assert report['policy_selection']['split'] == 'validation'
-    assert 'arrival_learned' in report['test_metrics']
-    assert report['test_metrics']['arrival_learned']['mae'] >= 0
+    assert 'calibrated_learned' in report['test_metrics']
+    assert report['test_metrics']['calibrated_learned']['mae'] >= 0
+    assert report['calibration_selection']['split'] == 'validation'
+    assert report['calibration_selection']['ridge'] in small_config()['calibration_ridges']
     bundle = load_bundle(out)
     assert bundle.report['run_id'] == report['run_id']
     assert bundle.arrival is not None and bundle.policy is not None
+    assert bundle.calibrated is not None
+    from asofcast.bundle import select_serving_forecaster
+    serving, serving_name = select_serving_forecaster(bundle)
+    assert serving is bundle.calibrated
+    assert serving_name == 'staleness_calibrated_dlinear'
     assert (out / 'test_predictions.csv').stat().st_size > 100
     assert all(torch.isfinite(v).all() for v in bundle.arrival.state_dict().values())
 

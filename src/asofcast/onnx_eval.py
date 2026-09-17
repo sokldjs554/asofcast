@@ -8,7 +8,7 @@ from pathlib import Path
 import numpy as np
 import torch
 
-from asofcast.bundle import load_bundle
+from asofcast.bundle import load_bundle, select_serving_forecaster
 from asofcast.experiment import build_examples
 from asofcast.timeline import Timeline
 
@@ -46,8 +46,9 @@ def evaluate_onnx(bundle_dir: Path, report_path: Path, repeats: int = 200) -> di
     flat = x.reshape((-1,) + x.shape[2:]).astype(np.float32)
     onnx_path = Path(report_path).with_suffix('.onnx')
     sample = torch.from_numpy(flat[:1].copy())
-    bundle.arrival.eval()
-    torch.onnx.export(bundle.arrival, sample, onnx_path, input_names=['features'], output_names=['prediction'],
+    forecaster, forecaster_name = select_serving_forecaster(bundle)
+    forecaster.eval()
+    torch.onnx.export(forecaster, sample, onnx_path, input_names=['features'], output_names=['prediction'],
                       dynamic_axes={'features': {0: 'batch'}, 'prediction': {0: 'batch'}},
                       opset_version=18, do_constant_folding=True, dynamo=False)
     session = ort.InferenceSession(str(onnx_path), providers=['CPUExecutionProvider'])
@@ -56,16 +57,16 @@ def evaluate_onnx(bundle_dir: Path, report_path: Path, repeats: int = 200) -> di
     for batch in (1, min(16, len(flat))):
         inputs = flat[:batch].copy()
         with torch.inference_mode():
-            expected = bundle.arrival(torch.from_numpy(inputs)).cpu().numpy()
+            expected = forecaster(torch.from_numpy(inputs)).cpu().numpy()
         actual = session.run(['prediction'], {'features': inputs})[0]
         drift = float(np.max(np.abs(expected - actual)))
         parity[str(batch)] = {'max_abs_drift_standardized': drift}
         max_drift = max(max_drift, drift)
     one = flat[:1].copy()
-    torch_call = lambda: bundle.arrival(torch.from_numpy(one)).detach().cpu().numpy()
+    torch_call = lambda: forecaster(torch.from_numpy(one)).detach().cpu().numpy()
     ort_call = lambda: session.run(['prediction'], {'features': one})[0]
     result = {
-        'status': 'verified', 'asofcast_run_id': bundle.report['run_id'],
+        'status': 'verified', 'asofcast_run_id': bundle.report['run_id'], 'forecaster': forecaster_name,
         'onnx_path': onnx_path.name, 'onnx_bytes': onnx_path.stat().st_size,
         'onnxruntime_version': ort.__version__, 'opset': 18, 'dynamic_batch': True,
         'parity': parity, 'max_abs_drift_standardized': max_drift,

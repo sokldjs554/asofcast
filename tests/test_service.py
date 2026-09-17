@@ -34,6 +34,7 @@ def test_replay_runs_loaded_model_and_marks_synthetic_provenance(bundle_dir):
         assert 'AsOfCast' in client.get('/').text
         meta = client.get('/api/metadata').json()
         assert meta['source_kind'] == 'synthetic'
+        assert meta['serving_forecaster'] == 'staleness_calibrated_dlinear'
         response = client.get('/api/replay', params={'case_id':0, 'scenario':'mixed'})
         assert response.status_code == 200, response.text
         result = response.json()
@@ -45,7 +46,7 @@ def test_replay_runs_loaded_model_and_marks_synthetic_provenance(bundle_dir):
         origin = int(bundle.test_origins[0])
         x = normalized.snapshot(origin, 0, bundle.config['lookback'], bundle.config['horizon']).features()[None]
         target = bundle.manifest['target_channel']
-        expected = predict(bundle.arrival, x)[0] * bundle.scaler.scale[target] + bundle.scaler.mean[target]
+        expected = predict(bundle.calibrated, x)[0] * bundle.scaler.scale[target] + bundle.scaler.mean[target]
         assert result['steps'][0]['prediction'] == pytest.approx(float(expected), abs=1e-5)
         for step in result['steps']:
             assert all(t is None or t <= result['origin_time'] for t in step['latest_source_times'])
