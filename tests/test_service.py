@@ -229,3 +229,11 @@ def test_revision_pareto_and_audit_endpoints_are_model_backed(bundle_dir):
         result = audit.json()
         assert result['policy_inputs_scope'] == 'current_snapshot_only'
         assert result['retrospective_fields_used_for_action'] is False
+
+
+def test_dashboard_does_not_double_count_actively_acquired_sensor(bundle_dir):
+    from asofcast.service import create_app
+    with TestClient(create_app(bundle_dir)) as client:
+        js = client.get('/static/app.js').text
+        assert 'state.available_origin_sensors + acquired.length' not in js
+        assert "state.available_origin_sensors" in js
