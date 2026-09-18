@@ -45,6 +45,7 @@ jobs:
       - name: Validate generated media
         run: |
           test -s docs/assets/live-m2/m2-decision-console.png
+          test -s docs/assets/live-m2/m2-after-acquisition.png
           test -s docs/assets/live-m2/m2-counterfactual.png
           test -s docs/assets/live-m2/m2-revision.png
           test -s docs/assets/live-m2/m2-pareto.png
