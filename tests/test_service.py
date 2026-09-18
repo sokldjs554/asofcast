@@ -122,6 +122,10 @@ def test_dashboard_assets_are_local_and_served(bundle_dir):
             assert kind in response.headers['content-type']
             assert len(response.content) > 200
         assert '합성 데이터 결과' in html
+        assert '실측 ETTh1 검증' in html
+        assert '51,894,720' in html
+        assert 'ONNX Runtime' in html
+        assert 'Render · LIVE' in html
 
 
 def test_service_uses_recorded_cpu_thread_budget(bundle_dir):
