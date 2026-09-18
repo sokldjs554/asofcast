@@ -1,0 +1,70 @@
+name: Capture live demo media
+
+on:
+  push:
+    branches:
+      - media/portfolio-assets
+    paths:
+      - scripts/capture_live_demo.py
+      - .github/workflows/capture-demo.yml
+      - src/asofcast/static/**
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  capture:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.13'
+          cache: pip
+
+      - name: Install Playwright
+        run: |
+          python -m pip install 'playwright==1.55.0'
+          python -m playwright install --with-deps chromium
+
+      - name: Capture live demo screenshots and WebM
+        run: |
+          python scripts/capture_live_demo.py --out docs/assets/live
+
+      - name: Convert video to MP4 and GIF
+        run: |
+          if ! command -v ffmpeg >/dev/null 2>&1; then
+            sudo apt-get update
+            sudo apt-get install -y ffmpeg
+          fi
+          ffmpeg -y -i docs/assets/live/asofcast-demo.webm             -c:v libx264 -preset medium -crf 21 -pix_fmt yuv420p -movflags +faststart             docs/assets/live/asofcast-demo.mp4
+          ffmpeg -y -i docs/assets/live/asofcast-demo.mp4             -vf "fps=12,scale=960:-1:flags=lanczos,split[s0][s1];[s0]palettegen=max_colors=128[p];[s1][p]paletteuse=dither=bayer"             docs/assets/live/asofcast-demo.gif
+
+      - name: Validate generated media
+        run: |
+          test -s docs/assets/live/portfolio-hero.png
+          test -s docs/assets/live/demo-full.png
+          test -s docs/assets/live/demo-outage.png
+          test -s docs/assets/live/demo-evidence.png
+          test -s docs/assets/live/asofcast-demo.mp4
+          test -s docs/assets/live/asofcast-demo.gif
+          ffprobe -v error -show_entries format=duration,size -of json docs/assets/live/asofcast-demo.mp4
+          cat docs/assets/live/capture-report.json
+
+      - name: Upload portfolio media
+        uses: actions/upload-artifact@v4
+        with:
+          name: portfolio-media
+          path: |
+            docs/assets/live/portfolio-hero.png
+            docs/assets/live/demo-full.png
+            docs/assets/live/demo-outage.png
+            docs/assets/live/demo-evidence.png
+            docs/assets/live/asofcast-demo.mp4
+            docs/assets/live/asofcast-demo.gif
+            docs/assets/live/capture-report.json
+          if-no-files-found: error
+          retention-days: 30
