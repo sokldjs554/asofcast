@@ -52,6 +52,16 @@ def test_replay_runs_loaded_model_and_marks_synthetic_provenance(bundle_dir):
             assert all(t is None or t <= result['origin_time'] for t in step['latest_source_times'])
 
 
+
+def test_cloud_deployment_flag_requires_explicit_environment(bundle_dir, monkeypatch):
+    from asofcast.service import create_app
+    monkeypatch.delenv('ASOFCAST_CLOUD_DEPLOYED', raising=False)
+    with TestClient(create_app(bundle_dir)) as client:
+        assert client.get('/api/metadata').json()['cloud_deployed'] is False
+    monkeypatch.setenv('ASOFCAST_CLOUD_DEPLOYED', 'true')
+    with TestClient(create_app(bundle_dir)) as client:
+        assert client.get('/api/metadata').json()['cloud_deployed'] is True
+
 def test_replay_invalid_inputs_rejected(bundle_dir):
     from asofcast.service import create_app
     with TestClient(create_app(bundle_dir)) as client:
