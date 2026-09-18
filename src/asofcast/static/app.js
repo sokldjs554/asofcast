@@ -68,7 +68,7 @@
   function renderDecision() {
     $('forecast').textContent = fmt(state.prediction, 2);
     $('disagreement').textContent = fmt(state.disagreement_proxy.value, 3);
-    $('availableSensors').textContent = state.available_origin_sensors + acquired.length;
+    $('availableSensors').textContent = state.available_origin_sensors;
     $('availableTotal').textContent = `/ ${state.total_sensors}`;
     $('actionBadge').textContent = state.recommended_action;
     $('actionBadge').className = `action-badge ${state.recommended_action.toLowerCase()}`;
