@@ -22,6 +22,8 @@ def test_m2_capture_workflow_records_active_acquisition_media():
     script = CAPTURE_SCRIPT.read_text(encoding='utf-8')
     for item in ['playwright install', 'chromium', 'capture_live_demo.py', 'upload-artifact', 'ffmpeg']:
         assert item in workflow
+    assert 'command -v ffmpeg' in workflow
+    assert 'apt-get install -y ffmpeg' in workflow
     for item in ['https://asofcast.onrender.com', 'record_video_dir', 'acquireRecommended',
                  'counterfactual', 'revision', 'pareto', 'm2-decision-console.png']:
         assert item in script
