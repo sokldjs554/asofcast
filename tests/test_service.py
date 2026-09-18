@@ -11,7 +11,7 @@ def bundle_dir(tmp_path_factory):
     path = root / 'source.csv'
     write_synthetic_csv(path, n=720, seed=9)
     out = root / 'run'
-    run_experiment(path, out, {'lookback':12, 'epochs':2, 'policy_epochs':3}, source_kind='synthetic')
+    run_experiment(path, out, {'lookback':12, 'epochs':2, 'policy_epochs':3, 'acquisition_epochs':3}, source_kind='synthetic')
     return out
 
 
@@ -150,3 +150,76 @@ def test_service_uses_recorded_cpu_thread_budget(bundle_dir):
         assert torch.get_num_threads() == budget
     finally:
         torch.set_num_threads(old)
+
+
+def test_acquisition_endpoint_ranks_sensors_and_keeps_retrospective_scope_explicit(bundle_dir):
+    from asofcast.service import create_app
+    with TestClient(create_app(bundle_dir)) as client:
+        response = client.get('/api/acquisition', params={'case_id': 0, 'scenario': 'mixed', 'wait_seconds': 0})
+        assert response.status_code == 200, response.text
+        result = response.json()
+        assert result['recommended_action'] in ('ACQUIRE', 'WAIT', 'COMMIT')
+        assert result['target_time'] > result['origin_time']
+        assert result['counterfactual_scope'] == 'retrospective_audit_only_not_policy_input'
+        assert len(result['candidates']) == 7
+        assert all('predicted_gain' in row and 'cost_proxy' in row and 'utility' in row for row in result['candidates'])
+        assert all(row['sensor'] in result['columns'] for row in result['candidates'])
+        assert result['disagreement_proxy']['label'] == 'model_disagreement_not_calibrated_uncertainty'
+
+
+def test_stateless_acquire_reveals_only_origin_measurement_and_changes_state(bundle_dir):
+    from asofcast.service import create_app
+    with TestClient(create_app(bundle_dir)) as client:
+        state = client.get('/api/acquisition', params={'case_id': 0, 'scenario': 'mixed', 'wait_seconds': 0}).json()
+        eligible = [row for row in state['candidates'] if row['eligible']]
+        assert eligible, state
+        sensor = eligible[0]['sensor']
+        response = client.post('/api/acquire', json={
+            'case_id': 0, 'scenario': 'mixed', 'wait_seconds': 0,
+            'acquired': [], 'sensor': sensor,
+        })
+        assert response.status_code == 200, response.text
+        result = response.json()
+        assert sensor in result['acquired']
+        acquired_row = next(row for row in result['candidates'] if row['sensor'] == sensor)
+        assert acquired_row['eligible'] is False
+        assert result['acquisition_scope'] == 'selected_sensor_origin_slot_only'
+        assert result['latest_source_times'][result['columns'].index(sensor)] == result['origin_time']
+        assert max(t for t in result['latest_source_times'] if t is not None) <= result['origin_time']
+
+
+def test_acquire_rejects_unknown_duplicate_and_already_available_sensor(bundle_dir):
+    from asofcast.service import create_app
+    with TestClient(create_app(bundle_dir)) as client:
+        bad = client.post('/api/acquire', json={
+            'case_id': 0, 'scenario': 'mixed', 'wait_seconds': 0,
+            'acquired': [], 'sensor': 'NOT_A_SENSOR',
+        })
+        assert bad.status_code == 422
+        state = client.get('/api/acquisition', params={'case_id': 0, 'scenario': 'mixed', 'wait_seconds': 0}).json()
+        already = next((row['sensor'] for row in state['candidates'] if not row['eligible']), None)
+        if already is not None:
+            response = client.post('/api/acquire', json={
+                'case_id': 0, 'scenario': 'mixed', 'wait_seconds': 0,
+                'acquired': [], 'sensor': already,
+            })
+            assert response.status_code == 422
+
+
+def test_revision_pareto_and_audit_endpoints_are_model_backed(bundle_dir):
+    from asofcast.service import create_app
+    with TestClient(create_app(bundle_dir)) as client:
+        timeline = client.get('/api/revision-timeline', params={'case_id': 0, 'scenario': 'mixed'})
+        assert timeline.status_code == 200, timeline.text
+        events = timeline.json()['events']
+        assert len(events) >= 3
+        assert events[0]['kind'] == 'PASSIVE'
+        assert all(event['target_time'] == events[0]['target_time'] for event in events)
+        pareto = client.get('/api/pareto')
+        assert pareto.status_code == 200
+        assert len(pareto.json()['points']) >= 1
+        audit = client.get('/api/audit', params={'case_id': 0, 'scenario': 'mixed', 'wait_seconds': 0})
+        assert audit.status_code == 200
+        result = audit.json()
+        assert result['policy_inputs_scope'] == 'current_snapshot_only'
+        assert result['retrospective_fields_used_for_action'] is False
