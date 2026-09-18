@@ -55,17 +55,30 @@ def main() -> None:
         page.wait_for_timeout(1800)
 
         recommended = page.locator("#acquireRecommended")
+        acquisition_click_mode = None
         if recommended.is_enabled():
             sensor = recommended.get_attribute("data-sensor")
+            acquisition_click_mode = "recommended"
             recommended.click()
+        else:
+            # The default replay case may legitimately recommend WAIT. For the
+            # portfolio story, exercise the user-driven counterfactual path by
+            # actively pulling the highest-ranked eligible candidate instead.
+            candidate_card = page.locator("#sensorMapGrid .sensor-card.is-candidate").first
+            candidate_button = candidate_card.locator(".sensor-acquire")
+            if candidate_button.count() and candidate_button.is_enabled():
+                sensor = candidate_card.locator(".sensor-card-head strong").inner_text()
+                acquisition_click_mode = "manual_top_candidate"
+                candidate_button.click()
+            else:
+                sensor = None
+        if sensor:
             page.wait_for_function(
                 "() => document.getElementById('status').textContent === ''",
                 timeout=30_000,
             )
-            page.wait_for_timeout(1800)
+            page.wait_for_timeout(2600)
             page.screenshot(path=str(out / "m2-after-acquisition.png"), full_page=False)
-        else:
-            sensor = None
 
         page.locator("#counterfactual").scroll_into_view_if_needed()
         page.wait_for_timeout(1600)
@@ -106,7 +119,8 @@ def main() -> None:
         "source_url": args.url,
         "captured_at_unix": int(time.time()),
         "browser": "Chromium via Playwright",
-        "recommended_sensor_clicked": sensor,
+        "sensor_clicked": sensor,
+        "acquisition_click_mode": acquisition_click_mode,
         "screenshots": [name for name in required if name and name.endswith(".png")],
         "video": "asofcast-m2-demo.webm",
         "scopes": [
