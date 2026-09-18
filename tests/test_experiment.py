@@ -9,7 +9,9 @@ def small_config():
     return {'lookback': 12, 'horizon': 6, 'stride': 4, 'waits_seconds': [0, 1800, 3600],
             'epochs': 2, 'policy_epochs': 3, 'batch_size': 64, 'learning_rate': .003,
             'seed': 42, 'arrival_seed': 811, 'delay_cost': .02,
-            'thresholds': [0., .02, .1, 1e6], 'calibration_ridges': [1.0, 100.0], 'target': 'OT', 'cpu_threads': 2}
+            'thresholds': [0., .02, .1, 1e6], 'calibration_ridges': [1.0, 100.0],
+            'acquisition_epochs': 4, 'acquisition_cost_weight': .03,
+            'acquisition_pareto_weights': [0., .02, .05], 'target': 'OT', 'cpu_threads': 2}
 
 
 def test_real_training_pipeline_exports_loadable_verified_bundle(tmp_path):
@@ -30,6 +32,19 @@ def test_real_training_pipeline_exports_loadable_verified_bundle(tmp_path):
     assert report['test_metrics']['calibrated_learned']['mae'] >= 0
     assert report['calibration_selection']['split'] == 'validation'
     assert report['calibration_selection']['ridge'] in small_config()['calibration_ridges']
+    acquisition = report['acquisition_policy']
+    for key in ('immediate_mae', 'learned_mae', 'oracle_mae', 'acquisition_rate',
+                'mean_cost_proxy', 'mean_realized_gain', 'mean_oracle_gain',
+                'regret_to_oracle', 'oracle_top1_hit_rate'):
+        assert np.isfinite(acquisition[key])
+    assert 0 <= acquisition['acquisition_rate'] <= 1
+    assert acquisition['oracle_mae'] <= acquisition['immediate_mae'] + 1e-6
+    assert acquisition['regret_to_oracle'] >= -1e-6
+    assert len(report['acquisition_pareto']) == len(small_config()['acquisition_pareto_weights'])
+    assert all(np.isfinite(row['mae']) and np.isfinite(row['mean_cost_proxy'])
+               for row in report['acquisition_pareto'])
+    assert (out / 'acquisition.pt').stat().st_size > 100
+    assert 'acquisition' in report['parameters']
     bundle = load_bundle(out)
     assert bundle.report['run_id'] == report['run_id']
     assert bundle.arrival is not None and bundle.policy is not None
