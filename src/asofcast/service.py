@@ -112,7 +112,8 @@ def create_app(artifact_dir: Path) -> FastAPI:
                 'test_metrics':bundle.report['test_metrics'],
                 'outage_test_metrics':bundle.report['outage_test_metrics'],
                 'limitations':bundle.report['limitations'], 'parameters':bundle.report['parameters'],
-                'paper_score_reproduced':False, 'cloud_deployed':False}
+                'paper_score_reproduced':False,
+                'cloud_deployed':os.environ.get('ASOFCAST_CLOUD_DEPLOYED','').strip().lower() in {'1','true','yes'}}
 
     @app.get('/api/replay')
     def replay(case_id: int = Query(default=0, ge=0), scenario: Literal['mixed','outage'] = 'mixed',
