@@ -71,7 +71,7 @@ class Timeline:
         return int(self.times[1] - self.times[0])
 
     def snapshot(self, origin_index: int, wait_seconds: float, lookback: int,
-                 horizon: int) -> Snapshot:
+                 horizon: int, acquired_channels=()) -> Snapshot:
         if not isinstance(origin_index, (int, np.integer)) or not isinstance(lookback, (int, np.integer)):
             raise ValueError('origin and lookback must be integers')
         if not isinstance(horizon, (int, np.integer)) or horizon < 1:
@@ -80,12 +80,21 @@ class Timeline:
             raise ValueError('query falls outside the timeline')
         if not np.isfinite(wait_seconds) or wait_seconds < 0 or wait_seconds >= horizon * self.grid_seconds:
             raise ValueError('wait must be finite, nonnegative and strictly before the target')
+        acquired = list(acquired_channels)
+        if (any(isinstance(channel, bool) or not isinstance(channel, (int, np.integer)) for channel in acquired)
+                or len(set(acquired)) != len(acquired)
+                or any(channel < 0 or channel >= self.values.shape[1] for channel in acquired)):
+            raise ValueError('acquired_channels must contain unique valid channel indices')
         start = origin_index - lookback + 1
         stop = origin_index + 1
         origin = int(self.times[origin_index])
         decision = origin + float(wait_seconds)
         values = self.values[start:stop]
-        available = self.arrivals[start:stop] <= decision
+        available = np.array(self.arrivals[start:stop] <= decision, copy=True)
+        if acquired:
+            # Active acquisition is an explicit pull of the frozen origin slot only.
+            # It never exposes an event after the original forecast origin.
+            available[-1, acquired] = True
         positions = np.arange(lookback)[:, None]
         last = np.maximum.accumulate(np.where(available, positions, -1), axis=0)
         known = last >= 0

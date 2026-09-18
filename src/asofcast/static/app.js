@@ -1,160 +1,331 @@
 'use strict';
 (() => {
   const $ = id => document.getElementById(id);
-  const put = (id, value) => { $(id).textContent = value; };
   const fmt = (value, digits = 2) => Number.isFinite(value)
-    ? value.toLocaleString('ko-KR', { minimumFractionDigits: digits, maximumFractionDigits: digits }) : '—';
+    ? Number(value).toLocaleString('ko-KR', {minimumFractionDigits: digits, maximumFractionDigits: digits})
+    : '—';
+  const signed = (value, digits = 3) => Number.isFinite(value)
+    ? `${value >= 0 ? '+' : ''}${fmt(value, digits)}` : '—';
   const stamp = seconds => new Date(seconds * 1000).toISOString().slice(0, 16).replace('T', ' ');
-  let metadata = null, current = null, controller = null, requestNumber = 0;
-  const methods = {
-    arrival_learned: '학습 모델 · 학습한 대기 판단',
-    arrival_immediate: '학습 모델 · 즉시 확정',
-    arrival_fixed_1800s: '학습 모델 · 30분 고정 대기',
-    arrival_deadline: '학습 모델 · 60분 고정 대기',
-    arrival_random_matched: '같은 대기 분포 · 무작위 기대값',
-    value_only_immediate: '동일 크기 값 전용 모델 · 즉시',
-    value_only_fixed_1800s: '동일 크기 값 전용 모델 · 30분',
-    value_only_deadline: '동일 크기 값 전용 모델 · 60분',
-    dlinear_immediate: '분해·선형 기준 모델 · 즉시',
-    dlinear_fixed_1800s: '분해·선형 기준 모델 · 30분',
-    dlinear_deadline: '분해·선형 기준 모델 · 60분'
-  };
-  function status(message, error = false) {
-    put('status', message); $('status').classList.toggle('error', error);
+
+  let metadata = null;
+  let state = null;
+  let acquired = [];
+  let sessionEvents = [];
+  let controller = null;
+  let requestSeq = 0;
+
+  function status(message = '', error = false) {
+    $('status').textContent = message;
+    $('status').classList.toggle('error', error);
   }
-  async function getJSON(url, signal) {
-    const response = await fetch(url, { signal, headers: { Accept: 'application/json' } });
+
+  async function requestJSON(url, options = {}) {
+    const response = await fetch(url, {
+      ...options,
+      headers: {Accept: 'application/json', 'Content-Type': 'application/json', ...(options.headers || {})}
+    });
     if (!response.ok) {
-      const error = await response.json().catch(() => ({}));
-      throw new Error(`${response.status}: ${error.detail || '요청을 처리하지 못했습니다.'}`);
+      const payload = await response.json().catch(() => ({}));
+      throw new Error(`${response.status}: ${payload.detail || '요청을 처리하지 못했습니다.'}`);
     }
     return response.json();
   }
-  function cell(row, value) {
-    const td = document.createElement('td'); td.textContent = value; row.append(td); return td;
+
+  function td(row, value, className = '') {
+    const cell = document.createElement('td');
+    cell.textContent = value;
+    if (className) cell.className = className;
+    row.append(cell);
+    return cell;
   }
-  function evidence(scenario) {
-    const metrics = scenario === 'outage' ? metadata.outage_test_metrics : metadata.test_metrics;
-    const body = $('results'); body.replaceChildren();
-    Object.keys(methods).filter(key => metrics[key]).forEach(key => {
-      const m = metrics[key], row = document.createElement('tr');
-      if (key === 'arrival_learned') row.className = 'metric-highlight';
-      cell(row, methods[key]); cell(row, fmt(m.mae, 4));
-      cell(row, `${fmt(m.mean_wait_seconds / 60, 1)}분`); cell(row, `${m.n}건`);
-      body.append(row);
+
+  function candidateBySensor(sensor) {
+    return state?.candidates?.find(row => row.sensor === sensor);
+  }
+
+  function actionCopy() {
+    if (!state) return {title: '계산 중', reason: ''};
+    if (state.recommended_action === 'ACQUIRE') {
+      const candidate = candidateBySensor(state.recommended_sensor);
+      return {
+        title: `${state.recommended_sensor} 센서를 추가 취득`,
+        reason: `예상 오차 감소 ${signed(candidate?.predicted_gain)} · 상대 비용 ${fmt(candidate?.cost_proxy, 2)}. 기다림과 확정의 순효용보다 높은 후보입니다.`
+      };
+    }
+    if (state.recommended_action === 'WAIT') {
+      return {
+        title: `${Math.round((state.next_wait_seconds || 0) / 60)}분 판단 시점까지 대기`,
+        reason: `현재 snapshot에서 passive arrival의 예상 이득 ${signed(state.wait_gain_predicted)}이 acquisition 후보의 순효용보다 큽니다.`
+      };
+    }
+    return {
+      title: '현재 예측을 확정',
+      reason: '추가 sensor acquisition과 passive wait의 추정 순효용이 현재 확정 기준을 넘지 않았습니다.'
+    };
+  }
+
+  function renderDecision() {
+    $('forecast').textContent = fmt(state.prediction, 2);
+    $('disagreement').textContent = fmt(state.disagreement_proxy.value, 3);
+    $('availableSensors').textContent = state.available_origin_sensors;
+    $('availableTotal').textContent = `/ ${state.total_sensors}`;
+    $('actionBadge').textContent = state.recommended_action;
+    $('actionBadge').className = `action-badge ${state.recommended_action.toLowerCase()}`;
+
+    const copy = actionCopy();
+    $('recommendationTitle').textContent = copy.title;
+    $('recommendationReason').textContent = copy.reason;
+    const button = $('acquireRecommended');
+    const canAcquire = state.recommended_action === 'ACQUIRE' && !!state.recommended_sensor;
+    button.disabled = !canAcquire;
+    button.dataset.sensor = canAcquire ? state.recommended_sensor : '';
+    button.innerHTML = canAcquire
+      ? `${state.recommended_sensor} 취득 실행 <b>↗</b>`
+      : '추천 센서 취득 <b>↗</b>';
+
+    const audit = $('auditText');
+    audit.replaceChildren();
+    const top = state.candidates.filter(row => row.eligible).slice(0, 3);
+    const blocks = [
+      ['Recommendation', copy.title],
+      ['Wait value', `${signed(state.wait_gain_predicted)} native error`],
+      ['Model disagreement', `${fmt(state.disagreement_proxy.value, 3)} · uncertainty proxy only`],
+      ['Already acquired', acquired.length ? acquired.join(' → ') : 'none']
+    ];
+    blocks.forEach(([label, value]) => {
+      const div = document.createElement('div');
+      const span = document.createElement('span'); span.textContent = label;
+      const strong = document.createElement('strong'); strong.textContent = value;
+      div.append(span, strong); audit.append(div);
+    });
+    if (top.length) {
+      const p = document.createElement('p');
+      p.className = 'audit-ranked';
+      p.textContent = 'Top candidates · ' + top.map((row, i) =>
+        `#${i + 1} ${row.sensor} (${signed(row.predicted_gain)})`).join('  ·  ');
+      audit.append(p);
+    }
+  }
+
+  function renderSensorMap() {
+    const grid = $('sensorMapGrid');
+    grid.replaceChildren();
+    state.candidates.forEach((row, index) => {
+      const card = document.createElement('article');
+      const observed = row.passively_observed_origin;
+      const got = row.already_acquired;
+      card.className = `sensor-card ${got ? 'is-acquired' : observed ? 'is-observed' : 'is-candidate'}`;
+      if (state.recommended_sensor === row.sensor && state.recommended_action === 'ACQUIRE') {
+        card.classList.add('recommended');
+      }
+
+      const head = document.createElement('div');
+      head.className = 'sensor-card-head';
+      const rank = document.createElement('span');
+      rank.className = 'sensor-rank';
+      rank.textContent = row.eligible ? `#${index + 1}` : got ? 'PULL' : 'LIVE';
+      const title = document.createElement('strong'); title.textContent = row.sensor;
+      const badge = document.createElement('small');
+      badge.textContent = got ? 'actively acquired' : observed ? 'already available' : 'candidate';
+      head.append(rank, title, badge);
+
+      const metrics = document.createElement('div');
+      metrics.className = 'sensor-card-metrics';
+      metrics.innerHTML = `
+        <div><span>predicted Δerror</span><b>${signed(row.predicted_gain)}</b></div>
+        <div><span>cost proxy</span><b>${fmt(row.cost_proxy, 2)}</b></div>
+        <div><span>net utility</span><b>${signed(row.utility)}</b></div>`;
+
+      const button = document.createElement('button');
+      button.className = 'sensor-acquire';
+      button.textContent = row.eligible ? '이 센서 취득' : got ? '취득 완료' : '이미 도착';
+      button.disabled = !row.eligible;
+      button.addEventListener('click', () => acquireSensor(row.sensor));
+      card.append(head, metrics, button);
+      grid.append(card);
     });
   }
-  function drawChart(active) {
-    const svg = $('chart'), NS = 'http://www.w3.org/2000/svg'; svg.replaceChildren();
-    const points = current.steps, values = [current.target_actual];
-    points.forEach(s => values.push(s.prediction, s.baseline_prediction));
-    const min = Math.min(...values), max = Math.max(...values), margin = Math.max((max - min) * .35, .25);
-    const low = min - margin, high = max + margin;
-    const x = wait => 77 + (wait / points[points.length - 1].wait_seconds) * 635;
-    const y = val => 246 - (val - low) / (high - low) * 205;
-    function element(name, attributes, text) {
-      const e = document.createElementNS(NS, name);
-      Object.entries(attributes).forEach(([k, v]) => e.setAttribute(k, String(v)));
-      if (text !== undefined) e.textContent = text;
-      svg.append(e); return e;
+
+  function renderCounterfactual() {
+    const body = $('counterfactualRows');
+    body.replaceChildren();
+    state.candidates.forEach(row => {
+      const tr = document.createElement('tr');
+      if (state.recommended_sensor === row.sensor && state.recommended_action === 'ACQUIRE') tr.className = 'row-recommended';
+      td(tr, row.sensor);
+      td(tr, row.already_acquired ? 'acquired' : row.passively_observed_origin ? 'available' : 'candidate');
+      td(tr, signed(row.predicted_gain));
+      td(tr, signed(row.realized_gain_retrospective), 'audit-value');
+      td(tr, fmt(row.cost_proxy, 2));
+      td(tr, signed(row.utility));
+      const action = document.createElement('td');
+      const button = document.createElement('button');
+      button.className = 'table-action';
+      button.textContent = row.eligible ? 'ACQUIRE' : '—';
+      button.disabled = !row.eligible;
+      button.addEventListener('click', () => acquireSensor(row.sensor));
+      action.append(button);
+      tr.append(action);
+      body.append(tr);
+    });
+  }
+
+  function timelineNode(event) {
+    const item = document.createElement('article');
+    item.className = `revision-event ${event.kind === 'ACTIVE_ACQUISITION' ? 'active' : ''}`;
+    const marker = document.createElement('span'); marker.className = 'revision-marker';
+    const content = document.createElement('div');
+    const label = document.createElement('small'); label.textContent = event.kind === 'ACTIVE_ACQUISITION' ? 'ACTIVE PULL' : 'PASSIVE ARRIVAL';
+    const title = document.createElement('strong'); title.textContent = event.label;
+    const value = document.createElement('b'); value.textContent = fmt(event.prediction, 2);
+    content.append(label, title, value);
+    item.append(marker, content);
+    return item;
+  }
+
+  async function renderRevisionTimeline() {
+    const query = new URLSearchParams({case_id: $('caseId').value, scenario: $('scenario').value});
+    const payload = await requestJSON(`/api/revision-timeline?${query}`);
+    const root = $('revisionTimeline'); root.replaceChildren();
+    payload.events.forEach(event => root.append(timelineNode(event)));
+    sessionEvents.forEach(event => root.append(timelineNode(event)));
+  }
+
+  function renderPareto(points) {
+    const svg = $('paretoChart');
+    const NS = 'http://www.w3.org/2000/svg';
+    svg.replaceChildren();
+    if (!points.length) return;
+    const xs = points.map(p => Number(p.mean_cost_proxy));
+    const ys = points.map(p => Number(p.mae));
+    let xmin = Math.min(...xs), xmax = Math.max(...xs), ymin = Math.min(...ys), ymax = Math.max(...ys);
+    if (Math.abs(xmax - xmin) < 1e-9) { xmin -= .05; xmax += .05; }
+    if (Math.abs(ymax - ymin) < 1e-9) { ymin -= .01; ymax += .01; }
+    const x = v => 74 + (v - xmin) / (xmax - xmin) * 475;
+    const y = v => 260 - (v - ymin) / (ymax - ymin) * 195;
+    function el(name, attrs, text) {
+      const node = document.createElementNS(NS, name);
+      Object.entries(attrs).forEach(([key, value]) => node.setAttribute(key, String(value)));
+      if (text !== undefined) node.textContent = text;
+      svg.append(node); return node;
     }
     for (let i = 0; i <= 4; i++) {
-      const value = low + (high - low) * i / 4, position = y(value);
-      element('line', { x1: 65, x2: 726, y1: position, y2: position, class: 'gridline' });
-      element('text', { x: 53, y: position + 4, 'text-anchor': 'end' }, fmt(value, 1));
+      const yy = 65 + 195 * i / 4;
+      el('line', {x1: 70, x2: 555, y1: yy, y2: yy, class: 'pareto-grid'});
     }
-    const line = property => points.map((s, i) => `${i ? 'L' : 'M'}${x(s.wait_seconds)},${y(s[property])}`).join(' ');
-    element('path', { d: `M65,${y(current.target_actual)} L726,${y(current.target_actual)}`, class: 'truth-path' });
-    element('path', { d: line('baseline_prediction'), class: 'baseline-path' });
-    element('path', { d: line('prediction'), class: 'arrival-path' });
-    const selected = points[active];
-    element('line', { x1: x(selected.wait_seconds), x2: x(selected.wait_seconds), y1: 31, y2: 246, class: 'active-line' });
-    points.forEach((s, i) => {
-      element('circle', { cx: x(s.wait_seconds), cy: y(s.prediction), r: i === active ? 7 : 4, class: i === active ? 'point selected' : 'point' });
-      element('text', { x: x(s.wait_seconds), y: 273, 'text-anchor': 'middle' }, s.wait_seconds === 0 ? '즉시' : `${s.wait_seconds / 60}분 대기`);
-      if (i === current.selected_step) element('text', { x: x(s.wait_seconds), y: 295, 'text-anchor': 'middle', class: 'callout' }, '정책의 확정 시점');
+    const sorted = [...points].sort((a, b) => a.mean_cost_proxy - b.mean_cost_proxy);
+    el('path', {
+      d: sorted.map((p, i) => `${i ? 'L' : 'M'}${x(p.mean_cost_proxy)},${y(p.mae)}`).join(' '),
+      class: 'pareto-line'
     });
-    svg.setAttribute('aria-label', `동일한 ${stamp(current.target_time)} 예측. 선택 시점 ${selected.wait_seconds / 60}분, 예측 ${fmt(selected.prediction)}, 사후 정답 ${fmt(current.target_actual)}. 사후 정답은 정책 입력이 아닙니다.`);
-  }
-  function renderStep(index) {
-    if (!current) return;
-    const step = current.steps[index], chosen = current.steps[current.selected_step], final = index === current.steps.length - 1;
-    put('forecast', fmt(step.prediction)); put('chosenWait', fmt(chosen.wait_seconds / 60, 0));
-    put('availability', fmt(step.window_observed_fraction * 100, 1)); put('compute', fmt(step.compute_ms, 2));
-    put('stepLabel', step.wait_seconds ? `${step.wait_seconds / 60}분` : '즉시');
-    const waiting = step.action === 'WAIT';
-    const postCommit = index > current.selected_step;
-    put('actionTitle', postCommit ? '확정 이후의 비교 시점' : waiting ? '새 관측을 기다립니다' : '현재 예측을 확정합니다');
-    put('actionIcon', postCommit ? '↔' : waiting ? '◷' : '✓');
-    $('actionIcon').classList.toggle('wait', waiting && !postCommit);
-    put('actionText', postCommit
-      ? '정책은 이미 예측을 확정했습니다. 이 시점은 사후 비교용이며 실제 정책을 다시 실행한 결과가 아닙니다.'
-      : final ? '설정한 대기 마감에 도달했습니다. 더 기다리지 않고 같은 대상 시각의 예측을 확정합니다.'
-      : waiting ? '추정한 다음 관측의 이득이 대기 기준보다 큽니다. 다음 판단 시점에 도착 상태를 다시 확인합니다.'
-      : '추가 대기의 추정 이득이 기준을 넘지 않았습니다. 미래 관측을 미리 확인하지 않고 결정합니다.');
-    put('expectedGain', step.expected_next_error_reduction === null ? '마지막 시점 · 계산 안 함' : fmt(step.expected_next_error_reduction, 4));
-    put('requiredGain', step.minimum_gain_to_wait === null ? '마감 도달' : fmt(step.minimum_gain_to_wait, 4));
-    put('selectedText', chosen.wait_seconds ? `${chosen.wait_seconds / 60}분 후 확정` : '즉시 확정');
-    const body = $('sensors'); body.replaceChildren();
-    metadata.columns.forEach((name, i) => {
-      const row = document.createElement('tr'); cell(row, name); cell(row, fmt(step.latest_values[i], 3));
-      const badge = document.createElement('span'), known = step.latest_values[i] !== null;
-      badge.className = `sensor-status${!known ? ' missing' : step.latest_observed[i] ? '' : ' stale'}`;
-      badge.textContent = !known ? '사용할 관측 없음' : step.latest_observed[i] ? '도착 완료' : '이전 관측 사용';
-      const td = document.createElement('td'); td.append(badge); row.append(td);
-      cell(row, step.latest_source_times[i] === null ? '—' : stamp(step.latest_source_times[i]));
-      cell(row, step.latest_age_seconds[i] === null ? '—' : `${fmt(step.latest_age_seconds[i] / 60, 0)}분`);
-      body.append(row);
+    sorted.forEach(p => {
+      el('circle', {cx: x(p.mean_cost_proxy), cy: y(p.mae), r: 6, class: 'pareto-point'});
+      el('text', {x: x(p.mean_cost_proxy), y: y(p.mae) - 12, 'text-anchor': 'middle'}, `λ ${p.cost_weight}`);
     });
-    drawChart(index);
+    el('text', {x: 310, y: 302, 'text-anchor': 'middle', class: 'axis-label'}, 'mean relative acquisition cost');
+    el('text', {x: 12, y: 160, transform: 'rotate(-90 12 160)', 'text-anchor': 'middle', class: 'axis-label'}, 'MAE');
+    $('paretoSummary').textContent =
+      `비용 가중치 ${points.length}개를 같은 test set에 적용 · cost는 train-derived relative proxy`;
   }
-  async function loadCase() {
+
+  async function loadPareto() {
+    const payload = await requestJSON('/api/pareto');
+    renderPareto(payload.points || []);
+  }
+
+  async function loadState({reset = false} = {}) {
     if (!metadata) return;
-    const id = Number($('caseId').value);
-    if (!Number.isInteger(id) || id < 0 || id >= metadata.cases) {
-      status(`사례 번호는 0부터 ${metadata.cases - 1}까지의 정수로 입력하세요.`, true); return;
-    }
+    if (reset) { acquired = []; sessionEvents = []; }
     if (controller) controller.abort();
-    controller = new AbortController(); const request = ++requestNumber;
-    $('runButton').disabled = true; status('저장된 모델로 예측과 대기 판단을 계산하고 있습니다.');
-    const scenario = $('scenario').value;
+    controller = new AbortController();
+    const seq = ++requestSeq;
+    $('runButton').disabled = true;
+    status('현재 snapshot에서 acquisition / wait / commit의 가치를 다시 계산하고 있습니다.');
+    const params = new URLSearchParams({
+      case_id: $('caseId').value,
+      scenario: $('scenario').value,
+      wait_seconds: $('waitSelect').value,
+      acquired: acquired.join(',')
+    });
     try {
-      const result = await getJSON(`/api/replay?case_id=${id}&scenario=${encodeURIComponent(scenario)}`, controller.signal);
-      if (request !== requestNumber) return;
-      current = result;
-      put('origin', stamp(result.origin_time)); put('targetTime', stamp(result.target_time));
-      $('stepRange').max = result.steps.length - 1;
-      $('stepRange').value = result.selected_step;
-      renderStep(result.selected_step); evidence(scenario); status('');
-      $('prevCase').disabled = id === 0; $('nextCase').disabled = id === metadata.cases - 1;
+      const payload = await requestJSON(`/api/acquisition?${params}`, {signal: controller.signal});
+      if (seq !== requestSeq) return;
+      state = payload;
+      renderDecision();
+      renderSensorMap();
+      renderCounterfactual();
+      await renderRevisionTimeline();
+      status('');
     } catch (error) {
-      if (error.name !== 'AbortError' && request === requestNumber) status(`사례 실행 실패: ${error.message}`, true);
+      if (error.name !== 'AbortError' && seq === requestSeq) status(`M2 decision 실패: ${error.message}`, true);
     } finally {
-      if (request === requestNumber) $('runButton').disabled = false;
+      if (seq === requestSeq) $('runButton').disabled = false;
     }
   }
-  $('runButton').addEventListener('click', loadCase);
-  $('scenario').addEventListener('change', loadCase);
-  $('caseId').addEventListener('keydown', e => { if (e.key === 'Enter') loadCase(); });
-  $('stepRange').addEventListener('input', e => renderStep(Number(e.target.value)));
+
+  async function acquireSensor(sensor) {
+    if (!state || !sensor) return;
+    status(`${sensor}의 frozen-origin measurement를 active pull하는 중입니다.`);
+    try {
+      const before = state.prediction;
+      const payload = await requestJSON('/api/acquire', {
+        method: 'POST',
+        body: JSON.stringify({
+          case_id: Number($('caseId').value),
+          scenario: $('scenario').value,
+          wait_seconds: Number($('waitSelect').value),
+          acquired,
+          sensor
+        })
+      });
+      acquired = payload.acquired;
+      state = payload;
+      sessionEvents.push({
+        kind: 'ACTIVE_ACQUISITION',
+        label: `${sensor} 취득 · ${fmt(before, 2)} → ${fmt(payload.prediction, 2)}`,
+        prediction: payload.prediction
+      });
+      renderDecision();
+      renderSensorMap();
+      renderCounterfactual();
+      await renderRevisionTimeline();
+      status('');
+    } catch (error) {
+      status(`센서 취득 실패: ${error.message}`, true);
+    }
+  }
+
+  $('acquireRecommended').addEventListener('click', () => acquireSensor($('acquireRecommended').dataset.sensor));
+  $('runButton').addEventListener('click', () => loadState({reset: true}));
+  $('resetAcquisition').addEventListener('click', () => loadState({reset: true}));
+  $('scenario').addEventListener('change', () => loadState({reset: true}));
+  $('waitSelect').addEventListener('change', () => loadState({reset: true}));
+  $('caseId').addEventListener('keydown', event => { if (event.key === 'Enter') loadState({reset: true}); });
   for (const [id, delta] of [['prevCase', -1], ['nextCase', 1]]) {
     $(id).addEventListener('click', () => {
       if (!metadata) return;
-      $('caseId').value = Math.max(0, Math.min(metadata.cases - 1, Number($('caseId').value) + delta)); loadCase();
+      const current = Number($('caseId').value);
+      $('caseId').value = Math.max(0, Math.min(metadata.cases - 1, current + delta));
+      loadState({reset: true});
     });
   }
+
   (async () => {
     try {
-      metadata = await getJSON('/api/metadata');
-      put('modelId', metadata.run_id); put('runShort', metadata.run_id.slice(0, 10));
-      put('horizon', metadata.config.horizon * metadata.source.grid_seconds / 3600);
-      put('sensorCount', `${metadata.columns.length} channels`); $('caseId').max = metadata.cases - 1;
+      metadata = await requestJSON('/api/metadata');
+      $('caseId').max = metadata.cases - 1;
+      $('modelName').textContent = metadata.serving_forecaster;
+      $('modelId').textContent = metadata.run_id;
+      $('runFooter').textContent = `run ${metadata.run_id.slice(0, 10)}`;
       const synthetic = metadata.source_kind === 'synthetic';
-      put('sourceBadge', synthetic ? '합성 데이터 검증' : metadata.source_kind === 'ett' ? 'ETT 실측값' : '사용자 제공 데이터');
-      put('sourceText', synthetic
-        ? '측정값과 수집 지연 모두 생성한 데이터입니다. 실측 ETT 성능이나 실제 설비 운영 결과가 아닙니다.'
-        : '수집 지연은 합성 조건입니다. 측정 시각은 데이터셋 기준이며 원본의 시간대를 별도로 확인해야 합니다.');
-      await loadCase();
-    } catch (error) { status(`모델을 불러오지 못했습니다. verify 명령으로 체크포인트를 확인하세요. ${error.message}`, true); }
+      $('sourceBadge').textContent = synthetic ? '합성 데모 · model-backed' : metadata.source_kind === 'ett' ? 'ETT measurements' : 'provided data';
+      $('sourceText').textContent = synthetic
+        ? '현재 공개 데모의 measurement와 arrival은 합성입니다. ETTh1 실측 측정값 검증은 CI evidence로 별도 기록합니다.'
+        : '측정값은 데이터셋 원본이며 arrival timestamp는 synthetic condition입니다.';
+      await Promise.all([loadPareto(), loadState({reset: true})]);
+    } catch (error) {
+      status(`모델을 불러오지 못했습니다: ${error.message}`, true);
+    }
   })();
 })();

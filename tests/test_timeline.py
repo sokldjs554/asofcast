@@ -116,3 +116,28 @@ def test_online_snapshot_needs_no_future_measurements():
     t = make_timeline()
     snap = t.snapshot(len(t.times) - 1, 0, 4, 6)
     assert snap.target_time == t.times[-1] + 6 * t.grid_seconds
+
+
+def test_active_acquisition_reveals_only_selected_origin_slot():
+    t = make_timeline()
+    baseline = t.snapshot(3, 0, 4, 3)
+    acquired = t.snapshot(3, 0, 4, 3, acquired_channels=[0])
+    assert baseline.values[-1, 0] == 2.0
+    assert acquired.values[-1, 0] == 999.0
+    assert acquired.observed[-1, 0]
+    assert acquired.source_times[-1, 0] == t.times[3]
+    assert acquired.values[-1, 1] == baseline.values[-1, 1]
+
+
+def test_active_acquisition_never_reveals_future_event():
+    t = make_timeline()
+    acquired = t.snapshot(3, 90, 4, 3, acquired_channels=[0, 1])
+    assert not np.any(acquired.values == 99999.0)
+    assert acquired.source_times[acquired.known].max() <= t.times[3]
+    assert acquired.target_time == t.times[6]
+
+
+@pytest.mark.parametrize('channels', [[-1], [2], [0, 0], ['a']])
+def test_invalid_active_acquisition_channels_rejected(channels):
+    with pytest.raises(ValueError):
+        make_timeline().snapshot(3, 0, 4, 3, acquired_channels=channels)

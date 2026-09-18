@@ -8,6 +8,7 @@ from pathlib import Path
 import numpy as np
 import torch
 
+from asofcast.acquisition import AcquisitionValueModel
 from asofcast.calibration import StalenessCalibratedForecaster
 from asofcast.data import sha256_file
 from asofcast.experiment import RunConfig
@@ -30,6 +31,8 @@ class Bundle:
     value_only: ArrivalForecaster
     calibrated: StalenessCalibratedForecaster | None
     policy: GainPolicy
+    acquisition: AcquisitionValueModel | None
+    acquisition_cost_proxy: np.ndarray | None
 
 
 def load_bundle(directory: Path) -> Bundle:
@@ -37,12 +40,14 @@ def load_bundle(directory: Path) -> Bundle:
     manifest_path = directory / 'manifest.json'
     manifest = json.loads(manifest_path.read_text(encoding='utf-8'))
     bundle_version = manifest.get('bundle_version')
-    if manifest.get('status') != 'complete' or bundle_version not in (1, 2):
+    if manifest.get('status') != 'complete' or bundle_version not in (1, 2, 3):
         raise ValueError('incomplete or unsupported model bundle')
     required = {'config.json','scaler.json','report.json','replay.npz','arrival.pt',
                 'dlinear.pt','value_only.pt','policy.pt'}
     if bundle_version >= 2:
         required.add('calibrated.pt')
+    if bundle_version >= 3:
+        required.add('acquisition.pt')
     files = manifest.get('files', {})
     if not required.issubset(files):
         raise ValueError('required bundle files are missing')
@@ -77,16 +82,29 @@ def load_bundle(directory: Path) -> Bundle:
               'value_only': ArrivalForecaster(cfg['lookback'], channels, target, metadata=False),
               'policy': GainPolicy(manifest['policy_features'])}
     calibrated = None
+    acquisition = None
+    acquisition_cost_proxy = None
     if bundle_version >= 2:
         if manifest.get('calibration_features') != channels * 4 + 1:
             raise ValueError('bundle calibration feature schema mismatch')
         calibrated = StalenessCalibratedForecaster(cfg['lookback'], channels, target)
         models['calibrated'] = calibrated
+    if bundle_version >= 3:
+        expected_acquisition_features = channels * 7 + 7
+        if manifest.get('acquisition_features') != expected_acquisition_features:
+            raise ValueError('acquisition feature schema mismatch')
+        acquisition_cost_proxy = np.asarray(manifest.get('acquisition_cost_proxy'), dtype=np.float32)
+        if (acquisition_cost_proxy.shape != (channels,) or not np.isfinite(acquisition_cost_proxy).all()
+                or (acquisition_cost_proxy < 0).any()):
+            raise ValueError('acquisition cost proxy schema mismatch')
+        acquisition = AcquisitionValueModel(expected_acquisition_features)
+        models['acquisition'] = acquisition
     for name, model in models.items():
         model.load_state_dict(torch.load(directory / f'{name}.pt', map_location='cpu', weights_only=True), strict=True)
         model.eval()
     return Bundle(cfg, report, manifest, scaler, timeline, origins,
-                  models['arrival'], models['dlinear'], models['value_only'], calibrated, models['policy'])
+                  models['arrival'], models['dlinear'], models['value_only'], calibrated,
+                  models['policy'], acquisition, acquisition_cost_proxy)
 
 
 def select_serving_forecaster(bundle: Bundle):
