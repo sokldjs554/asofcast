@@ -418,7 +418,7 @@ def run_experiment(csv_path: Path, output_dir: Path, config: dict, *, source_kin
                                 'policy_selected': bool(chosen[i] == k)})
     pd.DataFrame(result_rows).to_csv(output_dir / 'test_predictions.csv', index=False)
     files = {p.name: sha256_file(p) for p in sorted(output_dir.iterdir()) if p.is_file()}
-    write_json(output_dir / 'manifest.json', {'bundle_version': 2, 'run_id': run_id,
+    write_json(output_dir / 'manifest.json', {'bundle_version': 3, 'run_id': run_id,
                'target_channel': target, 'channels': list(raw.columns), 'policy_features': features.shape[-1],
                'calibration_features': len(raw.columns) * 4 + 1,
                'acquisition_features': acquisition_x.shape[1],
