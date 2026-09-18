@@ -20,7 +20,7 @@ CPU 동적 INT8은 p95 0.156ms → 0.282ms로 느려져 FP32를 유지했습니�
 MLflow/DVC 실행과 UCI ElectricityLoadDiagrams 51,894,720개 측정 셀의 Spark/Parquet 처리도 원격 CI에서 완료했습니다.
 세부 실행 증거와 한계는 [docs/verification.md](docs/verification.md)에 기록합니다.
 
-화면은 실제 ASGI 모델 응답과 연결해 확인했습니다. 공개 클라우드 운영 검증 여부는 verification 문서의 현재 상태를 기준으로 합니다.
+화면은 실제 ASGI 모델 응답과 연결해 확인했습니다. 공개 데모는 **https://asofcast.onrender.com** 에 배포했습니다. Render Singapore 리전의 무료 인스턴스이며, 최초 배포에서 기본 Python 3.14가 프로젝트 지원 범위를 벗어나 실패한 뒤 `PYTHON_VERSION=3.13.7`로 고정해 재배포했습니다. 현재 서비스는 live 상태이며, main 브랜치 CI에서 `/health`와 `/ready`를 반복 확인하는 cloud smoke test를 추가했습니다.
 
 ## 실행
 
@@ -93,8 +93,8 @@ python -m asofcast verify --artifacts artifacts/demo
 `POST /api/predict`는 과거 측정값과 수집 시각만 받아 미래를 예측하며 미래 정답을 요구하지 않습니다.
 `GET /docs`에서 정확한 요청 스키마를 확인할 수 있습니다.
 
-기본 실행 주소는 로컬 전용입니다. 인증·운영용 입력 제한·감사 로그·실제 통신 지연의 SLA 검증을
-완료한 공개 운영 서비스가 아닙니다.
+로컬 실행 외에 Render 공개 데모도 제공합니다. 다만 인증·운영용 입력 제한·감사 로그·실제 통신 지연의 SLA 검증을
+완료한 상용 운영 서비스라는 의미는 아닙니다.
 
 ## 저장소 구성
 
