@@ -22,3 +22,5 @@ mlruns/
 *.db-*
 .dvc/cache/
 .dvc/tmp/
+
+*.bundle
