@@ -136,6 +136,12 @@ def test_dashboard_assets_are_local_and_served(bundle_dir):
         assert '51,894,720' in html
         assert 'ONNX Runtime' in html
         assert 'Render · LIVE' in html
+        assert 'AI Decision Console' in html
+        assert 'Counterfactual Sensor Lab' in html
+        assert 'Prediction Revision Timeline' in html
+        assert 'Cost vs Accuracy' in html
+        assert 'sensorMap' in html
+        assert 'acquireRecommended' in html
 
 
 def test_service_uses_recorded_cpu_thread_budget(bundle_dir):
