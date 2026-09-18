@@ -11,7 +11,7 @@ def original(tmp_path_factory):
     root = tmp_path_factory.mktemp('bundle-schema')
     csv = root / 'source.csv'
     write_synthetic_csv(csv, n=720, seed=3)
-    run_experiment(csv, root / 'bundle', {'lookback':12, 'epochs':1, 'policy_epochs':1}, source_kind='synthetic')
+    run_experiment(csv, root / 'bundle', {'lookback':12, 'epochs':1, 'policy_epochs':1, 'acquisition_epochs':1}, source_kind='synthetic')
     return root / 'bundle'
 
 
@@ -55,3 +55,28 @@ def test_serving_forecaster_prefers_calibrated_model(original):
     model, name = select_serving_forecaster(bundle)
     assert model is bundle.calibrated
     assert name == 'staleness_calibrated_dlinear'
+
+
+def test_bundle_v3_loads_acquisition_model_and_cost_proxy(original):
+    import numpy as np
+    from asofcast.bundle import load_bundle
+    manifest = json.loads((original / 'manifest.json').read_text())
+    assert manifest['bundle_version'] == 3
+    bundle = load_bundle(original)
+    assert bundle.acquisition is not None
+    assert bundle.acquisition_cost_proxy.shape == (len(bundle.timeline.columns),)
+    assert np.isfinite(bundle.acquisition_cost_proxy).all()
+    assert (bundle.acquisition_cost_proxy >= 0).all()
+    assert manifest['acquisition_features'] == len(bundle.acquisition.mean)
+
+
+def test_bundle_rejects_bad_acquisition_feature_schema(original, tmp_path):
+    from asofcast.bundle import load_bundle
+    bundle = tmp_path / 'copy'
+    shutil.copytree(original, bundle)
+    path = bundle / 'manifest.json'
+    manifest = json.loads(path.read_text())
+    manifest['acquisition_features'] = 1
+    path.write_text(json.dumps(manifest))
+    with pytest.raises(ValueError, match='acquisition.*feature|feature.*schema'):
+        load_bundle(bundle)
