@@ -140,7 +140,7 @@ jobs:
 
   large-data:
     needs: test
-    if: github.event_name == 'workflow_dispatch' || github.ref == 'refs/heads/feat/point-in-time-m1'
+    if: github.event_name == 'workflow_dispatch' || github.ref == 'refs/heads/feat/point-in-time-m1' || github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     timeout-minutes: 35
     steps:
