@@ -2,33 +2,50 @@
 
 This file separates measured evidence from claims. Results below are tied to the stated run, dataset and scope.
 
-## AsOfCast M2 remote verification
+## Final AsOfCast M2 verification
 
-M2 development evidence was executed on GitHub Actions run
-[35315014365](https://github.com/sokldjs554/asofcast/actions/runs/35315014365)
-at commit 77c7dee44547e829711edc267a61b9baeded8a35.
+Final main commit: `35400026774e093de68782ddbb66b7d4b978af77`.
 
-The following jobs completed successfully:
+GitHub Actions verification run: [35325196196](https://github.com/sokldjs554/asofcast/actions/runs/35325196196).
+
+The following main-branch jobs completed successfully:
 
 - Python 3.11 unit/integration tests and CLI checks
 - Python 3.13 unit/integration tests and CLI checks
-- checksum-pinned ETTh1 fetch → full M2 train/evaluate → bundle verify
+- checksum-pinned ETTh1 fetch -> full M2 train/evaluate -> bundle verify
 - ONNX Runtime / dynamic INT8 optimization evidence
 - MLflow and DVC execution
+- UCI ElectricityLoadDiagrams Spark / Parquet large-data path
+- public Render `/health` and `/ready` cloud smoke check
 
-The branch run intentionally skipped main-only Spark and cloud-smoke jobs. Those are required again after merge to main.
+Public-demo capture run: [35325196233](https://github.com/sokldjs554/asofcast/actions/runs/35325196233).
 
-## M2 active sensor acquisition — ETTh1
+- Chromium opened the public Render service, not a mock page.
+- Decision Console, Counterfactual Lab, Revision Timeline, Pareto view and full-page screenshots were captured.
+- The recording exercised an actual stateless origin-slot sensor pull.
+- The default case correctly recommended `WAIT`; the media workflow separately recorded the user's manual highest-ranked eligible candidate exploration as `manual_top_candidate` rather than pretending the model recommended `ACQUIRE`.
+- Final media artifact: `asofcast-m2-portfolio-media`, artifact id `10538623331`.
+
+Render deployment:
+
+- public service: **https://asofcast.onrender.com**
+- deploy id: `dep-damffsjtqb8s73fs6vgg`
+- deployed commit: `35400026774e093de68782ddbb66b7d4b978af77`
+- final status: **live**
+- region: Singapore
+- Python pinned to 3.13.7
+
+## M2 active sensor acquisition - ETTh1
 
 Measurement values: **ETTh1 real measurements**.
 
-Arrival timestamps: **synthetic** because ETTh1 does not contain transport arrival telemetry.
+Arrival timestamps: **synthetic**, because ETTh1 does not contain transport arrival telemetry.
 
 Test set: **640 cases**.
 
 Acquisition semantics: one-shot explicit reveal of the selected sensor's measurement at the frozen forecast origin. This is not real hardware control.
 
-Default acquisition_cost_weight=0.03:
+Default `acquisition_cost_weight=0.03`:
 
 - immediate MAE: **1.1046016216**
 - learned one-shot acquisition MAE: **1.1036567688**
@@ -46,7 +63,7 @@ Interpretation: at the default cost weight, the learned policy improved MAE only
 
 ## M2 cost / accuracy sweep
 
-Same test split, same trained acquisition model; only the decision cost weight changes.
+Same test split and trained acquisition model; only the decision cost weight changes.
 
 | cost weight | MAE | acquisition rate | mean cost proxy | mean realized gain |
 |---:|---:|---:|---:|---:|
@@ -62,8 +79,8 @@ The cost is a **relative train-derived proxy**, not currency and not measured se
 
 The implementation enforces:
 
-- passive input: event_time <= origin_time and arrival_time <= decision_time
-- active acquisition: only the selected channel at event_time == frozen_origin
+- passive input: `event_time <= origin_time` and `arrival_time <= decision_time`
+- active acquisition: only the selected channel at `event_time == frozen_origin`
 - no event after the original origin is exposed by acquisition
 - target time is fixed
 - future target and future passive arrival times are not acquisition-policy inputs
@@ -89,6 +106,7 @@ The learned-vs-random difference is small; no general superiority claim is made.
 Shared GitHub Actions CPU runner, batch size 1, model-forward only.
 
 Dynamic INT8:
+
 - FP32 p95: **0.15621445 ms**
 - INT8 p95: **0.28238945 ms**
 - FP32 MAE: **1.1032959468**
@@ -97,6 +115,7 @@ Dynamic INT8:
 - decision: **keep FP32**
 
 ONNX Runtime 1.30.0:
+
 - Torch p95: **0.23892105 ms**
 - ONNX Runtime p95: **0.05798890 ms**
 - max standardized output drift: **2.384185791015625e-07**
@@ -104,35 +123,26 @@ ONNX Runtime 1.30.0:
 
 These timings are not an HTTP or production SLA measurement. They refer to the forecast serving model, not the M2 acquisition MLP.
 
-## MLOps
+## MLOps and large-data evidence
 
-The CI path logs the verified ETTh1 bundle to MLflow, initializes DVC in a clean workspace, versions model/replay artifacts with DVC pointers, and uploads evidence artifacts.
+The final main CI path:
 
-This proves the tooling path, not a managed multi-user MLflow deployment.
+- logs the verified ETTh1 bundle to MLflow;
+- initializes DVC in a clean workspace and versions model/replay artifacts with DVC pointers;
+- processes UCI ElectricityLoadDiagrams20112014 with Spark 3.5.9;
+- parses **51,894,720 measurement cells** from 140,256 rows x 370 client columns;
+- verifies a 140,256-row Parquet round trip.
 
-## Spark / Parquet large-data evidence
+This proves the CI/tooling path, not a managed multi-user MLflow deployment.
 
-Previously verified on main and required again after M2 merge:
+## Deployment debugging evidence
 
-- UCI ElectricityLoadDiagrams20112014
-- rows: 140,256
-- client columns: 370
-- measurement cells: **51,894,720**
-- Parquet rows after round trip: 140,256
-- Spark 3.5.9
-- scope: wide CSV parse, numeric cast, null scan, Parquet write/read
+Two failures were retained and fixed rather than hidden:
 
-## Cloud deployment
+1. After the first M2 deploy, the public browser received new HTML with a stale cached M1 JavaScript asset. Render origin logs showed repeated `/api/replay` requests instead of M2 `/api/acquisition`. Static asset URLs were versioned and a regression test was added.
+2. After browser capture succeeded, media conversion failed because system `ffmpeg` was not installed. The workflow now checks `command -v ffmpeg` and installs it when missing; a workflow contract test covers the fallback.
 
-Public service: **https://asofcast.onrender.com**
-
-Render:
-- region: Singapore
-- Python pinned to 3.13.7
-- model bundle generated and verified during build
-- main workflow checks /health and /ready
-
-After M2 merges, final verification requires the M2 Render deploy to be live, main CI including Spark/cloud smoke to pass, and real Chromium capture of the public AI Decision Console.
+The final capture run succeeded through Chromium capture, MP4/GIF conversion, validation, and artifact upload.
 
 ## Still not claimed
 
