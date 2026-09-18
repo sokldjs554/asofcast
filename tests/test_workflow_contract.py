@@ -25,5 +25,7 @@ def test_m2_capture_workflow_records_active_acquisition_media():
     assert 'command -v ffmpeg' in workflow
     assert 'apt-get install -y ffmpeg' in workflow
     for item in ['https://asofcast.onrender.com', 'record_video_dir', 'acquireRecommended',
-                 'counterfactual', 'revision', 'pareto', 'm2-decision-console.png']:
+                 'sensor-acquire', 'counterfactual', 'revision', 'pareto',
+                 'm2-decision-console.png', 'm2-after-acquisition.png',
+                 'acquisition_click_mode']:
         assert item in script
