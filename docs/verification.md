@@ -74,10 +74,28 @@ UCI ElectricityLoadDiagrams20112014:
 
 Scope: full wide-table CSV parse, numeric cast, null scan, Parquet write/read. It does not claim a long-form explode of all measurement cells.
 
+## Cloud deployment
+
+Render web service:
+- service: `asofcast`
+- public URL: https://asofcast.onrender.com
+- region: Singapore
+- runtime: Python
+- deployed commit: `544cf3097a95ceba80d1f905d936321c874d1c0f`
+- deploy id: `dep-dam8orh42hec738nk3vg`
+- final status: `live`
+- runtime Python: 3.13.7
+- runtime PyTorch: 2.10.0+cpu
+- serving bundle: synthetic demo bundle generated and verified during build
+
+The first deployment failed because Render selected Python 3.14.3 while the package explicitly supports Python 3.11–3.13. The service was corrected by pinning `PYTHON_VERSION=3.13.7` rather than widening the package compatibility claim.
+
+The main-branch CI includes a cloud smoke test that calls `/health` and `/ready`, requires `status=alive/ready`, and checks that bundle checksums are verified.
+
 ## Still not claimed
 
 - Real industrial transport telemetry: not available; arrival delays are simulated.
 - Original DLinear long-horizon paper-score reproduction: not performed in M1.
 - Production SLA: not measured.
 - Statistical proof that the learned waiting policy is generally better: not established.
-- Cloud deployment/rollback evidence: tracked separately and only marked complete after a real deployment check.
+- Rollback drill and production-grade SLA evidence: not yet claimed.
