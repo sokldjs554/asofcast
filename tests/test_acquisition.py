@@ -8,7 +8,7 @@ def test_acquisition_gain_targets_reward_error_reduction():
     counterfactual = np.array([[2.0, 5.0], [1.0, -2.0]], dtype=np.float32)
     targets = np.array([1.0, 1.0], dtype=np.float32)
     gain = acquisition_gain_targets(current, counterfactual, targets)
-    np.testing.assert_allclose(gain, [[1.0, -2.0], [1.0, -1.0]])
+    np.testing.assert_allclose(gain, [[1.0, -2.0], [1.0, -2.0]])
 
 
 def test_acquisition_features_encode_current_state_candidate_and_cost():
