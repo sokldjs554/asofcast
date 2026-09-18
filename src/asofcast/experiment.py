@@ -386,7 +386,7 @@ def run_experiment(csv_path: Path, output_dir: Path, config: dict, *, source_kin
               'duration_seconds': time.perf_counter() - started,
               'paper_score_reproduced': False, 'cloud_deployed': False, 'remote_ci_run': False,
               'inference_optimized': False, 'mlflow_executed': False,
-              'limitations': ['M1 scalar fixed-horizon experiment, not original paper protocol',
+              'limitations': ['Scalar fixed-horizon forecast core; not the original DLinear long-horizon paper protocol',
                               'Synthetic arrival timestamps, not real transport telemetry',
                               'Myopic one-step gain policy is not an optimal stopping algorithm',
                               'Active acquisition is a simulated origin-slot pull with train-derived relative cost, not real hardware control',
