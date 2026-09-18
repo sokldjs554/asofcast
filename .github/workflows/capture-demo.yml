@@ -1,0 +1,62 @@
+name: Capture AsOfCast M2 demo media
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - src/asofcast/static/**
+      - src/asofcast/service.py
+      - src/asofcast/acquisition.py
+      - scripts/capture_live_demo.py
+      - .github/workflows/capture-demo.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  capture:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.13'
+          cache: pip
+      - name: Install Playwright
+        run: |
+          python -m pip install 'playwright==1.55.0'
+          python -m playwright install --with-deps chromium
+      - name: Capture live M2 decision console
+        run: python scripts/capture_live_demo.py --out docs/assets/live-m2
+      - name: Convert live recording with ffmpeg
+        run: |
+          ffmpeg -y -i docs/assets/live-m2/asofcast-m2-demo.webm \
+            -c:v libx264 -preset medium -crf 21 -pix_fmt yuv420p -movflags +faststart \
+            docs/assets/live-m2/asofcast-m2-demo.mp4
+          ffmpeg -y -i docs/assets/live-m2/asofcast-m2-demo.mp4 \
+            -vf "fps=12,scale=960:-1:flags=lanczos,split[s0][s1];[s0]palettegen=max_colors=128[p];[s1][p]paletteuse=dither=bayer" \
+            docs/assets/live-m2/asofcast-m2-demo.gif
+      - name: Validate generated media
+        run: |
+          test -s docs/assets/live-m2/m2-decision-console.png
+          test -s docs/assets/live-m2/m2-counterfactual.png
+          test -s docs/assets/live-m2/m2-revision.png
+          test -s docs/assets/live-m2/m2-pareto.png
+          test -s docs/assets/live-m2/m2-full.png
+          test -s docs/assets/live-m2/asofcast-m2-demo.mp4
+          test -s docs/assets/live-m2/asofcast-m2-demo.gif
+          ffprobe -v error -show_entries format=duration,size -of json docs/assets/live-m2/asofcast-m2-demo.mp4
+          cat docs/assets/live-m2/capture-report.json
+      - name: Upload portfolio media
+        uses: actions/upload-artifact@v4
+        with:
+          name: asofcast-m2-portfolio-media
+          path: |
+            docs/assets/live-m2/*.png
+            docs/assets/live-m2/*.mp4
+            docs/assets/live-m2/*.gif
+            docs/assets/live-m2/capture-report.json
+          if-no-files-found: error
+          retention-days: 30
