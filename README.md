@@ -1,175 +1,214 @@
-# AsOfCast
+# AsOfCast M2
 
-> **늦게 도착하는 센서 데이터에서, 예측값뿐 아니라 “지금 확정할지 더 기다릴지”까지 판단하는 시계열 AI 시스템**
+> **어떤 센서를 더 읽을지, 기다릴지, 지금 확정할지를 함께 결정하는 Value-of-Information 시계열 AI 시스템**
 
 [Live Demo](https://asofcast.onrender.com) · [Verification Evidence](docs/verification.md) · [API](https://asofcast.onrender.com/docs)
 
-일반적인 시계열 예측은 과거 관측이 모두 준비돼 있다고 가정하기 쉽습니다. AsOfCast는 **측정 시각(event time)** 과 **수집 시각(arrival time)** 을 분리하고, 실제 판단 시점까지 도착한 정보만으로 예측합니다. 추가 관측을 기다리더라도 예측 대상 시각은 바꾸지 않습니다.
+일반적인 forecasting 데모는 “다음 값이 얼마인가?”에서 끝납니다. AsOfCast M2는 늦게 도착하는 센서 환경에서 한 단계 더 나아가 **현재 예측을 개선하려면 어떤 센서를 추가로 취득할 가치가 있는지**를 학습합니다.
+
+현재 정보만으로 세 행동을 비교합니다.
+
+- **ACQUIRE(sensor)** — 선택 센서의 frozen-origin measurement를 명시적으로 추가 취득
+- **WAIT** — 다음 허용 판단 시점까지 passive arrival을 기다림
+- **COMMIT** — 추가 정보 비용보다 현재 예측을 확정하는 편이 낫다고 판단
+
+> Active acquisition은 실제 장비를 제어한다는 주장이 아닙니다. 공개 데모에서는 선택 센서의 **원래 예측 기준 시각(origin) 값만** 공개하는 통제된 시뮬레이션입니다.
 
 ## 30초 요약
 
-| 질문 | AsOfCast가 한 일 |
+| 질문 | 구현 |
 |---|---|
-| 어떤 문제를 풀었나? | 센서가 늦게 도착하거나 일부 누락되는 상황에서 예측값과 확정 시점을 함께 결정 |
-| 어떻게 누출을 막았나? | `event_time <= origin_time` + `arrival_time <= decision_time`을 동시에 만족하는 값만 사용 |
-| 어떤 모델을 썼나? | PyTorch DLinear 계열 기준 모델 + arrival/staleness-aware 모델 + learned wait-gain policy |
-| 실측 데이터도 돌렸나? | 체크섬이 고정된 **ETTh1 실측값**으로 전체 학습·평가 경로 실행 |
-| 추론 최적화는? | FP32/INT8/ONNX Runtime을 실제 측정. INT8은 느려서 기각, ONNX Runtime 경로는 parity와 latency 검증 |
-| MLOps는? | GitHub Actions, MLflow, DVC를 실제 실행 |
-| 대용량 처리는? | UCI ElectricityLoadDiagrams **51,894,720 measurement cells**를 Spark로 읽고 Parquet round-trip 검증 |
-| 서비스 운영은? | FastAPI + Render 공개 배포, main CI에서 `/health`와 `/ready` smoke test |
+| 왜 흔한 forecasting과 다른가? | 값 예측 + **다음으로 읽을 센서 선택** + WAIT/COMMIT을 하나의 정책으로 비교 |
+| 정보 누출은? | passive는 event/arrival point-in-time 계약, active pull은 **선택 센서의 origin slot만** 허용 |
+| 모델은? | PyTorch forecasting models + wait-gain MLP + **per-sensor AcquisitionValueModel** |
+| Counterfactual은? | 각 센서를 받았을 때 예측이 얼마나 바뀌는지 계산. 실제 정답 기반 gain은 audit-only |
+| 실측 데이터도 돌렸나? | 체크섬 고정 **ETTh1 측정값**으로 M2 전체 학습·평가 경로 실행 |
+| 비용-정확도 trade-off는? | acquisition cost weight별 Pareto evidence를 같은 test split에서 계산 |
+| 엔지니어링은? | ONNX Runtime, MLflow, DVC, Spark/Parquet, FastAPI, Render, GitHub Actions |
 
-## 이 프로젝트에서 다른 점
+## AI Decision Console
 
-AsOfCast의 핵심은 단순한 “결측치가 있는 시계열 예측”이 아닙니다.
+공개 데모의 첫 화면은 일반 시계열 차트 대신 다음 의사결정을 보여줍니다.
 
-1. **Point-in-time availability** — 예측 시점에 아직 도착하지 않은 과거 값을 미래에서 끌어오지 않습니다.
-2. **Frozen target** — 기다리는 동안에도 같은 미래 시각을 계속 예측합니다.
-3. **Learned waiting** — 현재 상태에서 추가 관측을 기다릴 가치가 있는지 별도 정책이 추정합니다.
-4. **실패한 최적화도 기록** — INT8이 실제 CPU에서 느려져 채택하지 않았고, 그 결과를 숨기지 않았습니다.
-5. **실행 증거 중심** — 실측 학습, ONNX, MLflow/DVC, Spark, 클라우드 상태를 CI와 검증 문서로 분리해 남깁니다.
+1. 현재 forecast와 **model-disagreement proxy**
+2. 현재 origin에서 이미 확보된 센서
+3. 아직 없는 센서 각각의 **predicted error reduction**
+4. train-period delay에서 만든 **relative acquisition cost proxy**
+5. predicted gain - cost로 계산한 candidate utility
+6. joint policy의 **ACQUIRE / WAIT / COMMIT**
+7. Counterfactual Sensor Lab
+8. Prediction Revision Timeline
+9. Cost vs Accuracy Pareto
+10. Decision Audit
 
-## 구조
+사후 정답으로 계산하는 realized_gain_retrospective는 화면에 따로 표시하지만 **정책 행동 계산에는 사용하지 않습니다.**
 
-```text
-event_time / arrival_time
-          │
-          ▼
- point-in-time snapshot
-  ├─ value
-  ├─ observed / known
-  └─ age / staleness
-          │
-          ├──────────────► DLinear baseline
-          │
-          ▼
- arrival-aware forecaster
-          │
-          ▼
- current prediction
-          │
-          + current availability state
-          ▼
- learned wait-gain policy
-          │
-          ├─ COMMIT
-          └─ WAIT → next allowed decision time
-```
+## Causal contract
 
-정책 입력에는 현재 시점에서 알 수 있는 정보만 들어갑니다. 실제 미래 도착 시각과 미래 정답은 평가·학습 라벨 이외에는 정책 입력으로 사용하지 않습니다.
+### Passive data
 
-## 검증 결과
+판단 시각 d, frozen forecast origin o에서 모델 입력으로 사용할 수 있는 값은:
 
-### ETTh1 실측값 + 합성 arrival delay
+~~~text
+event_time <= o
+arrival_time <= d
+~~~
 
-ETTh1 원본에는 네트워크 도착시각이 없기 때문에 **측정값은 실측, arrival delay는 통제된 합성 조건**입니다.
+두 조건을 동시에 만족해야 합니다.
+
+### Active acquisition
+
+센서 c를 active acquire하면:
+
+~~~text
+reveal = value[event_time = frozen_origin, channel = c]
+~~~
+
+만 허용합니다.
+
+- origin 이후 event는 공개하지 않음
+- 실제 future arrival time을 정책 feature로 사용하지 않음
+- target은 기다리거나 취득해도 고정
+- target truth는 offline label / retrospective audit에만 사용
+
+## 모델 구조
+
+~~~text
+                   ┌─────────────────────────────┐
+event / arrival ──►│ point-in-time snapshot      │
+                   │ value · observed · age      │
+                   └──────────────┬──────────────┘
+                                  │
+                    ┌─────────────▼─────────────┐
+                    │ arrival-aware forecaster  │
+                    └─────────────┬─────────────┘
+                                  │ current prediction
+                 ┌────────────────┴────────────────┐
+                 │                                 │
+       ┌─────────▼──────────┐            ┌─────────▼────────────┐
+       │ passive GainPolicy │            │ AcquisitionValueModel│
+       │ value of waiting   │            │ value per sensor     │
+       └─────────┬──────────┘            └─────────┬────────────┘
+                 │                                 │
+                 └────────────────┬────────────────┘
+                                  ▼
+                     joint utility comparison
+                       ACQUIRE / WAIT / COMMIT
+~~~
+
+AcquisitionValueModel은 작은 MLP이며, 현재 snapshot·현재 forecast·candidate channel identity·train-derived cost proxy만으로 **한 번의 sensor pull이 줄일 것으로 예상되는 absolute error**를 추정합니다.
+
+## ETTh1 M2 검증
+
+개발 브랜치 원격 검증 run **35315014365**에서 체크섬이 고정된 ETTh1을 실제로 내려받아 M2 전체 학습·평가를 실행했습니다.
+
+ETTh1 원본에는 transport arrival timestamp가 없으므로 **측정값은 실측, arrival delay는 synthetic condition**입니다.
+
+### 기본 acquisition cost weight = 0.03
 
 | 항목 | 결과 |
 |---|---:|
-| 테스트 사례 | 640 |
-| 학습형 대기 정책 MAE | 1.1282 |
-| 학습형 대기 정책 RMSE | 1.5995 |
-| 평균 대기 | 53.44초 |
-| 같은 대기 분포의 무작위 기준 MAE | 1.1326 |
-| full-wait가 오차를 줄인 사례 비율 | 52.66% |
+| test cases | 640 |
+| immediate MAE | 1.1046 |
+| learned one-shot acquisition MAE | **1.1037** |
+| hindsight one-shot oracle MAE | 0.9221 |
+| acquisition rate | 8.59% |
+| mean relative cost proxy | 0.0844 |
+| mean realized gain | 0.0009 |
+| oracle mean gain | 0.1825 |
+| regret to oracle | 0.1815 |
+| oracle sensor top-1 hit | 3.30% |
 
-학습형 정책과 무작위 기준의 차이는 작습니다. 따라서 **학습 정책의 일반적인 우월성을 주장하지 않습니다.**
+**해석:** 기본 비용 가중치에서 learned acquisition은 immediate보다 아주 조금만 개선됐고, oracle과의 격차는 큽니다. 따라서 “센서 선택 정책이 해결됐다”거나 “baseline보다 일반적으로 우월하다”고 주장하지 않습니다. 오히려 **현재 value model이 어디까지 잘못 선택하는지까지 정량화**한 것이 M2의 평가 포인트입니다.
 
-### 추론 최적화
+### Cost vs Accuracy
 
-공유 GitHub Actions CPU runner, batch=1, model-forward only 조건입니다.
+| cost weight | MAE | acquisition rate | mean cost proxy |
+|---:|---:|---:|---:|
+| 0.00 | 1.0929 | 84.84% | 0.8329 |
+| 0.01 | 1.0984 | 57.34% | 0.5630 |
+| 0.03 | 1.1037 | 8.59% | 0.0844 |
+| 0.05 | 1.1042 | 1.88% | 0.0185 |
+| 0.10 | 1.1046 | 0% | 0 |
 
-| 경로 | p95 | 결과 |
+이 표는 “센서를 더 읽으면 무조건 좋다”가 아니라 **추가 정보의 양과 예측 오차 사이의 실제 trade-off**를 보여주기 위한 evidence입니다.
+
+## 기존 wait policy
+
+M2는 M1의 passive wait 경로도 유지합니다.
+
+- learned wait policy MAE: 1.1282
+- matched random-mixture MAE: 1.1326
+- 평균 wait: 53.44초
+- full wait가 error를 줄인 사례: 52.66%
+
+차이가 작으므로 wait policy 역시 일반적인 우월성을 주장하지 않습니다.
+
+## 추론 최적화
+
+공유 GitHub Actions CPU runner, batch=1, model-forward only의 forecast serving model 측정입니다.
+
+| 경로 | p95 | 판단 |
 |---|---:|---|
 | PyTorch FP32 | 0.156 ms | 유지 |
-| PyTorch dynamic INT8 | 0.282 ms | 더 느려서 기각 |
-| PyTorch 비교 실행 | 0.239 ms | ONNX 비교 기준 |
-| ONNX Runtime | **0.058 ms** | 최대 표준화 출력 편차 2.38e-7 |
+| PyTorch dynamic INT8 | 0.282 ms | 느려서 기각 |
+| PyTorch comparison run | 0.239 ms | ONNX 비교 기준 |
+| ONNX Runtime | **0.058 ms** | max standardized drift 2.38e-7 |
 
-ONNX 수치는 HTTP·네트워크를 포함한 서비스 SLA가 아닙니다.
+모델을 “양자화했다”는 사실이 아니라 **실제 측정 후 채택/기각**을 남겼습니다. 이 숫자는 HTTP/network SLA가 아닙니다.
 
-### 대규모 처리와 MLOps
+## 대용량 처리와 MLOps
 
-- UCI ElectricityLoadDiagrams20112014: **140,256 rows × 370 clients = 51,894,720 measurement cells**
-- Spark 3.5.9에서 wide CSV parse → numeric cast → null scan → Parquet write/read 실행
-- MLflow SQLite tracking store에 ETTh1 실험 기록
-- DVC로 모델 `arrival.pt`와 `replay.npz` 아티팩트 포인터 생성
-- Python 3.11 / 3.13 CI 테스트
-- Render 공개 배포 + main CI cloud smoke test
-
-전체 실행 범위와 한계는 [docs/verification.md](docs/verification.md)에 기록했습니다.
-
-## 데모를 볼 때 주의할 점
-
-**공개 데모의 기본 센서 값과 arrival delay는 합성입니다.** 브라우저 화면은 미리 정한 숫자를 보여주는 정적 포트폴리오가 아니라 저장된 PyTorch 모델을 실제로 호출합니다. 테스트 사례와 지연 상황을 바꾸면 예측값·대기 결정·관측 상태가 다시 계산됩니다.
-
-실측 ETTh1 결과는 데모의 합성 결과와 섞지 않고 CI 검증 기록으로 분리했습니다.
-
-## 실행
-
-Python 3.11–3.13을 사용합니다.
-
-```bash
-python -m venv .venv
-# Windows: .venv\Scripts\python -m pip install -e ".[dev]"
-# macOS/Linux:
-.venv/bin/python -m pip install -e ".[dev]"
-
-python -m asofcast generate --out data/synthetic/demo.csv --rows 7200 --seed 21
-python -m asofcast run \
-  --csv data/synthetic/demo.csv \
-  --source-kind synthetic \
-  --config configs/synthetic_m1.json \
-  --out artifacts/demo
-
-python -m asofcast verify --artifacts artifacts/demo
-python -m asofcast serve --artifacts artifacts/demo
-```
-
-브라우저에서 `http://127.0.0.1:8000`을 엽니다.
-
-### ETTh1 실험
-
-```bash
-python -m asofcast fetch-ett --out data/raw/ETTh1.csv
-python -m asofcast run \
-  --csv data/raw/ETTh1.csv \
-  --source-kind ett \
-  --config configs/ett_m1.json \
-  --out artifacts/ett-m1
-```
-
-`configs/ett_m1.json`은 AsOfCast의 6시간 뒤 한 점 예측 설정입니다. **DLinear 원 논문의 장기 다변량 예측 점수를 재현한 실험으로 부르지 않습니다.**
+- **51,894,720 measurement cells** — UCI ElectricityLoadDiagrams20112014
+- PySpark: wide CSV parse → numeric cast → null scan → Parquet write/read
+- MLflow: verified ETTh1 experiment tracking
+- DVC: model/replay artifact pointer
+- GitHub Actions: Python 3.11/3.13, ETTh1, ONNX, MLflow/DVC, Spark, cloud smoke
+- FastAPI + Render Singapore public deployment
+- /health + /ready remote smoke test
 
 ## API
 
-- `GET /health` — 프로세스 생존 상태
-- `GET /ready` — 체크포인트 무결성 검증 및 모델 준비 상태
-- `GET /api/metadata` — 모델/데이터 출처/실험 정보
-- `GET /api/replay` — 저장된 테스트 사례를 실제 모델로 재계산
-- `POST /api/predict` — caller가 제공한 과거 관측과 arrival time으로 온라인 예측
-- `GET /docs` — OpenAPI 문서
+- GET /api/acquisition — 현재 sensor ranking + joint action
+- POST /api/acquire — stateless origin-slot acquisition 후 재계산
+- GET /api/revision-timeline — passive/active prediction revision
+- GET /api/pareto — cost/error evidence
+- GET /api/audit — 추천 행동의 현재-state 근거
+- GET /api/replay — passive replay
+- POST /api/predict — caller-provided history inference
+- GET /docs — OpenAPI
 
-## 현재 한계
+## 실행
 
-- 실제 산업 네트워크의 arrival telemetry를 사용한 검증은 아닙니다.
-- 원 DLinear 장기예측 논문 점수 재현은 M1 범위에 포함하지 않았습니다.
-- learned waiting이 모든 조건에서 단순 정책보다 우수하다는 통계적 결론은 없습니다.
-- Render 무료 인스턴스의 공개 데모는 상용 SLA·인증·감사로그를 갖춘 production 서비스가 아닙니다.
-- rollback drill은 별도 운영 과제로 남겨 두었습니다.
+Python 3.11–3.13.
 
-## 저장소
+~~~bash
+python -m venv .venv
+.venv/bin/python -m pip install -e ".[dev]"
 
-- `src/asofcast` — point-in-time timeline, 전처리, 모델, 정책, 학습, 평가, 서비스
-- `tests` — 데이터 누출, API, 체크포인트, 모델 추론, CI 계약 검증
-- `configs` — 합성/ETT 실험 설정
-- `.github/workflows/ci.yml` — Python, ETTh1, ONNX, MLflow/DVC, Spark, cloud smoke 검증
-- `docs/verification.md` — 실행된 결과와 주장하지 않는 범위
+python -m asofcast generate --out data/synthetic/demo.csv --rows 7200 --seed 21
+python -m asofcast run   --csv data/synthetic/demo.csv   --source-kind synthetic   --config configs/synthetic_m1.json   --out artifacts/demo
+
+python -m asofcast verify --artifacts artifacts/demo
+python -m asofcast serve --artifacts artifacts/demo
+~~~
+
+설정 파일명은 M1과의 재현 호환성을 위해 유지하지만 현재 파일에는 M2 acquisition training 설정도 포함되어 있습니다.
+
+## 주장하지 않는 범위
+
+- 실제 산업 센서 장비에 pull 명령을 보낸 실증이 아닙니다.
+- acquisition cost는 돈/실측 장비 latency가 아닌 train-delay 기반 relative proxy입니다.
+- ETTh1의 measurement는 real이지만 arrival timestamp는 synthetic입니다.
+- learned acquisition의 일반적인 superiority는 입증하지 않았습니다.
+- hindsight oracle은 배포 가능한 정책이 아닙니다.
+- DLinear 원 논문의 long-horizon score reproduction이 아닙니다.
+- 공개 Render demo는 production SLA·인증·감사로그를 갖춘 상용 서비스가 아닙니다.
 
 ## 참고
 
 - Zeng et al., *Are Transformers Effective for Time Series Forecasting?*, AAAI 2023
-- Official DLinear reference: https://github.com/cure-lab/LTSF-Linear
+- DLinear reference: https://github.com/cure-lab/LTSF-Linear
 - ETT dataset: https://github.com/zhouhaoyi/ETDataset
 
 원본 데이터와 외부 의존성의 권리는 각 제공자에게 있습니다. 이 저장소는 별도의 오픈소스 사용허락을 부여하지 않습니다.
