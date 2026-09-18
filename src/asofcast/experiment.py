@@ -276,9 +276,11 @@ def run_experiment(csv_path: Path, output_dir: Path, config: dict, *, source_kin
         standardized, origins['policy'], cfg, models['calibrated'], policy_x)
     acquisition_feature_rows = []
     acquisition_gain_rows = []
+    safe_policy_counterfactual = np.where(
+        policy_eligible, policy_counterfactual, policy_pred[:, :, None])
     policy_gain_matrix = acquisition_gain_targets(
         policy_pred.reshape(-1),
-        policy_counterfactual.reshape(len(policy_y) * len(waits), len(raw.columns)),
+        safe_policy_counterfactual.reshape(len(policy_y) * len(waits), len(raw.columns)),
         np.repeat(policy_y, len(waits)),
     ).reshape(len(policy_y), len(waits), len(raw.columns))
     for step, wait in enumerate(waits):
