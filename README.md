@@ -1,8 +1,8 @@
 # AsOfCast M2
 
-> **어떤 센서를 더 읽을지, 기다릴지, 지금 확정할지를 함께 결정하는 Value-of-Information 시계열 AI 시스템**
+> **센서가 늦게 도착할 때, 더 읽을지·기다릴지·지금 예측을 확정할지 비교하는 시계열 AI 시스템**
 
-[Live Demo](https://asofcast.onrender.com) · [Verification Evidence](docs/verification.md) · [API](https://asofcast.onrender.com/docs)
+[예측 체험](https://asofcast.onrender.com) · [검증 기록](docs/verification.md) · [API](https://asofcast.onrender.com/docs)
 
 일반적인 forecasting 데모는 “다음 값이 얼마인가?”에서 끝납니다. AsOfCast M2는 늦게 도착하는 센서 환경에서 한 단계 더 나아가 **현재 예측을 개선하려면 어떤 센서를 추가로 취득할 가치가 있는지**를 학습합니다.
 
@@ -26,22 +26,17 @@
 | 비용-정확도 trade-off는? | acquisition cost weight별 Pareto evidence를 같은 test split에서 계산 |
 | 엔지니어링은? | ONNX Runtime, MLflow, DVC, Spark/Parquet, FastAPI, Render, GitHub Actions |
 
-## AI Decision Console
+## 하나의 데모에서 문제부터 결과까지
 
-공개 데모의 첫 화면은 일반 시계열 차트 대신 다음 의사결정을 보여줍니다.
+첫 화면은 **상황 → 선택 → 결과** 순서입니다. 별도 설명서를 먼저 읽지 않아도 예측 대상, 고정된 목표 시각, 아직 없는 센서 수를 확인할 수 있도록 구성했습니다.
 
-1. 현재 forecast와 **model-disagreement proxy**
-2. 현재 origin에서 이미 확보된 센서
-3. 아직 없는 센서 각각의 **predicted error reduction**
-4. train-period delay에서 만든 **relative acquisition cost proxy**
-5. predicted gain - cost로 계산한 candidate utility
-6. joint policy의 **ACQUIRE / WAIT / COMMIT**
-7. Counterfactual Sensor Lab
-8. Prediction Revision Timeline
-9. Cost vs Accuracy Pareto
-10. Decision Audit
+1. **상황 확인:** 어떤 센서의 몇 시간 뒤 값을 예측하는지, 기준 시각·현재 판단·목표 시각을 구분합니다. 공개 합성 사례에는 물리 단위를 임의로 붙이지 않습니다.
+2. **선택:** 모델 추천을 실행하거나 센서를 직접 읽습니다. 대기 버튼은 실제 시간을 기다리는 대신 다음 허용 시점으로 재생합니다. 확정은 화면 내 선택이며 서버 저장·장비 제어가 아닙니다.
+3. **결과 확인:** 실제 선택 전후 예측과 변화량을 비교합니다. 예측값 변화와 정확도 향상을 구분하고, 정답을 이용한 오차 비교는 접힌 사후 평가에서 따로 제공합니다.
 
-사후 정답으로 계산하는 realized_gain_retrospective는 화면에 따로 표시하지만 **정책 행동 계산에는 사용하지 않습니다.**
+모델 추천을 실행한 동작과 사용자의 직접 선택은 다르게 기록합니다. 대기 버튼으로 진행해도 이미 읽은 기준 시각 값과 예측 목표는 유지됩니다. 사례·상황·비교 시작 시점을 직접 바꾸면 새 체험을 시작합니다.
+
+**모델과 검증 근거**를 펼치면 같은 페이지에서 센서별 예상/실제 이득, 상대 비용, 정책 점수, 모델 간 예측 차이, 비용–오차 곡선과 실험 범위를 확인할 수 있습니다. 대기만 했을 때의 가상 비교는 사용자가 실행한 기록과 섞지 않습니다. 사후 정답은 화면의 평가용이며 정책 행동 계산에는 사용하지 않습니다.
 
 ## Causal contract
 

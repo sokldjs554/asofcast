@@ -3,208 +3,116 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>AsOfCast M2 · AI Decision Console</title>
-  <link rel="stylesheet" href="/static/style.css?v=m2-verification-repair-20260925">
+  <meta name="description" content="늦게 도착하는 센서 데이터로 예측할 때, 추가 확인·대기·확정을 비교하는 AsOfCast. 실제 모델로 선택과 예측 변화를 체험합니다.">
+  <title>AsOfCast · 센서가 늦을 때, 예측은 언제 확정할까?</title>
+  <link rel="stylesheet" href="/static/style.css?v=clear-flow-20260925">
 </head>
 <body>
-<div id="app">
-  <header>
-    <a class="brand" href="/">AsOf<span>Cast</span><small>ACTIVE SENSOR INTELLIGENCE</small></a>
-    <nav>
-      <a class="active" href="#decision">Decision Console</a>
-      <a href="#counterfactual">Counterfactual</a>
-      <a href="#evidence">Evidence</a>
-      <a href="/docs" target="_blank" rel="noopener">API</a>
-    </nav>
-    <div class="runtime"><i></i> <span id="serviceStatus">모델 연결 확인 중</span></div>
-  </header>
+<a class="skip-link" href="#decision">예측 체험으로 이동</a>
+<header>
+  <a class="brand" href="/" aria-label="AsOfCast 처음으로">AsOf<span>Cast</span></a>
+  <nav aria-label="주요 메뉴">
+    <a href="#decision">예측 체험</a><a href="#revision">선택 기록</a><a href="#technicalDetails">모델·검증</a>
+  </nav>
+  <span class="runtime" id="serviceStatus">모델 연결 중</span>
+</header>
+<main id="decision">
+  <section class="hero" aria-labelledby="pageTitle">
+    <div class="hero-title"><div class="eyebrow">늦게 도착하는 데이터로 결정하기</div>
+    <h1 id="pageTitle">센서가 늦게 도착할 때,<br>예측은 언제 확정할까?</h1></div><div class="hero-intro">
+    <p>지금 있는 정보로 확정할지, 더 기다릴지, 센서를 하나 더 읽을지.<br class="desktop-break"> 같은 미래 값을 예측하며<br class="desktop-break"> <strong>선택에 따른 변화를 직접 확인하세요.</strong></p>
+    <a class="hero-link" href="#situation">현재 사례 살펴보기 <span aria-hidden="true">↓</span></a></div>
+  </section>
 
-  <div class="shell">
-    <aside>
-      <div class="aside-label">ASOFCAST M2</div>
-      <div class="workspace-card">
-        <span class="work-icon">A</span>
-        <div><b>Value-of-Information</b><small>Active Sensor Acquisition</small></div>
-      </div>
-      <a class="side-item chosen" href="#decision">◈ &nbsp; AI Decision Console</a>
-      <a class="side-item" href="#sensorMap">◎ &nbsp; Sensor Acquisition Map</a>
-      <a class="side-item" href="#counterfactual">↯ &nbsp; Counterfactual Sensor Lab</a>
-      <a class="side-item" href="#revision">↺ &nbsp; Revision Timeline</a>
-      <a class="side-item" href="#pareto">⌁ &nbsp; Cost vs Accuracy</a>
-      <a class="side-item" href="#evidence">✓ &nbsp; Verification</a>
-      <div class="aside-note">
-        <b>핵심 제약</b>
-        <p>취득은 선택 센서의 <strong>원래 예측 기준 시각 값</strong>만 공개합니다. 미래 센서 값·미래 도착시각·정답은 행동 입력에 쓰지 않습니다.</p>
-      </div>
-      <div class="model-card">
-        <span>Serving forecaster</span>
-        <b id="modelName">loading…</b>
-        <small id="modelId">run 확인 중…</small>
-        <div class="tiny-tag">PyTorch · CPU</div>
-      </div>
-    </aside>
-
-    <main id="decision">
-      <div id="status" class="status" role="status">M2 모델과 acquisition policy를 불러오는 중입니다.</div>
-
-      <section class="hero">
-        <div>
-          <div class="eyebrow">VALUE-OF-INFORMATION FORECASTING</div>
-          <h1>AI Decision Console</h1>
-          <p>예측값만 내지 않습니다. <b>어떤 센서를 추가로 읽을지, 더 기다릴지, 지금 확정할지</b>를 현재 정보만으로 결정합니다.</p>
-        </div>
-        <div class="hero-chip"><span>M2</span><strong>ACTIVE ACQUISITION</strong><small>origin-slot only</small></div>
-      </section>
-
-      <section class="verification-grid" aria-label="검증 요약">
-        <article><span>CURRENT DEMO</span><strong id="currentSource">데이터 출처 확인 중</strong><small>실제 PyTorch M2 체크포인트</small></article>
-        <article><span>REAL DATA</span><strong>실측 ETTh1 검증</strong><small>measurement real · arrival simulated</small></article>
-        <article><span>현재 추론</span><strong>PyTorch · CPU</strong><small>ONNX Runtime은 최적화 비교 실험</small></article>
-        <article><span>LARGE DATA</span><strong>51,894,720</strong><small>measurement cells · Spark/Parquet</small></article>
-        <article><span>DEPLOYMENT</span><strong id="deploymentLabel">환경 확인 중</strong><small>현재 모델 연결 · 배포 환경 구분</small></article>
-      </section>
-
-      <div class="provenance">
-        <span class="badge" id="sourceBadge">데이터 출처 확인 중</span>
-        <span id="sourceText">데모 데이터와 실측 검증 결과를 분리해서 표시합니다.</span>
-      </div>
-
-      <section class="controls">
-        <div>
-          <label for="scenario">수집 환경</label>
-          <select id="scenario">
-            <option value="mixed">Mixed delay</option>
-            <option value="outage">Outage stress</option>
-          </select>
-        </div>
-        <div>
-          <label for="caseId">Replay case</label>
-          <div class="case-picker">
-            <button id="prevCase" aria-label="이전 사례">‹</button>
-            <input id="caseId" type="number" min="0" value="0" aria-label="사례 번호">
-            <button id="nextCase" aria-label="다음 사례">›</button>
-          </div>
-        </div>
-        <div>
-          <label for="waitSelect">판단 시점</label>
-          <select id="waitSelect">
-            <option value="0">즉시</option>
-            <option value="1800">30분 후</option>
-            <option value="3600">60분 후</option>
-          </select>
-        </div>
-        <button id="resetAcquisition" class="secondary">취득 초기화</button>
-        <button id="runButton" class="primary">사례 다시 계산 <span>↗</span></button>
-      </section>
-
-      <section class="decision-layout">
-        <article class="panel decision-console">
-          <div class="panel-head">
-            <div><div class="section-kicker">JOINT POLICY</div><h2>지금 무엇을 해야 하나?</h2></div>
-            <span id="actionBadge" class="action-badge">분석 중</span>
-          </div>
-          <div class="decision-metrics">
-            <div><span>현재 예측</span><strong id="forecast">—</strong><small>OT</small></div>
-            <div><span>모델 불일치</span><strong id="disagreement">—</strong><small>불확실성 proxy</small></div>
-            <div><span>원점 센서 확보</span><strong id="availableSensors">—</strong><small id="availableTotal">/ —</small></div>
-          </div>
-          <div class="recommendation">
-            <span>RECOMMENDED NEXT ACTION</span>
-            <h3 id="recommendationTitle">모델 계산 중</h3>
-            <p id="recommendationReason">현재 snapshot만 사용해 acquisition / wait / commit의 순효용을 비교합니다.</p>
-            <button id="acquireRecommended" class="acquire-cta" disabled>추천 센서 취득 <b>↗</b></button>
-          </div>
-          <div class="scope-line">
-            <span>Policy input</span><b>current snapshot only</b>
-            <span>Counterfactual truth</span><b>audit only</b>
-          </div>
-        </article>
-
-        <article class="panel audit-panel">
-          <div class="panel-head">
-            <div><div class="section-kicker">DECISION AUDIT</div><h2>왜 이 행동인가?</h2></div>
-          </div>
-          <div id="auditText" class="audit-body">
-            <p>정책 근거를 계산하고 있습니다.</p>
-          </div>
-          <div class="audit-foot">실제 미래 도착정보와 사후 정답은 추천 행동 계산에 사용하지 않습니다.</div>
-        </article>
-      </section>
-
-      <section class="panel sensor-panel" id="sensorMap">
-        <div class="panel-head">
-          <div>
-            <div class="section-kicker">ACTIVE FEATURE ACQUISITION</div>
-            <h2>Sensor Acquisition Map</h2>
-            <p>각 센서의 현재 상태와 모델이 예측한 추가 정보의 가치를 비교합니다.</p>
-          </div>
-          <div class="legend-inline">
-            <span><i class="dot observed"></i>available</span>
-            <span><i class="dot candidate"></i>candidate</span>
-            <span><i class="dot acquired"></i>acquired</span>
-          </div>
-        </div>
-        <div id="sensorMapGrid" class="sensor-map-grid"></div>
-      </section>
-
-      <section class="panel counterfactual-panel" id="counterfactual">
-        <div class="panel-head">
-          <div>
-            <div class="section-kicker">WHAT IF I READ THIS SENSOR?</div>
-            <h2>Counterfactual Sensor Lab</h2>
-            <p><b>예측 이득</b>은 deployable model score, <b>실현 이득</b>은 replay 정답을 사용한 사후 감사값입니다.</p>
-          </div>
-          <span class="tiny-tag neutral">truth → audit only</span>
-        </div>
-        <div class="table-wrap">
-          <table>
-            <thead>
-              <tr><th>Sensor</th><th>State</th><th>Predicted ΔError</th><th>Realized ΔError · audit</th><th>Cost proxy</th><th>Net utility</th><th>Action</th></tr>
-            </thead>
-            <tbody id="counterfactualRows"></tbody>
-          </table>
-        </div>
-      </section>
-
-      <section class="evidence-grid">
-        <article class="panel timeline-panel" id="revision">
-          <div class="panel-head">
-            <div><div class="section-kicker">FORECAST FORENSICS</div><h2>Prediction Revision Timeline</h2><p>새 정보가 들어올 때 같은 target의 예측이 어떻게 수정되는지 추적합니다.</p></div>
-          </div>
-          <div id="revisionTimeline" class="revision-timeline"></div>
-        </article>
-
-        <article class="panel pareto-panel" id="pareto">
-          <div class="panel-head">
-            <div><div class="section-kicker">POLICY TRADE-OFF</div><h2>Cost vs Accuracy</h2><p>센서를 더 읽는 비율과 오류 사이의 one-shot trade-off입니다.</p></div>
-          </div>
-          <svg id="paretoChart" viewBox="0 0 620 320" role="img" aria-label="acquisition cost versus prediction error"></svg>
-          <div id="paretoSummary" class="pareto-summary"></div>
-        </article>
-      </section>
-
-      <section class="panel evidence-panel" id="evidence">
-        <div class="panel-head">
-          <div><div class="section-kicker">MEASURED, NOT CLAIMED</div><h2>검증 범위</h2><p>실행한 것과 아직 주장하지 않는 것을 분리합니다.</p></div>
-          <span class="tiny-tag neutral">M2 · model-backed</span>
-        </div>
-        <div class="evidence-cards">
-          <article><strong>Point-in-time</strong><p>event/arrival time을 분리하고 판단시점까지 도착한 값만 사용.</p></article>
-          <article><strong>Origin-slot acquisition</strong><p>active pull은 선택 센서의 frozen origin measurement만 공개.</p></article>
-          <article><strong>ETTh1</strong><p>측정값은 실측. arrival timestamp는 원본에 없어 합성 지연 조건.</p></article>
-          <article><strong>No superiority claim</strong><p>학습 정책이 baseline보다 항상 낫다고 가정하지 않고 실제 CI 결과를 기록.</p></article>
-        </div>
-        <p class="evidence-note"><b>합성 데이터 결과</b>와 실측 ETTh1 검증은 섞지 않습니다. 상세 수치와 실패한 실험까지 <a href="https://github.com/sokldjs554/asofcast/blob/main/docs/verification.md" target="_blank" rel="noopener">verification evidence</a>에 남깁니다.</p>
-      </section>
-
-      <footer>
-        <span>AsOfCast M2 · Active Sensor Acquisition</span>
-        <span>PyTorch · FastAPI · GitHub Actions · Render</span>
-        <span id="runFooter">run —</span>
-      </footer>
-    </main>
+  <div class="provenance">
+    <span class="badge" id="sourceBadge">출처 확인 중</span>
+    <span id="sourceText">현재 모델의 데이터 출처를 확인하고 있습니다.</span>
   </div>
-</div>
-<script src="/static/app.js?v=m2-verification-repair-20260925" defer></script>
+  <div id="status" class="status" role="status" aria-live="polite">모델과 사례를 불러오는 중입니다.</div>
+  <noscript><p class="status error">이 체험에는 JavaScript가 필요합니다. JavaScript를 허용한 브라우저에서 열어 주세요.</p></noscript>
+
+  <section class="panel situation" id="situation" aria-labelledby="situationTitle">
+    <div class="section-heading"><span class="step-number">01</span><h2 id="situationTitle">지금 어떤 상황인가요?</h2><a class="case-link" href="#caseControls">사례 바꾸기 ↓</a></div>
+    <div class="situation-grid">
+      <div class="target-summary">
+        <span class="field-label">예측하려는 값</span>
+        <h3><span id="forecastSubject">센서 확인 중</span>의 <span id="horizonLabel">미래</span> 값</h3>
+        <p id="caseSummary">예측에 사용할 수 있는 센서 정보를 확인하고 있습니다.</p>
+        <p class="missing-line"><strong id="missingSensors">—</strong>개 센서의 기준 시각 값이 아직 없습니다.</p>
+      </div>
+      <div class="time-summary">
+        <dl><div><dt>예측 기준</dt><dd id="originTime">—</dd></div><div><dt>현재 판단</dt><dd id="decisionTime">—</dd></div><div class="target-time"><dt>예측 목표 · 고정</dt><dd id="targetTime">—</dd></div></dl>
+        <small>데이터셋 시각 · 시간대 미지정. 기다려도 예측 목표는 바뀌지 않습니다.</small>
+      </div>
+    </div>
+  </section>
+
+
+
+  <div class="decision-layout">
+    <section class="panel decision-console" aria-labelledby="choiceTitle">
+      <div class="section-heading"><span class="step-number">02</span><h2 id="choiceTitle">지금 어떻게 할까요?</h2><span id="actionBadge" class="action-badge">계산 중</span></div>
+      <div class="decision-metrics"><div><span>현재 예측값</span><strong id="forecast">—</strong><small id="forecastUnit">모델 출력 · 원본 값 단위</small></div><div><span>기준 시각 값 확보</span><strong><span id="availableSensors">—</span><small id="availableTotal">/ —</small></strong><small>지금 사용할 수 있는 센서</small></div></div>
+      <div class="recommendation">
+        <span class="field-label">모델의 추천</span><h3 id="recommendationTitle">현재 정보를 비교하고 있습니다</h3><p id="recommendationReason">센서 추가 확인·대기·확정의 가치를 비교합니다.</p>
+        <button id="followRecommendation" class="primary" disabled>추천 확인 중</button>
+        <p id="actionHelp" class="action-help">실제 장비를 조작하지 않는 데이터 재생 체험입니다.</p>
+      </div>
+      <div class="alternative-actions"><span>직접 다른 선택하기</span><div><a class="secondary" href="#sensorMap">센서 하나 더 읽기 ↓</a><button id="waitNext" class="secondary" disabled>다음 시점 보기</button><button id="commitPrediction" class="secondary" disabled>지금 값으로 확정</button></div></div>
+    </section>
+
+    <section class="panel result-panel" id="resultPanel" aria-labelledby="resultTitle" aria-live="polite" aria-atomic="true">
+      <div class="section-heading"><span class="step-number">03</span><h2 id="resultTitle">선택하면 무엇이 달라질까요?</h2></div>
+      <span id="sessionStatus" class="session-status">선택 전</span>
+      <div class="result-values"><div><span>선택 전 예측</span><strong id="beforeForecast">—</strong></div><span class="result-arrow" aria-hidden="true">→</span><div><span>선택 후 예측</span><strong id="afterForecast">—</strong></div></div>
+      <div id="forecastDelta" class="forecast-delta">아직 선택하지 않았습니다.</div>
+      <p id="resultExplanation">왼쪽에서 추천을 실행하거나 센서를 직접 읽어 보세요. 같은 목표 시각의 예측이 어떻게 바뀌는지 여기에 표시됩니다.</p>
+      <p id="resultCaution" class="result-caution">예측값 변화가 곧 정확도 향상을 뜻하지는 않습니다. 실제 오차는 아래 사후 평가에서 따로 확인합니다.</p>
+      <details id="resultEvaluation"><summary>사후 정답으로 오차 확인하기</summary><p class="scope-note">재생 데이터의 정답을 사용한 사후 비교입니다. 모델의 추천 계산에는 사용하지 않습니다.</p><div id="retrospectiveResult">먼저 한 번 선택해 보세요.</div></details>
+    </section>
+  </div>
+
+  <section class="controls" id="caseControls" aria-label="사례 선택">
+    <div><label for="scenario">데이터 도착 상황</label><select id="scenario"><option value="mixed">일부 센서 지연</option><option value="outage">수집 장애 상황</option></select></div>
+    <div><label for="caseId">다른 사례 보기</label><div class="case-picker"><button id="prevCase" aria-label="이전 사례">‹</button><input id="caseId" type="number" min="0" value="0" aria-label="사례 번호"><button id="nextCase" aria-label="다음 사례">›</button></div></div>
+    <div><label for="waitSelect">비교 시작 시점</label><select id="waitSelect"><option value="0">기준 시각</option></select></div>
+    <button id="runButton" class="secondary">사례 다시 계산</button>
+    <button id="resetAcquisition" class="text-button">이 사례 처음부터 ↺</button>
+    <p class="controls-note">사례·상황·시점을 직접 바꾸면 이전 선택을 지우고 새 비교를 시작합니다.</p>
+  </section>
+
+  <section class="panel sensor-panel" id="sensorMap" aria-labelledby="sensorHeading">
+    <div class="panel-head"><div><h2 id="sensorHeading">어떤 센서를 더 읽어볼까요?</h2><p>모델 추천과 별개로 직접 선택할 수 있습니다. 새 미래 값이 아니라 <strong>원래 예측 기준 시각의 값</strong>만 읽습니다.</p></div></div>
+    <p class="sensor-scope">예상 오차 감소는 모델의 추정입니다. 음수면 도움이 되지 않을 것으로 예상한 센서이며, 실제 결과는 다를 수 있습니다.</p>
+    <div id="sensorMapGrid" class="sensor-map-grid"></div>
+  </section>
+
+  <section class="panel timeline-panel" id="revision" aria-labelledby="revisionHeading">
+    <div class="panel-head"><div><h2 id="revisionHeading">이번 체험에서 선택한 기록</h2><p>지금 사례에서 실제로 누른 동작만 기록합니다. 다른 사례로 바꾸거나 처음부터 시작하면 지워집니다.</p></div></div>
+    <div id="revisionTimeline" class="revision-timeline"></div>
+  </section>
+
+  <details class="technical-details" id="technicalDetails">
+    <summary><span><strong>모델과 검증 근거 보기</strong><small>추천 이유 · 센서별 비교 · 비용과 오차 · 구현 범위</small></span><span class="details-indicator" aria-hidden="true">＋</span></summary>
+    <div class="technical-content">
+      <section class="verification-grid" aria-label="검증 요약">
+        <article><span>현재 데이터</span><strong id="currentSource">출처 확인 중</strong><small>합성 데이터 결과와 실측 결과 구분</small></article>
+        <article><span>별도 실측 실험</span><strong>실측 ETTh1 검증</strong><small>측정값은 원본 · 도착 지연은 합성</small></article>
+        <article><span>현재 추론</span><strong>PyTorch · CPU</strong><small>ONNX Runtime은 최적화 비교 실험</small></article>
+        <article><span>데이터 처리 검증</span><strong>51,894,720개 셀</strong><small>Spark/Parquet · 단일 머신 실행</small></article>
+        <article><span>실행 환경</span><strong id="deploymentLabel">환경 확인 중</strong><small id="modelName">모델 확인 중</small></article>
+      </section>
+      <section class="panel audit-panel" id="audit"><div class="panel-head"><div><h2>모델은 왜 이 행동을 골랐나요?</h2><p>현재 들어온 정보로 계산한 추천입니다. 실제 미래 도착정보와 사후 정답은 입력으로 사용하지 않습니다.</p></div></div><div id="auditText" class="audit-body"></div><p class="scope-note">모델 간 예측 차이: <b id="disagreement">—</b>. 서로 다른 모델 출력의 표준편차이며, 보정된 확률이나 신뢰구간이 아닙니다.</p></section>
+      <section class="panel counterfactual-panel" id="counterfactual"><div class="panel-head"><div><h2>센서를 읽었을 때의 예상과 실제</h2><p>예상 오차 감소는 모델의 추정, 실제 오차 감소는 정답을 사용한 사후 평가입니다. 비용은 금액·장비 지연이 아닌 상대값입니다.</p></div></div><div class="table-wrap" tabindex="0" role="region" aria-label="센서별 비교 표, 작은 화면에서는 가로로 스크롤할 수 있습니다"><table><thead><tr><th>센서</th><th>상태</th><th>예상 오차 감소</th><th>실제 오차 감소 · 사후</th><th>상대 비용</th><th>정책 점수</th><th>직접 선택</th></tr></thead><tbody id="counterfactualRows"></tbody></table></div><p class="scope-note">오차 감소는 원본 값 단위, 정책 점수는 표준화된 이득에서 가중 비용을 뺀 값입니다. 두 수치의 단위는 다릅니다.</p></section>
+      <div class="evidence-grid">
+        <section class="panel"><div class="panel-head"><div><h2 id="comparisonHeading">대기만 했을 때 · 별도 비교</h2><p id="comparisonScope">각 시점에서 처음부터 기다린 경우를 계산한 비교입니다. 이번 체험에서 실행한 기록이 아닙니다.</p></div></div><div id="comparisonTimeline" class="revision-timeline"></div></section>
+        <section class="panel pareto-panel" id="pareto"><div class="panel-head"><div><h2>더 읽는 비용과 예측 오차</h2><p>현재 데이터의 같은 평가 구간에서, 센서를 한 번 더 읽는 정책의 비용 가중치를 바꿔 비교합니다.</p></div></div><svg id="paretoChart" viewBox="0 0 620 320" role="img" aria-label="센서 취득 상대 비용과 평균 절대 오차 비교"></svg><div id="paretoSummary" class="pareto-summary"></div></section>
+      </div>
+      <section class="panel evidence-panel" id="evidence"><div class="panel-head"><div><h2>구현한 범위와 한계</h2><p>실험용 서비스입니다. 실제 장비 제어·영구 저장·상용 운영 성능을 주장하지 않습니다.</p></div></div><div class="evidence-cards"><article><strong>미래 정보 누출 방지</strong><p>측정 시각과 도착 시각을 분리합니다. 당시 알 수 있었던 관측만 추천에 사용합니다.</p></article><article><strong>같은 예측 목표</strong><p>기다리거나 센서를 읽어도 예측 목표는 고정됩니다. 추가 확인도 기준 시각의 값만 공개합니다.</p></article><article><strong>측정값과 지연 구분</strong><p>ETTh1 실험의 측정값은 실측입니다. 원본에 도착 시각이 없어 지연은 합성했습니다.</p></article><article><strong>성능 우위는 제한적</strong><p>ETTh1 640개 사례: 즉시 예측 MAE 1.1046, 학습형 취득 1.1037. 개선 폭이 작아 일반적 우위를 주장하지 않습니다.</p></article></div><p class="evidence-note">현재 화면의 수치와 위 ETTh1 실험 수치는 다른 평가입니다. <a href="https://github.com/sokldjs554/asofcast" target="_blank" rel="noopener">소스·실험 기록</a> · <a href="/docs" target="_blank" rel="noopener">API 명세</a></p></section>
+    </div>
+  </details>
+  <footer><span>AsOfCast · 데이터가 늦어도, 결정의 근거는 분명하게</span><span id="runFooter">모델 확인 중</span></footer>
+</main>
+<script src="/static/app.js?v=clear-flow-20260925" defer></script>
 </body>
 </html>

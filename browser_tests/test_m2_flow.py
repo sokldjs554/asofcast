@@ -7,6 +7,7 @@ from pathlib import Path
 
 
 def test_summary_does_not_claim_wrong_source_or_cloud_deployment(page):
+    page.locator('#technicalDetails > summary').click()
     meta = page.evaluate("async () => JSON.parse((await asgiFetch('/api/metadata', 'GET', null)).body)")
     summary = page.locator('.verification-grid article').nth(0).locator('strong').inner_text()
     if meta['source_kind'] == 'ett':
@@ -27,7 +28,7 @@ def test_complete_m2_desktop_mobile_flow(page):
             page.screenshot(path=str(folder / (name + '.png')), full_page=True)
     def ready():
         page.wait_for_function("document.getElementById('status').textContent === '' && !document.getElementById('runButton').disabled")
-    assert page.locator('h1').inner_text() == 'AI Decision Console'
+    assert '센서가 늦게 도착할 때' in page.locator('h1').inner_text()
     assert page.locator('#sensorMapGrid .sensor-card').count() == 7
     assert page.locator('#counterfactualRows tr').count() == 7
     assert page.locator('#paretoChart circle').count() == 5
@@ -58,6 +59,7 @@ def test_complete_m2_desktop_mobile_flow(page):
     page.locator('#resetAcquisition').click()
     ready()
     # Scroll does not change the model or action state.
+    page.locator('#technicalDetails > summary').click()
     page.locator('#counterfactual').scroll_into_view_if_needed()
     assert page.locator('#counterfactualRows tr').count() == 7
     if out:
@@ -69,6 +71,7 @@ def test_complete_m2_desktop_mobile_flow(page):
 
 
 def test_runtime_caption_distinguishes_serving_from_benchmark(page):
+    page.locator('#technicalDetails > summary').click()
     card = page.locator('.verification-grid article').nth(2)
     assert card.locator('strong').inner_text() == 'PyTorch · CPU'
     assert 'ONNX Runtime' in card.locator('small').inner_text()

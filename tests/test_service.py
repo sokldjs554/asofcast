@@ -137,14 +137,14 @@ def test_dashboard_assets_are_local_and_served(bundle_dir):
         assert 'ONNX Runtime' in html
         assert 'deploymentLabel' in html
         assert 'Render · LIVE' not in html
-        assert 'AI Decision Console' in html
-        assert 'Counterfactual Sensor Lab' in html
-        assert 'Prediction Revision Timeline' in html
-        assert 'Cost vs Accuracy' in html
+        assert '센서가 늦게 도착할 때' in html
+        assert '센서를 읽었을 때의 예상과 실제' in html
+        assert '이번 체험에서 선택한 기록' in html
+        assert '더 읽는 비용과 예측 오차' in html
         assert 'sensorMap' in html
-        assert 'acquireRecommended' in html
-        assert '/static/app.js?v=m2-verification-repair-20260925' in html
-        assert '/static/style.css?v=m2-verification-repair-20260925' in html
+        assert 'followRecommendation' in html
+        assert '/static/app.js?v=clear-flow-20260925' in html
+        assert '/static/style.css?v=clear-flow-20260925' in html
 
 
 def test_service_uses_recorded_cpu_thread_budget(bundle_dir):
