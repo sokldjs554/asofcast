@@ -61,6 +61,7 @@ jobs:
           path: |
             artifacts/ett-m1
             data/raw/ETTh1.source.json
+            data/raw/ETTh1.csv
           if-no-files-found: error
           retention-days: 14
 
@@ -85,17 +86,49 @@ jobs:
       - name: Measure PyTorch INT8 and ONNX Runtime
         run: |
           python -m asofcast benchmark --artifacts ci-input/artifacts/ett-m1 --out optimization-int8.json --repeats 300
-          python -m asofcast onnx-eval --artifacts ci-input/artifacts/ett-m1 --out optimization-onnx.json --repeats 300
+          python scripts/check_onnx_runtime.py --artifacts ci-input/artifacts/ett-m1 --out optimization-onnx
       - name: Preserve optimization evidence
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: optimization-evidence
           path: |
             optimization-int8.json
-            optimization-onnx.json
-            optimization-onnx.onnx
+            optimization-onnx/
           if-no-files-found: error
           retention-days: 14
+
+  reference-reproduction:
+    needs: real-data
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.11'
+          cache: pip
+      - uses: actions/download-artifact@v4
+        with:
+          name: ett-m1-bundle
+          path: ci-input
+      - name: Install paired CPU research harness
+        run: |
+          python -m pip install 'torch==2.10.0' --index-url https://download.pytorch.org/whl/cpu
+          python -m pip install -e '.[dev]'
+      - name: Repeat pinned official versus local ETTh1 protocol
+        run: |
+          for run in 1 2; do
+            python -m asofcast.reference_eval --csv ci-input/data/raw/ETTh1.csv --reference data/reference/DLinear.py --out research-reference/run-${run}
+          done
+      - name: Preserve scoped reference evidence even on failure
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: dlinear-reference-evidence
+          path: research-reference/
+          if-no-files-found: error
+          retention-days: 30
 
   mlops:
     needs: real-data

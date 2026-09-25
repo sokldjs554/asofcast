@@ -1,3 +1,5 @@
+> **2026-09-25 정정:** 아래는 2026-09-18 M2의 과거 실행 기록입니다. ONNX 비교의 PyTorch 호출에 autograd 추적 비용이 포함된 결함을 확인했으므로, 해당 속도 비율은 공정한 서빙 개선 성과로 사용하지 않습니다. 출력 parity의 과거 통과와 속도 비교의 결함은 별개입니다. 현재 수정과 새 검증 범위는 [verification-repair.md](verification-repair.md)를 따릅니다. 과거 배포 기록은 이번 수정본 배포 확인이 아닙니다.
+
 # Verification evidence
 
 This file separates measured evidence from claims. Results below are tied to the stated run, dataset and scope.

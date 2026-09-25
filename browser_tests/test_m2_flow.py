@@ -66,3 +66,10 @@ def test_complete_m2_desktop_mobile_flow(page):
             'public_http_verified': False,
             'requests': page.evaluate('window.traffic'),
         }, ensure_ascii=False, indent=2), encoding='utf-8')
+
+
+def test_runtime_caption_distinguishes_serving_from_benchmark(page):
+    card = page.locator('.verification-grid article').nth(2)
+    assert card.locator('strong').inner_text() == 'PyTorch · CPU'
+    assert 'ONNX Runtime' in card.locator('small').inner_text()
+    assert '비교 실험' in card.locator('small').inner_text()

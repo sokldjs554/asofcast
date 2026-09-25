@@ -46,3 +46,12 @@ def test_ci_runs_session_regressions_and_preserves_reports():
     assert 'scripts/check_browser.py' in text
     assert '--repeats 3' in text
     assert 'asofcast-browser-evidence' in text
+from pathlib import Path
+
+
+def test_native_onnx_and_reference_checks_are_mandatory_ci_steps():
+    workflow = (Path(__file__).parents[1] / '.github/workflows/ci.yml').read_text()
+    assert 'python scripts/check_onnx_runtime.py' in workflow
+    assert 'python -m asofcast.reference_eval' in workflow
+    assert 'dlinear-reference-evidence' in workflow
+    assert 'optimization-onnx/' in workflow
