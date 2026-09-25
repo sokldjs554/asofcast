@@ -29,3 +29,20 @@ def test_m2_capture_workflow_records_active_acquisition_media():
                  'm2-decision-console.png', 'm2-after-acquisition.png',
                  'acquisition_click_mode']:
         assert item in script
+
+
+def test_browser_check_entrypoint_targets_current_m2_suite():
+    script = (WORKFLOW.parents[2] / 'scripts' / 'check_browser.py').read_text(encoding='utf-8')
+    assert 'browser_tests' in script
+    assert '--artifacts' in script
+    assert "getElementById('sensors')" not in script
+    assert '#stepRange' not in script
+
+
+def test_ci_runs_session_regressions_and_preserves_reports():
+    text = WORKFLOW.read_text(encoding='utf-8')
+    assert 'browser-consistency:' in text
+    assert 'python -m playwright install --with-deps chromium' in text
+    assert 'scripts/check_browser.py' in text
+    assert '--repeats 3' in text
+    assert 'asofcast-browser-evidence' in text

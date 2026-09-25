@@ -140,7 +140,7 @@ jobs:
 
   large-data:
     needs: test
-    if: github.event_name == 'workflow_dispatch' || github.ref == 'refs/heads/feat/point-in-time-m1' || github.ref == 'refs/heads/main'
+    if: github.event_name == 'workflow_dispatch' || github.ref == 'refs/heads/feat/point-in-time-m1' || github.ref == 'refs/heads/fix/m2-submission-audit-20260925' || github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     timeout-minutes: 35
     steps:
@@ -193,3 +193,38 @@ jobs:
           assert ready.get('checksums_verified') is True, ready
           print(json.dumps({'health':health,'ready':ready},ensure_ascii=False,indent=2))
           PY
+
+
+  browser-consistency:
+    needs: real-data
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.13'
+          cache: pip
+      - uses: actions/download-artifact@v4
+        with:
+          name: ett-m1-bundle
+          path: ci-input
+      - name: Install real model and browser test stack
+        run: |
+          python -m pip install 'torch==2.10.0' --index-url https://download.pytorch.org/whl/cpu
+          python -m pip install -e '.[dev,browser]'
+          python -m playwright install --with-deps chromium
+      - name: Repeat synthetic regression scenarios and ETTh1 browser flows
+        run: |
+          python scripts/check_browser.py --repeats 3 --out artifacts/browser-synthetic
+          python scripts/check_browser.py --artifacts ci-input/artifacts/ett-m1 --repeats 3 --out artifacts/browser-ett
+      - name: Preserve browser reports even on failure
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: asofcast-browser-evidence
+          path: |
+            artifacts/browser-synthetic
+            artifacts/browser-ett
+          if-no-files-found: error
+          retention-days: 30

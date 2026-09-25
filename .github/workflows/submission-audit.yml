@@ -27,3 +27,66 @@ jobs:
           path: evidence/
           if-no-files-found: error
           retention-days: 30
+
+  public-baseline:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.13'
+      - name: Inspect the unchanged public service separately from this patch
+        run: |
+          mkdir -p evidence/public
+          curl --fail --show-error --silent --retry 5 --retry-delay 5 --retry-all-errors --max-time 60 https://asofcast.onrender.com/health -o evidence/public/health.json
+          python - <<'PY'
+          import hashlib, json
+          from datetime import datetime, timezone
+          from pathlib import Path
+          from urllib.request import Request, urlopen
+          base = 'https://asofcast.onrender.com'
+          def fetch(path, body=None):
+              payload = None if body is None else json.dumps(body).encode()
+              request = Request(base + path, data=payload, headers={'Content-Type': 'application/json'})
+              with urlopen(request, timeout=60) as response:
+                  return response.read()
+          def get(path, body=None):
+              return json.loads(fetch(path, body))
+          health = get('/health'); ready = get('/ready'); meta = get('/api/metadata')
+          assert health['status'] == 'alive' and ready['status'] == 'ready'
+          assert ready['checksums_verified'] is True and ready['run_id'] == meta['run_id']
+          state = get('/api/acquisition?case_id=0&scenario=mixed&wait_seconds=0')
+          sensor = next(row['sensor'] for row in state['candidates'] if row['eligible'])
+          after = get('/api/acquire', {'case_id': 0, 'scenario': 'mixed', 'wait_seconds': 0, 'acquired': [], 'sensor': sensor})
+          assert after['acquired'] == [sensor]
+          assert (after['origin_time'], after['target_time']) == (state['origin_time'], state['target_time'])
+          assert after['acquisition_scope'] == 'selected_sensor_origin_slot_only'
+          assert after['retrospective_fields_used_for_action'] is False
+          assert len(get('/api/pareto')['points']) == 5
+          actual = hashlib.sha256(fetch('/static/app.js')).hexdigest()
+          expected = 'cef740ff770b3fb7c34c61f569d2d16769a688e2e7c74c17dc48791d8997efae'
+          report = {'checked_at': datetime.now(timezone.utc).isoformat(), 'base_url': base,
+                    'health': health, 'ready': ready, 'source_kind': meta['source_kind'],
+                    'sensor_pulled': sensor, 'before': state['prediction'], 'after': after['prediction'],
+                    'public_app_js_sha256': actual, 'inspected_main_app_js_sha256': expected,
+                    'matches_inspected_main_frontend': actual == expected,
+                    'scope': 'public baseline only; this branch has not been deployed; backend commit SHA is not exposed'}
+          Path('evidence/public/public-api.json').write_text(json.dumps(report, indent=2))
+          assert actual == expected, 'public frontend changed; reassess the baseline before claiming consistency'
+          print(json.dumps(report, indent=2))
+          PY
+      - name: Install public capture browser
+        run: |
+          python -m pip install 'playwright>=1.50,<2'
+          python -m playwright install --with-deps chromium
+      - name: Capture public baseline, not the unmerged fix
+        run: python scripts/capture_live_demo.py --out evidence/public/media
+      - name: Preserve public baseline evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: submission-public-baseline
+          path: evidence/public
+          if-no-files-found: error
+          retention-days: 30

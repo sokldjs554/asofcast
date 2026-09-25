@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>AsOfCast M2 · AI Decision Console</title>
-  <link rel="stylesheet" href="/static/style.css?v=m2-active-acquisition">
+  <link rel="stylesheet" href="/static/style.css?v=m2-session-audit-20260925">
 </head>
 <body>
 <div id="app">
@@ -16,7 +16,7 @@
       <a href="#evidence">Evidence</a>
       <a href="/docs" target="_blank" rel="noopener">API</a>
     </nav>
-    <div class="runtime"><i></i> MODEL SERVICE · LIVE</div>
+    <div class="runtime"><i></i> <span id="serviceStatus">모델 연결 확인 중</span></div>
   </header>
 
   <div class="shell">
@@ -57,11 +57,11 @@
       </section>
 
       <section class="verification-grid" aria-label="검증 요약">
-        <article><span>CURRENT DEMO</span><strong>합성 데이터 결과</strong><small>실제 PyTorch M2 체크포인트</small></article>
+        <article><span>CURRENT DEMO</span><strong id="currentSource">데이터 출처 확인 중</strong><small>실제 PyTorch M2 체크포인트</small></article>
         <article><span>REAL DATA</span><strong>실측 ETTh1 검증</strong><small>measurement real · arrival simulated</small></article>
         <article><span>INFERENCE</span><strong>ONNX Runtime</strong><small>출력 parity + CPU latency</small></article>
         <article><span>LARGE DATA</span><strong>51,894,720</strong><small>measurement cells · Spark/Parquet</small></article>
-        <article><span>DEPLOYMENT</span><strong>Render · LIVE</strong><small>main CI · health/readiness</small></article>
+        <article><span>DEPLOYMENT</span><strong id="deploymentLabel">환경 확인 중</strong><small>현재 모델 연결 · 배포 환경 구분</small></article>
       </section>
 
       <div class="provenance">
@@ -205,6 +205,6 @@
     </main>
   </div>
 </div>
-<script src="/static/app.js?v=m2-active-acquisition" defer></script>
+<script src="/static/app.js?v=m2-session-audit-20260925" defer></script>
 </body>
 </html>

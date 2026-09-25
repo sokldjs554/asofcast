@@ -14,6 +14,55 @@
   let sessionEvents = [];
   let controller = null;
   let requestSeq = 0;
+  let busy = false;
+  let stateKey = null;
+
+  function selection() {
+    return {case_id: $('caseId').value.trim(), scenario: $('scenario').value,
+      wait_seconds: $('waitSelect').value};
+  }
+
+  function selectionKey(value = selection()) {
+    return JSON.stringify(value);
+  }
+
+  function syncActionButtons() {
+    const blocked = busy || !state || stateKey !== selectionKey();
+    document.querySelectorAll('.sensor-acquire, .table-action').forEach(button => {
+      button.disabled = blocked || button.dataset.eligible !== 'true';
+    });
+    $('acquireRecommended').disabled = blocked || state.recommended_action !== 'ACQUIRE'
+      || !state.recommended_sensor;
+  }
+
+  function beginRequest() {
+    if (controller) controller.abort();
+    controller = new AbortController();
+    const value = selection();
+    const op = {seq: ++requestSeq, value, key: selectionKey(value), signal: controller.signal};
+    busy = true;
+    $('runButton').disabled = true;
+    syncActionButtons();
+    return op;
+  }
+
+  function isCurrent(op) {
+    return op.seq === requestSeq && op.key === selectionKey();
+  }
+
+  function finishRequest(op) {
+    if (!isCurrent(op)) return;
+    busy = false;
+    $('runButton').disabled = false;
+    syncActionButtons();
+  }
+
+  function renderState() {
+    renderDecision();
+    renderSensorMap();
+    renderCounterfactual();
+    syncActionButtons();
+  }
 
   function status(message = '', error = false) {
     $('status').textContent = message;
@@ -140,6 +189,7 @@
       const button = document.createElement('button');
       button.className = 'sensor-acquire';
       button.textContent = row.eligible ? '이 센서 취득' : got ? '취득 완료' : '이미 도착';
+      button.dataset.eligible = String(row.eligible);
       button.disabled = !row.eligible;
       button.addEventListener('click', () => acquireSensor(row.sensor));
       card.append(head, metrics, button);
@@ -163,6 +213,7 @@
       const button = document.createElement('button');
       button.className = 'table-action';
       button.textContent = row.eligible ? 'ACQUIRE' : '—';
+      button.dataset.eligible = String(row.eligible);
       button.disabled = !row.eligible;
       button.addEventListener('click', () => acquireSensor(row.sensor));
       action.append(button);
@@ -184,9 +235,10 @@
     return item;
   }
 
-  async function renderRevisionTimeline() {
-    const query = new URLSearchParams({case_id: $('caseId').value, scenario: $('scenario').value});
-    const payload = await requestJSON(`/api/revision-timeline?${query}`);
+  async function renderRevisionTimeline(op) {
+    const query = new URLSearchParams({case_id: op.value.case_id, scenario: op.value.scenario});
+    const payload = await requestJSON(`/api/revision-timeline?${query}`, {signal: op.signal});
+    if (!isCurrent(op)) return;
     const root = $('revisionTimeline'); root.replaceChildren();
     payload.events.forEach(event => root.append(timelineNode(event)));
     sessionEvents.forEach(event => root.append(timelineNode(event)));
@@ -237,64 +289,74 @@
   async function loadState({reset = false} = {}) {
     if (!metadata) return;
     if (reset) { acquired = []; sessionEvents = []; }
-    if (controller) controller.abort();
-    controller = new AbortController();
-    const seq = ++requestSeq;
-    $('runButton').disabled = true;
-    status('현재 snapshot에서 acquisition / wait / commit의 가치를 다시 계산하고 있습니다.');
-    const params = new URLSearchParams({
-      case_id: $('caseId').value,
-      scenario: $('scenario').value,
-      wait_seconds: $('waitSelect').value,
-      acquired: acquired.join(',')
-    });
+    state = null;
+    stateKey = null;
+    const op = beginRequest();
+    status('현재 정보로 센서 취득·대기·확정의 가치를 다시 계산하고 있습니다.');
     try {
-      const payload = await requestJSON(`/api/acquisition?${params}`, {signal: controller.signal});
-      if (seq !== requestSeq) return;
+      const caseId = Number(op.value.case_id);
+      if (!op.value.case_id || !Number.isInteger(caseId) || caseId < 0 || caseId >= metadata.cases) {
+        throw new Error(`사례 번호는 0부터 ${metadata.cases - 1}까지 정수로 입력해 주세요.`);
+      }
+      const params = new URLSearchParams({...op.value, acquired: acquired.join(',')});
+      const payload = await requestJSON(`/api/acquisition?${params}`, {signal: op.signal});
+      if (!isCurrent(op)) return;
       state = payload;
-      renderDecision();
-      renderSensorMap();
-      renderCounterfactual();
-      await renderRevisionTimeline();
-      status('');
+      stateKey = op.key;
+      renderState();
+      await renderRevisionTimeline(op);
+      if (isCurrent(op)) status('');
     } catch (error) {
-      if (error.name !== 'AbortError' && seq === requestSeq) status(`M2 decision 실패: ${error.message}`, true);
+      if (error.name !== 'AbortError' && isCurrent(op)) status(`계산 실패: ${error.message}`, true);
     } finally {
-      if (seq === requestSeq) $('runButton').disabled = false;
+      finishRequest(op);
     }
   }
 
   async function acquireSensor(sensor) {
-    if (!state || !sensor) return;
-    status(`${sensor}의 frozen-origin measurement를 active pull하는 중입니다.`);
+    if (busy || !state || stateKey !== selectionKey() || !candidateBySensor(sensor)?.eligible) return;
+    const before = state.prediction;
+    const previousAcquired = [...acquired];
+    const op = beginRequest();
+    status(`${sensor}의 원래 예측 기준 시각 값을 취득하고 있습니다.`);
     try {
-      const before = state.prediction;
       const payload = await requestJSON('/api/acquire', {
-        method: 'POST',
+        method: 'POST', signal: op.signal,
         body: JSON.stringify({
-          case_id: Number($('caseId').value),
-          scenario: $('scenario').value,
-          wait_seconds: Number($('waitSelect').value),
-          acquired,
-          sensor
+          case_id: Number(op.value.case_id),
+          scenario: op.value.scenario,
+          wait_seconds: Number(op.value.wait_seconds),
+          acquired: previousAcquired, sensor
         })
       });
+      if (!isCurrent(op)) return;
       acquired = payload.acquired;
       state = payload;
+      stateKey = op.key;
       sessionEvents.push({
         kind: 'ACTIVE_ACQUISITION',
         label: `${sensor} 취득 · ${fmt(before, 2)} → ${fmt(payload.prediction, 2)}`,
         prediction: payload.prediction
       });
-      renderDecision();
-      renderSensorMap();
-      renderCounterfactual();
-      await renderRevisionTimeline();
-      status('');
+      renderState();
+      await renderRevisionTimeline(op);
+      if (isCurrent(op)) status('');
     } catch (error) {
-      status(`센서 취득 실패: ${error.message}`, true);
+      if (error.name !== 'AbortError' && isCurrent(op)) status(`센서 취득 실패: ${error.message}`, true);
+    } finally {
+      finishRequest(op);
     }
   }
+
+  $('caseId').addEventListener('input', () => {
+    if (controller) controller.abort();
+    requestSeq++;
+    busy = false;
+    stateKey = null;
+    $('runButton').disabled = false;
+    syncActionButtons();
+    status('사례 번호가 변경됐습니다. Enter 또는 사례 다시 계산을 눌러 주세요.');
+  });
 
   $('acquireRecommended').addEventListener('click', () => acquireSensor($('acquireRecommended').dataset.sensor));
   $('runButton').addEventListener('click', () => loadState({reset: true}));
@@ -319,6 +381,10 @@
       $('modelId').textContent = metadata.run_id;
       $('runFooter').textContent = `run ${metadata.run_id.slice(0, 10)}`;
       const synthetic = metadata.source_kind === 'synthetic';
+      $('currentSource').textContent = synthetic ? '합성 데이터 결과'
+        : metadata.source_kind === 'ett' ? 'ETTh1 측정값' : '제공된 측정값';
+      $('deploymentLabel').textContent = metadata.cloud_deployed ? '클라우드 환경 설정' : '로컬/검증 환경';
+      $('serviceStatus').textContent = '모델 연결 확인';
       $('sourceBadge').textContent = synthetic ? '합성 데모 · model-backed' : metadata.source_kind === 'ett' ? 'ETT measurements' : 'provided data';
       $('sourceText').textContent = synthetic
         ? '현재 공개 데모의 measurement와 arrival은 합성입니다. ETTh1 실측 측정값 검증은 CI evidence로 별도 기록합니다.'
