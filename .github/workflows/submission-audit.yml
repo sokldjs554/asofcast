@@ -1,0 +1,29 @@
+name: Submission audit evidence
+
+on:
+  push:
+    branches: ['fix/m2-submission-audit-20260925']
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  source-snapshot:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v7
+      - name: Archive the exact tracked source and provenance
+        run: |
+          mkdir -p evidence
+          git archive --format=zip --output=evidence/asofcast-source.zip HEAD
+          git rev-parse HEAD > evidence/commit.txt
+          git rev-parse HEAD^{tree} > evidence/tree.txt
+          sha256sum evidence/asofcast-source.zip > evidence/source-sha256.txt
+      - uses: actions/upload-artifact@v4
+        with:
+          name: submission-source-${{ github.sha }}
+          path: evidence/
+          if-no-files-found: error
+          retention-days: 30
