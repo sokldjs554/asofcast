@@ -1,62 +1,86 @@
+"""Repeat the current M2 browser suite and retain reports, including failures.
+
+The browser renders real assets and calls real FastAPI/PyTorch through a local
+bridge. This is deliberately NOT reported as public HTTP or Render verification.
+"""
+from __future__ import annotations
+
 import argparse
+import hashlib
 import json
-from fastapi.testclient import TestClient
-from asofcast.service import create_app
+import os
+import subprocess
+import sys
+import time
+import xml.etree.ElementTree as ET
 from pathlib import Path
-from playwright.sync_api import sync_playwright
-parser = argparse.ArgumentParser(description='Offline Chromium DOM + real ASGI verification; no network navigation')
-parser.add_argument('--browser', help='Optional Chromium executable; otherwise use the Playwright installation')
-args = parser.parse_args()
-root = Path(__file__).resolve().parents[1]
-with sync_playwright() as p:
-    browser=p.chromium.launch(executable_path=args.browser, headless=True, args=['--no-sandbox'])
-    page=browser.new_page(viewport={'width':1440,'height':1120},device_scale_factor=1)
-    errors=[]
-    page.on('pageerror',lambda e: errors.append(str(e)))
-    failed=[]
-    page.on('response',lambda r:failed.append({'status':r.status,'url':r.url}) if r.status>=400 else None)
-    client = TestClient(create_app(root / 'artifacts/demo'))
-    def asgi_fetch(source, url):
-        response = client.get(url)
-        return {'status': response.status_code, 'body': response.text}
-    page.expose_binding('asgiFetch', asgi_fetch)
-    page.set_content((root / 'src/asofcast/static/index.html').read_text().replace('<link rel="stylesheet" href="/static/style.css">','').replace('<script src="/static/app.js" defer></script>',''))
-    page.add_style_tag(content=(root / 'src/asofcast/static/style.css').read_text())
-    page.evaluate("""window.fetch = async (url, options = {}) => {
-        if (options.signal && options.signal.aborted) throw new DOMException('Aborted', 'AbortError');
-        const r = await window.asgiFetch(String(url));
-        return {ok: r.status >= 200 && r.status < 300, status:r.status,
-                json:async()=>JSON.parse(r.body), text:async()=>r.body};
-    };""")
-    page.add_script_tag(content=(root / 'src/asofcast/static/app.js').read_text())
-    page.wait_for_function("document.getElementById('sensors').children.length === 7")
-    assert '합성' in page.locator('#sourceBadge').inner_text()
-    assert page.locator('#results tr').count()==11
-    assert not page.locator('#status').inner_text()
-    page.screenshot(path=str(root/'docs/assets/dashboard-desktop.png'),full_page=True)
-    page.locator('#nextCase').click()
-    page.wait_for_function("document.getElementById('caseId').value === '1' && document.getElementById('status').textContent === ''")
-    assert page.locator('#caseId').input_value()=='1'
-    page.locator('#scenario').select_option('outage')
-    page.wait_for_function("document.getElementById('status').textContent === '' && !document.getElementById('runButton').disabled")
-    page.locator('#stepRange').fill('2')
-    page.locator('#stepRange').dispatch_event('input')
-    assert page.locator('#stepLabel').inner_text()=='60분'
-    page.locator('#caseId').fill('99999')
-    page.locator('#runButton').click()
-    assert '정수로 입력' in page.locator('#status').inner_text()
-    page.locator('#caseId').fill('0')
-    page.locator('#scenario').select_option('mixed')
-    page.wait_for_function("document.getElementById('status').textContent === '' && !document.getElementById('runButton').disabled")
-    page.set_viewport_size({'width':390,'height':844})
-    page.screenshot(path=str(root/'docs/assets/dashboard-mobile.png'),full_page=True)
-    overflow=page.evaluate('document.documentElement.scrollWidth > window.innerWidth')
-    assert not overflow, 'mobile viewport overflow'
-    assert not errors,errors
-    assert not failed,failed
-    result={'browser':'Chromium', 'transport':'offline DOM assets + real FastAPI TestClient via JS/Python bridge', 'network_navigation_verified':False, 'limitation':'Direct Chromium localhost navigation blocked by administrator; no settings changed','desktop':[1440,1120],'mobile':[390,844],
-      'checks':['model-loaded','synthetic-label','7 sensors','11 metric rows','next case','outage scenario','step slider','invalid-case validation','mobile no overflow'],
-      'page_errors':errors,'failed_browser_resource_requests':failed,'status':'passed'}
-    (root/'docs/reports/browser_check.json').write_text(json.dumps(result,indent=2))
-    print(json.dumps(result,indent=2))
-    browser.close()
+
+
+def main() -> int:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--artifacts', type=Path, help='Verified model bundle; omitted: small synthetic test fixture')
+    parser.add_argument('--browser', help='Optional Chromium executable; otherwise Playwright installation')
+    parser.add_argument('--repeats', type=int, default=1)
+    parser.add_argument('--out', type=Path, default=Path('artifacts/browser-audit'))
+    args = parser.parse_args()
+    if not 1 <= args.repeats <= 10:
+        parser.error('--repeats must be between 1 and 10')
+    if args.artifacts and not args.artifacts.is_dir():
+        parser.error('--artifacts must name an existing model bundle directory')
+    root = Path(__file__).resolve().parents[1]
+    out = args.out.resolve()
+    out.mkdir(parents=True, exist_ok=True)
+    env = os.environ.copy()
+    env['PYTHONPATH'] = str(root / 'src') + os.pathsep + env.get('PYTHONPATH', '')
+    if args.browser:
+        env['ASOFCAST_BROWSER'] = args.browser
+    if args.artifacts:
+        env['ASOFCAST_TEST_ARTIFACTS'] = str(args.artifacts.resolve())
+    else:
+        env.pop('ASOFCAST_TEST_ARTIFACTS', None)
+    results = []
+    for repeat in range(1, args.repeats + 1):
+        folder = out / f'repeat-{repeat}'
+        folder.mkdir(exist_ok=True)
+        xml = folder / 'junit.xml'
+        env['ASOFCAST_CAPTURE_DIR'] = str(folder)
+        command = [sys.executable, '-m', 'pytest', str(root / 'browser_tests'),
+                   '-q', f'--junitxml={xml}']
+        started = time.monotonic()
+        with (folder / 'pytest.log').open('w', encoding='utf-8') as log:
+            try:
+                completed = subprocess.run(command, cwd=root, env=env, stdout=log,
+                                           stderr=subprocess.STDOUT, timeout=300)
+                code = completed.returncode
+            except subprocess.TimeoutExpired:
+                log.write('\nBrowser suite exceeded the 300 second timeout.\n')
+                code = 124
+        counts = {'tests': 0, 'failures': 0, 'errors': 0, 'skipped': 0}
+        if xml.exists():
+            for suite in ET.parse(xml).getroot().iter('testsuite'):
+                for key in counts:
+                    counts[key] += int(suite.get(key, 0))
+        success = code == 0 and counts['tests'] > 0 and not any(
+            counts[key] for key in ('failures', 'errors', 'skipped'))
+        results.append({'repeat': repeat, 'return_code': code, **counts,
+                        'seconds': round(time.monotonic() - started, 3), 'passed': success})
+        print(json.dumps(results[-1]), flush=True)
+        if not success:
+            break
+    passed = len(results) == args.repeats and all(item['passed'] for item in results)
+    files = ['src/asofcast/static/app.js', 'src/asofcast/static/index.html',
+             'src/asofcast/static/style.css']
+    report = {
+        'status': 'passed' if passed else 'failed', 'requested_repeats': args.repeats,
+        'transport': 'local Chromium DOM + real FastAPI/PyTorch TestClient bridge',
+        'public_http_verified': False, 'python': sys.version.split()[0],
+        'model_bundle': str(args.artifacts.resolve()) if args.artifacts else 'generated synthetic test fixture',
+        'static_sha256': {name: hashlib.sha256((root / name).read_bytes()).hexdigest() for name in files},
+        'runs': results,
+    }
+    (out / 'browser-check.json').write_text(json.dumps(report, ensure_ascii=False, indent=2), encoding='utf-8')
+    return 0 if passed else 1
+
+
+if __name__ == '__main__':
+    raise SystemExit(main())

@@ -31,6 +31,9 @@ def main(argv: list[str] | None = None) -> int:
     onnx_eval.add_argument('--artifacts',type=Path,required=True)
     onnx_eval.add_argument('--out',type=Path,required=True)
     onnx_eval.add_argument('--repeats',type=int,default=200)
+    onnx_eval.add_argument('--threads',type=int,default=2)
+    onnx_eval.add_argument('--warmup',type=int,default=20)
+    onnx_eval.add_argument('--rounds',type=int,default=3)
     mlflow_cmd = commands.add_parser('track-mlflow',help='Log a verified bundle to an MLflow tracking store')
     mlflow_cmd.add_argument('--artifacts',type=Path,required=True)
     mlflow_cmd.add_argument('--tracking-uri',default='sqlite:///mlflow.db')
@@ -64,7 +67,8 @@ def main(argv: list[str] | None = None) -> int:
             result = benchmark_bundle(args.artifacts,args.out,repeats=args.repeats)
         elif args.command == 'onnx-eval':
             from asofcast.onnx_eval import evaluate_onnx
-            result = evaluate_onnx(args.artifacts,args.out,repeats=args.repeats)
+            result = evaluate_onnx(args.artifacts,args.out,repeats=args.repeats,
+                                   threads=args.threads,warmup=args.warmup,rounds=args.rounds)
         elif args.command == 'track-mlflow':
             from asofcast.mlops import log_bundle_mlflow
             result = log_bundle_mlflow(args.artifacts,args.tracking_uri,args.experiment)

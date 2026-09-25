@@ -146,16 +146,21 @@ M2는 M1의 passive wait 경로도 유지합니다.
 
 ## 추론 최적화
 
-공유 GitHub Actions CPU runner, batch=1, model-forward only의 forecast serving model 측정입니다.
+**현재 API의 실행 엔진은 PyTorch CPU입니다. ONNX Runtime은 별도 최적화 비교 경로입니다.**
 
-| 경로 | p95 | 판단 |
-|---|---:|---|
-| PyTorch FP32 | 0.156 ms | 유지 |
-| PyTorch dynamic INT8 | 0.282 ms | 느려서 기각 |
-| PyTorch comparison run | 0.239 ms | ONNX 비교 기준 |
-| ONNX Runtime | **0.058 ms** | max standardized drift 2.38e-7 |
+2026-09-25 재검토에서 과거 ONNX 비교의 PyTorch 호출이 실제 서빙과 달리 autograd를 기록한 것을 확인했습니다. 이전 `0.239 ms → 0.058 ms`와 후속 `0.2192 ms → 0.0434 ms`는 동일 조건 비교가 아니므로 현재 성능 개선 수치로 사용하지 않습니다. 과거 기록은 [검증 이력](docs/verification.md)에 남깁니다.
 
-모델을 “양자화했다”는 사실이 아니라 **실제 측정 후 채택/기각**을 남겼습니다. 이 숫자는 HTTP/network SLA가 아닙니다.
+수정한 비교는 두 엔진에 동일한 NumPy float32 입력을 주고 NumPy 출력을 받는 범위를 측정합니다. PyTorch는 `inference_mode`, CPU intra-op 2 threads, ONNX Runtime은 sequential 실행을 사용합니다. 준비 실행 후 엔진 실행 순서를 번갈아 측정하고, 원시 지연 샘플·버전·스레드·출력 편차를 함께 저장합니다. 이는 HTTP 지연이나 Render 운영 SLA가 아닙니다.
+
+출력 모양 불일치·NaN/Inf·표준화 출력 편차 1e-4 초과·런타임 실패는 보고서 `failed` 및 명령 실패로 이어집니다. CI는 실제 ONNX Runtime에서 3회 측정하고, 별도로 표시한 오류 주입 검사 5종과 원시 샘플 재계산을 실행합니다. **새 수치는 검증 결과 원본 확인 후에만 확정합니다.**
+
+기존 INT8 비교는 이미 inference mode였으며 위 결함과 구분합니다. 과거 동일 실행에서 FP32 p95 0.156 ms, dynamic INT8 0.282 ms였기에 INT8은 채택하지 않았습니다. 서로 다른 실행의 기준값은 섞지 않습니다.
+
+## DLinear 공식 구현 대조 실험
+
+M2 자체는 고정된 미래 목표 한 개를 예측하는 문제이며 원논문 점수 재현이 아닙니다. 별도 실험은 공식 구현 커밋을 고정해 ETTh1 다변량 `336 → 96`, 7개 채널, 학습 구간 정규화, 시간순 분할, Adam/학습률 0.005/최대 10 epoch/early stopping 설정으로 비교합니다.
+
+공식 모델과 자체 모델은 초기 가중치를 한 번 맞춘 뒤 같은 CPU 학습 절차에서 **각각 독립 학습**합니다. 전체 테스트 예측과 MSE·MAE를 비교하고, 동일 seed로 2회 반복합니다. 이 실험도 원래 GPU 실행 환경이나 논문 전체 표의 재현을 뜻하지 않습니다. 실행 조건·차이·명령·근거 범위는 [수정 검증 안내](docs/verification-repair.md)에 있습니다.
 
 ## 대용량 처리와 MLOps
 

@@ -135,15 +135,16 @@ def test_dashboard_assets_are_local_and_served(bundle_dir):
         assert '실측 ETTh1 검증' in html
         assert '51,894,720' in html
         assert 'ONNX Runtime' in html
-        assert 'Render · LIVE' in html
+        assert 'deploymentLabel' in html
+        assert 'Render · LIVE' not in html
         assert 'AI Decision Console' in html
         assert 'Counterfactual Sensor Lab' in html
         assert 'Prediction Revision Timeline' in html
         assert 'Cost vs Accuracy' in html
         assert 'sensorMap' in html
         assert 'acquireRecommended' in html
-        assert '/static/app.js?v=m2-active-acquisition' in html
-        assert '/static/style.css?v=m2-active-acquisition' in html
+        assert '/static/app.js?v=m2-verification-repair-20260925' in html
+        assert '/static/style.css?v=m2-verification-repair-20260925' in html
 
 
 def test_service_uses_recorded_cpu_thread_budget(bundle_dir):
