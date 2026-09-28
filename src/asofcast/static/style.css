@@ -16,3 +16,73 @@ header{height:72px;background:#fff;border-bottom:1px solid var(--line);display:f
 /* Keep the first real choice in the initial desktop viewport. */
 .hero{display:grid;grid-template-columns:1.13fr 1fr;align-items:center;gap:36px;padding:28px 34px}.hero h1{font-size:32px;line-height:1.4}.hero p{margin-top:0;font-size:15px}.hero-link{margin-top:12px}.case-link{margin-left:auto;font-size:12px;color:var(--teal);white-space:nowrap}.situation{padding:20px 24px;margin-bottom:18px}.situation .section-heading{margin-bottom:14px}.target-summary h3{font-size:21px}.decision-console,.result-panel{padding:21px}.decision-metrics{margin:14px 0}.decision-metrics>div{padding:12px 0}.recommendation h3{font-size:20px}.recommendation>p{font-size:13px}.recommendation .primary{margin-top:12px}.controls{margin-top:0}.result-panel .section-heading h2{font-size:18px}
 @media(max-width:680px){.hero{display:block;padding:24px 22px}.hero h1{font-size:27px}.hero p{margin-top:14px;font-size:14px}.situation{padding:18px}.case-link{font-size:11px}.situation .section-heading{gap:7px;flex-wrap:wrap}.situation .section-heading h2{font-size:17px}.decision-console,.result-panel{padding:20px}.result-panel .section-heading h2{font-size:18px}.desktop-break{display:none}}
+
+/* A compact first decision and a separate, explicitly retrospective comparison. */
+main{padding-top:24px}
+.hero{padding:22px 30px;gap:28px;border-radius:16px}
+.hero h1{font-size:30px;line-height:1.35}
+.eyebrow{margin-bottom:9px}
+.hero p{font-size:14px;line-height:1.7}
+.hero-actions{display:flex;gap:18px;align-items:center;flex-wrap:wrap}
+.hero-link{margin-top:12px;font-size:13px;gap:12px}
+.hero-link.secondary-link{color:#bddbcf;border-color:transparent;font-weight:500}
+.provenance{margin:12px 0 16px;padding:10px 14px;font-size:12px}
+.situation{padding:16px 22px}
+.situation .section-heading{margin-bottom:9px}
+.target-summary h3{font-size:20px;margin:2px 0 4px}
+.target-summary p{font-size:12px}
+.target-summary .missing-line{display:none}
+.arrival-strip{display:flex;gap:5px;flex-wrap:wrap;margin-top:9px}
+.arrival-chip{font-size:10px;font-weight:650;border:1px solid #dfe4df;border-radius:4px;padding:2px 6px;white-space:nowrap}
+.arrival-chip.received{background:#e4f3eb;color:#1a6550;border-color:#c5dfd1}
+.arrival-chip.missing{background:#fff8ef;color:#966126;border-style:dashed;border-color:#dcccaf}
+.decision-console,.result-panel{padding:19px 21px}
+.decision-metrics{margin:10px 0}
+.decision-metrics>div{padding:9px 0}
+.decision-metrics strong{font-size:30px}
+.recommendation h3{font-size:19px;margin:3px 0 6px}
+.recommendation>p{line-height:1.65;font-size:12px}
+.recommendation .primary{margin-top:10px;min-height:43px}
+.recommendation .action-help{font-size:11px;margin-top:7px}
+.alternative-actions{margin-top:12px;padding-top:10px}
+.session-status{margin-bottom:14px}
+.result-caution{margin:14px 0}
+.comparison-panel{padding:26px;margin-bottom:22px;border-color:#b7cfc4;background:linear-gradient(125deg,#fff 60%,#f0f7f2)}
+.comparison-head{display:flex;justify-content:space-between;align-items:start;gap:20px}
+.comparison-head h2{font-size:25px;letter-spacing:-.8px;margin:3px 0 7px}
+.comparison-head p{font-size:13px;color:var(--muted);line-height:1.8}
+.preview-badge{font-size:11px;color:#43685d;background:#e7f1ea;padding:5px 9px;border-radius:5px;white-space:nowrap}
+.comparison-toolbar{display:flex;align-items:end;flex-wrap:wrap;gap:12px;margin-top:20px}
+.comparison-toolbar label{display:grid;gap:4px;font-size:12px;color:var(--muted)}
+.comparison-toolbar select{min-width:170px;height:42px;border:1px solid #bdcfc5;border-radius:7px;padding:0 12px;background:#fff;color:var(--ink)}
+.comparison-toolbar .text-button{margin-left:auto;font-size:12px}
+.comparison-status{font-size:12px;color:var(--muted);margin:14px 0 16px}
+.choice-comparison{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.choice-comparison:empty{display:none}
+.choice-card{position:relative;border:1px solid #d9e3dd;border-radius:11px;padding:22px 20px;background:white;min-width:0}
+.choice-card.wait{border-top:3px solid #647eae;padding-top:20px}
+.choice-card.acquire{border-top:3px solid #b7803b;padding-top:20px}
+.choice-card.commit{border-top:3px solid #367b64;padding-top:20px}
+.choice-number{position:absolute;right:18px;top:20px;color:#a8b8b0;font-size:12px;font-weight:600}
+.choice-card h3{font-size:17px;padding-right:20px}
+.choice-condition{font-size:12px;color:var(--muted);margin:5px 0 15px}
+.choice-forecast{font-size:38px;letter-spacing:-1px;font-variant-numeric:tabular-nums;font-weight:700;line-height:1.45}
+.choice-note{font-size:11px;color:var(--muted);margin-top:8px;line-height:1.8;min-height:40px}
+.choice-error{border-top:1px solid #e3e9e4;margin-top:12px;padding-top:12px;font-size:13px;font-weight:650;color:#786043}
+.comparison-audit{border-top:1px solid var(--line);margin-top:20px;padding-top:16px}
+.comparison-audit label{display:flex;align-items:center;gap:7px;font-size:13px;font-weight:600;cursor:pointer}
+.comparison-audit input{accent-color:var(--teal);width:17px;height:17px;margin:0}
+.comparison-audit p{font-size:11px;color:var(--muted);margin-top:6px}
+@media(max-width:960px){.comparison-head{flex-wrap:wrap}.choice-card{padding:18px 14px}.choice-card h3{font-size:15px}.preview-badge{white-space:normal}}
+@media(max-width:680px){
+  main{padding-top:16px}.hero{padding:22px}.hero h1{font-size:27px}.hero p{font-size:13px}
+  .hero-actions{gap:10px}.hero-link{font-size:12px}.situation{padding:17px}.situation-grid{gap:14px}
+  .time-summary{padding-top:12px}.arrival-strip{gap:5px}.arrival-chip{font-size:10px}
+  .comparison-panel{padding:20px 17px}.comparison-head{gap:10px}.comparison-head h2{font-size:23px}
+  .comparison-toolbar{gap:10px}.comparison-toolbar label{flex:1;min-width:130px}
+  .comparison-toolbar select{width:100%;min-width:0}.comparison-toolbar .primary{font-size:13px}
+  .comparison-toolbar .text-button{margin-left:0;padding-left:0}
+  .choice-comparison{grid-template-columns:1fr;gap:10px}.choice-card{padding:16px 18px}
+  .choice-card h3{font-size:17px}.choice-condition{margin-bottom:8px}.choice-forecast{font-size:32px}
+  .choice-note{min-height:0}.choice-error{margin-top:9px;padding-top:9px}
+}

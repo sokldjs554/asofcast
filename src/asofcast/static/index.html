@@ -5,14 +5,14 @@
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="description" content="늦게 도착하는 센서 데이터로 예측할 때, 추가 확인·대기·확정을 비교하는 AsOfCast. 실제 모델로 선택과 예측 변화를 체험합니다.">
   <title>AsOfCast · 센서가 늦을 때, 예측은 언제 확정할까?</title>
-  <link rel="stylesheet" href="/static/style.css?v=clear-flow-20260925">
+  <link rel="stylesheet" href="/static/style.css?v=choice-lab-20260928">
 </head>
 <body>
 <a class="skip-link" href="#decision">예측 체험으로 이동</a>
 <header>
   <a class="brand" href="/" aria-label="AsOfCast 처음으로">AsOf<span>Cast</span></a>
   <nav aria-label="주요 메뉴">
-    <a href="#decision">예측 체험</a><a href="#revision">선택 기록</a><a href="#technicalDetails">모델·검증</a>
+    <a href="#decision">예측 체험</a><a href="#comparison">세 선택 비교</a><a href="#technicalDetails">모델·검증</a>
   </nav>
   <span class="runtime" id="serviceStatus">모델 연결 중</span>
 </header>
@@ -21,7 +21,7 @@
     <div class="hero-title"><div class="eyebrow">늦게 도착하는 데이터로 결정하기</div>
     <h1 id="pageTitle">센서가 늦게 도착할 때,<br>예측은 언제 확정할까?</h1></div><div class="hero-intro">
     <p>지금 있는 정보로 확정할지, 더 기다릴지, 센서를 하나 더 읽을지.<br class="desktop-break"> 같은 미래 값을 예측하며<br class="desktop-break"> <strong>선택에 따른 변화를 직접 확인하세요.</strong></p>
-    <a class="hero-link" href="#situation">현재 사례 살펴보기 <span aria-hidden="true">↓</span></a></div>
+    <div class="hero-actions"><a class="hero-link" href="#choiceTitle">추천 실행해 보기 <span aria-hidden="true">↗</span></a><a class="hero-link secondary-link" href="#comparison">세 선택 나란히 비교 ↓</a></div></div>
   </section>
 
   <div class="provenance">
@@ -39,6 +39,7 @@
         <h3><span id="forecastSubject">센서 확인 중</span>의 <span id="horizonLabel">미래</span> 값</h3>
         <p id="caseSummary">예측에 사용할 수 있는 센서 정보를 확인하고 있습니다.</p>
         <p class="missing-line"><strong id="missingSensors">—</strong>개 센서의 기준 시각 값이 아직 없습니다.</p>
+        <div id="arrivalStrip" class="arrival-strip" aria-label="기준 시각 센서 도착 상태"></div>
       </div>
       <div class="time-summary">
         <dl><div><dt>예측 기준</dt><dd id="originTime">—</dd></div><div><dt>현재 판단</dt><dd id="decisionTime">—</dd></div><div class="target-time"><dt>예측 목표 · 고정</dt><dd id="targetTime">—</dd></div></dl>
@@ -81,6 +82,14 @@
     <p class="controls-note">사례·상황·시점을 직접 바꾸면 이전 선택을 지우고 새 비교를 시작합니다.</p>
   </section>
 
+  <section class="panel comparison-panel" id="comparison" aria-labelledby="comparisonTitle">
+    <div class="comparison-head"><div><span class="field-label">선택을 실행하기 전, 나란히 살펴보기</span><h2 id="comparisonTitle">같은 상황, 다른 선택</h2><p>지금 확정할 때, 더 기다릴 때, 센서 하나를 더 읽을 때.<br>같은 출발점과 같은 예측 목표로 비교합니다.</p></div><span class="preview-badge">미리 비교 · 선택 기록에 미반영</span></div>
+    <div class="comparison-toolbar"><label for="compareSensor">추가로 읽어볼 센서 <select id="compareSensor" disabled><option>불러오는 중</option></select></label><button id="compareChoices" class="primary" disabled>세 선택 계산하기</button><button id="exportComparison" class="text-button" disabled>비교 결과 저장 ↓</button></div>
+    <p id="comparisonStatus" class="comparison-status" role="status">센서를 고르고 세 선택을 계산해 보세요. 현재 모델 추천은 그대로 유지됩니다.</p>
+    <div id="choiceComparison" class="choice-comparison" aria-live="polite"></div>
+    <div class="comparison-audit"><label><input id="showComparisonTruth" type="checkbox" disabled> 사후 정답으로 실제 오차도 보기</label><p>정답은 비교 평가에만 사용합니다. 한 사례의 개선은 전체 성능 우위를 뜻하지 않습니다. 추가 정보 비용은 센서 취득의 상대값이며, 대기 시간은 별도로 표시합니다.</p></div>
+  </section>
+
   <section class="panel sensor-panel" id="sensorMap" aria-labelledby="sensorHeading">
     <div class="panel-head"><div><h2 id="sensorHeading">어떤 센서를 더 읽어볼까요?</h2><p>모델 추천과 별개로 직접 선택할 수 있습니다. 새 미래 값이 아니라 <strong>원래 예측 기준 시각의 값</strong>만 읽습니다.</p></div></div>
     <p class="sensor-scope">예상 오차 감소는 모델의 추정입니다. 음수면 도움이 되지 않을 것으로 예상한 센서이며, 실제 결과는 다를 수 있습니다.</p>
@@ -113,6 +122,6 @@
   </details>
   <footer><span>AsOfCast · 데이터가 늦어도, 결정의 근거는 분명하게</span><span id="runFooter">모델 확인 중</span></footer>
 </main>
-<script src="/static/app.js?v=clear-flow-20260925" defer></script>
+<script src="/static/app.js?v=choice-lab-20260928" defer></script>
 </body>
 </html>

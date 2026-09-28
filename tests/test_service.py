@@ -143,8 +143,8 @@ def test_dashboard_assets_are_local_and_served(bundle_dir):
         assert '더 읽는 비용과 예측 오차' in html
         assert 'sensorMap' in html
         assert 'followRecommendation' in html
-        assert '/static/app.js?v=clear-flow-20260925' in html
-        assert '/static/style.css?v=clear-flow-20260925' in html
+        assert '/static/app.js?v=choice-lab-20260928' in html
+        assert '/static/style.css?v=choice-lab-20260928' in html
 
 
 def test_service_uses_recorded_cpu_thread_budget(bundle_dir):
