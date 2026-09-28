@@ -19,6 +19,10 @@
   let baseline = null;
   let committed = false;
   let lastChange = null;
+  let comparison = null;
+  let compareController = null;
+  let compareSeq = 0;
+  let compareBusy = false;
 
   function selection() {
     return {case_id: $('caseId').value.trim(), scenario: $('scenario').value,
@@ -44,6 +48,8 @@
     $('waitNext').disabled = blocked || nextWait() === undefined;
     $('waitNext').textContent = nextWait() === undefined ? '마지막 판단 시점'
       : `${duration(nextWait())} 시점 보기`;
+    $('compareChoices').disabled = busy || compareBusy || !state || stateKey !== selectionKey();
+    $('compareSensor').disabled = busy || compareBusy || !state || !state.candidates.some(row => row.eligible);
   }
 
   function duration(seconds) {
@@ -51,6 +57,7 @@
   }
 
   function beginRequest() {
+    invalidateComparison();
     if (controller) controller.abort();
     controller = new AbortController();
     const value = selection();
@@ -193,6 +200,24 @@
       ? `${state.total_sensors}개 중 ${state.available_origin_sensors}개 센서만 기준 시각의 측정값을 확보했습니다.`
       : `${state.total_sensors}개 센서의 기준 시각 값을 모두 확보했습니다.`;
     $('forecastUnit').textContent = `${target} · ${metadata.source_kind === 'synthetic' ? '합성 값, 물리 단위 미지정' : '데이터셋 원본 값 단위'}`;
+    $('arrivalStrip').replaceChildren(...state.columns.map(sensor => {
+      const row = candidateBySensor(sensor);
+      const chip = document.createElement('span');
+      const received = row.passively_observed_origin || row.already_acquired;
+      chip.className = `arrival-chip ${received ? 'received' : 'missing'}`;
+      const label = row.already_acquired ? '직접 읽음' : received ? '도착' : '미도착';
+      chip.textContent = `${received ? '●' : '○'} ${sensor}`;
+      chip.title = `${sensor} · ${label}`;
+      chip.setAttribute('aria-label', chip.title);
+      return chip;
+    }));
+    const candidates = state.candidates.filter(row => row.eligible);
+    const selectedSensor = $('compareSensor').value;
+    $('compareSensor').replaceChildren(...(candidates.length ? candidates : [{sensor: '', label: '모두 도착함'}]).map(row => {
+      const option = document.createElement('option'); option.value = row.sensor;
+      option.textContent = row.label || row.sensor; return option;
+    }));
+    if (candidates.some(row => row.sensor === selectedSensor)) $('compareSensor').value = selectedSensor;
   }
 
   function renderResult() {
@@ -260,6 +285,8 @@
   }
 
   function clearStaleView() {
+    invalidateComparison();
+    $('arrivalStrip').replaceChildren();
     for (const id of ['forecast', 'beforeForecast', 'afterForecast', 'forecastDelta', 'availableSensors', 'missingSensors']) $(id).textContent = '—';
     for (const id of ['originTime', 'decisionTime', 'targetTime']) { $(id).textContent = '—'; delete $(id).dataset.timestamp; }
     $('sessionStatus').textContent = '확인 중';
@@ -404,6 +431,131 @@
     renderPareto(payload.points || []);
   }
 
+  function invalidateComparison() {
+    compareController?.abort();
+    compareSeq++;
+    compareBusy = false;
+    comparison = null;
+    $('choiceComparison').replaceChildren();
+    $('choiceComparison').setAttribute('aria-busy', 'false');
+    $('showComparisonTruth').checked = false;
+    $('showComparisonTruth').disabled = true;
+    $('exportComparison').disabled = true;
+    $('compareChoices').textContent = '세 선택 계산하기';
+    $('comparisonStatus').textContent = '센서를 고르고 세 선택을 계산해 보세요. 현재 모델 추천은 그대로 유지됩니다.';
+  }
+
+  function renderComparison() {
+    if (!comparison) return;
+    const reveal = $('showComparisonTruth').checked;
+    const labels = {COMMIT: '지금 확정', WAIT: '조금 더 기다림', ACQUIRE: '센서 하나 더 읽기'};
+    const icons = {COMMIT: '01', WAIT: '02', ACQUIRE: '03'};
+    $('choiceComparison').replaceChildren(...comparison.choices.map(row => {
+      const card = document.createElement('article');
+      card.className = `choice-card ${row.action.toLowerCase()}`;
+      card.dataset.choice = row.action; card.dataset.status = row.status;
+      if (row.target_time !== undefined) card.dataset.target = String(row.target_time);
+      const tag = document.createElement('span'); tag.className = 'choice-number'; tag.textContent = icons[row.action];
+      const title = document.createElement('h3'); title.textContent = labels[row.action];
+      const condition = document.createElement('p'); condition.className = 'choice-condition';
+      condition.textContent = row.action === 'ACQUIRE' ? `${comparison.sensor || '추가 센서 없음'} · 기준 시각 값`
+        : row.action === 'WAIT' && row.status === 'error' ? '계산할 대기 선택 · 결과 불러오기 실패'
+        : row.action === 'WAIT' && row.wait_seconds !== undefined ? `${duration(row.wait_seconds)} 더 기다린 뒤`
+        : row.action === 'COMMIT' ? '지금 가진 정보 그대로' : '더 기다릴 시점 없음';
+      const forecast = document.createElement('strong'); forecast.className = 'choice-forecast';
+      forecast.textContent = row.status === 'ok' ? fmt(row.prediction, 2) : '—';
+      if (row.status === 'ok') forecast.dataset.value = String(row.prediction);
+      const note = document.createElement('p'); note.className = 'choice-note';
+      note.textContent = row.status === 'ok'
+        ? `${row.available_origin_sensors}/${state.total_sensors}개 기준 시각 값 확보 · 추가 정보 비용 ${fmt(row.extra_cost_proxy, 2)}`
+        : row.message;
+      const error = document.createElement('div'); error.className = 'choice-error';
+      error.hidden = !reveal || row.status !== 'ok';
+      if (row.status === 'ok') {
+        const value = Math.abs(row.prediction - comparison.target_actual_retrospective);
+        error.dataset.value = String(value);
+        error.textContent = `사후 절대 오차 ${fmt(value, 3)}`;
+      }
+      card.append(tag, title, condition, forecast, note, error);
+      return card;
+    }));
+    const errors = comparison.choices.filter(row => row.status === 'error').length;
+    $('comparisonStatus').textContent = `사례 ${comparison.start.case_id} · 목표 ${stamp(comparison.start.target_time)} 고정. `
+      + (errors ? '일부 선택을 계산하지 못했습니다. 세 선택 계산하기로 재시도할 수 있습니다.'
+        : '서로 독립된 세 갈래의 비교입니다. 현재 선택과 모델 추천은 바뀌지 않습니다.')
+      + (reveal ? ` 사후 정답 ${fmt(comparison.target_actual_retrospective, 2)}.` : '');
+  }
+
+  async function compareChoices() {
+    if (busy || compareBusy || !state || stateKey !== selectionKey()) return;
+    invalidateComparison();
+    const seq = compareSeq;
+    compareController = new AbortController();
+    const signal = compareController.signal;
+    const startState = state;
+    const start = {...selection(), acquired: [...acquired]};
+    const sensor = $('compareSensor').value;
+    const wait = nextWait();
+    compareBusy = true;
+    syncActionButtons();
+    $('compareChoices').textContent = '같은 출발점으로 계산 중…';
+    $('choiceComparison').setAttribute('aria-busy', 'true');
+    const record = (action, value, extraCost = 0) => {
+      if (value.target_time !== startState.target_time || value.origin_time !== startState.origin_time
+          || value.case_id !== startState.case_id || value.run_id !== startState.run_id) {
+        throw new Error('비교 조건이 달라 결과를 표시하지 않았습니다.');
+      }
+      return {action, status: 'ok', prediction: value.prediction, target_time: value.target_time,
+        available_origin_sensors: value.available_origin_sensors,
+        wait_seconds: value.decision_time - startState.decision_time, extra_cost_proxy: extraCost};
+    };
+    const branch = async (action, task, unavailable, extraCost = 0) => {
+      if (!task) return {action, status: 'unavailable', message: unavailable};
+      try { return record(action, await task(), extraCost); }
+      catch (error) { return {action, status: 'error', message: '계산 실패 · 다시 비교해 주세요.'}; }
+    };
+    const outcomes = await Promise.all([
+      branch('WAIT', wait === undefined ? null : () => requestJSON('/api/acquisition?' + new URLSearchParams({
+        case_id: start.case_id, scenario: start.scenario, wait_seconds: wait, acquired: start.acquired.join(',')
+      }), {signal}), '마지막 판단 시점입니다. 더 기다리는 선택은 제공하지 않습니다.'),
+      branch('ACQUIRE', sensor ? () => requestJSON('/api/acquire', {method: 'POST', signal,
+        body: JSON.stringify({case_id: Number(start.case_id), scenario: start.scenario,
+          wait_seconds: Number(start.wait_seconds), acquired: start.acquired, sensor})}) : null,
+        '모든 센서가 도착했습니다. 추가 취득할 값이 없습니다.', candidateBySensor(sensor)?.cost_proxy || 0)
+    ]);
+    if (seq !== compareSeq) return;
+    comparison = {schema: 'asofcast.choice-comparison.v1', scope: 'single_case_counterfactual_not_executed',
+      run_id: startState.run_id, source_kind: startState.source_kind, sensor,
+      start: {case_id: Number(start.case_id), scenario: start.scenario, wait_seconds: Number(start.wait_seconds),
+        acquired: start.acquired, origin_time: startState.origin_time, target_time: startState.target_time},
+      current_recommendation: startState.recommended_action,
+      target_actual_retrospective: startState.target_actual_retrospective,
+      choices: [record('COMMIT', startState), ...outcomes]};
+    compareBusy = false;
+    $('choiceComparison').setAttribute('aria-busy', 'false');
+    $('compareChoices').textContent = '세 선택 다시 계산';
+    $('showComparisonTruth').disabled = false;
+    $('exportComparison').disabled = false;
+    renderComparison();
+    syncActionButtons();
+  }
+
+  function exportComparison() {
+    if (!comparison) return;
+    const data = {...comparison, choices: comparison.choices.map(row => ({...row}))};
+    if (!$('showComparisonTruth').checked) delete data.target_actual_retrospective;
+    else data.choices.forEach(row => {
+      if (row.status === 'ok') row.absolute_error_retrospective = Math.abs(row.prediction - data.target_actual_retrospective);
+    });
+    data.limitations = ['Single replay case; not aggregate policy performance.',
+      'Arrival delay is synthetic. Information cost is a relative proxy, not money or latency.',
+      'Alternative branches were previewed, not executed in the user session.'];
+    const url = URL.createObjectURL(new Blob([JSON.stringify(data, null, 2)], {type: 'application/json'}));
+    const link = document.createElement('a'); link.href = url;
+    link.download = `asofcast-case-${data.start.case_id}-comparison.json`; link.click();
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+  }
+
   async function loadState({reset = false, change = null} = {}) {
     if (!metadata) return;
     if (reset) clearSession();
@@ -495,6 +647,10 @@
   });
 
   $('followRecommendation').addEventListener('click', followRecommendation);
+  $('compareChoices').addEventListener('click', compareChoices);
+  $('compareSensor').addEventListener('change', () => { invalidateComparison(); syncActionButtons(); });
+  $('showComparisonTruth').addEventListener('change', renderComparison);
+  $('exportComparison').addEventListener('click', exportComparison);
   $('waitNext').addEventListener('click', () => advanceDecision());
   $('commitPrediction').addEventListener('click', () => commitPrediction());
   $('runButton').addEventListener('click', () => loadState({reset: true}));
