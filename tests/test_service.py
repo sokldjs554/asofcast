@@ -132,7 +132,7 @@ def test_dashboard_assets_are_local_and_served(bundle_dir):
             assert kind in response.headers['content-type']
             assert len(response.content) > 200
         assert '합성 데이터 결과' in html
-        assert '실측 ETTh1 검증' in html
+        assert 'ETTh1·ETTh2 검증' in html
         assert '51,894,720' in html
         assert 'ONNX Runtime' in html
         assert 'deploymentLabel' in html
@@ -143,8 +143,8 @@ def test_dashboard_assets_are_local_and_served(bundle_dir):
         assert '더 읽는 비용과 예측 오차' in html
         assert 'sensorMap' in html
         assert 'followRecommendation' in html
-        assert '/static/app.js?v=choice-lab-20260928' in html
-        assert '/static/style.css?v=choice-lab-20260928' in html
+        assert '/static/app.js?v=interview-clarity-20260928' in html
+        assert '/static/style.css?v=interview-clarity-20260928' in html
 
 
 def test_service_uses_recorded_cpu_thread_budget(bundle_dir):

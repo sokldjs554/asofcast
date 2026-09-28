@@ -90,7 +90,7 @@ def test_export_keeps_provenance_and_truth_hidden_until_requested(page, tmp_path
 
 
 def test_comparison_preserves_selected_sensor_when_committing(page):
-    options = page.locator('#compareSensor option').all_text_contents()
+    options = page.locator('#compareSensor option').evaluate_all('(options) => options.map(option => option.value)')
     assert len(options) >= 2
     sensor = options[1]
     page.locator('#compareSensor').select_option(sensor)
@@ -101,7 +101,7 @@ def test_comparison_preserves_selected_sensor_when_committing(page):
 
 
 def test_commit_during_comparison_keeps_the_selected_sensor(page):
-    sensor = page.locator('#compareSensor option').all_text_contents()[1]
+    sensor = page.locator('#compareSensor option').nth(1).get_attribute('value')
     page.locator('#compareSensor').select_option(sensor)
     page.evaluate("window.holdNext = {path:'/api/acquisition',caseId:'0'}")
     page.locator('#compareChoices').click()

@@ -49,6 +49,7 @@
     $('waitNext').textContent = nextWait() === undefined ? '마지막 판단 시점'
       : `${duration(nextWait())} 시점 보기`;
     $('compareChoices').disabled = busy || compareBusy || !state || stateKey !== selectionKey();
+    $('previewChoices').disabled = $('compareChoices').disabled;
     $('compareSensor').disabled = busy || compareBusy || !state || !state.candidates.some(row => row.eligible);
   }
 
@@ -122,11 +123,18 @@
     return state?.candidates?.find(row => row.sensor === sensor);
   }
 
+  function sensorName(sensor) {
+    if (!sensor) return '추가 센서 없음';
+    if (sensor === metadata.config.target) return `예측 대상 (${sensor})`;
+    const index = state.columns.filter(name => name !== metadata.config.target).indexOf(sensor);
+    return index < 0 ? sensor : `보조 센서 ${index + 1} (${sensor})`;
+  }
+
   function actionCopy() {
     if (!state) return {title: '계산 중', reason: '', button: '추천 확인 중'};
     if (state.recommended_action === 'ACQUIRE') {
       return {
-        title: `${state.recommended_sensor} 센서를 하나 더 읽어보세요`,
+        title: `${sensorName(state.recommended_sensor)}를 더 확인해 보세요`,
         reason: '현재 들어온 정보로 비교한 결과, 이 센서를 추가로 읽는 편이 기다리거나 바로 확정하는 것보다 유리할 것으로 계산됐습니다.',
         button: `추천대로 ${state.recommended_sensor} 읽기`,
         help: '실제 장비를 조작하지 않습니다. 기준 시각의 측정값을 공개하고 예측을 다시 계산합니다.'
@@ -188,7 +196,7 @@
 
   function renderContext() {
     const target = metadata.config.target;
-    $('forecastSubject').textContent = `${metadata.source_kind === 'synthetic' ? '가상 센서' : '센서'} ${target}`;
+    $('forecastSubject').textContent = `예측 대상 센서 (${target})`;
     $('horizonLabel').textContent = `${duration(state.target_time - state.origin_time)} 뒤`;
     for (const [id, key] of [['originTime', 'origin_time'], ['decisionTime', 'decision_time'], ['targetTime', 'target_time']]) {
       $(id).textContent = stamp(state[key]);
@@ -206,8 +214,8 @@
       const received = row.passively_observed_origin || row.already_acquired;
       chip.className = `arrival-chip ${received ? 'received' : 'missing'}`;
       const label = row.already_acquired ? '직접 읽음' : received ? '도착' : '미도착';
-      chip.textContent = `${received ? '●' : '○'} ${sensor}`;
-      chip.title = `${sensor} · ${label}`;
+      chip.textContent = `${received ? '●' : '○'} ${sensorName(sensor).replace('예측 ', '').replace(' 센서 ', ' ')}`;
+      chip.title = `${sensorName(sensor)} · ${label}`;
       chip.setAttribute('aria-label', chip.title);
       return chip;
     }));
@@ -215,7 +223,7 @@
     const selectedSensor = $('compareSensor').value;
     $('compareSensor').replaceChildren(...(candidates.length ? candidates : [{sensor: '', label: '모두 도착함'}]).map(row => {
       const option = document.createElement('option'); option.value = row.sensor;
-      option.textContent = row.label || row.sensor; return option;
+      option.textContent = row.label || sensorName(row.sensor); return option;
     }));
     if (candidates.some(row => row.sensor === selectedSensor)) $('compareSensor').value = selectedSensor;
   }
@@ -231,13 +239,21 @@
     $('forecastDelta').textContent = lastChange
       ? `예측값 변화 ${signed(state.prediction - before, 2)} · 같은 목표 시각`
       : '아직 선택하지 않았습니다.';
+    $('resultGuide').hidden = !!lastChange;
+    $('actionResources').hidden = !lastChange;
+    const extraWait = lastChange?.wait_seconds || 0;
+    const extraCost = lastChange?.cost_proxy || 0;
+    $('actionWait').textContent = extraWait ? duration(extraWait) : '없음';
+    $('actionWait').dataset.value = String(extraWait);
+    $('actionCost').textContent = `${fmt(extraCost, 2)} · 상대값`;
+    $('actionCost').dataset.value = String(extraCost);
     $('resultExplanation').textContent = !lastChange
-      ? '추천을 실행하거나 센서를 직접 읽어 보세요. 같은 목표 시각의 예측이 어떻게 바뀌는지 여기에 표시됩니다.'
+      ? '위의 ‘세 선택의 결과 바로 비교’로 먼저 살펴보거나, 모델 추천을 실행해 보세요.'
       : committed
         ? `${lastChange.actor}으로 현재 예측을 이 화면에서 확정했습니다. 서버에 저장하거나 실제 장비에 명령을 보내지 않습니다.`
         : lastChange.kind === 'WAIT'
           ? `${lastChange.actor}으로 ${duration(Number($('waitSelect').value))} 시점까지의 도착 정보를 재생했습니다. 예측 목표는 그대로 두고 사용할 수 있는 입력만 갱신했습니다.`
-          : `${lastChange.actor}으로 ${lastChange.sensor} 센서의 기준 시각 값을 읽었습니다. 추가 정보로 예측을 다시 계산했으며, 목표 시각은 바뀌지 않았습니다.`;
+          : `${lastChange.actor}으로 ${sensorName(lastChange.sensor)}의 기준 시각 값을 읽었습니다. 추가 정보로 예측을 다시 계산했으며, 목표 시각은 바뀌지 않았습니다.`;
     const actual = state.target_actual_retrospective;
     const audit = $('retrospectiveResult');
     if (!lastChange) {
@@ -294,6 +310,8 @@
     $('recommendationTitle').textContent = '현재 선택을 계산하고 있습니다';
     $('recommendationReason').textContent = '계산이 끝나면 추천과 선택 버튼이 활성화됩니다.';
     $('retrospectiveResult').textContent = '계산 완료 후 확인할 수 있습니다.';
+    $('actionResources').hidden = true;
+    $('resultGuide').hidden = false;
     $('revisionTimeline').replaceChildren();
   }
 
@@ -315,6 +333,8 @@
       rank.className = 'sensor-rank';
       rank.textContent = row.eligible ? `${index + 1}순위` : got ? '확인' : '도착';
       const title = document.createElement('strong'); title.textContent = row.sensor;
+      const role = document.createElement('p'); role.className = 'sensor-role';
+      role.textContent = sensorName(row.sensor);
       const badge = document.createElement('small');
       badge.textContent = got ? '이번 체험에서 읽음' : observed ? '기준 시각 값 도착' : '기준 시각 값 미도착';
       head.append(rank, title, badge);
@@ -332,7 +352,7 @@
       button.dataset.eligible = String(row.eligible);
       button.disabled = !row.eligible;
       button.addEventListener('click', () => acquireSensor(row.sensor));
-      card.append(head, metrics, button);
+      card.append(head, role, metrics, button);
       grid.append(card);
     });
   }
@@ -437,6 +457,8 @@
     compareBusy = false;
     comparison = null;
     $('choiceComparison').replaceChildren();
+    $('comparisonInsight').textContent = '';
+    delete $('comparisonInsight').dataset.complete;
     $('choiceComparison').setAttribute('aria-busy', 'false');
     $('showComparisonTruth').checked = false;
     $('showComparisonTruth').disabled = true;
@@ -450,6 +472,10 @@
     const reveal = $('showComparisonTruth').checked;
     const labels = {COMMIT: '지금 확정', WAIT: '조금 더 기다림', ACQUIRE: '센서 하나 더 읽기'};
     const icons = {COMMIT: '01', WAIT: '02', ACQUIRE: '03'};
+    const commitRow = comparison.choices.find(row => row.action === 'COMMIT');
+    const actual = comparison.target_actual_retrospective;
+    const hasTruth = Number.isFinite(actual);
+    const baselineError = Math.abs(commitRow.prediction - actual);
     $('choiceComparison').replaceChildren(...comparison.choices.map(row => {
       const card = document.createElement('article');
       card.className = `choice-card ${row.action.toLowerCase()}`;
@@ -458,25 +484,50 @@
       const tag = document.createElement('span'); tag.className = 'choice-number'; tag.textContent = icons[row.action];
       const title = document.createElement('h3'); title.textContent = labels[row.action];
       const condition = document.createElement('p'); condition.className = 'choice-condition';
-      condition.textContent = row.action === 'ACQUIRE' ? `${comparison.sensor || '추가 센서 없음'} · 기준 시각 값`
+      condition.textContent = row.action === 'ACQUIRE' ? `${sensorName(comparison.sensor)} · 기준 시각 값`
         : row.action === 'WAIT' && row.status === 'error' ? '계산할 대기 선택 · 결과 불러오기 실패'
         : row.action === 'WAIT' && row.wait_seconds !== undefined ? `${duration(row.wait_seconds)} 더 기다린 뒤`
         : row.action === 'COMMIT' ? '지금 가진 정보 그대로' : '더 기다릴 시점 없음';
       const forecast = document.createElement('strong'); forecast.className = 'choice-forecast';
       forecast.textContent = row.status === 'ok' ? fmt(row.prediction, 2) : '—';
       if (row.status === 'ok') forecast.dataset.value = String(row.prediction);
+      const unit = document.createElement('p'); unit.className = 'choice-unit';
+      unit.textContent = metadata.source_kind === 'synthetic' ? '합성 예측값 · 물리 단위 미지정' : '예측값 · 데이터셋 원본 단위';
+      const delta = document.createElement('p'); delta.className = 'choice-delta';
+      delta.textContent = row.status !== 'ok' ? '' : row.action === 'COMMIT' ? '비교의 기준이 되는 예측'
+        : `지금 확정할 때보다 ${signed(row.prediction - commitRow.prediction, 2)}`;
+      const resources = document.createElement('dl'); resources.className = 'choice-resources';
+      if (row.status === 'ok') {
+        for (const [label, className, value, display] of [
+          ['추가 대기', 'choice-wait', row.wait_seconds, row.wait_seconds ? duration(row.wait_seconds) : '없음'],
+          ['정보 비용', 'choice-cost', row.extra_cost_proxy, `${fmt(row.extra_cost_proxy, 2)} · 상대값`]
+        ]) {
+          const item = document.createElement('div'), term = document.createElement('dt'), detail = document.createElement('dd');
+          term.textContent = label; detail.className = className; detail.dataset.value = String(value);
+          detail.textContent = display; item.append(term, detail); resources.append(item);
+        }
+      }
       const note = document.createElement('p'); note.className = 'choice-note';
       note.textContent = row.status === 'ok'
-        ? `${row.available_origin_sensors}/${state.total_sensors}개 기준 시각 값 확보 · 추가 정보 비용 ${fmt(row.extra_cost_proxy, 2)}`
+        ? `${row.available_origin_sensors}/${state.total_sensors}개 센서의 기준 시각 값 사용`
         : row.message;
       const error = document.createElement('div'); error.className = 'choice-error';
-      error.hidden = !reveal || row.status !== 'ok';
-      if (row.status === 'ok') {
-        const value = Math.abs(row.prediction - comparison.target_actual_retrospective);
+      error.hidden = !reveal || row.status !== 'ok' || !hasTruth;
+      const verdict = document.createElement('p'); verdict.className = 'choice-verdict';
+      verdict.hidden = error.hidden;
+      if (row.status === 'ok' && hasTruth) {
+        const value = Math.abs(row.prediction - actual);
+        const gain = baselineError - value;
         error.dataset.value = String(value);
         error.textContent = `사후 절대 오차 ${fmt(value, 3)}`;
+        verdict.dataset.gain = String(gain);
+        const direction = Math.abs(gain) < 1e-8 ? 'same' : gain > 0 ? 'better' : 'worse';
+        verdict.dataset.direction = direction;
+        verdict.textContent = row.action === 'COMMIT' ? '오차 = 예측값과 사후 정답 사이의 거리'
+          : direction === 'same' ? '지금 확정할 때와 오차가 같습니다.'
+          : `지금 확정보다 오차 ${fmt(Math.abs(gain), 3)} ${direction === 'better' ? '감소' : '증가'}`;
       }
-      card.append(tag, title, condition, forecast, note, error);
+      card.append(tag, title, condition, forecast, unit, delta, resources, note, error, verdict);
       return card;
     }));
     const errors = comparison.choices.filter(row => row.status === 'error').length;
@@ -484,6 +535,15 @@
       + (errors ? '일부 선택을 계산하지 못했습니다. 세 선택 계산하기로 재시도할 수 있습니다.'
         : '서로 독립된 세 갈래의 비교입니다. 현재 선택과 모델 추천은 바뀌지 않습니다.')
       + (reveal ? ` 사후 정답 ${fmt(comparison.target_actual_retrospective, 2)}.` : '');
+    const complete = comparison.choices.every(row => row.status === 'ok');
+    const insight = $('comparisonInsight');
+    insight.dataset.complete = String(complete);
+    insight.textContent = errors
+      ? '일부 선택의 계산에 실패했습니다. 계산된 결과만 확인하고 다시 계산해 주세요.'
+      : !complete ? '마지막 판단 시점이거나 모든 센서 값이 도착하면 일부 선택은 제공되지 않습니다. 지금 가능한 선택의 결과를 비교하세요.'
+      : reveal && hasTruth
+        ? '이 사례의 실제 오차를 지금 확정했을 때와 비교했습니다. 오차가 줄어도 추가 대기·정보 비용을 함께 봐야 합니다. 한 사례로 모델 전체의 우위를 판단하지 않습니다.'
+        : '세 선택은 사용하는 정보와 기다리는 시간이 다릅니다. 예측값의 변화만으로 더 정확해졌는지는 알 수 없습니다. 아래에서 사후 정답을 켜 확인하세요.';
   }
 
   async function compareChoices() {
@@ -588,6 +648,7 @@
   async function acquireSensor(sensor, actor = '직접 선택') {
     if (busy || committed || !state || stateKey !== selectionKey() || !candidateBySensor(sensor)?.eligible) return;
     const before = state.prediction;
+    const cost = candidateBySensor(sensor).cost_proxy;
     const previousAcquired = [...acquired];
     const op = beginRequest();
     status(`${sensor}의 원래 예측 기준 시각 값을 읽고 있습니다.`);
@@ -598,7 +659,7 @@
           wait_seconds: Number(op.value.wait_seconds), acquired: previousAcquired, sensor})
       });
       if (!isCurrent(op)) return;
-      applyState(payload, op, {kind: 'ACTIVE_ACQUISITION', actor, before, sensor});
+      applyState(payload, op, {kind: 'ACTIVE_ACQUISITION', actor, before, sensor, cost_proxy: cost});
       await renderRevisionTimeline(op);
       if (isCurrent(op)) status('');
     } catch (error) {
@@ -612,7 +673,8 @@
     if (busy || committed || !state || stateKey !== selectionKey()) return;
     const wait = nextWait();
     if (wait === undefined) return;
-    const change = {kind: 'WAIT', actor, before: state.prediction};
+    const change = {kind: 'WAIT', actor, before: state.prediction,
+      wait_seconds: wait - Number($('waitSelect').value)};
     $('waitSelect').value = String(wait);
     loadState({change});
   }
@@ -648,6 +710,13 @@
 
   $('followRecommendation').addEventListener('click', followRecommendation);
   $('compareChoices').addEventListener('click', compareChoices);
+  $('previewChoices').addEventListener('click', () => {
+    compareChoices();
+    $('comparison').scrollIntoView({
+      behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth',
+      block: 'start'
+    });
+  });
   $('compareSensor').addEventListener('change', () => { invalidateComparison(); syncActionButtons(); });
   $('showComparisonTruth').addEventListener('change', renderComparison);
   $('exportComparison').addEventListener('click', exportComparison);

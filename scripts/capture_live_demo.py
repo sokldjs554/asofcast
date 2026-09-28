@@ -10,7 +10,7 @@ from urllib.parse import urlparse
 
 from playwright.sync_api import sync_playwright
 
-UI_VERSION = 'choice-lab-20260928'
+UI_VERSION = 'interview-clarity-20260928'
 VIEWPORT = {'width': 1440, 'height': 1000}
 
 
@@ -97,15 +97,6 @@ def main() -> None:
         page.screenshot(path=str(out / 'm2-decision-console.png'))
         page.wait_for_timeout(3000)
 
-        page.locator('#followRecommendation').click()
-        ready(page)
-        assert page.locator('#targetTime').get_attribute('data-timestamp') == initial_target
-        recommendation_result = page.locator('#resultExplanation').inner_text()
-        assert '모델 추천' in recommendation_result
-        frame(page, 'resultPanel')
-        page.screenshot(path=str(out / 'm2-recommended-action.png'))
-        page.wait_for_timeout(4000)
-
         # The three counterfactual branches all begin from a fresh, identical state.
         page.locator('#resetAcquisition').click()
         ready(page)
@@ -113,13 +104,14 @@ def main() -> None:
         assert page.locator('#revisionTimeline .revision-event').count() == 1
         sensor = page.locator('#sensorMapGrid .is-candidate .sensor-card-head strong').first.inner_text()
         page.locator('#compareSensor').select_option(sensor)
-        frame(page, 'comparison')
-        page.locator('#compareChoices').click()
+        frame(page)
+        page.locator('#previewChoices').click()
         page.wait_for_function("!document.getElementById('compareChoices').disabled")
         assert page.locator('#choiceComparison [data-status="ok"]').count() == 3
         assert page.locator('#revisionTimeline .revision-event').count() == 1
         assert page.locator('#sensorMapGrid .is-acquired').count() == 0
         assert page.locator('#forecast').inner_text() == initial_prediction
+        frame(page, 'comparison')
         page.screenshot(path=str(out / 'm2-choice-comparison.png'))
         page.wait_for_timeout(6000)
         page.locator('#showComparisonTruth').check()
@@ -134,6 +126,18 @@ def main() -> None:
         assert comparison['scope'] == 'single_case_counterfactual_not_executed'
         assert all(str(row['target_time']) == initial_target for row in comparison['choices'])
         page.wait_for_timeout(1000)
+
+        page.locator('#followRecommendation').click()
+        ready(page)
+        assert page.locator('#targetTime').get_attribute('data-timestamp') == initial_target
+        recommendation_result = page.locator('#resultExplanation').inner_text()
+        assert '모델 추천' in recommendation_result
+        frame(page, 'resultPanel')
+        page.screenshot(path=str(out / 'm2-recommended-action.png'))
+        page.wait_for_timeout(4000)
+
+        page.locator('#resetAcquisition').click()
+        ready(page)
 
         # A manual sensor choice is a separate, real session action.
         candidate = page.locator('#sensorMapGrid .sensor-card.is-candidate').first
@@ -209,7 +213,7 @@ def main() -> None:
         'scopes': [
             'real HTTP assets and model API; not the local TestClient bridge',
             'cold start and expert/mobile checks excluded from short video',
-            'the actual recommendation is executed before independent alternatives and a manual choice',
+            'independent alternatives and opt-in audit precede the actual recommendation and a manual choice',
             'comparison preserves session state, fixed target and opt-in retrospective truth',
             'manual acquisition records the real before/after values',
             'desktop flow and 390px/320px overflow checks; not a full production load test']}
