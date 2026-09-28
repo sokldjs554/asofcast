@@ -1,0 +1,26 @@
+{
+  "status": "verified",
+  "final_repetitions": 2,
+  "evaluations_per_repetition": 18,
+  "trained_bundles_per_repetition": 6,
+  "raw_arrays_exactly_equal": 1152,
+  "checkpoint_files_compared": 36,
+  "checkpoint_tensors_exactly_equal": 288,
+  "maximum_prediction_difference": 0.0,
+  "validation_selections_identical": true,
+  "promotion_gate_identical": true,
+  "promotion_gate_passed": false,
+  "pre_hardening_numerical_results_identical": true,
+  "source_files_verified": 23,
+  "local_execution_commit": "83538c60a92e879c65cd7790cb8786ba128fdcc6",
+  "source_tree": "837fdb180dea970fd34a78295342ea21e44f812d",
+  "protocol_sha256": "d67a05e636c2c0da9c254b6ff9194648407ae5eb39943dd7d188a7fffcddc0ea",
+  "report_sha256": [
+    "52404e01e0421fdfa20f99841d2a0dd84066438c04f6fa36fb1d2e8484a46e13",
+    "52404e01e0421fdfa20f99841d2a0dd84066438c04f6fa36fb1d2e8484a46e13"
+  ],
+  "paired_loss_sha256": [
+    "edf57f0d62809ed7e407b9e0a9ec1c82f35aa6bf060e67b90dbeaa2306e9d73f",
+    "edf57f0d62809ed7e407b9e0a9ec1c82f35aa6bf060e67b90dbeaa2306e9d73f"
+  ]
+}
