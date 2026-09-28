@@ -1,0 +1,39 @@
+{
+  "status": "captured",
+  "source_url": "https://asofcast.onrender.com",
+  "ui_version": "choice-lab-20260928",
+  "captured_at_unix": 1790579660,
+  "browser": "Chromium via Playwright",
+  "public_http_verified": true,
+  "model_run_id": "bd4b198464ea3244",
+  "source_kind": "synthetic",
+  "initial_action": "대기",
+  "initial_prediction": "32.42",
+  "recommendation_result": "모델 추천으로 30분 시점까지의 도착 정보를 재생했습니다. 예측 목표는 그대로 두고 사용할 수 있는 입력만 갱신했습니다.",
+  "sensor_clicked": "OT",
+  "acquisition_click_mode": "manual_after_reset",
+  "manual_prediction": "32.19",
+  "fixed_target_timestamp": "1726290000",
+  "screenshots": [
+    "m2-decision-console.png",
+    "m2-recommended-action.png",
+    "m2-after-acquisition.png",
+    "m2-choice-comparison.png",
+    "m2-choice-audit.png",
+    "m2-counterfactual.png",
+    "m2-revision.png",
+    "m2-pareto.png",
+    "m2-mobile.png",
+    "m2-full.png"
+  ],
+  "video": "asofcast-m2-demo.webm",
+  "comparison_evidence": "comparison-example.json",
+  "scopes": [
+    "real HTTP assets and model API; not the local TestClient bridge",
+    "cold start and expert/mobile checks excluded from short video",
+    "the actual recommendation is executed before independent alternatives and a manual choice",
+    "comparison preserves session state, fixed target and opt-in retrospective truth",
+    "manual acquisition records the real before/after values",
+    "desktop flow and 390px/320px overflow checks; not a full production load test"
+  ]
+}

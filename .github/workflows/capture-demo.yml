@@ -37,11 +37,12 @@ jobs:
             sudo apt-get update
             sudo apt-get install -y ffmpeg
           fi
-          ffmpeg -y -i docs/assets/live-m2/asofcast-m2-demo.webm \
+          capture_video_start=$(python -c 'import json; print(json.load(open("docs/assets/live-m2/capture-report.json")).get("video_start_offset_seconds", 0))')
+          ffmpeg -y -ss "$capture_video_start" -i docs/assets/live-m2/asofcast-m2-demo.webm \
             -c:v libx264 -preset medium -crf 21 -pix_fmt yuv420p -movflags +faststart \
             docs/assets/live-m2/asofcast-m2-demo.mp4
           ffmpeg -y -i docs/assets/live-m2/asofcast-m2-demo.mp4 \
-            -vf "fps=12,scale=960:-1:flags=lanczos,split[s0][s1];[s0]palettegen=max_colors=128[p];[s1][p]paletteuse=dither=bayer" \
+            -vf "fps=4,scale=800:-1:flags=lanczos,split[s0][s1];[s0]palettegen=max_colors=64[p];[s1][p]paletteuse=dither=bayer:bayer_scale=5:diff_mode=rectangle" \
             docs/assets/live-m2/asofcast-m2-demo.gif
       - name: Validate generated media
         run: |

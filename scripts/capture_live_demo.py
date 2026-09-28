@@ -16,11 +16,19 @@ VIEWPORT = {'width': 1440, 'height': 1000}
 
 def wait_for_m2(page, url: str, attempts: int = 24) -> None:
     last = None
-    for _ in range(attempts):
+    for attempt in range(1, attempts + 1):
         try:
-            response = page.goto(url, wait_until='domcontentloaded', timeout=60_000)
+            # A repeated goto can reuse a fresh cached pre-deploy HTML document.
+            # Reload revalidates that document while Render finishes updating.
+            if attempt > 1 and urlparse(page.url).netloc == urlparse(url).netloc:
+                response = page.reload(wait_until='domcontentloaded', timeout=60_000)
+            else:
+                response = page.goto(url, wait_until='domcontentloaded', timeout=60_000)
             last = None if response is None else response.status
             if response is not None and response.status < 400:
+                last = {'status': response.status, 'title': page.title(),
+                        'scripts': page.locator('script[src]').evaluate_all(
+                            '(nodes) => nodes.map(node => node.getAttribute("src"))')}
                 if (page.locator('h1').count()
                     and '센서가 늦게 도착할 때' in page.locator('h1').inner_text()
                     and page.locator(f'script[src*="{UI_VERSION}"]').count()):
@@ -28,11 +36,13 @@ def wait_for_m2(page, url: str, attempts: int = 24) -> None:
                     page.wait_for_function(
                         "document.querySelectorAll('#sensorMapGrid .sensor-card').length === 7",
                         timeout=60_000)
+                    print(f'Ready: {url} ({UI_VERSION})', flush=True)
                     return
         except Exception as exc:
             if 'ERR_BLOCKED_BY_ADMINISTRATOR' in str(exc):
                 raise RuntimeError('Browser policy blocks this URL; no HTTP verification was performed') from exc
             last = str(exc)
+        print(f'Waiting for current demo ({attempt}/{attempts}): {last}', flush=True)
         page.wait_for_timeout(15_000)
     raise RuntimeError(f'Current public demo did not become ready: {last}')
 
@@ -72,6 +82,7 @@ def main() -> None:
 
         context = browser.new_context(viewport=VIEWPORT, device_scale_factor=1,
             record_video_dir=str(out), record_video_size=VIEWPORT)
+        recording_started = time.monotonic()
         page = context.new_page()
         page.on('pageerror', lambda exc: page_errors.append(str(exc)))
         wait_for_m2(page, args.url, attempts=2)
@@ -82,6 +93,7 @@ def main() -> None:
         initial_prediction = page.locator('#forecast').inner_text()
         assert page.locator('#technicalDetails').get_attribute('open') is None
         frame(page)
+        video_start_offset_seconds = round(time.monotonic() - recording_started, 3)
         page.screenshot(path=str(out / 'm2-decision-console.png'))
         page.wait_for_timeout(3000)
 
@@ -193,6 +205,7 @@ def main() -> None:
         'manual_prediction': manual_prediction, 'fixed_target_timestamp': initial_target,
         'screenshots': [name for name in names if name.endswith('.png')],
         'video': 'asofcast-m2-demo.webm', 'comparison_evidence': 'comparison-example.json',
+        'video_start_offset_seconds': video_start_offset_seconds,
         'scopes': [
             'real HTTP assets and model API; not the local TestClient bridge',
             'cold start and expert/mobile checks excluded from short video',
