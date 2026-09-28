@@ -1,0 +1,21 @@
+{
+  "schema": "asofcast.model-evidence.v1",
+  "datasets": [
+    {"name": "ETTh1", "blob_sha1": "a52c4925778c07c1ef1a2cf6fd01594919717d9e", "prior_test_exposure": true},
+    {"name": "ETTh2", "blob_sha1": "6e3760778598fdee5208213d3fce122637307eec", "prior_test_exposure": false}
+  ],
+  "seeds": [42, 43, 44],
+  "training_config": "configs/ett_m1.json",
+  "conditions": [
+    {"name": "mixed_811", "profile": "mixed", "arrival_seed": 811},
+    {"name": "mixed_1811", "profile": "mixed", "arrival_seed": 1811},
+    {"name": "outage_1811", "profile": "outage", "arrival_seed": 1811}
+  ],
+  "ridge_alphas": [1, 10, 100, 1000],
+  "cost_weight": 0.03,
+  "bootstrap_repeats": 2000,
+  "bootstrap_seed": 20260928,
+  "block_origins": 42,
+  "sensitivity_block_origins": 6,
+  "mae_regression_limit": 0.01
+}
