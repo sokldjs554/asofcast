@@ -1,0 +1,4276 @@
+{
+  "cells": {
+    "ETTh1/mixed_1811": {
+      "averages": {
+        "acquisition": {
+          "commit": {
+            "acquisition_rate": 0.0,
+            "mae": 1.1214424196473616,
+            "mean_cost_proxy": 0.0,
+            "n": 640.0,
+            "objective": 0.12728035437661067
+          },
+          "mlp": {
+            "acquisition_rate": 0.13385416666666666,
+            "mae": 1.1147017338066392,
+            "mean_cost_proxy": 0.13177295982216797,
+            "n": 640.0,
+            "objective": 0.13046849552592418
+          },
+          "oldest": {
+            "acquisition_rate": 1.0,
+            "mae": 1.1064919522227352,
+            "mean_cost_proxy": 0.9776056040078401,
+            "n": 640.0,
+            "objective": 0.15491168924124213
+          },
+          "prior": {
+            "acquisition_rate": 0.0,
+            "mae": 1.1214424196473616,
+            "mean_cost_proxy": 0.0,
+            "n": 640.0,
+            "objective": 0.12728035437661067
+          },
+          "random_mlp": {
+            "acquisition_rate": 0.13385416666666666,
+            "mae": 1.119295659426024,
+            "mean_cost_proxy": 0.1312190621227972,
+            "n": 640.0,
+            "objective": 0.13097327538765488
+          },
+          "random_ridge": {
+            "acquisition_rate": 0.019791666666666666,
+            "mae": 1.1210615081240027,
+            "mean_cost_proxy": 0.019379016858643835,
+            "n": 640.0,
+            "objective": 0.1278184925658196
+          },
+          "ridge": {
+            "acquisition_rate": 0.019791666666666666,
+            "mae": 1.120512903177536,
+            "mean_cost_proxy": 0.01954128413150708,
+            "n": 640.0,
+            "objective": 0.12776109556640342
+          },
+          "simple": {
+            "acquisition_rate": 0.0,
+            "mae": 1.1214424196473616,
+            "mean_cost_proxy": 0.0,
+            "n": 640.0,
+            "objective": 0.12728035437661067
+          },
+          "target": {
+            "acquisition_rate": 0.7125,
+            "mae": 1.06345956772352,
+            "mean_cost_proxy": 0.7034862287342548,
+            "n": 640.0,
+            "objective": 0.14180406128320222
+          }
+        },
+        "forecast": {
+          "arrival": {
+            "mae": 1.6625218233733197
+          },
+          "calibrated": {
+            "mae": 1.1214424196473616
+          },
+          "dlinear": {
+            "mae": 1.1465139682238694
+          },
+          "persistence": {
+            "mae": 1.3282265470957373
+          },
+          "value_only": {
+            "mae": 1.666834957486416
+          }
+        },
+        "wait": {
+          "fixed_0s": {
+            "mae": 1.121442476908366,
+            "mean_wait_seconds": 0.0,
+            "objective": 0.1272803543872821
+          },
+          "fixed_1800s": {
+            "mae": 1.0821532011032104,
+            "mean_wait_seconds": 1800.0,
+            "objective": 0.13282114507397638
+          },
+          "fixed_3600s": {
+            "mae": 1.0773614247639973,
+            "mean_wait_seconds": 3600.0,
+            "objective": 0.14227729269458603
+          },
+          "learned": {
+            "mae": 1.121177037556966,
+            "mean_wait_seconds": 12.1875,
+            "objective": 0.12731794148233408
+          },
+          "random_matched": {
+            "mae": 1.1211769166598833,
+            "mean_wait_seconds": 12.1875,
+            "objective": 0.1273179289164097
+          },
+          "validation_fixed": {
+            "mae": 1.121442476908366,
+            "mean_wait_seconds": 0.0,
+            "objective": 0.1272803543872821
+          }
+        }
+      },
+      "calibrated_vs_dlinear": {
+        "block_origins": 42,
+        "bootstrap_repeats": 2000,
+        "lower95": 0.010316039919301332,
+        "mean": 0.025071548576508118,
+        "origins": 640,
+        "scope": "conditional on these training seeds; circular blocks over shared target origins",
+        "seed_improvements": [
+          0.035970774363649524,
+          0.03457030922613717,
+          0.004673562139737637
+        ],
+        "training_seeds": 3,
+        "upper95": 0.03933356003922953
+      },
+      "comparisons": {
+        "mlp": {
+          "block_origins": 42,
+          "bootstrap_repeats": 2000,
+          "lower95": 0.0017100375263408444,
+          "mean": 0.0027073999595207477,
+          "origins": 640,
+          "scope": "conditional on these training seeds; circular blocks over shared target origins",
+          "seed_improvements": [
+            0.0025223247990943496,
+            0.0037721682479605083,
+            0.001827706831507385
+          ],
+          "sensitivity": {
+            "block_origins": 6,
+            "bootstrap_repeats": 2000,
+            "lower95": 0.0016119330438901667,
+            "mean": 0.0027073999595207477,
+            "origins": 640,
+            "scope": "conditional on these training seeds; circular blocks over shared target origins",
+            "seed_improvements": [
+              0.0025223247990943496,
+              0.0037721682479605083,
+              0.001827706831507385
+            ],
+            "training_seeds": 3,
+            "upper95": 0.0037723679065898375
+          },
+          "training_seeds": 3,
+          "upper95": 0.0038493406922983303
+        },
+        "simple": {
+          "block_origins": 42,
+          "bootstrap_repeats": 2000,
+          "lower95": -0.0009467674635583534,
+          "mean": -0.00048074118979275223,
+          "origins": 640,
+          "scope": "conditional on these training seeds; circular blocks over shared target origins",
+          "seed_improvements": [
+            -0.0005085362773388623,
+            -0.00028322438709437847,
+            -0.0006504629049450159
+          ],
+          "sensitivity": {
+            "block_origins": 6,
+            "bootstrap_repeats": 2000,
+            "lower95": -0.0009350609612340728,
+            "mean": -0.00048074118979275223,
+            "origins": 640,
+            "scope": "conditional on these training seeds; circular blocks over shared target origins",
+            "seed_improvements": [
+              -0.0005085362773388623,
+              -0.00028322438709437847,
+              -0.0006504629049450159
+            ],
+            "training_seeds": 3,
+            "upper95": -8.213775197509758e-05
+          },
+          "training_seeds": 3,
+          "upper95": -9.294825965383408e-05
+        }
+      },
+      "mae_relative_regressions": [
+        0.00036157805249348307,
+        -0.0014221762809095706,
+        -0.0014142536531936978
+      ],
+      "selections": [
+        {
+          "candidate_objectives": {
+            "commit": 0.1267621958227586,
+            "oldest": 0.15595829652979018,
+            "prior": 0.1267621958227586,
+            "ridge_1": 0.12660110389087215,
+            "ridge_10": 0.12647916231031395,
+            "ridge_100": 0.1267621958227586,
+            "ridge_1000": 0.1267621958227586,
+            "target": 0.14297397474306978
+          },
+          "fixed_wait_objectives": {
+            "0": 0.1267621958227586,
+            "1": 0.13388305644335194,
+            "2": 0.1412401797303635
+          },
+          "fixed_wait_step": 0,
+          "ridge": "ridge_10",
+          "simple": "commit",
+          "split": "validation",
+          "validation_origins": 423
+        },
+        {
+          "candidate_objectives": {
+            "commit": 0.1271903358452709,
+            "oldest": 0.15637917986293773,
+            "prior": 0.1271903358452709,
+            "ridge_1": 0.12704010392616263,
+            "ridge_10": 0.12694932403012088,
+            "ridge_100": 0.1271903358452709,
+            "ridge_1000": 0.1271903358452709,
+            "target": 0.14330822420458422
+          },
+          "fixed_wait_objectives": {
+            "0": 0.1271903358452709,
+            "1": 0.13415158734535776,
+            "2": 0.14152635670722802
+          },
+          "fixed_wait_step": 0,
+          "ridge": "ridge_10",
+          "simple": "commit",
+          "split": "validation",
+          "validation_origins": 423
+        },
+        {
+          "candidate_objectives": {
+            "commit": 0.12803116321000083,
+            "oldest": 0.15685915563546174,
+            "prior": 0.12803116321000083,
+            "ridge_1": 0.127717601751323,
+            "ridge_10": 0.1278792717721727,
+            "ridge_100": 0.12803116321000083,
+            "ridge_1000": 0.12803116321000083,
+            "target": 0.14405347841005797
+          },
+          "fixed_wait_objectives": {
+            "0": 0.12803116321000083,
+            "1": 0.135037282493943,
+            "2": 0.14241433740507628
+          },
+          "fixed_wait_step": 0,
+          "ridge": "ridge_1",
+          "simple": "commit",
+          "split": "validation",
+          "validation_origins": 423
+        }
+      ]
+    },
+    "ETTh1/mixed_811": {
+      "averages": {
+        "acquisition": {
+          "commit": {
+            "acquisition_rate": 0.0,
+            "mae": 1.1082847165679997,
+            "mean_cost_proxy": 0.0,
+            "n": 640.0,
+            "objective": 0.125786994502414
+          },
+          "mlp": {
+            "acquisition_rate": 0.09583333333333333,
+            "mae": 1.107539077961652,
+            "mean_cost_proxy": 0.09428316972528894,
+            "n": 640.0,
+            "objective": 0.1285308618465594
+          },
+          "oldest": {
+            "acquisition_rate": 1.0,
+            "mae": 1.10114788659688,
+            "mean_cost_proxy": 0.9771086847409606,
+            "n": 640.0,
+            "objective": 0.15429024622748452
+          },
+          "prior": {
+            "acquisition_rate": 0.0,
+            "mae": 1.1082847165679997,
+            "mean_cost_proxy": 0.0,
+            "n": 640.0,
+            "objective": 0.125786994502414
+          },
+          "random_mlp": {
+            "acquisition_rate": 0.09583333333333333,
+            "mae": 1.1074806068516239,
+            "mean_cost_proxy": 0.09398268768482561,
+            "n": 640.0,
+            "objective": 0.12851521108955818
+          },
+          "random_ridge": {
+            "acquisition_rate": 0.020833333333333332,
+            "mae": 1.1075514118350671,
+            "mean_cost_proxy": 0.02042904351497926,
+            "n": 640.0,
+            "objective": 0.12631663791792586
+          },
+          "ridge": {
+            "acquisition_rate": 0.020833333333333332,
+            "mae": 1.1049122522856585,
+            "mean_cost_proxy": 0.02056977277000745,
+            "n": 640.0,
+            "objective": 0.12602132309461012
+          },
+          "simple": {
+            "acquisition_rate": 0.0,
+            "mae": 1.1082847165679997,
+            "mean_cost_proxy": 0.0,
+            "n": 640.0,
+            "objective": 0.125786994502414
+          },
+          "target": {
+            "acquisition_rate": 0.7140625000000002,
+            "mae": 1.0695899599583472,
+            "mean_cost_proxy": 0.7050289616920052,
+            "n": 640.0,
+            "objective": 0.142546124421681
+          }
+        },
+        "forecast": {
+          "arrival": {
+            "mae": 1.6443162444645225
+          },
+          "calibrated": {
+            "mae": 1.1082847165679997
+          },
+          "dlinear": {
+            "mae": 1.125386100914856
+          },
+          "persistence": {
+            "mae": 1.3138374707941236
+          },
+          "value_only": {
+            "mae": 1.6393288450253944
+          }
+        },
+        "wait": {
+          "fixed_0s": {
+            "mae": 1.1082847515741985,
+            "mean_wait_seconds": 0.0,
+            "objective": 0.125786994494653
+          },
+          "fixed_1800s": {
+            "mae": 1.074140469233195,
+            "mean_wait_seconds": 1800.0,
+            "objective": 0.13191172377594437
+          },
+          "fixed_3600s": {
+            "mae": 1.0661286115646362,
+            "mean_wait_seconds": 3600.0,
+            "objective": 0.14100240035215394
+          },
+          "learned": {
+            "mae": 1.1078494787216187,
+            "mean_wait_seconds": 6.5625,
+            "objective": 0.12577405434551958
+          },
+          "random_matched": {
+            "mae": 1.1081674735970053,
+            "mean_wait_seconds": 6.5625,
+            "objective": 0.1258101461098425
+          },
+          "validation_fixed": {
+            "mae": 1.1082847515741985,
+            "mean_wait_seconds": 0.0,
+            "objective": 0.125786994494653
+          }
+        }
+      },
+      "calibrated_vs_dlinear": {
+        "block_origins": 42,
+        "bootstrap_repeats": 2000,
+        "lower95": 0.00220079295437077,
+        "mean": 0.017101384346856287,
+        "origins": 640,
+        "scope": "conditional on these training seeds; circular blocks over shared target origins",
+        "seed_improvements": [
+          0.025018659109766205,
+          0.023645594631428103,
+          0.0026398992993745514
+        ],
+        "training_seeds": 3,
+        "upper95": 0.030579068886771706
+      },
+      "comparisons": {
+        "mlp": {
+          "block_origins": 42,
+          "bootstrap_repeats": 2000,
+          "lower95": 0.0015906848934905914,
+          "mean": 0.002509538751949246,
+          "origins": 640,
+          "scope": "conditional on these training seeds; circular blocks over shared target origins",
+          "seed_improvements": [
+            0.0022465693666599692,
+            0.0031777463180478666,
+            0.002104300571139902
+          ],
+          "sensitivity": {
+            "block_origins": 6,
+            "bootstrap_repeats": 2000,
+            "lower95": 0.0015339246031614798,
+            "mean": 0.002509538751949246,
+            "origins": 640,
+            "scope": "conditional on these training seeds; circular blocks over shared target origins",
+            "seed_improvements": [
+              0.0022465693666599692,
+              0.0031777463180478666,
+              0.002104300571139902
+            ],
+            "training_seeds": 3,
+            "upper95": 0.0035745754216681236
+          },
+          "training_seeds": 3,
+          "upper95": 0.0035867289778349575
+        },
+        "simple": {
+          "block_origins": 42,
+          "bootstrap_repeats": 2000,
+          "lower95": -0.0007643682587270933,
+          "mean": -0.00023432859219610683,
+          "origins": 640,
+          "scope": "conditional on these training seeds; circular blocks over shared target origins",
+          "seed_improvements": [
+            -0.00017803801503032442,
+            -0.00021395317930728193,
+            -0.00031099458225071415
+          ],
+          "sensitivity": {
+            "block_origins": 6,
+            "bootstrap_repeats": 2000,
+            "lower95": -0.0007855372501614813,
+            "mean": -0.00023432859219610683,
+            "origins": 640,
+            "scope": "conditional on these training seeds; circular blocks over shared target origins",
+            "seed_improvements": [
+              -0.00017803801503032442,
+              -0.00021395317930728193,
+              -0.00031099458225071415
+            ],
+            "training_seeds": 3,
+            "upper95": 0.0002618325653175512
+          },
+          "training_seeds": 3,
+          "upper95": 0.00027458963422104726
+        }
+      },
+      "mae_relative_regressions": [
+        -0.001902383543861852,
+        -0.0023573719131774196,
+        -0.004847758242162881
+      ],
+      "selections": [
+        {
+          "candidate_objectives": {
+            "commit": 0.1267621958227586,
+            "oldest": 0.15595829652979018,
+            "prior": 0.1267621958227586,
+            "ridge_1": 0.12660110389087215,
+            "ridge_10": 0.12647916231031395,
+            "ridge_100": 0.1267621958227586,
+            "ridge_1000": 0.1267621958227586,
+            "target": 0.14297397474306978
+          },
+          "fixed_wait_objectives": {
+            "0": 0.1267621958227586,
+            "1": 0.13388305644335194,
+            "2": 0.1412401797303635
+          },
+          "fixed_wait_step": 0,
+          "ridge": "ridge_10",
+          "simple": "commit",
+          "split": "validation",
+          "validation_origins": 423
+        },
+        {
+          "candidate_objectives": {
+            "commit": 0.1271903358452709,
+            "oldest": 0.15637917986293773,
+            "prior": 0.1271903358452709,
+            "ridge_1": 0.12704010392616263,
+            "ridge_10": 0.12694932403012088,
+            "ridge_100": 0.1271903358452709,
+            "ridge_1000": 0.1271903358452709,
+            "target": 0.14330822420458422
+          },
+          "fixed_wait_objectives": {
+            "0": 0.1271903358452709,
+            "1": 0.13415158734535776,
+            "2": 0.14152635670722802
+          },
+          "fixed_wait_step": 0,
+          "ridge": "ridge_10",
+          "simple": "commit",
+          "split": "validation",
+          "validation_origins": 423
+        },
+        {
+          "candidate_objectives": {
+            "commit": 0.12803116321000083,
+            "oldest": 0.15685915563546174,
+            "prior": 0.12803116321000083,
+            "ridge_1": 0.127717601751323,
+            "ridge_10": 0.1278792717721727,
+            "ridge_100": 0.12803116321000083,
+            "ridge_1000": 0.12803116321000083,
+            "target": 0.14405347841005797
+          },
+          "fixed_wait_objectives": {
+            "0": 0.12803116321000083,
+            "1": 0.135037282493943,
+            "2": 0.14241433740507628
+          },
+          "fixed_wait_step": 0,
+          "ridge": "ridge_1",
+          "simple": "commit",
+          "split": "validation",
+          "validation_origins": 423
+        }
+      ]
+    },
+    "ETTh1/outage_1811": {
+      "averages": {
+        "acquisition": {
+          "commit": {
+            "acquisition_rate": 0.0,
+            "mae": 1.1305984658933268,
+            "mean_cost_proxy": 0.0,
+            "n": 640.0,
+            "objective": 0.12831953819065045
+          },
+          "mlp": {
+            "acquisition_rate": 0.20937499999999998,
+            "mae": 1.119554781502788,
+            "mean_cost_proxy": 0.20578244275723892,
+            "n": 640.0,
+            "objective": 0.1332395863859759
+          },
+          "oldest": {
+            "acquisition_rate": 1.0,
+            "mae": 1.104388110095785,
+            "mean_cost_proxy": 0.9772947893477978,
+            "n": 640.0,
+            "objective": 0.15466358502391572
+          },
+          "prior": {
+            "acquisition_rate": 0.0,
+            "mae": 1.1305984658933268,
+            "mean_cost_proxy": 0.0,
+            "n": 640.0,
+            "objective": 0.12831953819065045
+          },
+          "random_mlp": {
+            "acquisition_rate": 0.20937499999999998,
+            "mae": 1.1270244266858018,
+            "mean_cost_proxy": 0.20514327953288716,
+            "n": 640.0,
+            "objective": 0.13406819383571708
+          },
+          "random_ridge": {
+            "acquisition_rate": 0.0546875,
+            "mae": 1.129721042912415,
+            "mean_cost_proxy": 0.053547176507464246,
+            "n": 640.0,
+            "objective": 0.12982636860662236
+          },
+          "ridge": {
+            "acquisition_rate": 0.0546875,
+            "mae": 1.127115843892748,
+            "mean_cost_proxy": 0.05399565352126956,
+            "n": 640.0,
+            "objective": 0.12954414063443742
+          },
+          "simple": {
+            "acquisition_rate": 0.0,
+            "mae": 1.1305984658933268,
+            "mean_cost_proxy": 0.0,
+            "n": 640.0,
+            "objective": 0.12831953819065045
+          },
+          "target": {
+            "acquisition_rate": 0.7046875,
+            "mae": 1.0665961877230774,
+            "mean_cost_proxy": 0.695772563945502,
+            "n": 640.0,
+            "objective": 0.14192864831102392
+          }
+        },
+        "forecast": {
+          "arrival": {
+            "mae": 1.8050680408023176
+          },
+          "calibrated": {
+            "mae": 1.1305984658933268
+          },
+          "dlinear": {
+            "mae": 1.154594079225388
+          },
+          "persistence": {
+            "mae": 1.33107186273016
+          },
+          "value_only": {
+            "mae": 1.6766070862985394
+          }
+        },
+        "wait": {
+          "fixed_0s": {
+            "mae": 1.1305984258651733,
+            "mean_wait_seconds": 0.0,
+            "objective": 0.1283195381654271
+          },
+          "fixed_1800s": {
+            "mae": 1.10394020875295,
+            "mean_wait_seconds": 1800.0,
+            "objective": 0.1352939016519425
+          },
+          "fixed_3600s": {
+            "mae": 1.0882167021433513,
+            "mean_wait_seconds": 3600.0,
+            "objective": 0.14350933961958318
+          },
+          "learned": {
+            "mae": 1.1272865931193035,
+            "mean_wait_seconds": 18.75,
+            "objective": 0.12804782782176818
+          },
+          "random_matched": {
+            "mae": 1.1303110135104655,
+            "mean_wait_seconds": 18.75,
+            "objective": 0.12839107987317522
+          },
+          "validation_fixed": {
+            "mae": 1.1305984258651733,
+            "mean_wait_seconds": 0.0,
+            "objective": 0.1283195381654271
+          }
+        }
+      },
+      "calibrated_vs_dlinear": {
+        "block_origins": 42,
+        "bootstrap_repeats": 2000,
+        "lower95": 0.007993342542786469,
+        "mean": 0.023995613332061023,
+        "origins": 640,
+        "scope": "conditional on these training seeds; circular blocks over shared target origins",
+        "seed_improvements": [
+          0.03438233803375883,
+          0.03299456019347388,
+          0.004609941768950352
+        ],
+        "training_seeds": 3,
+        "upper95": 0.03817543974472517
+      },
+      "comparisons": {
+        "mlp": {
+          "block_origins": 42,
+          "bootstrap_repeats": 2000,
+          "lower95": 0.0020240639004041445,
+          "mean": 0.0036954457515385,
+          "origins": 640,
+          "scope": "conditional on these training seeds; circular blocks over shared target origins",
+          "seed_improvements": [
+            0.003601310280384496,
+            0.00422603949252516,
+            0.0032589874817058446
+          ],
+          "sensitivity": {
+            "block_origins": 6,
+            "bootstrap_repeats": 2000,
+            "lower95": 0.0021542180943244604,
+            "mean": 0.0036954457515385,
+            "origins": 640,
+            "scope": "conditional on these training seeds; circular blocks over shared target origins",
+            "seed_improvements": [
+              0.003601310280384496,
+              0.00422603949252516,
+              0.0032589874817058446
+            ],
+            "training_seeds": 3,
+            "upper95": 0.005284083569969516
+          },
+          "training_seeds": 3,
+          "upper95": 0.005451229231829833
+        },
+        "simple": {
+          "block_origins": 42,
+          "bootstrap_repeats": 2000,
+          "lower95": -0.0019495327208346376,
+          "mean": -0.0012246024437869586,
+          "origins": 640,
+          "scope": "conditional on these training seeds; circular blocks over shared target origins",
+          "seed_improvements": [
+            -0.0014722438920289278,
+            -0.001257893422618508,
+            -0.0009436700167134406
+          ],
+          "sensitivity": {
+            "block_origins": 6,
+            "bootstrap_repeats": 2000,
+            "lower95": -0.0021939561716048045,
+            "mean": -0.0012246024437869586,
+            "origins": 640,
+            "scope": "conditional on these training seeds; circular blocks over shared target origins",
+            "seed_improvements": [
+              -0.0014722438920289278,
+              -0.001257893422618508,
+              -0.0009436700167134406
+            ],
+            "training_seeds": 3,
+            "upper95": -0.0002750874341077493
+          },
+          "training_seeds": 3,
+          "upper95": -0.0004458060445186372
+        }
+      },
+      "mae_relative_regressions": [
+        0.00029394403335891717,
+        -0.0006616713529347118,
+        -0.008762035606791896
+      ],
+      "selections": [
+        {
+          "candidate_objectives": {
+            "commit": 0.1267621958227586,
+            "oldest": 0.15595829652979018,
+            "prior": 0.1267621958227586,
+            "ridge_1": 0.12660110389087215,
+            "ridge_10": 0.12647916231031395,
+            "ridge_100": 0.1267621958227586,
+            "ridge_1000": 0.1267621958227586,
+            "target": 0.14297397474306978
+          },
+          "fixed_wait_objectives": {
+            "0": 0.1267621958227586,
+            "1": 0.13388305644335194,
+            "2": 0.1412401797303635
+          },
+          "fixed_wait_step": 0,
+          "ridge": "ridge_10",
+          "simple": "commit",
+          "split": "validation",
+          "validation_origins": 423
+        },
+        {
+          "candidate_objectives": {
+            "commit": 0.1271903358452709,
+            "oldest": 0.15637917986293773,
+            "prior": 0.1271903358452709,
+            "ridge_1": 0.12704010392616263,
+            "ridge_10": 0.12694932403012088,
+            "ridge_100": 0.1271903358452709,
+            "ridge_1000": 0.1271903358452709,
+            "target": 0.14330822420458422
+          },
+          "fixed_wait_objectives": {
+            "0": 0.1271903358452709,
+            "1": 0.13415158734535776,
+            "2": 0.14152635670722802
+          },
+          "fixed_wait_step": 0,
+          "ridge": "ridge_10",
+          "simple": "commit",
+          "split": "validation",
+          "validation_origins": 423
+        },
+        {
+          "candidate_objectives": {
+            "commit": 0.12803116321000083,
+            "oldest": 0.15685915563546174,
+            "prior": 0.12803116321000083,
+            "ridge_1": 0.127717601751323,
+            "ridge_10": 0.1278792717721727,
+            "ridge_100": 0.12803116321000083,
+            "ridge_1000": 0.12803116321000083,
+            "target": 0.14405347841005797
+          },
+          "fixed_wait_objectives": {
+            "0": 0.12803116321000083,
+            "1": 0.135037282493943,
+            "2": 0.14241433740507628
+          },
+          "fixed_wait_step": 0,
+          "ridge": "ridge_1",
+          "simple": "commit",
+          "split": "validation",
+          "validation_origins": 423
+        }
+      ]
+    },
+    "ETTh2/mixed_1811": {
+      "averages": {
+        "acquisition": {
+          "commit": {
+            "acquisition_rate": 0.0,
+            "mae": 2.6837367033851813,
+            "mean_cost_proxy": 0.0,
+            "n": 640.0,
+            "objective": 0.22243176744511098
+          },
+          "mlp": {
+            "acquisition_rate": 0.33697916666666666,
+            "mae": 2.5322778234127115,
+            "mean_cost_proxy": 0.33221935921659074,
+            "n": 640.0,
+            "objective": 0.21984522916002605
+          },
+          "oldest": {
+            "acquisition_rate": 1.0,
+            "mae": 2.601386643228525,
+            "mean_cost_proxy": 0.9776056040078401,
+            "n": 640.0,
+            "objective": 0.2449346499824678
+          },
+          "prior": {
+            "acquisition_rate": 0.0,
+            "mae": 2.6837367033851813,
+            "mean_cost_proxy": 0.0,
+            "n": 640.0,
+            "objective": 0.22243176744511098
+          },
+          "random_mlp": {
+            "acquisition_rate": 0.33697916666666666,
+            "mae": 2.6491361176375645,
+            "mean_cost_proxy": 0.3304411245940904,
+            "n": 640.0,
+            "objective": 0.2294772573268502
+          },
+          "random_ridge": {
+            "acquisition_rate": 0.22083333333333333,
+            "mae": 2.6599397566311698,
+            "mean_cost_proxy": 0.21638800919698994,
+            "n": 640.0,
+            "objective": 0.2269510842365241
+          },
+          "ridge": {
+            "acquisition_rate": 0.22083333333333333,
+            "mae": 2.565097886740673,
+            "mean_cost_proxy": 0.21803959136207898,
+            "n": 640.0,
+            "objective": 0.21914000784782792
+          },
+          "simple": {
+            "acquisition_rate": 0.0,
+            "mae": 2.6837367033851813,
+            "mean_cost_proxy": 0.0,
+            "n": 640.0,
+            "objective": 0.22243176744511098
+          },
+          "target": {
+            "acquisition_rate": 0.7125,
+            "mae": 2.419610920970463,
+            "mean_cost_proxy": 0.7034862287342548,
+            "n": 640.0,
+            "objective": 0.22164524832188182
+          }
+        },
+        "forecast": {
+          "arrival": {
+            "mae": 2.879128601058363
+          },
+          "calibrated": {
+            "mae": 2.6837367033851813
+          },
+          "dlinear": {
+            "mae": 2.674562304660533
+          },
+          "persistence": {
+            "mae": 5.305360920309168
+          },
+          "value_only": {
+            "mae": 2.7474941823237375
+          }
+        },
+        "wait": {
+          "fixed_0s": {
+            "mae": 2.683736801147461,
+            "mean_wait_seconds": 0.0,
+            "objective": 0.22243176783813398
+          },
+          "fixed_1800s": {
+            "mae": 2.4850196838378906,
+            "mean_wait_seconds": 1800.0,
+            "objective": 0.21596181477934195
+          },
+          "fixed_3600s": {
+            "mae": 2.466881036758423,
+            "mean_wait_seconds": 3600.0,
+            "objective": 0.22445846078073375
+          },
+          "learned": {
+            "mae": 2.6019691626230874,
+            "mean_wait_seconds": 515.625,
+            "objective": 0.21851934634566228
+          },
+          "random_matched": {
+            "mae": 2.6381732258060993,
+            "mean_wait_seconds": 515.625,
+            "objective": 0.22151998745782597
+          },
+          "validation_fixed": {
+            "mae": 2.683736801147461,
+            "mean_wait_seconds": 0.0,
+            "objective": 0.22243176783813398
+          }
+        }
+      },
+      "calibrated_vs_dlinear": {
+        "block_origins": 42,
+        "bootstrap_repeats": 2000,
+        "lower95": -0.019045923290963343,
+        "mean": -0.009174398724648692,
+        "origins": 640,
+        "scope": "conditional on these training seeds; circular blocks over shared target origins",
+        "seed_improvements": [
+          -0.025557179498912858,
+          -0.00021785274613606107,
+          -0.0017481639288971563
+        ],
+        "training_seeds": 3,
+        "upper95": -0.00028210047204243024
+      },
+      "comparisons": {
+        "mlp": {
+          "block_origins": 42,
+          "bootstrap_repeats": 2000,
+          "lower95": -0.0015787565795083837,
+          "mean": 0.0007052213121981673,
+          "origins": 640,
+          "scope": "conditional on these training seeds; circular blocks over shared target origins",
+          "seed_improvements": [
+            -0.0011405422664247458,
+            0.003808972360042391,
+            -0.0005527661570231426
+          ],
+          "sensitivity": {
+            "block_origins": 6,
+            "bootstrap_repeats": 2000,
+            "lower95": -0.0019253672684824167,
+            "mean": 0.0007052213121981673,
+            "origins": 640,
+            "scope": "conditional on these training seeds; circular blocks over shared target origins",
+            "seed_improvements": [
+              -0.0011405422664247458,
+              0.003808972360042391,
+              -0.0005527661570231426
+            ],
+            "training_seeds": 3,
+            "upper95": 0.00332093691163803
+          },
+          "training_seeds": 3,
+          "upper95": 0.003155290229873693
+        },
+        "simple": {
+          "block_origins": 42,
+          "bootstrap_repeats": 2000,
+          "lower95": -0.0002497426387696278,
+          "mean": 0.0032917595972830884,
+          "origins": 640,
+          "scope": "conditional on these training seeds; circular blocks over shared target origins",
+          "seed_improvements": [
+            0.0027496624732157205,
+            0.004434306986746376,
+            0.0026913093318871673
+          ],
+          "sensitivity": {
+            "block_origins": 6,
+            "bootstrap_repeats": 2000,
+            "lower95": -0.0008345347161208343,
+            "mean": 0.0032917595972830884,
+            "origins": 640,
+            "scope": "conditional on these training seeds; circular blocks over shared target origins",
+            "seed_improvements": [
+              0.0027496624732157205,
+              0.004434306986746376,
+              0.0026913093318871673
+            ],
+            "training_seeds": 3,
+            "upper95": 0.007694902352068067
+          },
+          "training_seeds": 3,
+          "upper95": 0.007257930274208287
+        }
+      },
+      "mae_relative_regressions": [
+        -0.04973049182055744,
+        -0.04249469343268142,
+        -0.0403830163138339
+      ],
+      "selections": [
+        {
+          "candidate_objectives": {
+            "commit": 0.19485833552219062,
+            "oldest": 0.21858378783889978,
+            "prior": 0.19485833552219062,
+            "ridge_1": 0.19204487821523178,
+            "ridge_10": 0.19229525926194857,
+            "ridge_100": 0.19214301864517494,
+            "ridge_1000": 0.19373971078483207,
+            "target": 0.20154097570229682
+          },
+          "fixed_wait_objectives": {
+            "0": 0.19485833536366762,
+            "1": 0.19906537832661442,
+            "2": 0.20657180201922748
+          },
+          "fixed_wait_step": 0,
+          "ridge": "ridge_1",
+          "simple": "commit",
+          "split": "validation",
+          "validation_origins": 423
+        },
+        {
+          "candidate_objectives": {
+            "commit": 0.19295703189945107,
+            "oldest": 0.2182180581419744,
+            "prior": 0.19295703189945107,
+            "ridge_1": 0.1936547974682023,
+            "ridge_10": 0.1938054370154444,
+            "ridge_100": 0.19214159361084582,
+            "ridge_1000": 0.1920988046594545,
+            "target": 0.2022105509557059
+          },
+          "fixed_wait_objectives": {
+            "0": 0.1929570320932014,
+            "1": 0.19796060341751603,
+            "2": 0.20522747731096072
+          },
+          "fixed_wait_step": 0,
+          "ridge": "ridge_1000",
+          "simple": "commit",
+          "split": "validation",
+          "validation_origins": 423
+        },
+        {
+          "candidate_objectives": {
+            "commit": 0.19359039768893668,
+            "oldest": 0.2187541333165011,
+            "prior": 0.19359039768893668,
+            "ridge_1": 0.19387903680967664,
+            "ridge_10": 0.19321499355084507,
+            "ridge_100": 0.19293325261514518,
+            "ridge_1000": 0.19249409313672539,
+            "target": 0.2021767736605014
+          },
+          "fixed_wait_objectives": {
+            "0": 0.19359039774177766,
+            "1": 0.1978437183568382,
+            "2": 0.20492725921297184
+          },
+          "fixed_wait_step": 0,
+          "ridge": "ridge_1000",
+          "simple": "commit",
+          "split": "validation",
+          "validation_origins": 423
+        }
+      ]
+    },
+    "ETTh2/mixed_811": {
+      "averages": {
+        "acquisition": {
+          "commit": {
+            "acquisition_rate": 0.0,
+            "mae": 2.646276995633716,
+            "mean_cost_proxy": 0.0,
+            "n": 640.0,
+            "objective": 0.21932705564807597
+          },
+          "mlp": {
+            "acquisition_rate": 0.32968749999999997,
+            "mae": 2.5218663974397315,
+            "mean_cost_proxy": 0.3251317731104791,
+            "n": 640.0,
+            "objective": 0.21876968835667746
+          },
+          "oldest": {
+            "acquisition_rate": 1.0,
+            "mae": 2.611431556198198,
+            "mean_cost_proxy": 0.9771086847409606,
+            "n": 640.0,
+            "objective": 0.24575227852578005
+          },
+          "prior": {
+            "acquisition_rate": 0.0,
+            "mae": 2.646276995633716,
+            "mean_cost_proxy": 0.0,
+            "n": 640.0,
+            "objective": 0.21932705564807597
+          },
+          "random_mlp": {
+            "acquisition_rate": 0.32968749999999997,
+            "mae": 2.6201153506271138,
+            "mean_cost_proxy": 0.3232654699392705,
+            "n": 640.0,
+            "objective": 0.22685670683733497
+          },
+          "random_ridge": {
+            "acquisition_rate": 0.21822916666666667,
+            "mae": 2.630070040355035,
+            "mean_cost_proxy": 0.2138199002160469,
+            "n": 640.0,
+            "objective": 0.22439839804131842
+          },
+          "ridge": {
+            "acquisition_rate": 0.21822916666666667,
+            "mae": 2.5661823841934654,
+            "mean_cost_proxy": 0.21546836976582806,
+            "n": 640.0,
+            "objective": 0.21915275583165927
+          },
+          "simple": {
+            "acquisition_rate": 0.0,
+            "mae": 2.646276995633716,
+            "mean_cost_proxy": 0.0,
+            "n": 640.0,
+            "objective": 0.21932705564807597
+          },
+          "target": {
+            "acquisition_rate": 0.7140625000000002,
+            "mae": 2.4098377818749275,
+            "mean_cost_proxy": 0.7050289616920052,
+            "n": 640.0,
+            "objective": 0.22088151917958024
+          }
+        },
+        "forecast": {
+          "arrival": {
+            "mae": 2.819160811232438
+          },
+          "calibrated": {
+            "mae": 2.646276995633716
+          },
+          "dlinear": {
+            "mae": 2.6459204928685955
+          },
+          "persistence": {
+            "mae": 5.28241798935058
+          },
+          "value_only": {
+            "mae": 2.699883109794887
+          }
+        },
+        "wait": {
+          "fixed_0s": {
+            "mae": 2.6462771892547607,
+            "mean_wait_seconds": 0.0,
+            "objective": 0.21932705577516268
+          },
+          "fixed_1800s": {
+            "mae": 2.4810224374135337,
+            "mean_wait_seconds": 1800.0,
+            "objective": 0.21563052079669429
+          },
+          "fixed_3600s": {
+            "mae": 2.444639205932617,
+            "mean_wait_seconds": 3600.0,
+            "objective": 0.2226150295683086
+          },
+          "learned": {
+            "mae": 2.6028799215952554,
+            "mean_wait_seconds": 502.5,
+            "objective": 0.21852190070792374
+          },
+          "random_matched": {
+            "mae": 2.6075855232344773,
+            "mean_wait_seconds": 502.5,
+            "objective": 0.21891192017951053
+          },
+          "validation_fixed": {
+            "mae": 2.6462771892547607,
+            "mean_wait_seconds": 0.0,
+            "objective": 0.21932705577516268
+          }
+        }
+      },
+      "calibrated_vs_dlinear": {
+        "block_origins": 42,
+        "bootstrap_repeats": 2000,
+        "lower95": -0.012645702986632673,
+        "mean": -0.0003565027651203711,
+        "origins": 640,
+        "scope": "conditional on these training seeds; circular blocks over shared target origins",
+        "seed_improvements": [
+          -0.0021947917412247176,
+          0.0018569956054642392,
+          -0.000731712159600627
+        ],
+        "training_seeds": 3,
+        "upper95": 0.01111676350650777
+      },
+      "comparisons": {
+        "mlp": {
+          "block_origins": 42,
+          "bootstrap_repeats": 2000,
+          "lower95": -0.0035366869603907,
+          "mean": -0.00038306747498184667,
+          "origins": 640,
+          "scope": "conditional on these training seeds; circular blocks over shared target origins",
+          "seed_improvements": [
+            -0.0006588045394455555,
+            0.0007306802774546678,
+            -0.0012210781629546533
+          ],
+          "sensitivity": {
+            "block_origins": 6,
+            "bootstrap_repeats": 2000,
+            "lower95": -0.003322191157764366,
+            "mean": -0.00038306747498184667,
+            "origins": 640,
+            "scope": "conditional on these training seeds; circular blocks over shared target origins",
+            "seed_improvements": [
+              -0.0006588045394455555,
+              0.0007306802774546678,
+              -0.0012210781629546533
+            ],
+            "training_seeds": 3,
+            "upper95": 0.0025669209262838785
+          },
+          "training_seeds": 3,
+          "upper95": 0.0026571582879216294
+        },
+        "simple": {
+          "block_origins": 42,
+          "bootstrap_repeats": 2000,
+          "lower95": -0.003083118241777266,
+          "mean": 0.00017429981641665302,
+          "origins": 640,
+          "scope": "conditional on these training seeds; circular blocks over shared target origins",
+          "seed_improvements": [
+            -0.0014206167439406287,
+            0.0008332385197281824,
+            0.0011102776734624043
+          ],
+          "sensitivity": {
+            "block_origins": 6,
+            "bootstrap_repeats": 2000,
+            "lower95": -0.0032489721573692805,
+            "mean": 0.00017429981641665302,
+            "origins": 640,
+            "scope": "conditional on these training seeds; circular blocks over shared target origins",
+            "seed_improvements": [
+              -0.0014206167439406287,
+              0.0008332385197281824,
+              0.0011102776734624043
+            ],
+            "training_seeds": 3,
+            "upper95": 0.003695209362446377
+          },
+          "training_seeds": 3,
+          "upper95": 0.003638128300523141
+        }
+      },
+      "mae_relative_regressions": [
+        -0.03202588719611299,
+        -0.027218532435545284,
+        -0.0315582852169346
+      ],
+      "selections": [
+        {
+          "candidate_objectives": {
+            "commit": 0.19485833552219062,
+            "oldest": 0.21858378783889978,
+            "prior": 0.19485833552219062,
+            "ridge_1": 0.19204487821523178,
+            "ridge_10": 0.19229525926194857,
+            "ridge_100": 0.19214301864517494,
+            "ridge_1000": 0.19373971078483207,
+            "target": 0.20154097570229682
+          },
+          "fixed_wait_objectives": {
+            "0": 0.19485833536366762,
+            "1": 0.19906537832661442,
+            "2": 0.20657180201922748
+          },
+          "fixed_wait_step": 0,
+          "ridge": "ridge_1",
+          "simple": "commit",
+          "split": "validation",
+          "validation_origins": 423
+        },
+        {
+          "candidate_objectives": {
+            "commit": 0.19295703189945107,
+            "oldest": 0.2182180581419744,
+            "prior": 0.19295703189945107,
+            "ridge_1": 0.1936547974682023,
+            "ridge_10": 0.1938054370154444,
+            "ridge_100": 0.19214159361084582,
+            "ridge_1000": 0.1920988046594545,
+            "target": 0.2022105509557059
+          },
+          "fixed_wait_objectives": {
+            "0": 0.1929570320932014,
+            "1": 0.19796060341751603,
+            "2": 0.20522747731096072
+          },
+          "fixed_wait_step": 0,
+          "ridge": "ridge_1000",
+          "simple": "commit",
+          "split": "validation",
+          "validation_origins": 423
+        },
+        {
+          "candidate_objectives": {
+            "commit": 0.19359039768893668,
+            "oldest": 0.2187541333165011,
+            "prior": 0.19359039768893668,
+            "ridge_1": 0.19387903680967664,
+            "ridge_10": 0.19321499355084507,
+            "ridge_100": 0.19293325261514518,
+            "ridge_1000": 0.19249409313672539,
+            "target": 0.2021767736605014
+          },
+          "fixed_wait_objectives": {
+            "0": 0.19359039774177766,
+            "1": 0.1978437183568382,
+            "2": 0.20492725921297184
+          },
+          "fixed_wait_step": 0,
+          "ridge": "ridge_1000",
+          "simple": "commit",
+          "split": "validation",
+          "validation_origins": 423
+        }
+      ]
+    },
+    "ETTh2/outage_1811": {
+      "averages": {
+        "acquisition": {
+          "commit": {
+            "acquisition_rate": 0.0,
+            "mae": 2.7318411460359946,
+            "mean_cost_proxy": 0.0,
+            "n": 640.0,
+            "objective": 0.2264187294251315
+          },
+          "mlp": {
+            "acquisition_rate": 0.3421874999999999,
+            "mae": 2.5515869761883714,
+            "mean_cost_proxy": 0.3370541324838996,
+            "n": 640.0,
+            "objective": 0.2215906413414632
+          },
+          "oldest": {
+            "acquisition_rate": 1.0,
+            "mae": 2.6290818581167117,
+            "mean_cost_proxy": 0.9772947893477978,
+            "n": 640.0,
+            "objective": 0.2472207428202188
+          },
+          "prior": {
+            "acquisition_rate": 0.0,
+            "mae": 2.7318411460359946,
+            "mean_cost_proxy": 0.0,
+            "n": 640.0,
+            "objective": 0.2264187294251315
+          },
+          "random_mlp": {
+            "acquisition_rate": 0.3421874999999999,
+            "mae": 2.6931200062792917,
+            "mean_cost_proxy": 0.33550098091777825,
+            "n": 640.0,
+            "objective": 0.23327449784628196
+          },
+          "random_ridge": {
+            "acquisition_rate": 0.21770833333333336,
+            "mae": 2.704319945914603,
+            "mean_cost_proxy": 0.21330270884041158,
+            "n": 640.0,
+            "objective": 0.23053681599459364
+          },
+          "ridge": {
+            "acquisition_rate": 0.21770833333333336,
+            "mae": 2.5864006076322266,
+            "mean_cost_proxy": 0.21495412544657785,
+            "n": 640.0,
+            "objective": 0.22081304250502823
+          },
+          "simple": {
+            "acquisition_rate": 0.0,
+            "mae": 2.7318411460359946,
+            "mean_cost_proxy": 0.0,
+            "n": 640.0,
+            "objective": 0.2264187294251315
+          },
+          "target": {
+            "acquisition_rate": 0.7046875,
+            "mae": 2.4197881065872275,
+            "mean_cost_proxy": 0.695772563945502,
+            "n": 640.0,
+            "objective": 0.22142852376440225
+          }
+        },
+        "forecast": {
+          "arrival": {
+            "mae": 2.990582587976108
+          },
+          "calibrated": {
+            "mae": 2.7318411460359946
+          },
+          "dlinear": {
+            "mae": 2.7180944006881558
+          },
+          "persistence": {
+            "mae": 5.35307421146326
+          },
+          "value_only": {
+            "mae": 2.8064449358962746
+          }
+        },
+        "wait": {
+          "fixed_0s": {
+            "mae": 2.7318411668141684,
+            "mean_wait_seconds": 0.0,
+            "objective": 0.22641872954991416
+          },
+          "fixed_1800s": {
+            "mae": 2.564351240793864,
+            "mean_wait_seconds": 1800.0,
+            "objective": 0.22253694191448928
+          },
+          "fixed_3600s": {
+            "mae": 2.4893104235331216,
+            "mean_wait_seconds": 3600.0,
+            "objective": 0.22631744216273852
+          },
+          "learned": {
+            "mae": 2.628610452016195,
+            "mean_wait_seconds": 591.5625,
+            "objective": 0.22114927076251475
+          },
+          "random_matched": {
+            "mae": 2.6860655476311286,
+            "mean_wait_seconds": 591.5625,
+            "objective": 0.2259112435737731
+          },
+          "validation_fixed": {
+            "mae": 2.7318411668141684,
+            "mean_wait_seconds": 0.0,
+            "objective": 0.22641872954991416
+          }
+        }
+      },
+      "calibrated_vs_dlinear": {
+        "block_origins": 42,
+        "bootstrap_repeats": 2000,
+        "lower95": -0.02583151399141231,
+        "mean": -0.01374674534783844,
+        "origins": 640,
+        "scope": "conditional on these training seeds; circular blocks over shared target origins",
+        "seed_improvements": [
+          -0.04037111128989762,
+          -5.295577221797135e-06,
+          -0.0008638291763959059
+        ],
+        "training_seeds": 3,
+        "upper95": -0.0021829561482052257
+      },
+      "comparisons": {
+        "mlp": {
+          "block_origins": 42,
+          "bootstrap_repeats": 2000,
+          "lower95": -0.0016698633439762487,
+          "mean": 0.0007775988364349662,
+          "origins": 640,
+          "scope": "conditional on these training seeds; circular blocks over shared target origins",
+          "seed_improvements": [
+            0.001218254318315302,
+            0.0017604350005567542,
+            -0.0006458928095671578
+          ],
+          "sensitivity": {
+            "block_origins": 6,
+            "bootstrap_repeats": 2000,
+            "lower95": -0.002345057645204967,
+            "mean": 0.0007775988364349662,
+            "origins": 640,
+            "scope": "conditional on these training seeds; circular blocks over shared target origins",
+            "seed_improvements": [
+              0.001218254318315302,
+              0.0017604350005567542,
+              -0.0006458928095671578
+            ],
+            "training_seeds": 3,
+            "upper95": 0.0037828421615693497
+          },
+          "training_seeds": 3,
+          "upper95": 0.003355389401729429
+        },
+        "simple": {
+          "block_origins": 42,
+          "bootstrap_repeats": 2000,
+          "lower95": 0.0013610701915131348,
+          "mean": 0.005605686920103228,
+          "origins": 640,
+          "scope": "conditional on these training seeds; circular blocks over shared target origins",
+          "seed_improvements": [
+            0.005988422379334223,
+            0.005726138161640846,
+            0.005102500219334614
+          ],
+          "sensitivity": {
+            "block_origins": 6,
+            "bootstrap_repeats": 2000,
+            "lower95": 0.0009124370842597268,
+            "mean": 0.005605686920103228,
+            "origins": 640,
+            "scope": "conditional on these training seeds; circular blocks over shared target origins",
+            "seed_improvements": [
+              0.005988422379334223,
+              0.005726138161640846,
+              0.005102500219334614
+            ],
+            "training_seeds": 3,
+            "upper95": 0.011198230163565066
+          },
+          "training_seeds": 3,
+          "upper95": 0.0103667813215201
+        }
+      },
+      "mae_relative_regressions": [
+        -0.06009344939574501,
+        -0.04959665137645208,
+        -0.04997723130321008
+      ],
+      "selections": [
+        {
+          "candidate_objectives": {
+            "commit": 0.19485833552219062,
+            "oldest": 0.21858378783889978,
+            "prior": 0.19485833552219062,
+            "ridge_1": 0.19204487821523178,
+            "ridge_10": 0.19229525926194857,
+            "ridge_100": 0.19214301864517494,
+            "ridge_1000": 0.19373971078483207,
+            "target": 0.20154097570229682
+          },
+          "fixed_wait_objectives": {
+            "0": 0.19485833536366762,
+            "1": 0.19906537832661442,
+            "2": 0.20657180201922748
+          },
+          "fixed_wait_step": 0,
+          "ridge": "ridge_1",
+          "simple": "commit",
+          "split": "validation",
+          "validation_origins": 423
+        },
+        {
+          "candidate_objectives": {
+            "commit": 0.19295703189945107,
+            "oldest": 0.2182180581419744,
+            "prior": 0.19295703189945107,
+            "ridge_1": 0.1936547974682023,
+            "ridge_10": 0.1938054370154444,
+            "ridge_100": 0.19214159361084582,
+            "ridge_1000": 0.1920988046594545,
+            "target": 0.2022105509557059
+          },
+          "fixed_wait_objectives": {
+            "0": 0.1929570320932014,
+            "1": 0.19796060341751603,
+            "2": 0.20522747731096072
+          },
+          "fixed_wait_step": 0,
+          "ridge": "ridge_1000",
+          "simple": "commit",
+          "split": "validation",
+          "validation_origins": 423
+        },
+        {
+          "candidate_objectives": {
+            "commit": 0.19359039768893668,
+            "oldest": 0.2187541333165011,
+            "prior": 0.19359039768893668,
+            "ridge_1": 0.19387903680967664,
+            "ridge_10": 0.19321499355084507,
+            "ridge_100": 0.19293325261514518,
+            "ridge_1000": 0.19249409313672539,
+            "target": 0.2021767736605014
+          },
+          "fixed_wait_objectives": {
+            "0": 0.19359039774177766,
+            "1": 0.1978437183568382,
+            "2": 0.20492725921297184
+          },
+          "fixed_wait_step": 0,
+          "ridge": "ridge_1000",
+          "simple": "commit",
+          "split": "validation",
+          "validation_origins": 423
+        }
+      ]
+    }
+  },
+  "code_commit": "83538c60a92e879c65cd7790cb8786ba128fdcc6",
+  "code_tree": "837fdb180dea970fd34a78295342ea21e44f812d",
+  "limits": [
+    "ETTh1 test results were known before this protocol; ETTh2 is additional same-family evidence.",
+    "Each dataset has its own temporal training split; this is not zero-shot transfer.",
+    "Arrival timestamps and information cost are simulated.",
+    "Intervals condition on three training seeds and resample shared temporal blocks.",
+    "One-shot acquisition does not establish superiority of the full joint sequential policy."
+  ],
+  "promotion_gate": {
+    "meaning": "candidate promotion gate within this fixed benchmark; not universal superiority",
+    "passed": false,
+    "reasons": [
+      "ETTh1/mixed_811 vs simple: interval does not establish improvement",
+      "ETTh1/mixed_811 vs simple: not every training seed improves",
+      "ETTh1/mixed_1811 vs simple: interval does not establish improvement",
+      "ETTh1/mixed_1811 vs simple: not every training seed improves",
+      "ETTh1/outage_1811 vs simple: interval does not establish improvement",
+      "ETTh1/outage_1811 vs simple: not every training seed improves",
+      "ETTh2/mixed_811 vs mlp: interval does not establish improvement",
+      "ETTh2/mixed_811 vs mlp: not every training seed improves",
+      "ETTh2/mixed_811 vs simple: interval does not establish improvement",
+      "ETTh2/mixed_811 vs simple: not every training seed improves",
+      "ETTh2/mixed_1811 vs mlp: interval does not establish improvement",
+      "ETTh2/mixed_1811 vs mlp: not every training seed improves",
+      "ETTh2/mixed_1811 vs simple: interval does not establish improvement",
+      "ETTh2/outage_1811 vs mlp: interval does not establish improvement",
+      "ETTh2/outage_1811 vs mlp: not every training seed improves"
+    ]
+  },
+  "protocol": {
+    "block_origins": 42,
+    "bootstrap_repeats": 2000,
+    "bootstrap_seed": 20260928,
+    "conditions": [
+      {
+        "arrival_seed": 811,
+        "name": "mixed_811",
+        "profile": "mixed"
+      },
+      {
+        "arrival_seed": 1811,
+        "name": "mixed_1811",
+        "profile": "mixed"
+      },
+      {
+        "arrival_seed": 1811,
+        "name": "outage_1811",
+        "profile": "outage"
+      }
+    ],
+    "cost_weight": 0.03,
+    "datasets": [
+      {
+        "blob_sha1": "a52c4925778c07c1ef1a2cf6fd01594919717d9e",
+        "name": "ETTh1",
+        "prior_test_exposure": true
+      },
+      {
+        "blob_sha1": "6e3760778598fdee5208213d3fce122637307eec",
+        "name": "ETTh2",
+        "prior_test_exposure": false
+      }
+    ],
+    "mae_regression_limit": 0.01,
+    "ridge_alphas": [
+      1,
+      10,
+      100,
+      1000
+    ],
+    "schema": "asofcast.model-evidence.v1",
+    "seeds": [
+      42,
+      43,
+      44
+    ],
+    "sensitivity_block_origins": 6,
+    "training_config": "configs/ett_m1.json"
+  },
+  "protocol_sha256": "d67a05e636c2c0da9c254b6ff9194648407ae5eb39943dd7d188a7fffcddc0ea",
+  "raw_losses_sha256": "edf57f0d62809ed7e407b9e0a9ec1c82f35aa6bf060e67b90dbeaa2306e9d73f",
+  "runs": {
+    "ETTh1__42__mixed_1811": {
+      "acquisition": {
+        "commit": {
+          "acquisition_rate": 0.0,
+          "mae": 1.1140007204311597,
+          "mean_cost_proxy": 0.0,
+          "n": 640,
+          "objective": 0.1264357438136358
+        },
+        "mlp": {
+          "acquisition_rate": 0.11875,
+          "mae": 1.109820139858407,
+          "mean_cost_proxy": 0.11684481482952833,
+          "n": 640,
+          "objective": 0.129466604890069
+        },
+        "oldest": {
+          "acquisition_rate": 1.0,
+          "mae": 1.0967402284140522,
+          "mean_cost_proxy": 0.9776056040078401,
+          "n": 640,
+          "objective": 0.15380489780870268
+        },
+        "prior": {
+          "acquisition_rate": 0.0,
+          "mae": 1.1140007204311597,
+          "mean_cost_proxy": 0.0,
+          "n": 640,
+          "objective": 0.1264357438136358
+        },
+        "random_mlp": {
+          "acquisition_rate": 0.11875,
+          "mae": 1.1131568632123017,
+          "mean_cost_proxy": 0.11640983353524156,
+          "n": 640,
+          "objective": 0.12983226355385877
+        },
+        "random_ridge": {
+          "acquisition_rate": 0.015625,
+          "mae": 1.1137005430911349,
+          "mean_cost_proxy": 0.015294659708050034,
+          "n": 640,
+          "objective": 0.126860514376226
+        },
+        "ridge": {
+          "acquisition_rate": 0.015625,
+          "mae": 1.1144035186421295,
+          "mean_cost_proxy": 0.015427329577505589,
+          "n": 640,
+          "objective": 0.12694428009097464
+        },
+        "simple": {
+          "acquisition_rate": 0.0,
+          "mae": 1.1140007204311597,
+          "mean_cost_proxy": 0.0,
+          "n": 640,
+          "objective": 0.1264357438136358
+        },
+        "target": {
+          "acquisition_rate": 0.7125,
+          "mae": 1.0574671780595515,
+          "mean_cost_proxy": 0.7034862287342548,
+          "n": 640,
+          "objective": 0.14112394301174208
+        }
+      },
+      "forecast": {
+        "arrival": {
+          "mae": 1.5424802276563034
+        },
+        "calibrated": {
+          "mae": 1.1140007204311597
+        },
+        "dlinear": {
+          "mae": 1.1499714947948092
+        },
+        "persistence": {
+          "mae": 1.3282265470957373
+        },
+        "value_only": {
+          "mae": 1.6741191577345744
+        }
+      },
+      "selection": {
+        "candidate_objectives": {
+          "commit": 0.1267621958227586,
+          "oldest": 0.15595829652979018,
+          "prior": 0.1267621958227586,
+          "ridge_1": 0.12660110389087215,
+          "ridge_10": 0.12647916231031395,
+          "ridge_100": 0.1267621958227586,
+          "ridge_1000": 0.1267621958227586,
+          "target": 0.14297397474306978
+        },
+        "fixed_wait_objectives": {
+          "0": 0.1267621958227586,
+          "1": 0.13388305644335194,
+          "2": 0.1412401797303635
+        },
+        "fixed_wait_step": 0,
+        "ridge": "ridge_10",
+        "simple": "commit",
+        "split": "validation",
+        "validation_origins": 423
+      },
+      "wait": {
+        "fixed_0s": {
+          "mae": 1.1140007972717285,
+          "mean_wait_seconds": 0.0,
+          "objective": 0.1264357438660227
+        },
+        "fixed_1800s": {
+          "mae": 1.074787974357605,
+          "mean_wait_seconds": 1800.0,
+          "objective": 0.1319852127833292
+        },
+        "fixed_3600s": {
+          "mae": 1.070792555809021,
+          "mean_wait_seconds": 3600.0,
+          "objective": 0.14153173832921312
+        },
+        "learned": {
+          "mae": 1.1132044792175293,
+          "mean_wait_seconds": 36.5625,
+          "objective": 0.1265485051511787
+        },
+        "random_matched": {
+          "mae": 1.1132042116482246,
+          "mean_wait_seconds": 36.5625,
+          "objective": 0.12654846745340548
+        },
+        "validation_fixed": {
+          "mae": 1.1140007972717285,
+          "mean_wait_seconds": 0.0,
+          "objective": 0.1264357438660227
+        }
+      }
+    },
+    "ETTh1__42__mixed_811": {
+      "acquisition": {
+        "commit": {
+          "acquisition_rate": 0.0,
+          "mae": 1.104601668008559,
+          "mean_cost_proxy": 0.0,
+          "n": 640,
+          "objective": 0.1253689795266837
+        },
+        "mlp": {
+          "acquisition_rate": 0.0859375,
+          "mae": 1.103656730665786,
+          "mean_cost_proxy": 0.08439516462385654,
+          "n": 640,
+          "objective": 0.127793586908374
+        },
+        "oldest": {
+          "acquisition_rate": 1.0,
+          "mae": 1.0967881517643812,
+          "mean_cost_proxy": 0.9771086847409606,
+          "n": 640,
+          "objective": 0.15379542938736268
+        },
+        "prior": {
+          "acquisition_rate": 0.0,
+          "mae": 1.104601668008559,
+          "mean_cost_proxy": 0.0,
+          "n": 640,
+          "objective": 0.1253689795266837
+        },
+        "random_mlp": {
+          "acquisition_rate": 0.0859375,
+          "mae": 1.1039942421733577,
+          "mean_cost_proxy": 0.08429562756148655,
+          "n": 640,
+          "objective": 0.12782890734130384
+        },
+        "random_ridge": {
+          "acquisition_rate": 0.0140625,
+          "mae": 1.104020547372554,
+          "mean_cost_proxy": 0.013790952565503261,
+          "n": 640,
+          "objective": 0.12571675265271307
+        },
+        "ridge": {
+          "acquisition_rate": 0.0140625,
+          "mae": 1.1025002919728173,
+          "mean_cost_proxy": 0.01388459661975503,
+          "n": 640,
+          "objective": 0.125547017541714
+        },
+        "simple": {
+          "acquisition_rate": 0.0,
+          "mae": 1.104601668008559,
+          "mean_cost_proxy": 0.0,
+          "n": 640,
+          "objective": 0.1253689795266837
+        },
+        "target": {
+          "acquisition_rate": 0.7140625,
+          "mae": 1.0668573072942282,
+          "mean_cost_proxy": 0.7050289616920054,
+          "n": 640,
+          "objective": 0.1422359765323345
+        }
+      },
+      "forecast": {
+        "arrival": {
+          "mae": 1.5223326628291123
+        },
+        "calibrated": {
+          "mae": 1.104601668008559
+        },
+        "dlinear": {
+          "mae": 1.1296203271183254
+        },
+        "persistence": {
+          "mae": 1.3138374707941236
+        },
+        "value_only": {
+          "mae": 1.6414597843586805
+        }
+      },
+      "selection": {
+        "candidate_objectives": {
+          "commit": 0.1267621958227586,
+          "oldest": 0.15595829652979018,
+          "prior": 0.1267621958227586,
+          "ridge_1": 0.12660110389087215,
+          "ridge_10": 0.12647916231031395,
+          "ridge_100": 0.1267621958227586,
+          "ridge_1000": 0.1267621958227586,
+          "target": 0.14297397474306978
+        },
+        "fixed_wait_objectives": {
+          "0": 0.1267621958227586,
+          "1": 0.13388305644335194,
+          "2": 0.1412401797303635
+        },
+        "fixed_wait_step": 0,
+        "ridge": "ridge_10",
+        "simple": "commit",
+        "split": "validation",
+        "validation_origins": 423
+      },
+      "wait": {
+        "fixed_0s": {
+          "mae": 1.1046017408370972,
+          "mean_wait_seconds": 0.0,
+          "objective": 0.1253689794742968
+        },
+        "fixed_1800s": {
+          "mae": 1.0686873197555542,
+          "mean_wait_seconds": 1800.0,
+          "objective": 0.13129280123626813
+        },
+        "fixed_3600s": {
+          "mae": 1.0590673685073853,
+          "mean_wait_seconds": 3600.0,
+          "objective": 0.14020097182830799
+        },
+        "learned": {
+          "mae": 1.103295922279358,
+          "mean_wait_seconds": 19.6875,
+          "objective": 0.12533015902689656
+        },
+        "random_matched": {
+          "mae": 1.1042499388391482,
+          "mean_wait_seconds": 19.6875,
+          "objective": 0.12543843431986532
+        },
+        "validation_fixed": {
+          "mae": 1.1046017408370972,
+          "mean_wait_seconds": 0.0,
+          "objective": 0.1253689794742968
+        }
+      }
+    },
+    "ETTh1__42__outage_1811": {
+      "acquisition": {
+        "commit": {
+          "acquisition_rate": 0.0,
+          "mae": 1.124108363211939,
+          "mean_cost_proxy": 0.0,
+          "n": 640,
+          "objective": 0.1275829309830442
+        },
+        "mlp": {
+          "acquisition_rate": 0.2046875,
+          "mae": 1.1156393652454928,
+          "mean_cost_proxy": 0.20115866884589195,
+          "n": 640,
+          "objective": 0.13265648515545764
+        },
+        "oldest": {
+          "acquisition_rate": 1.0,
+          "mae": 1.0935035274691014,
+          "mean_cost_proxy": 0.9772947893477977,
+          "n": 640,
+          "objective": 0.15342821750999427
+        },
+        "prior": {
+          "acquisition_rate": 0.0,
+          "mae": 1.124108363211939,
+          "mean_cost_proxy": 0.0,
+          "n": 640,
+          "objective": 0.1275829309830442
+        },
+        "random_mlp": {
+          "acquisition_rate": 0.2046875,
+          "mae": 1.119957384272988,
+          "mean_cost_proxy": 0.20051785970838476,
+          "n": 640,
+          "objective": 0.13312734310258226
+        },
+        "random_ridge": {
+          "acquisition_rate": 0.0484375,
+          "mae": 1.12369614432039,
+          "mean_cost_proxy": 0.04743452897295356,
+          "n": 640,
+          "objective": 0.1289591812432012
+        },
+        "ridge": {
+          "acquisition_rate": 0.0484375,
+          "mae": 1.1244387881581541,
+          "mean_cost_proxy": 0.04782472169026732,
+          "n": 640,
+          "objective": 0.12905517487507315
+        },
+        "simple": {
+          "acquisition_rate": 0.0,
+          "mae": 1.124108363211939,
+          "mean_cost_proxy": 0.0,
+          "n": 640,
+          "objective": 0.1275829309830442
+        },
+        "target": {
+          "acquisition_rate": 0.7046875,
+          "mae": 1.0614841195512443,
+          "mean_cost_proxy": 0.695772563945502,
+          "n": 640,
+          "objective": 0.1413484438911546
+        }
+      },
+      "forecast": {
+        "arrival": {
+          "mae": 1.693793320235364
+        },
+        "calibrated": {
+          "mae": 1.124108363211939
+        },
+        "dlinear": {
+          "mae": 1.158490701245698
+        },
+        "persistence": {
+          "mae": 1.33107186273016
+        },
+        "value_only": {
+          "mae": 1.6719561807769179
+        }
+      },
+      "selection": {
+        "candidate_objectives": {
+          "commit": 0.1267621958227586,
+          "oldest": 0.15595829652979018,
+          "prior": 0.1267621958227586,
+          "ridge_1": 0.12660110389087215,
+          "ridge_10": 0.12647916231031395,
+          "ridge_100": 0.1267621958227586,
+          "ridge_1000": 0.1267621958227586,
+          "target": 0.14297397474306978
+        },
+        "fixed_wait_objectives": {
+          "0": 0.1267621958227586,
+          "1": 0.13388305644335194,
+          "2": 0.1412401797303635
+        },
+        "fixed_wait_step": 0,
+        "ridge": "ridge_10",
+        "simple": "commit",
+        "split": "validation",
+        "validation_origins": 423
+      },
+      "wait": {
+        "fixed_0s": {
+          "mae": 1.1241084337234497,
+          "mean_wait_seconds": 0.0,
+          "objective": 0.12758293099468573
+        },
+        "fixed_1800s": {
+          "mae": 1.0958744287490845,
+          "mean_wait_seconds": 1800.0,
+          "objective": 0.1343784666294232
+        },
+        "fixed_3600s": {
+          "mae": 1.0804105997085571,
+          "mean_wait_seconds": 3600.0,
+          "objective": 0.14262336844578388
+        },
+        "learned": {
+          "mae": 1.1141729354858398,
+          "mean_wait_seconds": 56.25,
+          "objective": 0.12676779996370896
+        },
+        "random_matched": {
+          "mae": 1.1232460068326389,
+          "mean_wait_seconds": 56.25,
+          "objective": 0.12779755611793006
+        },
+        "validation_fixed": {
+          "mae": 1.1241084337234497,
+          "mean_wait_seconds": 0.0,
+          "objective": 0.12758293099468573
+        }
+      }
+    },
+    "ETTh1__43__mixed_1811": {
+      "acquisition": {
+        "commit": {
+          "acquisition_rate": 0.0,
+          "mae": 1.1126475702937544,
+          "mean_cost_proxy": 0.0,
+          "n": 640,
+          "objective": 0.12628216532757505
+        },
+        "mlp": {
+          "acquisition_rate": 0.15,
+          "mae": 1.1093823215068659,
+          "mean_cost_proxy": 0.14753295294940472,
+          "n": 640,
+          "objective": 0.13033755796262994
+        },
+        "oldest": {
+          "acquisition_rate": 1.0,
+          "mae": 1.0953813365419076,
+          "mean_cost_proxy": 0.9776056040078401,
+          "n": 640,
+          "objective": 0.15365066765295343
+        },
+        "prior": {
+          "acquisition_rate": 0.0,
+          "mae": 1.1126475702937544,
+          "mean_cost_proxy": 0.0,
+          "n": 640,
+          "objective": 0.12628216532757505
+        },
+        "random_mlp": {
+          "acquisition_rate": 0.15,
+          "mae": 1.1100055175605605,
+          "mean_cost_proxy": 0.1470606541425167,
+          "n": 640,
+          "objective": 0.1303941198831934
+        },
+        "random_ridge": {
+          "acquisition_rate": 0.015625,
+          "mae": 1.1122022556335298,
+          "mean_cost_proxy": 0.01529221985356084,
+          "n": 640,
+          "objective": 0.12669039004357266
+        },
+        "ridge": {
+          "acquisition_rate": 0.015625,
+          "mae": 1.111065189310271,
+          "mean_cost_proxy": 0.015427329577505589,
+          "n": 640,
+          "objective": 0.12656538971466944
+        },
+        "simple": {
+          "acquisition_rate": 0.0,
+          "mae": 1.1126475702937544,
+          "mean_cost_proxy": 0.0,
+          "n": 640,
+          "objective": 0.12628216532757505
+        },
+        "target": {
+          "acquisition_rate": 0.7125,
+          "mae": 1.0568797842255233,
+          "mean_cost_proxy": 0.7034862287342548,
+          "n": 640,
+          "objective": 0.14105727557162756
+        }
+      },
+      "forecast": {
+        "arrival": {
+          "mae": 1.828276248522623
+        },
+        "calibrated": {
+          "mae": 1.1126475702937544
+        },
+        "dlinear": {
+          "mae": 1.1472178795198915
+        },
+        "persistence": {
+          "mae": 1.3282265470957373
+        },
+        "value_only": {
+          "mae": 1.616423719416685
+        }
+      },
+      "selection": {
+        "candidate_objectives": {
+          "commit": 0.1271903358452709,
+          "oldest": 0.15637917986293773,
+          "prior": 0.1271903358452709,
+          "ridge_1": 0.12704010392616263,
+          "ridge_10": 0.12694932403012088,
+          "ridge_100": 0.1271903358452709,
+          "ridge_1000": 0.1271903358452709,
+          "target": 0.14330822420458422
+        },
+        "fixed_wait_objectives": {
+          "0": 0.1271903358452709,
+          "1": 0.13415158734535776,
+          "2": 0.14152635670722802
+        },
+        "fixed_wait_step": 0,
+        "ridge": "ridge_10",
+        "simple": "commit",
+        "split": "validation",
+        "validation_origins": 423
+      },
+      "wait": {
+        "fixed_0s": {
+          "mae": 1.1126476526260376,
+          "mean_wait_seconds": 0.0,
+          "objective": 0.12628216535085812
+        },
+        "fixed_1800s": {
+          "mae": 1.0730682611465454,
+          "mean_wait_seconds": 1800.0,
+          "objective": 0.13179003541823478
+        },
+        "fixed_3600s": {
+          "mae": 1.0693740844726562,
+          "mean_wait_seconds": 3600.0,
+          "objective": 0.1413707563118078
+        },
+        "learned": {
+          "mae": 1.1126476526260376,
+          "mean_wait_seconds": 0.0,
+          "objective": 0.12628216535085812
+        },
+        "random_matched": {
+          "mae": 1.112647570498897,
+          "mean_wait_seconds": 0.0,
+          "objective": 0.12628216535085812
+        },
+        "validation_fixed": {
+          "mae": 1.1126476526260376,
+          "mean_wait_seconds": 0.0,
+          "objective": 0.12628216535085812
+        }
+      }
+    },
+    "ETTh1__43__mixed_811": {
+      "acquisition": {
+        "commit": {
+          "acquisition_rate": 0.0,
+          "mae": 1.103134250523731,
+          "mean_cost_proxy": 0.0,
+          "n": 640,
+          "objective": 0.12520243203907738
+        },
+        "mlp": {
+          "acquisition_rate": 0.103125,
+          "mae": 1.1062066634191747,
+          "mean_cost_proxy": 0.10143299465999008,
+          "n": 640,
+          "objective": 0.12859413153643254
+        },
+        "oldest": {
+          "acquisition_rate": 1.0,
+          "mae": 1.0950324924874972,
+          "mean_cost_proxy": 0.9771086847409606,
+          "n": 640,
+          "objective": 0.15359616732003634
+        },
+        "prior": {
+          "acquisition_rate": 0.0,
+          "mae": 1.103134250523731,
+          "mean_cost_proxy": 0.0,
+          "n": 640,
+          "objective": 0.12520243203907738
+        },
+        "random_mlp": {
+          "acquisition_rate": 0.103125,
+          "mae": 1.1022675519119343,
+          "mean_cost_proxy": 0.10109361294413075,
+          "n": 640,
+          "objective": 0.1281368727319098
+        },
+        "random_ridge": {
+          "acquisition_rate": 0.0171875,
+          "mae": 1.1025400465486472,
+          "mean_cost_proxy": 0.01685497009993664,
+          "n": 640,
+          "objective": 0.12564064077135684
+        },
+        "ridge": {
+          "acquisition_rate": 0.0171875,
+          "mae": 1.1005337528250823,
+          "mean_cost_proxy": 0.016970062535256146,
+          "n": 640,
+          "objective": 0.12541638521838466
+        },
+        "simple": {
+          "acquisition_rate": 0.0,
+          "mae": 1.103134250523731,
+          "mean_cost_proxy": 0.0,
+          "n": 640,
+          "objective": 0.12520243203907738
+        },
+        "target": {
+          "acquisition_rate": 0.7140625,
+          "mae": 1.0666000925687154,
+          "mean_cost_proxy": 0.7050289616920054,
+          "n": 640,
+          "objective": 0.1422067834316986
+        }
+      },
+      "forecast": {
+        "arrival": {
+          "mae": 1.8100167005075036
+        },
+        "calibrated": {
+          "mae": 1.103134250523731
+        },
+        "dlinear": {
+          "mae": 1.126779845155159
+        },
+        "persistence": {
+          "mae": 1.3138374707941236
+        },
+        "value_only": {
+          "mae": 1.5835338578247586
+        }
+      },
+      "selection": {
+        "candidate_objectives": {
+          "commit": 0.1271903358452709,
+          "oldest": 0.15637917986293773,
+          "prior": 0.1271903358452709,
+          "ridge_1": 0.12704010392616263,
+          "ridge_10": 0.12694932403012088,
+          "ridge_100": 0.1271903358452709,
+          "ridge_1000": 0.1271903358452709,
+          "target": 0.14330822420458422
+        },
+        "fixed_wait_objectives": {
+          "0": 0.1271903358452709,
+          "1": 0.13415158734535776,
+          "2": 0.14152635670722802
+        },
+        "fixed_wait_step": 0,
+        "ridge": "ridge_10",
+        "simple": "commit",
+        "split": "validation",
+        "validation_origins": 423
+      },
+      "wait": {
+        "fixed_0s": {
+          "mae": 1.103134274482727,
+          "mean_wait_seconds": 0.0,
+          "objective": 0.1252024320594501
+        },
+        "fixed_1800s": {
+          "mae": 1.0676615238189697,
+          "mean_wait_seconds": 1800.0,
+          "objective": 0.1311763964733109
+        },
+        "fixed_3600s": {
+          "mae": 1.0583148002624512,
+          "mean_wait_seconds": 3600.0,
+          "objective": 0.14011556290090085
+        },
+        "learned": {
+          "mae": 1.103134274482727,
+          "mean_wait_seconds": 0.0,
+          "objective": 0.1252024320594501
+        },
+        "random_matched": {
+          "mae": 1.1031342507032307,
+          "mean_wait_seconds": 0.0,
+          "objective": 0.1252024320594501
+        },
+        "validation_fixed": {
+          "mae": 1.103134274482727,
+          "mean_wait_seconds": 0.0,
+          "objective": 0.1252024320594501
+        }
+      }
+    },
+    "ETTh1__43__outage_1811": {
+      "acquisition": {
+        "commit": {
+          "acquisition_rate": 0.0,
+          "mae": 1.122327750729034,
+          "mean_cost_proxy": 0.0,
+          "n": 640,
+          "objective": 0.12738083680160345
+        },
+        "mlp": {
+          "acquisition_rate": 0.2375,
+          "mae": 1.1089810383761745,
+          "mean_cost_proxy": 0.23329149251803755,
+          "n": 640,
+          "objective": 0.13286476971674713
+        },
+        "oldest": {
+          "acquisition_rate": 1.0,
+          "mae": 1.0930741435533669,
+          "mean_cost_proxy": 0.9772947893477977,
+          "n": 640,
+          "objective": 0.15337948372215032
+        },
+        "prior": {
+          "acquisition_rate": 0.0,
+          "mae": 1.122327750729034,
+          "mean_cost_proxy": 0.0,
+          "n": 640,
+          "objective": 0.12738083680160345
+        },
+        "random_mlp": {
+          "acquisition_rate": 0.2375,
+          "mae": 1.1177695076903453,
+          "mean_cost_proxy": 0.23271117796190083,
+          "n": 640,
+          "objective": 0.13384482521373955
+        },
+        "random_ridge": {
+          "acquisition_rate": 0.0453125,
+          "mae": 1.1220940622333477,
+          "mean_cost_proxy": 0.0443640915149202,
+          "n": 640,
+          "objective": 0.1286852366030072
+        },
+        "ridge": {
+          "acquisition_rate": 0.0453125,
+          "mae": 1.1215851386077729,
+          "mean_cost_proxy": 0.04473925577476621,
+          "n": 640,
+          "objective": 0.12863873022422195
+        },
+        "simple": {
+          "acquisition_rate": 0.0,
+          "mae": 1.122327750729034,
+          "mean_cost_proxy": 0.0,
+          "n": 640,
+          "objective": 0.12738083680160345
+        },
+        "target": {
+          "acquisition_rate": 0.7046875,
+          "mae": 1.0607155601801093,
+          "mean_cost_proxy": 0.695772563945502,
+          "n": 640,
+          "objective": 0.14126121470541694
+        }
+      },
+      "forecast": {
+        "arrival": {
+          "mae": 1.9449024573668292
+        },
+        "calibrated": {
+          "mae": 1.122327750729034
+        },
+        "dlinear": {
+          "mae": 1.1553223109225077
+        },
+        "persistence": {
+          "mae": 1.33107186273016
+        },
+        "value_only": {
+          "mae": 1.634083497809506
+        }
+      },
+      "selection": {
+        "candidate_objectives": {
+          "commit": 0.1271903358452709,
+          "oldest": 0.15637917986293773,
+          "prior": 0.1271903358452709,
+          "ridge_1": 0.12704010392616263,
+          "ridge_10": 0.12694932403012088,
+          "ridge_100": 0.1271903358452709,
+          "ridge_1000": 0.1271903358452709,
+          "target": 0.14330822420458422
+        },
+        "fixed_wait_objectives": {
+          "0": 0.1271903358452709,
+          "1": 0.13415158734535776,
+          "2": 0.14152635670722802
+        },
+        "fixed_wait_step": 0,
+        "ridge": "ridge_10",
+        "simple": "commit",
+        "split": "validation",
+        "validation_origins": 423
+      },
+      "wait": {
+        "fixed_0s": {
+          "mae": 1.1223275661468506,
+          "mean_wait_seconds": 0.0,
+          "objective": 0.12738083668518813
+        },
+        "fixed_1800s": {
+          "mae": 1.0946987867355347,
+          "mean_wait_seconds": 1800.0,
+          "objective": 0.13424501152709128
+        },
+        "fixed_3600s": {
+          "mae": 1.079002022743225,
+          "mean_wait_seconds": 3600.0,
+          "objective": 0.1424635025369935
+        },
+        "learned": {
+          "mae": 1.1223275661468506,
+          "mean_wait_seconds": 0.0,
+          "objective": 0.12738083668518813
+        },
+        "random_matched": {
+          "mae": 1.1223277497033213,
+          "mean_wait_seconds": 0.0,
+          "objective": 0.12738083668518813
+        },
+        "validation_fixed": {
+          "mae": 1.1223275661468506,
+          "mean_wait_seconds": 0.0,
+          "objective": 0.12738083668518813
+        }
+      }
+    },
+    "ETTh1__44__mixed_1811": {
+      "acquisition": {
+        "commit": {
+          "acquisition_rate": 0.0,
+          "mae": 1.1376789682171702,
+          "mean_cost_proxy": 0.0,
+          "n": 640,
+          "objective": 0.1291231539886212
+        },
+        "mlp": {
+          "acquisition_rate": 0.1328125,
+          "mae": 1.1249027400546443,
+          "mean_cost_proxy": 0.1309411116875708,
+          "n": 640,
+          "objective": 0.13160132372507358
+        },
+        "oldest": {
+          "acquisition_rate": 1.0,
+          "mae": 1.1273542917122459,
+          "mean_cost_proxy": 0.9776056040078401,
+          "n": 640,
+          "objective": 0.15727950226207033
+        },
+        "prior": {
+          "acquisition_rate": 0.0,
+          "mae": 1.1376789682171702,
+          "mean_cost_proxy": 0.0,
+          "n": 640,
+          "objective": 0.1291231539886212
+        },
+        "random_mlp": {
+          "acquisition_rate": 0.1328125,
+          "mae": 1.1347245975052096,
+          "mean_cost_proxy": 0.13018669869063332,
+          "n": 640,
+          "objective": 0.1326934427259124
+        },
+        "random_ridge": {
+          "acquisition_rate": 0.028125,
+          "mae": 1.1372817256473433,
+          "mean_cost_proxy": 0.027550171014320633,
+          "n": 640,
+          "objective": 0.1299045732776601
+        },
+        "ridge": {
+          "acquisition_rate": 0.028125,
+          "mae": 1.1360700015802074,
+          "mean_cost_proxy": 0.02776919323951006,
+          "n": 640,
+          "objective": 0.1297736168935662
+        },
+        "simple": {
+          "acquisition_rate": 0.0,
+          "mae": 1.1376789682171702,
+          "mean_cost_proxy": 0.0,
+          "n": 640,
+          "objective": 0.1291231539886212
+        },
+        "target": {
+          "acquisition_rate": 0.7125,
+          "mae": 1.076031740885485,
+          "mean_cost_proxy": 0.7034862287342548,
+          "n": 640,
+          "objective": 0.14323096526623705
+        }
+      },
+      "forecast": {
+        "arrival": {
+          "mae": 1.6168089939410328
+        },
+        "calibrated": {
+          "mae": 1.1376789682171702
+        },
+        "dlinear": {
+          "mae": 1.1423525303569078
+        },
+        "persistence": {
+          "mae": 1.3282265470957373
+        },
+        "value_only": {
+          "mae": 1.7099619953079888
+        }
+      },
+      "selection": {
+        "candidate_objectives": {
+          "commit": 0.12803116321000083,
+          "oldest": 0.15685915563546174,
+          "prior": 0.12803116321000083,
+          "ridge_1": 0.127717601751323,
+          "ridge_10": 0.1278792717721727,
+          "ridge_100": 0.12803116321000083,
+          "ridge_1000": 0.12803116321000083,
+          "target": 0.14405347841005797
+        },
+        "fixed_wait_objectives": {
+          "0": 0.12803116321000083,
+          "1": 0.135037282493943,
+          "2": 0.14241433740507628
+        },
+        "fixed_wait_step": 0,
+        "ridge": "ridge_1",
+        "simple": "commit",
+        "split": "validation",
+        "validation_origins": 423
+      },
+      "wait": {
+        "fixed_0s": {
+          "mae": 1.1376789808273315,
+          "mean_wait_seconds": 0.0,
+          "objective": 0.12912315394496546
+        },
+        "fixed_1800s": {
+          "mae": 1.098603367805481,
+          "mean_wait_seconds": 1800.0,
+          "objective": 0.13468818702036517
+        },
+        "fixed_3600s": {
+          "mae": 1.091917634010315,
+          "mean_wait_seconds": 3600.0,
+          "objective": 0.14392938344273717
+        },
+        "learned": {
+          "mae": 1.1376789808273315,
+          "mean_wait_seconds": 0.0,
+          "objective": 0.12912315394496546
+        },
+        "random_matched": {
+          "mae": 1.1376789678325279,
+          "mean_wait_seconds": 0.0,
+          "objective": 0.12912315394496546
+        },
+        "validation_fixed": {
+          "mae": 1.1376789808273315,
+          "mean_wait_seconds": 0.0,
+          "objective": 0.12912315394496546
+        }
+      }
+    },
+    "ETTh1__44__mixed_811": {
+      "acquisition": {
+        "commit": {
+          "acquisition_rate": 0.0,
+          "mae": 1.117118231171709,
+          "mean_cost_proxy": 0.0,
+          "n": 640,
+          "objective": 0.12678957194148097
+        },
+        "mlp": {
+          "acquisition_rate": 0.0984375,
+          "mae": 1.1127538397999959,
+          "mean_cost_proxy": 0.09702134989202023,
+          "n": 640,
+          "objective": 0.1292048670948716
+        },
+        "oldest": {
+          "acquisition_rate": 1.0,
+          "mae": 1.1116230155387616,
+          "mean_cost_proxy": 0.9771086847409606,
+          "n": 640,
+          "objective": 0.15547914197505452
+        },
+        "prior": {
+          "acquisition_rate": 0.0,
+          "mae": 1.117118231171709,
+          "mean_cost_proxy": 0.0,
+          "n": 640,
+          "objective": 0.12678957194148097
+        },
+        "random_mlp": {
+          "acquisition_rate": 0.0984375,
+          "mae": 1.1161800264695794,
+          "mean_cost_proxy": 0.09655882254885953,
+          "n": 640,
+          "objective": 0.12957985319546092
+        },
+        "random_ridge": {
+          "acquisition_rate": 0.03125,
+          "mae": 1.1160936415840002,
+          "mean_cost_proxy": 0.030641207879497888,
+          "n": 640,
+          "objective": 0.12759252032970764
+        },
+        "ridge": {
+          "acquisition_rate": 0.03125,
+          "mae": 1.111702712059076,
+          "mean_cost_proxy": 0.030854659155011177,
+          "n": 640,
+          "objective": 0.12710056652373167
+        },
+        "simple": {
+          "acquisition_rate": 0.0,
+          "mae": 1.117118231171709,
+          "mean_cost_proxy": 0.0,
+          "n": 640,
+          "objective": 0.12678957194148097
+        },
+        "target": {
+          "acquisition_rate": 0.7140625,
+          "mae": 1.075312480012098,
+          "mean_cost_proxy": 0.7050289616920054,
+          "n": 640,
+          "objective": 0.14319561330100988
+        }
+      },
+      "forecast": {
+        "arrival": {
+          "mae": 1.6005993700569519
+        },
+        "calibrated": {
+          "mae": 1.117118231171709
+        },
+        "dlinear": {
+          "mae": 1.1197581304710837
+        },
+        "persistence": {
+          "mae": 1.3138374707941236
+        },
+        "value_only": {
+          "mae": 1.6929928928927445
+        }
+      },
+      "selection": {
+        "candidate_objectives": {
+          "commit": 0.12803116321000083,
+          "oldest": 0.15685915563546174,
+          "prior": 0.12803116321000083,
+          "ridge_1": 0.127717601751323,
+          "ridge_10": 0.1278792717721727,
+          "ridge_100": 0.12803116321000083,
+          "ridge_1000": 0.12803116321000083,
+          "target": 0.14405347841005797
+        },
+        "fixed_wait_objectives": {
+          "0": 0.12803116321000083,
+          "1": 0.135037282493943,
+          "2": 0.14241433740507628
+        },
+        "fixed_wait_step": 0,
+        "ridge": "ridge_1",
+        "simple": "commit",
+        "split": "validation",
+        "validation_origins": 423
+      },
+      "wait": {
+        "fixed_0s": {
+          "mae": 1.117118239402771,
+          "mean_wait_seconds": 0.0,
+          "objective": 0.12678957195021212
+        },
+        "fixed_1800s": {
+          "mae": 1.086072564125061,
+          "mean_wait_seconds": 1800.0,
+          "objective": 0.13326597361825407
+        },
+        "fixed_3600s": {
+          "mae": 1.0810036659240723,
+          "mean_wait_seconds": 3600.0,
+          "objective": 0.142690666327253
+        },
+        "learned": {
+          "mae": 1.117118239402771,
+          "mean_wait_seconds": 0.0,
+          "objective": 0.12678957195021212
+        },
+        "random_matched": {
+          "mae": 1.1171182312486374,
+          "mean_wait_seconds": 0.0,
+          "objective": 0.12678957195021212
+        },
+        "validation_fixed": {
+          "mae": 1.117118239402771,
+          "mean_wait_seconds": 0.0,
+          "objective": 0.12678957195021212
+        }
+      }
+    },
+    "ETTh1__44__outage_1811": {
+      "acquisition": {
+        "commit": {
+          "acquisition_rate": 0.0,
+          "mae": 1.1453592837390076,
+          "mean_cost_proxy": 0.0,
+          "n": 640,
+          "objective": 0.1299948467873037
+        },
+        "mlp": {
+          "acquisition_rate": 0.1859375,
+          "mae": 1.1340439408866962,
+          "mean_cost_proxy": 0.18289716690778732,
+          "n": 640,
+          "objective": 0.13419750428572297
+        },
+        "oldest": {
+          "acquisition_rate": 1.0,
+          "mae": 1.126586659264887,
+          "mean_cost_proxy": 0.9772947893477977,
+          "n": 640,
+          "objective": 0.1571830538396025
+        },
+        "prior": {
+          "acquisition_rate": 0.0,
+          "mae": 1.1453592837390076,
+          "mean_cost_proxy": 0.0,
+          "n": 640,
+          "objective": 0.1299948467873037
+        },
+        "random_mlp": {
+          "acquisition_rate": 0.1859375,
+          "mae": 1.1433463880940722,
+          "mean_cost_proxy": 0.1822008009283759,
+          "n": 640,
+          "objective": 0.13523241319082943
+        },
+        "random_ridge": {
+          "acquisition_rate": 0.0703125,
+          "mae": 1.143372922183507,
+          "mean_cost_proxy": 0.06884290903451898,
+          "n": 640,
+          "objective": 0.1318346879736587
+        },
+        "ridge": {
+          "acquisition_rate": 0.0703125,
+          "mae": 1.1353236049123168,
+          "mean_cost_proxy": 0.06942298309877515,
+          "n": 640,
+          "objective": 0.13093851680401714
+        },
+        "simple": {
+          "acquisition_rate": 0.0,
+          "mae": 1.1453592837390076,
+          "mean_cost_proxy": 0.0,
+          "n": 640,
+          "objective": 0.1299948467873037
+        },
+        "target": {
+          "acquisition_rate": 0.7046875,
+          "mae": 1.0775888834378788,
+          "mean_cost_proxy": 0.695772563945502,
+          "n": 640,
+          "objective": 0.1431762863365002
+        }
+      },
+      "forecast": {
+        "arrival": {
+          "mae": 1.7765083448047592
+        },
+        "calibrated": {
+          "mae": 1.1453592837390076
+        },
+        "dlinear": {
+          "mae": 1.149969225507958
+        },
+        "persistence": {
+          "mae": 1.33107186273016
+        },
+        "value_only": {
+          "mae": 1.7237815803091947
+        }
+      },
+      "selection": {
+        "candidate_objectives": {
+          "commit": 0.12803116321000083,
+          "oldest": 0.15685915563546174,
+          "prior": 0.12803116321000083,
+          "ridge_1": 0.127717601751323,
+          "ridge_10": 0.1278792717721727,
+          "ridge_100": 0.12803116321000083,
+          "ridge_1000": 0.12803116321000083,
+          "target": 0.14405347841005797
+        },
+        "fixed_wait_objectives": {
+          "0": 0.12803116321000083,
+          "1": 0.135037282493943,
+          "2": 0.14241433740507628
+        },
+        "fixed_wait_step": 0,
+        "ridge": "ridge_1",
+        "simple": "commit",
+        "split": "validation",
+        "validation_origins": 423
+      },
+      "wait": {
+        "fixed_0s": {
+          "mae": 1.1453592777252197,
+          "mean_wait_seconds": 0.0,
+          "objective": 0.12999484681640752
+        },
+        "fixed_1800s": {
+          "mae": 1.121247410774231,
+          "mean_wait_seconds": 1800.0,
+          "objective": 0.137258226799313
+        },
+        "fixed_3600s": {
+          "mae": 1.1052374839782715,
+          "mean_wait_seconds": 3600.0,
+          "objective": 0.14544114787597212
+        },
+        "learned": {
+          "mae": 1.1453592777252197,
+          "mean_wait_seconds": 0.0,
+          "objective": 0.12999484681640752
+        },
+        "random_matched": {
+          "mae": 1.1453592839954359,
+          "mean_wait_seconds": 0.0,
+          "objective": 0.12999484681640752
+        },
+        "validation_fixed": {
+          "mae": 1.1453592777252197,
+          "mean_wait_seconds": 0.0,
+          "objective": 0.12999484681640752
+        }
+      }
+    },
+    "ETTh2__42__mixed_1811": {
+      "acquisition": {
+        "commit": {
+          "acquisition_rate": 0.0,
+          "mae": 2.688292860200205,
+          "mean_cost_proxy": 0.0,
+          "n": 640,
+          "objective": 0.22280938795156544
+        },
+        "mlp": {
+          "acquisition_rate": 0.18125,
+          "mae": 2.5767971742235676,
+          "mean_cost_proxy": 0.17835700539872051,
+          "n": 640,
+          "objective": 0.218919183211925
+        },
+        "oldest": {
+          "acquisition_rate": 1.0,
+          "mae": 2.5954170490115294,
+          "mean_cost_proxy": 0.9776056040078401,
+          "n": 640,
+          "objective": 0.24443988185154736
+        },
+        "prior": {
+          "acquisition_rate": 0.0,
+          "mae": 2.688292860200205,
+          "mean_cost_proxy": 0.0,
+          "n": 640,
+          "objective": 0.22280938795156544
+        },
+        "random_mlp": {
+          "acquisition_rate": 0.18125,
+          "mae": 2.658328445613815,
+          "mean_cost_proxy": 0.17771801606596757,
+          "n": 640,
+          "objective": 0.22565743678233235
+        },
+        "random_ridge": {
+          "acquisition_rate": 0.28125,
+          "mae": 2.6617911482203285,
+          "mean_cost_proxy": 0.27553977448670636,
+          "n": 640,
+          "objective": 0.22887908306152954
+        },
+        "ridge": {
+          "acquisition_rate": 0.28125,
+          "mae": 2.5546027341047557,
+          "mean_cost_proxy": 0.2776919323951006,
+          "n": 640,
+          "objective": 0.22005972547834976
+        },
+        "simple": {
+          "acquisition_rate": 0.0,
+          "mae": 2.688292860200205,
+          "mean_cost_proxy": 0.0,
+          "n": 640,
+          "objective": 0.22280938795156544
+        },
+        "target": {
+          "acquisition_rate": 0.7125,
+          "mae": 2.421830877011952,
+          "mean_cost_proxy": 0.7034862287342548,
+          "n": 640,
+          "objective": 0.2218292413139425
+        }
+      },
+      "forecast": {
+        "arrival": {
+          "mae": 2.873203165837274
+        },
+        "calibrated": {
+          "mae": 2.688292860200205
+        },
+        "dlinear": {
+          "mae": 2.6627356807012923
+        },
+        "persistence": {
+          "mae": 5.305360920309168
+        },
+        "value_only": {
+          "mae": 2.773595691549354
+        }
+      },
+      "selection": {
+        "candidate_objectives": {
+          "commit": 0.19485833552219062,
+          "oldest": 0.21858378783889978,
+          "prior": 0.19485833552219062,
+          "ridge_1": 0.19204487821523178,
+          "ridge_10": 0.19229525926194857,
+          "ridge_100": 0.19214301864517494,
+          "ridge_1000": 0.19373971078483207,
+          "target": 0.20154097570229682
+        },
+        "fixed_wait_objectives": {
+          "0": 0.19485833536366762,
+          "1": 0.19906537832661442,
+          "2": 0.20657180201922748
+        },
+        "fixed_wait_step": 0,
+        "ridge": "ridge_1",
+        "simple": "commit",
+        "split": "validation",
+        "validation_origins": 423
+      },
+      "wait": {
+        "fixed_0s": {
+          "mae": 2.688293218612671,
+          "mean_wait_seconds": 0.0,
+          "objective": 0.22280938814510592
+        },
+        "fixed_1800s": {
+          "mae": 2.474799871444702,
+          "mean_wait_seconds": 1800.0,
+          "objective": 0.21511477579711932
+        },
+        "fixed_3600s": {
+          "mae": 2.4628326892852783,
+          "mean_wait_seconds": 3600.0,
+          "objective": 0.22412292781984436
+        },
+        "learned": {
+          "mae": 2.6295881271362305,
+          "mean_wait_seconds": 174.375,
+          "objective": 0.21891261878318619
+        },
+        "random_matched": {
+          "mae": 2.6698148965481976,
+          "mean_wait_seconds": 174.375,
+          "objective": 0.22224665905919935
+        },
+        "validation_fixed": {
+          "mae": 2.688293218612671,
+          "mean_wait_seconds": 0.0,
+          "objective": 0.22280938814510592
+        }
+      }
+    },
+    "ETTh2__42__mixed_811": {
+      "acquisition": {
+        "commit": {
+          "acquisition_rate": 0.0,
+          "mae": 2.6382003126953086,
+          "mean_cost_proxy": 0.0,
+          "n": 640,
+          "objective": 0.21865764912290614
+        },
+        "mlp": {
+          "acquisition_rate": 0.165625,
+          "mae": 2.5884454426855994,
+          "mean_cost_proxy": 0.162852128688246,
+          "n": 640,
+          "objective": 0.2194194613274012
+        },
+        "oldest": {
+          "acquisition_rate": 1.0,
+          "mae": 2.604008147970536,
+          "mean_cost_proxy": 0.9771086847409606,
+          "n": 640,
+          "objective": 0.24513701630185825
+        },
+        "prior": {
+          "acquisition_rate": 0.0,
+          "mae": 2.6382003126953086,
+          "mean_cost_proxy": 0.0,
+          "n": 640,
+          "objective": 0.21865764912290614
+        },
+        "random_mlp": {
+          "acquisition_rate": 0.165625,
+          "mae": 2.627203955102632,
+          "mean_cost_proxy": 0.16241418085393627,
+          "n": 640,
+          "objective": 0.22261868139594249
+        },
+        "random_ridge": {
+          "acquisition_rate": 0.284375,
+          "mae": 2.622296996978979,
+          "mean_cost_proxy": 0.2786269330754433,
+          "n": 640,
+          "objective": 0.22569836856402398
+        },
+        "ridge": {
+          "acquisition_rate": 0.284375,
+          "mae": 2.5537096070801786,
+          "mean_cost_proxy": 0.2807773983106017,
+          "n": 640,
+          "objective": 0.22007826586684676
+        },
+        "simple": {
+          "acquisition_rate": 0.0,
+          "mae": 2.6382003126953086,
+          "mean_cost_proxy": 0.0,
+          "n": 640,
+          "objective": 0.21865764912290614
+        },
+        "target": {
+          "acquisition_rate": 0.7140625,
+          "mae": 2.413502527273141,
+          "mean_cost_proxy": 0.7050289616920054,
+          "n": 640,
+          "objective": 0.22118525828898422
+        }
+      },
+      "forecast": {
+        "arrival": {
+          "mae": 2.7938099298444308
+        },
+        "calibrated": {
+          "mae": 2.6382003126953086
+        },
+        "dlinear": {
+          "mae": 2.636005520954084
+        },
+        "persistence": {
+          "mae": 5.28241798935058
+        },
+        "value_only": {
+          "mae": 2.714457907714182
+        }
+      },
+      "selection": {
+        "candidate_objectives": {
+          "commit": 0.19485833552219062,
+          "oldest": 0.21858378783889978,
+          "prior": 0.19485833552219062,
+          "ridge_1": 0.19204487821523178,
+          "ridge_10": 0.19229525926194857,
+          "ridge_100": 0.19214301864517494,
+          "ridge_1000": 0.19373971078483207,
+          "target": 0.20154097570229682
+        },
+        "fixed_wait_objectives": {
+          "0": 0.19485833536366762,
+          "1": 0.19906537832661442,
+          "2": 0.20657180201922748
+        },
+        "fixed_wait_step": 0,
+        "ridge": "ridge_1",
+        "simple": "commit",
+        "split": "validation",
+        "validation_origins": 423
+      },
+      "wait": {
+        "fixed_0s": {
+          "mae": 2.638200283050537,
+          "mean_wait_seconds": 0.0,
+          "objective": 0.2186576492502354
+        },
+        "fixed_1800s": {
+          "mae": 2.470578670501709,
+          "mean_wait_seconds": 1800.0,
+          "objective": 0.214764942433394
+        },
+        "fixed_3600s": {
+          "mae": 2.4285874366760254,
+          "mean_wait_seconds": 3600.0,
+          "objective": 0.2212846281126258
+        },
+        "learned": {
+          "mae": 2.623704671859741,
+          "mean_wait_seconds": 182.8125,
+          "objective": 0.21847184938029388
+        },
+        "random_matched": {
+          "mae": 2.6237281071166634,
+          "mean_wait_seconds": 182.8125,
+          "objective": 0.21847379793672642
+        },
+        "validation_fixed": {
+          "mae": 2.638200283050537,
+          "mean_wait_seconds": 0.0,
+          "objective": 0.2186576492502354
+        }
+      }
+    },
+    "ETTh2__42__outage_1811": {
+      "acquisition": {
+        "commit": {
+          "acquisition_rate": 0.0,
+          "mae": 2.7448816822361857,
+          "mean_cost_proxy": 0.0,
+          "n": 640,
+          "objective": 0.22749954689570587
+        },
+        "mlp": {
+          "acquisition_rate": 0.2171875,
+          "mae": 2.610083679732465,
+          "mean_cost_proxy": 0.2134024898521602,
+          "n": 640,
+          "objective": 0.2227293788346869
+        },
+        "oldest": {
+          "acquisition_rate": 1.0,
+          "mae": 2.628178932841288,
+          "mean_cost_proxy": 0.9772947893477977,
+          "n": 640,
+          "objective": 0.2471459071388235
+        },
+        "prior": {
+          "acquisition_rate": 0.0,
+          "mae": 2.7448816822361857,
+          "mean_cost_proxy": 0.0,
+          "n": 640,
+          "objective": 0.22749954689570587
+        },
+        "random_mlp": {
+          "acquisition_rate": 0.2171875,
+          "mae": 2.7134445477813154,
+          "mean_cost_proxy": 0.21290567428627538,
+          "n": 640,
+          "objective": 0.23128116443673497
+        },
+        "random_ridge": {
+          "acquisition_rate": 0.259375,
+          "mae": 2.715451815365525,
+          "mean_cost_proxy": 0.2540464052518031,
+          "n": 640,
+          "objective": 0.23268175144761366
+        },
+        "ridge": {
+          "acquisition_rate": 0.259375,
+          "mae": 2.579932273767418,
+          "mean_cost_proxy": 0.25609367098659275,
+          "n": 640,
+          "objective": 0.22151112451637162
+        },
+        "simple": {
+          "acquisition_rate": 0.0,
+          "mae": 2.7448816822361857,
+          "mean_cost_proxy": 0.0,
+          "n": 640,
+          "objective": 0.22749954689570587
+        },
+        "target": {
+          "acquisition_rate": 0.7046875,
+          "mae": 2.4279085472714184,
+          "mean_cost_proxy": 0.695772563945502,
+          "n": 640,
+          "objective": 0.22210155699137246
+        }
+      },
+      "forecast": {
+        "arrival": {
+          "mae": 2.942325484950068
+        },
+        "calibrated": {
+          "mae": 2.7448816822361857
+        },
+        "dlinear": {
+          "mae": 2.7045105709462876
+        },
+        "persistence": {
+          "mae": 5.35307421146326
+        },
+        "value_only": {
+          "mae": 2.835990597203358
+        }
+      },
+      "selection": {
+        "candidate_objectives": {
+          "commit": 0.19485833552219062,
+          "oldest": 0.21858378783889978,
+          "prior": 0.19485833552219062,
+          "ridge_1": 0.19204487821523178,
+          "ridge_10": 0.19229525926194857,
+          "ridge_100": 0.19214301864517494,
+          "ridge_1000": 0.19373971078483207,
+          "target": 0.20154097570229682
+        },
+        "fixed_wait_objectives": {
+          "0": 0.19485833536366762,
+          "1": 0.19906537832661442,
+          "2": 0.20657180201922748
+        },
+        "fixed_wait_step": 0,
+        "ridge": "ridge_1",
+        "simple": "commit",
+        "split": "validation",
+        "validation_origins": 423
+      },
+      "wait": {
+        "fixed_0s": {
+          "mae": 2.7448816299438477,
+          "mean_wait_seconds": 0.0,
+          "objective": 0.2274995469066198
+        },
+        "fixed_1800s": {
+          "mae": 2.5710763931274414,
+          "mean_wait_seconds": 1800.0,
+          "objective": 0.22309433734568299
+        },
+        "fixed_3600s": {
+          "mae": 2.4791176319122314,
+          "mean_wait_seconds": 3600.0,
+          "objective": 0.22547263933985962
+        },
+        "learned": {
+          "mae": 2.687368154525757,
+          "mean_wait_seconds": 168.75,
+          "objective": 0.22367022416496182
+        },
+        "random_matched": {
+          "mae": 2.7299941771093708,
+          "mean_wait_seconds": 168.75,
+          "objective": 0.2272031501151355
+        },
+        "validation_fixed": {
+          "mae": 2.7448816299438477,
+          "mean_wait_seconds": 0.0,
+          "objective": 0.2274995469066198
+        }
+      }
+    },
+    "ETTh2__43__mixed_1811": {
+      "acquisition": {
+        "commit": {
+          "acquisition_rate": 0.0,
+          "mae": 2.6782262273490596,
+          "mean_cost_proxy": 0.0,
+          "n": 640,
+          "objective": 0.22197505165677284
+        },
+        "mlp": {
+          "acquisition_rate": 0.4421875,
+          "mae": 2.5127791170452345,
+          "mean_cost_proxy": 0.43623826969414947,
+          "n": 640,
+          "objective": 0.22134971703006884
+        },
+        "oldest": {
+          "acquisition_rate": 1.0,
+          "mae": 2.6008879662639957,
+          "mean_cost_proxy": 0.9776056040078401,
+          "n": 640,
+          "objective": 0.24489331895380745
+        },
+        "prior": {
+          "acquisition_rate": 0.0,
+          "mae": 2.6782262273490596,
+          "mean_cost_proxy": 0.0,
+          "n": 640,
+          "objective": 0.22197505165677284
+        },
+        "random_mlp": {
+          "acquisition_rate": 0.4421875,
+          "mae": 2.641443059725587,
+          "mean_cost_proxy": 0.43367736926923206,
+          "n": 640,
+          "objective": 0.23193673350865493
+        },
+        "random_ridge": {
+          "acquisition_rate": 0.16875,
+          "mae": 2.6545326973823142,
+          "mean_cost_proxy": 0.16533969223477124,
+          "n": 640,
+          "objective": 0.22497149026404967
+        },
+        "ridge": {
+          "acquisition_rate": 0.16875,
+          "mae": 2.5644158248744944,
+          "mean_cost_proxy": 0.16661515943706035,
+          "n": 640,
+          "objective": 0.21754074467002646
+        },
+        "simple": {
+          "acquisition_rate": 0.0,
+          "mae": 2.6782262273490596,
+          "mean_cost_proxy": 0.0,
+          "n": 640,
+          "objective": 0.22197505165677284
+        },
+        "target": {
+          "acquisition_rate": 0.7125,
+          "mae": 2.4200830964076787,
+          "mean_cost_proxy": 0.7034862287342548,
+          "n": 640,
+          "objective": 0.2216843828677229
+        }
+      },
+      "forecast": {
+        "arrival": {
+          "mae": 2.9856933614725074
+        },
+        "calibrated": {
+          "mae": 2.6782262273490596
+        },
+        "dlinear": {
+          "mae": 2.678008374602924
+        },
+        "persistence": {
+          "mae": 5.305360920309168
+        },
+        "value_only": {
+          "mae": 2.7744402673521935
+        }
+      },
+      "selection": {
+        "candidate_objectives": {
+          "commit": 0.19295703189945107,
+          "oldest": 0.2182180581419744,
+          "prior": 0.19295703189945107,
+          "ridge_1": 0.1936547974682023,
+          "ridge_10": 0.1938054370154444,
+          "ridge_100": 0.19214159361084582,
+          "ridge_1000": 0.1920988046594545,
+          "target": 0.2022105509557059
+        },
+        "fixed_wait_objectives": {
+          "0": 0.1929570320932014,
+          "1": 0.19796060341751603,
+          "2": 0.20522747731096072
+        },
+        "fixed_wait_step": 0,
+        "ridge": "ridge_1000",
+        "simple": "commit",
+        "split": "validation",
+        "validation_origins": 423
+      },
+      "wait": {
+        "fixed_0s": {
+          "mae": 2.6782262325286865,
+          "mean_wait_seconds": 0.0,
+          "objective": 0.22197505228978115
+        },
+        "fixed_1800s": {
+          "mae": 2.489671230316162,
+          "mean_wait_seconds": 1800.0,
+          "objective": 0.21634734242048576
+        },
+        "fixed_3600s": {
+          "mae": 2.4682435989379883,
+          "mean_wait_seconds": 3600.0,
+          "objective": 0.22457139004865895
+        },
+        "learned": {
+          "mae": 2.5605814456939697,
+          "mean_wait_seconds": 942.1875,
+          "objective": 0.21745886611228343
+        },
+        "random_matched": {
+          "mae": 2.5991146473437503,
+          "mean_wait_seconds": 942.1875,
+          "objective": 0.22065255073680648
+        },
+        "validation_fixed": {
+          "mae": 2.6782262325286865,
+          "mean_wait_seconds": 0.0,
+          "objective": 0.22197505228978115
+        }
+      }
+    },
+    "ETTh2__43__mixed_811": {
+      "acquisition": {
+        "commit": {
+          "acquisition_rate": 0.0,
+          "mae": 2.6466221739295666,
+          "mean_cost_proxy": 0.0,
+          "n": 640,
+          "objective": 0.21935566449719773
+        },
+        "mlp": {
+          "acquisition_rate": 0.4265625,
+          "mae": 2.493023109758897,
+          "mean_cost_proxy": 0.42093140706419946,
+          "n": 640,
+          "objective": 0.2192531062549242
+        },
+        "oldest": {
+          "acquisition_rate": 1.0,
+          "mae": 2.612127909348305,
+          "mean_cost_proxy": 0.9771086847409606,
+          "n": 640,
+          "objective": 0.24580999322698335
+        },
+        "prior": {
+          "acquisition_rate": 0.0,
+          "mae": 2.6466221739295666,
+          "mean_cost_proxy": 0.0,
+          "n": 640,
+          "objective": 0.21935566449719773
+        },
+        "random_mlp": {
+          "acquisition_rate": 0.4265625,
+          "mae": 2.6135025232839664,
+          "mean_cost_proxy": 0.4182324099001874,
+          "n": 640,
+          "objective": 0.22915763486425506
+        },
+        "random_ridge": {
+          "acquisition_rate": 0.1734375,
+          "mae": 2.631321107980549,
+          "mean_cost_proxy": 0.16991961436856184,
+          "n": 640,
+          "objective": 0.223185079661279
+        },
+        "ridge": {
+          "acquisition_rate": 0.1734375,
+          "mae": 2.5745850024438313,
+          "mean_cost_proxy": 0.17124335831031204,
+          "n": 640,
+          "objective": 0.21852242597746954
+        },
+        "simple": {
+          "acquisition_rate": 0.0,
+          "mae": 2.6466221739295666,
+          "mean_cost_proxy": 0.0,
+          "n": 640,
+          "objective": 0.21935566449719773
+        },
+        "target": {
+          "acquisition_rate": 0.7140625,
+          "mae": 2.409547476067322,
+          "mean_cost_proxy": 0.7050289616920054,
+          "n": 640,
+          "objective": 0.22085745823731123
+        }
+      },
+      "forecast": {
+        "arrival": {
+          "mae": 2.9295172920227146
+        },
+        "calibrated": {
+          "mae": 2.6466221739295666
+        },
+        "dlinear": {
+          "mae": 2.6484791695350305
+        },
+        "persistence": {
+          "mae": 5.28241798935058
+        },
+        "value_only": {
+          "mae": 2.736272309240315
+        }
+      },
+      "selection": {
+        "candidate_objectives": {
+          "commit": 0.19295703189945107,
+          "oldest": 0.2182180581419744,
+          "prior": 0.19295703189945107,
+          "ridge_1": 0.1936547974682023,
+          "ridge_10": 0.1938054370154444,
+          "ridge_100": 0.19214159361084582,
+          "ridge_1000": 0.1920988046594545,
+          "target": 0.2022105509557059
+        },
+        "fixed_wait_objectives": {
+          "0": 0.1929570320932014,
+          "1": 0.19796060341751603,
+          "2": 0.20522747731096072
+        },
+        "fixed_wait_step": 0,
+        "ridge": "ridge_1000",
+        "simple": "commit",
+        "split": "validation",
+        "validation_origins": 423
+      },
+      "wait": {
+        "fixed_0s": {
+          "mae": 2.6466224193573,
+          "mean_wait_seconds": 0.0,
+          "objective": 0.2193556643978809
+        },
+        "fixed_1800s": {
+          "mae": 2.486321449279785,
+          "mean_wait_seconds": 1800.0,
+          "objective": 0.2160696867178194
+        },
+        "fixed_3600s": {
+          "mae": 2.4529201984405518,
+          "mean_wait_seconds": 3600.0,
+          "objective": 0.22330138666176938
+        },
+        "learned": {
+          "mae": 2.559877634048462,
+          "mean_wait_seconds": 900.0,
+          "objective": 0.2171661363300518
+        },
+        "random_matched": {
+          "mae": 2.5789633595177155,
+          "mean_wait_seconds": 900.0,
+          "objective": 0.21874800944896375
+        },
+        "validation_fixed": {
+          "mae": 2.6466224193573,
+          "mean_wait_seconds": 0.0,
+          "objective": 0.2193556643978809
+        }
+      }
+    },
+    "ETTh2__43__outage_1811": {
+      "acquisition": {
+        "commit": {
+          "acquisition_rate": 0.0,
+          "mae": 2.721575597610056,
+          "mean_cost_proxy": 0.0,
+          "n": 640,
+          "objective": 0.22556790673552313
+        },
+        "mlp": {
+          "acquisition_rate": 0.4203125,
+          "mae": 2.523738963795581,
+          "mean_cost_proxy": 0.4143755850382149,
+          "n": 640,
+          "objective": 0.22160220357443902
+        },
+        "oldest": {
+          "acquisition_rate": 1.0,
+          "mae": 2.6263842879816033,
+          "mean_cost_proxy": 0.9772947893477977,
+          "n": 640,
+          "objective": 0.24699716451903803
+        },
+        "prior": {
+          "acquisition_rate": 0.0,
+          "mae": 2.721575597610056,
+          "mean_cost_proxy": 0.0,
+          "n": 640,
+          "objective": 0.22556790673552313
+        },
+        "random_mlp": {
+          "acquisition_rate": 0.4203125,
+          "mae": 2.6803485255496944,
+          "mean_cost_proxy": 0.4121972566401763,
+          "n": 640,
+          "objective": 0.23451686833266142
+        },
+        "random_ridge": {
+          "acquisition_rate": 0.184375,
+          "mae": 2.6951664753550144,
+          "mean_cost_proxy": 0.18067994358483702,
+          "n": 640,
+          "objective": 0.22879948088142327
+        },
+        "ridge": {
+          "acquisition_rate": 0.184375,
+          "mae": 2.586594561500731,
+          "mean_cost_proxy": 0.18204248901456593,
+          "n": 640,
+          "objective": 0.21984176857388232
+        },
+        "simple": {
+          "acquisition_rate": 0.0,
+          "mae": 2.721575597610056,
+          "mean_cost_proxy": 0.0,
+          "n": 640,
+          "objective": 0.22556790673552313
+        },
+        "target": {
+          "acquisition_rate": 0.7046875,
+          "mae": 2.4174899011986763,
+          "mean_cost_proxy": 0.695772563945502,
+          "n": 640,
+          "objective": 0.2212380453594669
+        }
+      },
+      "forecast": {
+        "arrival": {
+          "mae": 3.144014750928922
+        },
+        "calibrated": {
+          "mae": 2.721575597610056
+        },
+        "dlinear": {
+          "mae": 2.7215703020328346
+        },
+        "persistence": {
+          "mae": 5.35307421146326
+        },
+        "value_only": {
+          "mae": 2.835788445482965
+        }
+      },
+      "selection": {
+        "candidate_objectives": {
+          "commit": 0.19295703189945107,
+          "oldest": 0.2182180581419744,
+          "prior": 0.19295703189945107,
+          "ridge_1": 0.1936547974682023,
+          "ridge_10": 0.1938054370154444,
+          "ridge_100": 0.19214159361084582,
+          "ridge_1000": 0.1920988046594545,
+          "target": 0.2022105509557059
+        },
+        "fixed_wait_objectives": {
+          "0": 0.1929570320932014,
+          "1": 0.19796060341751603,
+          "2": 0.20522747731096072
+        },
+        "fixed_wait_step": 0,
+        "ridge": "ridge_1000",
+        "simple": "commit",
+        "split": "validation",
+        "validation_origins": 423
+      },
+      "wait": {
+        "fixed_0s": {
+          "mae": 2.7215757369995117,
+          "mean_wait_seconds": 0.0,
+          "objective": 0.22556790689413903
+        },
+        "fixed_1800s": {
+          "mae": 2.5580062866210938,
+          "mean_wait_seconds": 1800.0,
+          "objective": 0.22201106291264291
+        },
+        "fixed_3600s": {
+          "mae": 2.492706537246704,
+          "mean_wait_seconds": 3600.0,
+          "objective": 0.2265989150782116
+        },
+        "learned": {
+          "mae": 2.5904555320739746,
+          "mean_wait_seconds": 1001.25,
+          "objective": 0.22026297866605454
+        },
+        "random_matched": {
+          "mae": 2.6453305971953056,
+          "mean_wait_seconds": 1001.2499999999999,
+          "objective": 0.22481111685149155
+        },
+        "validation_fixed": {
+          "mae": 2.7215757369995117,
+          "mean_wait_seconds": 0.0,
+          "objective": 0.22556790689413903
+        }
+      }
+    },
+    "ETTh2__44__mixed_1811": {
+      "acquisition": {
+        "commit": {
+          "acquisition_rate": 0.0,
+          "mae": 2.6846910226062812,
+          "mean_cost_proxy": 0.0,
+          "n": 640,
+          "objective": 0.22251086272699466
+        },
+        "mlp": {
+          "acquisition_rate": 0.3875,
+          "mae": 2.5072571789693328,
+          "mean_cost_proxy": 0.38206280255690217,
+          "n": 640,
+          "objective": 0.21926678723808438
+        },
+        "oldest": {
+          "acquisition_rate": 1.0,
+          "mae": 2.60785491441005,
+          "mean_cost_proxy": 0.9776056040078401,
+          "n": 640,
+          "objective": 0.24547074914204856
+        },
+        "prior": {
+          "acquisition_rate": 0.0,
+          "mae": 2.6846910226062812,
+          "mean_cost_proxy": 0.0,
+          "n": 640,
+          "objective": 0.22251086272699466
+        },
+        "random_mlp": {
+          "acquisition_rate": 0.3875,
+          "mae": 2.6476368475732914,
+          "mean_cost_proxy": 0.37992798844707154,
+          "n": 640,
+          "objective": 0.23083760168956333
+        },
+        "random_ridge": {
+          "acquisition_rate": 0.2125,
+          "mae": 2.663495424290867,
+          "mean_cost_proxy": 0.20828456086949224,
+          "n": 640,
+          "objective": 0.22700267938399313
+        },
+        "ridge": {
+          "acquisition_rate": 0.2125,
+          "mae": 2.5762751012427683,
+          "mean_cost_proxy": 0.209811682254076,
+          "n": 640,
+          "objective": 0.21981955339510756
+        },
+        "simple": {
+          "acquisition_rate": 0.0,
+          "mae": 2.6846910226062812,
+          "mean_cost_proxy": 0.0,
+          "n": 640,
+          "objective": 0.22251086272699466
+        },
+        "target": {
+          "acquisition_rate": 0.7125,
+          "mae": 2.4169187894917585,
+          "mean_cost_proxy": 0.7034862287342548,
+          "n": 640,
+          "objective": 0.22142212078398008
+        }
+      },
+      "forecast": {
+        "arrival": {
+          "mae": 2.778489275865308
+        },
+        "calibrated": {
+          "mae": 2.6846910226062812
+        },
+        "dlinear": {
+          "mae": 2.682942858677383
+        },
+        "persistence": {
+          "mae": 5.305360920309168
+        },
+        "value_only": {
+          "mae": 2.6944465880696646
+        }
+      },
+      "selection": {
+        "candidate_objectives": {
+          "commit": 0.19359039768893668,
+          "oldest": 0.2187541333165011,
+          "prior": 0.19359039768893668,
+          "ridge_1": 0.19387903680967664,
+          "ridge_10": 0.19321499355084507,
+          "ridge_100": 0.19293325261514518,
+          "ridge_1000": 0.19249409313672539,
+          "target": 0.2021767736605014
+        },
+        "fixed_wait_objectives": {
+          "0": 0.19359039774177766,
+          "1": 0.1978437183568382,
+          "2": 0.20492725921297184
+        },
+        "fixed_wait_step": 0,
+        "ridge": "ridge_1000",
+        "simple": "commit",
+        "split": "validation",
+        "validation_origins": 423
+      },
+      "wait": {
+        "fixed_0s": {
+          "mae": 2.6846909523010254,
+          "mean_wait_seconds": 0.0,
+          "objective": 0.22251086307951481
+        },
+        "fixed_1800s": {
+          "mae": 2.4905879497528076,
+          "mean_wait_seconds": 1800.0,
+          "objective": 0.21642332612042078
+        },
+        "fixed_3600s": {
+          "mae": 2.469566822052002,
+          "mean_wait_seconds": 3600.0,
+          "objective": 0.22468106447369793
+        },
+        "learned": {
+          "mae": 2.6157379150390625,
+          "mean_wait_seconds": 430.3125,
+          "objective": 0.21918655414151722
+        },
+        "random_matched": {
+          "mae": 2.64559013352635,
+          "mean_wait_seconds": 430.3125,
+          "objective": 0.2216607525774721
+        },
+        "validation_fixed": {
+          "mae": 2.6846909523010254,
+          "mean_wait_seconds": 0.0,
+          "objective": 0.22251086307951481
+        }
+      }
+    },
+    "ETTh2__44__mixed_811": {
+      "acquisition": {
+        "commit": {
+          "acquisition_rate": 0.0,
+          "mae": 2.6540085002762734,
+          "mean_cost_proxy": 0.0,
+          "n": 640,
+          "objective": 0.219967853324124
+        },
+        "mlp": {
+          "acquisition_rate": 0.396875,
+          "mae": 2.4841306398746985,
+          "mean_cost_proxy": 0.3916117835789919,
+          "n": 640,
+          "objective": 0.21763649748770697
+        },
+        "oldest": {
+          "acquisition_rate": 1.0,
+          "mae": 2.618158611275752,
+          "mean_cost_proxy": 0.9771086847409606,
+          "n": 640,
+          "objective": 0.24630982604849852
+        },
+        "prior": {
+          "acquisition_rate": 0.0,
+          "mae": 2.6540085002762734,
+          "mean_cost_proxy": 0.0,
+          "n": 640,
+          "objective": 0.219967853324124
+        },
+        "random_mlp": {
+          "acquisition_rate": 0.396875,
+          "mae": 2.619639573494744,
+          "mean_cost_proxy": 0.389149819063688,
+          "n": 640,
+          "objective": 0.22879380425180745
+        },
+        "random_ridge": {
+          "acquisition_rate": 0.196875,
+          "mae": 2.6365920161055776,
+          "mean_cost_proxy": 0.1929131532041356,
+          "n": 640,
+          "objective": 0.2243117458986522
+        },
+        "ridge": {
+          "acquisition_rate": 0.196875,
+          "mae": 2.570252543056386,
+          "mean_cost_proxy": 0.19438435267657042,
+          "n": 640,
+          "objective": 0.2188575756506616
+        },
+        "simple": {
+          "acquisition_rate": 0.0,
+          "mae": 2.6540085002762734,
+          "mean_cost_proxy": 0.0,
+          "n": 640,
+          "objective": 0.219967853324124
+        },
+        "target": {
+          "acquisition_rate": 0.7140625,
+          "mae": 2.40646334228432,
+          "mean_cost_proxy": 0.7050289616920054,
+          "n": 640,
+          "objective": 0.22060184101244523
+        }
+      },
+      "forecast": {
+        "arrival": {
+          "mae": 2.734155211830168
+        },
+        "calibrated": {
+          "mae": 2.6540085002762734
+        },
+        "dlinear": {
+          "mae": 2.653276788116673
+        },
+        "persistence": {
+          "mae": 5.28241798935058
+        },
+        "value_only": {
+          "mae": 2.648919112430163
+        }
+      },
+      "selection": {
+        "candidate_objectives": {
+          "commit": 0.19359039768893668,
+          "oldest": 0.2187541333165011,
+          "prior": 0.19359039768893668,
+          "ridge_1": 0.19387903680967664,
+          "ridge_10": 0.19321499355084507,
+          "ridge_100": 0.19293325261514518,
+          "ridge_1000": 0.19249409313672539,
+          "target": 0.2021767736605014
+        },
+        "fixed_wait_objectives": {
+          "0": 0.19359039774177766,
+          "1": 0.1978437183568382,
+          "2": 0.20492725921297184
+        },
+        "fixed_wait_step": 0,
+        "ridge": "ridge_1000",
+        "simple": "commit",
+        "split": "validation",
+        "validation_origins": 423
+      },
+      "wait": {
+        "fixed_0s": {
+          "mae": 2.6540088653564453,
+          "mean_wait_seconds": 0.0,
+          "objective": 0.21996785367737176
+        },
+        "fixed_1800s": {
+          "mae": 2.4861671924591064,
+          "mean_wait_seconds": 1800.0,
+          "objective": 0.2160569332388695
+        },
+        "fixed_3600s": {
+          "mae": 2.4524099826812744,
+          "mean_wait_seconds": 3600.0,
+          "objective": 0.2232590739305306
+        },
+        "learned": {
+          "mae": 2.6250574588775635,
+          "mean_wait_seconds": 424.6875,
+          "objective": 0.2199277164134255
+        },
+        "random_matched": {
+          "mae": 2.620065103069053,
+          "mean_wait_seconds": 424.6875,
+          "objective": 0.2195139531528414
+        },
+        "validation_fixed": {
+          "mae": 2.6540088653564453,
+          "mean_wait_seconds": 0.0,
+          "objective": 0.21996785367737176
+        }
+      }
+    },
+    "ETTh2__44__outage_1811": {
+      "acquisition": {
+        "commit": {
+          "acquisition_rate": 0.0,
+          "mae": 2.729066158261741,
+          "mean_cost_proxy": 0.0,
+          "n": 640,
+          "objective": 0.2261887346441654
+        },
+        "mlp": {
+          "acquisition_rate": 0.3890625,
+          "mae": 2.5209382850370687,
+          "mean_cost_proxy": 0.38338432256132365,
+          "n": 640,
+          "objective": 0.2204403416152636
+        },
+        "oldest": {
+          "acquisition_rate": 1.0,
+          "mae": 2.6326823535272443,
+          "mean_cost_proxy": 0.9772947893477977,
+          "n": 640,
+          "objective": 0.24751915680279488
+        },
+        "prior": {
+          "acquisition_rate": 0.0,
+          "mae": 2.729066158261741,
+          "mean_cost_proxy": 0.0,
+          "n": 640,
+          "objective": 0.2261887346441654
+        },
+        "random_mlp": {
+          "acquisition_rate": 0.3890625,
+          "mae": 2.6855669455068663,
+          "mean_cost_proxy": 0.3814000118268831,
+          "n": 640,
+          "objective": 0.23402546076944955
+        },
+        "random_ridge": {
+          "acquisition_rate": 0.209375,
+          "mae": 2.702341547023269,
+          "mean_cost_proxy": 0.20518177768459456,
+          "n": 640,
+          "objective": 0.230129215654744
+        },
+        "ridge": {
+          "acquisition_rate": 0.209375,
+          "mae": 2.592674987628531,
+          "mean_cost_proxy": 0.20672621633857488,
+          "n": 640,
+          "objective": 0.22108623442483072
+        },
+        "simple": {
+          "acquisition_rate": 0.0,
+          "mae": 2.729066158261741,
+          "mean_cost_proxy": 0.0,
+          "n": 640,
+          "objective": 0.2261887346441654
+        },
+        "target": {
+          "acquisition_rate": 0.7046875,
+          "mae": 2.4139658712915883,
+          "mean_cost_proxy": 0.695772563945502,
+          "n": 640,
+          "objective": 0.22094596894236745
+        }
+      },
+      "forecast": {
+        "arrival": {
+          "mae": 2.885407528049334
+        },
+        "calibrated": {
+          "mae": 2.729066158261741
+        },
+        "dlinear": {
+          "mae": 2.728202329085345
+        },
+        "persistence": {
+          "mae": 5.35307421146326
+        },
+        "value_only": {
+          "mae": 2.7475557650024998
+        }
+      },
+      "selection": {
+        "candidate_objectives": {
+          "commit": 0.19359039768893668,
+          "oldest": 0.2187541333165011,
+          "prior": 0.19359039768893668,
+          "ridge_1": 0.19387903680967664,
+          "ridge_10": 0.19321499355084507,
+          "ridge_100": 0.19293325261514518,
+          "ridge_1000": 0.19249409313672539,
+          "target": 0.2021767736605014
+        },
+        "fixed_wait_objectives": {
+          "0": 0.19359039774177766,
+          "1": 0.1978437183568382,
+          "2": 0.20492725921297184
+        },
+        "fixed_wait_step": 0,
+        "ridge": "ridge_1000",
+        "simple": "commit",
+        "split": "validation",
+        "validation_origins": 423
+      },
+      "wait": {
+        "fixed_0s": {
+          "mae": 2.7290661334991455,
+          "mean_wait_seconds": 0.0,
+          "objective": 0.22618873484898358
+        },
+        "fixed_1800s": {
+          "mae": 2.5639710426330566,
+          "mean_wait_seconds": 1800.0,
+          "objective": 0.22250542548514202
+        },
+        "fixed_3600s": {
+          "mae": 2.4961071014404297,
+          "mean_wait_seconds": 3600.0,
+          "objective": 0.22688077207014432
+        },
+        "learned": {
+          "mae": 2.6080076694488525,
+          "mean_wait_seconds": 604.6875,
+          "objective": 0.21951460945652795
+        },
+        "random_matched": {
+          "mae": 2.6828718685887094,
+          "mean_wait_seconds": 604.6875,
+          "objective": 0.22571946375469223
+        },
+        "validation_fixed": {
+          "mae": 2.7290661334991455,
+          "mean_wait_seconds": 0.0,
+          "objective": 0.22618873484898358
+        }
+      }
+    }
+  },
+  "runtime": {
+    "numpy": "2.3.5",
+    "python": "3.12.14",
+    "torch": "2.10.0+cpu"
+  },
+  "schema": "asofcast.model-evidence.v1",
+  "source_file_sha256": {
+    "scripts/evaluate_model_evidence.py": "14decb32a3409e1efd0251d65eced7e4cf71c986976d07758f19a8f0432e728d",
+    "src/asofcast/__init__.py": "15d7b1d3b85137ec507830b4d5fad65690b286d2691d093b91d28295d4037bae",
+    "src/asofcast/__main__.py": "11f660dcb9e53948eb4502b3f1fdb664d7036e43f0b7ad411576583397461e3c",
+    "src/asofcast/acquisition.py": "cc8ee5ea3dbbddd0c85227c82cb74dbfbfd89f58b7fe62c8a83da37b3b26e159",
+    "src/asofcast/bundle.py": "6cd8241dde6f9ffebff867e1d3e72897e475d9e8aafe7c804b0712310549e844",
+    "src/asofcast/calibration.py": "06ed711d48681505d5ad4b89ff4b745cc2218ef55d47997ec05436087e0e663f",
+    "src/asofcast/cli.py": "95d57f3c41b0060643e4ebc1e64252266b4ff1ac767e40579639a8e3e6a413e5",
+    "src/asofcast/data.py": "1b954208d73feca65902146387d89e275a2509b96c0a19b651886ef6148a2dd5",
+    "src/asofcast/decision_evidence.py": "60d25ba3d9692ec380ea1183be9b25875d8edc40c6f5d443c929aa1e489088d4",
+    "src/asofcast/experiment.py": "3cccc7ce1426a0576bf749f48514487f1b803715c08a0580fbbdb7339a9d8e4c",
+    "src/asofcast/large_data.py": "0a17ab0ae1debcca5a07c8749b2ac10e9a67f1513fbc1eb1b8f8f5f597215331",
+    "src/asofcast/metrics.py": "b8a31ba98afd9740e7b4bb6995b1229e154172d976506d90beb2c3398f1231d3",
+    "src/asofcast/mlops.py": "8e28a75073a161dd9b71f2f670767320e62cbe4ed1f500ceee67b39f8f9fcda2",
+    "src/asofcast/models.py": "80d726e0be38085da09c48c9fd52e216cf072aa8076ab9ae24f13fec06edc9fe",
+    "src/asofcast/onnx_contract.py": "aacceaa463d496c9a572530773c87ad469b194c7ba99c4e187b6967cd133575a",
+    "src/asofcast/onnx_eval.py": "71b04e4f1beebc619b980f746a3c3b6e04644e759406335c312fd9b03694b61a",
+    "src/asofcast/optimize.py": "d607f471b07bdb2c874acc9887bf9767a9ea32847117806f380eefc4b7109c98",
+    "src/asofcast/policy.py": "9f768d89c55cd0b9f45a2c35d8c492f7f226c1038b67d5318cd40ab99d13fe55",
+    "src/asofcast/preprocessing.py": "1cf7565529248c8a587b1ed336393427175af48f0686524d80411dd723208eb5",
+    "src/asofcast/reference_eval.py": "a73a8d48bb39f8118f7d0a4d62492e6226ce573934863431312be04b2db14c90",
+    "src/asofcast/service.py": "35eba5dde7c0fc17b1535c24bf9a8b5c3beecbfb771152b1bec30168e167012a",
+    "src/asofcast/timeline.py": "cb2cee99b8cdb8035a0ad433daa5b1c4ddfb3a995106abb62ff2b70cecdc0537",
+    "src/asofcast/training.py": "61cf6f06fc7ffdacecdd72ae200eac2972eefd60a48014ac56749fa8c7f8ea06"
+  },
+  "sources": [
+    {
+      "arrival_times": "simulated",
+      "blob_sha1": "a52c4925778c07c1ef1a2cf6fd01594919717d9e",
+      "measurement_values": "observed ETT benchmark",
+      "name": "ETTh1",
+      "prior_test_exposure": true,
+      "sha256": "f18de3ad269cef59bb07b5438d79bb3042d3be49bdeecf01c1cd6d29695ee066"
+    },
+    {
+      "arrival_times": "simulated",
+      "blob_sha1": "6e3760778598fdee5208213d3fce122637307eec",
+      "measurement_values": "observed ETT benchmark",
+      "name": "ETTh2",
+      "prior_test_exposure": false,
+      "sha256": "a3dc2c597b9218c7ce1cd55eb77b283fd459a1d09d753063f944967dd6b9218b"
+    }
+  ],
+  "status": "experiment_completed",
+  "training_config": {
+    "acquisition_cost_weight": 0.03,
+    "acquisition_epochs": 40,
+    "acquisition_pareto_weights": [
+      0,
+      0.01,
+      0.03,
+      0.05,
+      0.1
+    ],
+    "arrival_seed": 811,
+    "batch_size": 128,
+    "calibration_ridges": [
+      1,
+      10,
+      100,
+      1000,
+      10000,
+      100000
+    ],
+    "cpu_threads": 2,
+    "delay_cost": 0.02,
+    "epochs": 25,
+    "horizon": 6,
+    "learning_rate": 0.001,
+    "lookback": 48,
+    "policy_epochs": 60,
+    "seed": 42,
+    "stride": 4,
+    "target": "OT",
+    "thresholds": [
+      0,
+      0.01,
+      0.02,
+      0.05,
+      0.1,
+      0.2,
+      1000000
+    ],
+    "waits_seconds": [
+      0,
+      1800,
+      3600
+    ]
+  },
+  "training_config_sha256": "b95c1dc4a1c116ab5f5144009fbb155529e650225ec019023cbab347434c4bb0"
+}

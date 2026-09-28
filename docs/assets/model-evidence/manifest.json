@@ -1,0 +1,24 @@
+{
+  "equivalent_github_code_commit": "97477236c0875d5961ed3743ec1a149a81ae64bb",
+  "local_execution_commit": "83538c60a92e879c65cd7790cb8786ba128fdcc6",
+  "identical_evaluated_source_tree": "837fdb180dea970fd34a78295342ea21e44f812d",
+  "equivalence": "GitHub Git Data API recreated the exact evaluated git tree; commit identity differs. Report also records source file SHA256 values.",
+  "files": [
+    {
+      "file": "paired-losses.npz",
+      "bytes": 2949760,
+      "sha256": "edf57f0d62809ed7e407b9e0a9ec1c82f35aa6bf060e67b90dbeaa2306e9d73f"
+    },
+    {
+      "file": "report.json",
+      "bytes": 132031,
+      "sha256": "52404e01e0421fdfa20f99841d2a0dd84066438c04f6fa36fb1d2e8484a46e13"
+    },
+    {
+      "file": "reproducibility.json",
+      "bytes": 1044,
+      "sha256": "99c2ee2f7c4f9ed86136601291b562c1ad0b6c7490babb75a8a932185aad1ef9"
+    }
+  ],
+  "deployment": "candidate was not promoted; current serving policy is unchanged"
+}
