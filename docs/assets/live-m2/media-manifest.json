@@ -1,0 +1,97 @@
+{
+  "capture_workflow_run": 36389658868,
+  "capture_attempt": 2,
+  "artifact_id": 10956501263,
+  "captured_code_commit": "b0c952a034fb55d9b2f47fed0226b3bf9d83c80c",
+  "source_url": "https://asofcast.onrender.com/",
+  "source_mp4_sha256": "2629a4238ec06c756744aa9e723a03df7c4f9490beaa2990f60e5be0d7db8640",
+  "video": {
+    "file": "asofcast-m2-demo.mp4",
+    "duration_seconds": 28.64,
+    "width": 1440,
+    "height": 1000,
+    "codec": "H.264",
+    "removed_leading_seconds": 3,
+    "playback_speed": 1,
+    "edit": "Removed only the initial blank/loading interval; original screenshot and comparison JSON files retained."
+  },
+  "gif": {
+    "file": "asofcast-m2-demo.gif",
+    "width": 800,
+    "height": 556,
+    "frames": 115,
+    "preview_fps": 4
+  },
+  "files": [
+    {
+      "name": "asofcast-m2-demo.gif",
+      "bytes": 2460681,
+      "sha256": "56b3ad734866b01d7c8fa840bcd08c93d27125ae4edc68dfc8a44b2b72409795"
+    },
+    {
+      "name": "asofcast-m2-demo.mp4",
+      "bytes": 1851596,
+      "sha256": "93910b6c8e437e0fc82f358feea26c4dcd2701906d85f4dae535e788a15da897"
+    },
+    {
+      "name": "capture-report.json",
+      "bytes": 1564,
+      "sha256": "d38ee19974c47b925b3c917904af1250b2564e81b1f675dcee8e73989f492a47"
+    },
+    {
+      "name": "comparison-example.json",
+      "bytes": 1550,
+      "sha256": "977ae9deeecd867dd54d618b3caa1b7785593e7d3d4eb8e74e339a3d1b178e79"
+    },
+    {
+      "name": "m2-after-acquisition.png",
+      "bytes": 281756,
+      "sha256": "26884f9795ca9e4f702acbcd9128848937d1ccaac9f45d5c5c7c306b80eb5044"
+    },
+    {
+      "name": "m2-choice-audit.png",
+      "bytes": 206617,
+      "sha256": "1f5355af9bee831817828a739b219af2d6278062819538b2d155b6636fe08777"
+    },
+    {
+      "name": "m2-choice-comparison.png",
+      "bytes": 207151,
+      "sha256": "da0400462670dcdd901699e4944d51129f03902ad1fef116a137f212e061bedd"
+    },
+    {
+      "name": "m2-counterfactual.png",
+      "bytes": 103806,
+      "sha256": "fb3e3f1f191f15f44fe0a63ef5b833648fdc28b18f732ccd22db6624ed9037d4"
+    },
+    {
+      "name": "m2-decision-console.png",
+      "bytes": 326789,
+      "sha256": "adac612b2b484cb3a4b0a6a5b59e6ec4670fdda0fdd174594d343e04a5f68af4"
+    },
+    {
+      "name": "m2-full.png",
+      "bytes": 626515,
+      "sha256": "a4f1de912763ff083f7b1bd9f61c126b04b18fdefc6b6d0d4f6dc7c34ac2a2c0"
+    },
+    {
+      "name": "m2-mobile.png",
+      "bytes": 130518,
+      "sha256": "f7973058abcd35336174323e15bf31259d5f9a53d581704506346cb91d27ce52"
+    },
+    {
+      "name": "m2-pareto.png",
+      "bytes": 122496,
+      "sha256": "801d81c774f9cefcdd380a982b55119a06339a146f695c278995a4c63def4209"
+    },
+    {
+      "name": "m2-recommended-action.png",
+      "bytes": 280788,
+      "sha256": "962dd6cf1fe6c9b479e1b0afa3dc2875cf6c4036e3fd207a37df3c69bd990172"
+    },
+    {
+      "name": "m2-revision.png",
+      "bytes": 119424,
+      "sha256": "b67052ef6f7a6b0fdc3f9c242782eac75e5f8c27bab15692dd06d6d2412c35f1"
+    }
+  ]
+}

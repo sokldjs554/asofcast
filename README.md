@@ -4,6 +4,22 @@
 
 [예측 체험](https://asofcast.onrender.com) · [검증 기록](docs/verification.md) · [API](https://asofcast.onrender.com/docs)
 
+## 29초 데모로 먼저 보기
+
+[![실제 공개 데모 시연 — 추천 실행, 세 선택 비교, 사후 평가와 직접 센서 취득](docs/assets/live-m2/asofcast-m2-demo.gif)](https://github.com/sokldjs554/asofcast/raw/refs/heads/main/docs/assets/live-m2/asofcast-m2-demo.mp4)
+
+**[MP4 고화질 재생 · 29초](https://github.com/sokldjs554/asofcast/raw/refs/heads/main/docs/assets/live-m2/asofcast-m2-demo.mp4)** · [첫 화면 캡처](docs/assets/live-m2/m2-decision-console.png) · [모바일 화면](docs/assets/live-m2/m2-mobile.png) · [이번 데모 검증 기록](docs/demo-verification-20260928.md)
+
+공개 Render 서비스에서 실제 모델 API를 조작한 화면입니다. 무료 호스팅이 쉬고 있으면 첫 접속에 준비 시간이 걸리므로 영상으로 먼저 확인할 수 있습니다. 공개 체험은 **측정값과 도착 지연 모두 합성**이며, 아래 ETTh1 실측 실험과 구분합니다. 영상에서 대기는 시간을 재생하는 동작이고, 센서 읽기는 기준 시각의 값 하나를 공개하는 시뮬레이션입니다.
+
+**30초 체험 순서:** 첫 화면에서 문제와 추천 확인 → 추천 버튼으로 예측 변화 확인 → 처음부터 시작 → **세 선택 나란히 비교** → 필요하면 사후 오차 확인.
+
+![같은 입력·같은 목표에서 지금 확정, 대기, 센서 추가 취득의 예측값과 비용 비교](docs/assets/live-m2/m2-choice-comparison.png)
+
+같은 출발점의 세 선택을 실제 API로 계산한 미리보기입니다. 현재 체험 기록과 추천은 유지됩니다. [사후 오차 화면](docs/assets/live-m2/m2-choice-audit.png) · [실제 내려받은 비교 JSON](docs/assets/live-m2/comparison-example.json)
+
+## 어떤 문제를 해결하나요?
+
 일반적인 forecasting 데모는 “다음 값이 얼마인가?”에서 끝납니다. AsOfCast M2는 늦게 도착하는 센서 환경에서 한 단계 더 나아가 **현재 예측을 개선하려면 어떤 센서를 추가로 취득할 가치가 있는지**를 학습합니다.
 
 현재 정보만으로 세 행동을 비교합니다.
@@ -72,28 +88,16 @@ reveal = value[event_time = frozen_origin, channel = c]
 
 ## 모델 구조
 
-~~~text
-                   ┌─────────────────────────────┐
-event / arrival ──►│ point-in-time snapshot      │
-                   │ value · observed · age      │
-                   └──────────────┬──────────────┘
-                                  │
-                    ┌─────────────▼─────────────┐
-                    │ arrival-aware forecaster  │
-                    └─────────────┬─────────────┘
-                                  │ current prediction
-                 ┌────────────────┴────────────────┐
-                 │                                 │
-       ┌─────────▼──────────┐            ┌─────────▼────────────┐
-       │ passive GainPolicy │            │ AcquisitionValueModel│
-       │ value of waiting   │            │ value per sensor     │
-       └─────────┬──────────┘            └─────────┬────────────┘
-                 │                                 │
-                 └────────────────┬────────────────┘
-                                  ▼
-                     joint utility comparison
-                       ACQUIRE / WAIT / COMMIT
-~~~
+```mermaid
+flowchart TD
+    A["측정 시각·도착 시각"] --> B["당시 이용 가능한 값·관측 여부·나이"]
+    B --> C["시계열 예측 모델"]
+    C --> D["GainPolicy · 대기의 예상 이득"]
+    C --> E["AcquisitionValueModel · 센서별 예상 이득"]
+    D --> F["상대 비용을 반영한 행동 비교"]
+    E --> F
+    F --> G["추가 취득 · 대기 · 확정"]
+```
 
 AcquisitionValueModel은 작은 MLP이며, 현재 snapshot·현재 forecast·candidate channel identity·train-derived cost proxy만으로 **한 번의 sensor pull이 줄일 것으로 예상되는 absolute error**를 추정합니다.
 

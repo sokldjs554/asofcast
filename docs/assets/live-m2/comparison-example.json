@@ -1,0 +1,54 @@
+{
+  "schema": "asofcast.choice-comparison.v1",
+  "scope": "single_case_counterfactual_not_executed",
+  "run_id": "bd4b198464ea3244",
+  "source_kind": "synthetic",
+  "sensor": "OT",
+  "start": {
+    "case_id": 0,
+    "scenario": "mixed",
+    "wait_seconds": 0,
+    "acquired": [],
+    "origin_time": 1726268400,
+    "target_time": 1726290000
+  },
+  "current_recommendation": "WAIT",
+  "target_actual_retrospective": 31.17207868,
+  "choices": [
+    {
+      "action": "COMMIT",
+      "status": "ok",
+      "prediction": 32.417134196276194,
+      "target_time": 1726290000,
+      "available_origin_sensors": 2,
+      "wait_seconds": 0,
+      "extra_cost_proxy": 0,
+      "absolute_error_retrospective": 1.2450555162761958
+    },
+    {
+      "action": "WAIT",
+      "status": "ok",
+      "prediction": 32.23637167714648,
+      "target_time": 1726290000,
+      "available_origin_sensors": 6,
+      "wait_seconds": 1800,
+      "extra_cost_proxy": 0,
+      "absolute_error_retrospective": 1.064292997146481
+    },
+    {
+      "action": "ACQUIRE",
+      "status": "ok",
+      "prediction": 32.185291157953415,
+      "target_time": 1726290000,
+      "available_origin_sensors": 3,
+      "wait_seconds": 0,
+      "extra_cost_proxy": 1,
+      "absolute_error_retrospective": 1.0132124779534166
+    }
+  ],
+  "limitations": [
+    "Single replay case; not aggregate policy performance.",
+    "Arrival delay is synthetic. Information cost is a relative proxy, not money or latency.",
+    "Alternative branches were previewed, not executed in the user session."
+  ]
+}
