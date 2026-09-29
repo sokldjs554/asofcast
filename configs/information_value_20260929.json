@@ -194,7 +194,8 @@
         6,
         7
       ],
-      "preprocessing": "first eight sensors (two per sensor type), sample measurements at exact ten-second boundaries; future target is S0 sixty seconds after origin; relative experimental time anchored to 2000-01-01 for CSV encoding; do not use concentration setpoints"
+      "preprocessing": "first eight sensors (two per sensor type); at each ten-second boundary take the latest sample at or before that boundary, at most 0.1 seconds old; duplicate source timestamps retain first occurrence; reject decreasing timestamps; longest complete contiguous grid segment, earliest on ties; relative experiment time anchored to 2000-01-01; do not use concentration setpoints",
+      "max_sample_age_seconds": 0.1
     }
   },
   "downloads": [
@@ -226,5 +227,6 @@
         "ethylene_methane.txt"
       ]
     }
-  ]
+  ],
+  "protocol_revision_before_test": "Raw source timestamp inspection found jitter/duplicate exact ten-second timestamps; exact-boundary sampling was replaced by causal last-sample selection with a 100 ms age limit, before any new-dataset training or performance evaluation. No model, objective, comparator, or gate changed."
 }
