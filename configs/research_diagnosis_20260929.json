@@ -1,0 +1,32 @@
+{
+  "schema": "asofcast.research-diagnosis.v1",
+  "seeds": [42, 43, 44],
+  "development_datasets": ["ETTh1", "ETTh2"],
+  "confirmatory_datasets": ["Appliances", "Tetouan"],
+  "preprocessing": {
+    "Appliances": {"columns": ["T1", "RH_1", "T2", "RH_2", "T3", "RH_3", "Appliances"], "target": "Appliances"},
+    "Tetouan": {"columns": ["Temperature", "Humidity", "Wind Speed", "general diffuse flows", "diffuse flows", "Zone 1 Power Consumption", "Zone 2 Power Consumption", "Zone 3 Power Consumption"], "target": "Zone 1 Power Consumption"},
+    "hourly": "right-closed, right-labeled mean of six 10-minute observations; remove incomplete edge bins only; reject interior gaps"
+  },
+  "training_config": "configs/ett_m1.json",
+  "conditions": [
+    {"name": "mixed_2811", "profile": "mixed", "arrival_seed": 2811},
+    {"name": "mixed_3811", "profile": "mixed", "arrival_seed": 3811},
+    {"name": "outage_2811", "profile": "outage", "arrival_seed": 2811}
+  ],
+  "forecast": {"leaf_candidates": [7, 15], "weights": [0, 0.5, 1], "iterations": 100, "min_samples_leaf": 40, "l2_regularization": 10, "loss": "absolute_error", "early_stopping": false},
+  "policy": {"max_leaf_nodes": 7, "iterations": 100, "min_samples_leaf": 64, "l2_regularization": 10, "loss": "squared_error", "early_stopping": false, "margins": [0, 0.005, 0.01, 0.03], "augmentation": "one independently sampled acquired subset per policy origin and wait; probability uniform in [0,1]; plus empty subset"},
+  "objective": {"absolute_error": "training-scale standardized", "cost_weight": 0.03, "delay_weight": 0.02, "deadline_seconds": 3600},
+  "gate": {"minimum_relative_improvement": 0.01, "mae_regression_limit": 0.01, "every_seed_positive": true, "every_confirmatory_condition_passes": true, "comparators": ["legacy_joint", "validation_simple"], "confidence": 0.95, "block_origins": 42, "sensitivity_block_origins": 6, "bootstrap_repeats": 2000, "bootstrap_seed": 20260929},
+  "rules": [
+    "Freeze this protocol before new-dataset performance is inspected; do not revise after final evaluation.",
+    "Fit forecasters on train; fit action labels on policy; choose candidates and margins on validation only.",
+    "Include forecast-only, policy-only, combined, and arrival-metadata ablations; promotion refers only to the predeclared combined method.",
+    "Apply the same origin, target, decision grid, and per-sensor acquisition costs to every sequential method.",
+    "Every method may acquire each currently unavailable origin-slot sensor once; acquisitions persist across waits; stop at deadline.",
+    "Oracle is retrospective headroom only and never a deployable competitor.",
+    "All datasets train separately; results are not zero-shot transfer or universal superiority.",
+    "All arrival timestamps and information costs are simulated. No measured deployment savings claim.",
+    "If the gate fails retain the production model, report failure, and do not retune on newly exposed tests."
+  ]
+}

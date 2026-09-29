@@ -1,0 +1,85 @@
+{
+  "all_arrays_exactly_equal": true,
+  "all_checkpoint_tensors_exactly_equal": true,
+  "all_selections_metrics_intervals_and_gate_exactly_equal": true,
+  "checkpoint_pairs": 72,
+  "checkpoint_tensors": 576,
+  "conditions_per_dataset": 3,
+  "datasets": 4,
+  "evaluated_settings_per_run": 36,
+  "full_independent_training_runs": 2,
+  "full_test_suite_repeats": [
+    {
+      "passed": 152,
+      "seconds": 28.33,
+      "warnings": 1
+    },
+    {
+      "passed": 152,
+      "seconds": 22.46,
+      "warnings": 1
+    },
+    {
+      "passed": 152,
+      "seconds": 20.21,
+      "warnings": 1
+    }
+  ],
+  "limits": "Reproducibility verifies this experiment, not universal model superiority or measured operational savings.",
+  "max_abs_prediction_difference": 0.0,
+  "methods_per_setting": 15,
+  "paired_arrays": 4452,
+  "promotion_gate_passed": false,
+  "run1_raw_sha256": "6b62d0e9589d4218606a724fb12496e3a691f9ace514e6e31cfad994e6140bed",
+  "run1_report_sha256": "a9c14ec1af657cb935409c3eb648ab116a41ff2013123aead797dd921e7baadf",
+  "run2_bundle_manifests": {
+    "Appliances-42": {
+      "manifest_sha256": "4bd7c67772d8ae7a4704a73f5ced23d0e29f8ff87009fe67f4d3aaad96ccba47"
+    },
+    "Appliances-43": {
+      "manifest_sha256": "4cba539f88c6ead5e5a30c97d0804fd0c00d5c067386fc38e4e8f81c367b1594"
+    },
+    "Appliances-44": {
+      "manifest_sha256": "65bf8ab2ab303374d7b7b1242954f77c7f2618d87c9605a16edb2a21d21407c2"
+    },
+    "ETTh1-42": {
+      "manifest_sha256": "c3174bddb7e130757778404913588f864bf241b0c835807c60204df377b0dbc8"
+    },
+    "ETTh1-43": {
+      "manifest_sha256": "2b12dbf0b644140ab0490f37bfa7b92edca8bf5b05a6092bab650110ef1d298a"
+    },
+    "ETTh1-44": {
+      "manifest_sha256": "0fb48b77641c4bf0f7a66063c2599f4b5bfad55258f033ed7ea977e490c7a4d0"
+    },
+    "ETTh2-42": {
+      "manifest_sha256": "8ac3fb334ba20bae4a24a8bccee190e8f9dccabc3a9fa353b557b394a8b46cf0"
+    },
+    "ETTh2-43": {
+      "manifest_sha256": "b12c6447f7b734bdcd4f1e096cee87dfd8068153d40ec23b9490f548a2ffae18"
+    },
+    "ETTh2-44": {
+      "manifest_sha256": "c42b029e3113e24e1955a8006873f20881588a5068ed8cc3413d41886d17364f"
+    },
+    "Tetouan-42": {
+      "manifest_sha256": "a029d354c657b07d2ee0774399263d89024371373bcd48099d6e9473254930ea"
+    },
+    "Tetouan-43": {
+      "manifest_sha256": "9453aca2137c061de642518991d126c45ce94c66015cb5bed7414f0018f619b7"
+    },
+    "Tetouan-44": {
+      "manifest_sha256": "7bdafce86827963bad0c848f6d1bae25739e2b8c5ab4e55373f5613360b4e275"
+    }
+  },
+  "run2_raw_sha256": "6b62d0e9589d4218606a724fb12496e3a691f9ace514e6e31cfad994e6140bed",
+  "run2_report_sha256": "1f1668348f5a82225bffff6f23ed7f3bfa41af81d8680a1698e040909fe17674",
+  "runtime": {
+    "numpy": "2.3.5",
+    "python": "3.12.14",
+    "sklearn": "1.8.0",
+    "torch": "2.10.0+cpu"
+  },
+  "schema": "asofcast.research-diagnosis.reproducibility.v1",
+  "status": "verified",
+  "training_seeds_per_dataset": 3,
+  "warning": "Existing Starlette/httpx deprecation warning; no test failure."
+}

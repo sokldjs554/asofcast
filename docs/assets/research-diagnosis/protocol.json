@@ -1,0 +1,125 @@
+{
+  "conditions": [
+    {
+      "arrival_seed": 2811,
+      "name": "mixed_2811",
+      "profile": "mixed"
+    },
+    {
+      "arrival_seed": 3811,
+      "name": "mixed_3811",
+      "profile": "mixed"
+    },
+    {
+      "arrival_seed": 2811,
+      "name": "outage_2811",
+      "profile": "outage"
+    }
+  ],
+  "confirmatory_datasets": [
+    "Appliances",
+    "Tetouan"
+  ],
+  "development_datasets": [
+    "ETTh1",
+    "ETTh2"
+  ],
+  "forecast": {
+    "early_stopping": false,
+    "iterations": 100,
+    "l2_regularization": 10,
+    "leaf_candidates": [
+      7,
+      15
+    ],
+    "loss": "absolute_error",
+    "min_samples_leaf": 40,
+    "weights": [
+      0,
+      0.5,
+      1
+    ]
+  },
+  "gate": {
+    "block_origins": 42,
+    "bootstrap_repeats": 2000,
+    "bootstrap_seed": 20260929,
+    "comparators": [
+      "legacy_joint",
+      "validation_simple"
+    ],
+    "confidence": 0.95,
+    "every_confirmatory_condition_passes": true,
+    "every_seed_positive": true,
+    "mae_regression_limit": 0.01,
+    "minimum_relative_improvement": 0.01,
+    "sensitivity_block_origins": 6
+  },
+  "objective": {
+    "absolute_error": "training-scale standardized",
+    "cost_weight": 0.03,
+    "deadline_seconds": 3600,
+    "delay_weight": 0.02
+  },
+  "policy": {
+    "augmentation": "one independently sampled acquired subset per policy origin and wait; probability uniform in [0,1]; plus empty subset",
+    "early_stopping": false,
+    "iterations": 100,
+    "l2_regularization": 10,
+    "loss": "squared_error",
+    "margins": [
+      0,
+      0.005,
+      0.01,
+      0.03
+    ],
+    "max_leaf_nodes": 7,
+    "min_samples_leaf": 64
+  },
+  "preprocessing": {
+    "Appliances": {
+      "columns": [
+        "T1",
+        "RH_1",
+        "T2",
+        "RH_2",
+        "T3",
+        "RH_3",
+        "Appliances"
+      ],
+      "target": "Appliances"
+    },
+    "Tetouan": {
+      "columns": [
+        "Temperature",
+        "Humidity",
+        "Wind Speed",
+        "general diffuse flows",
+        "diffuse flows",
+        "Zone 1 Power Consumption",
+        "Zone 2 Power Consumption",
+        "Zone 3 Power Consumption"
+      ],
+      "target": "Zone 1 Power Consumption"
+    },
+    "hourly": "right-closed, right-labeled mean of six 10-minute observations; remove incomplete edge bins only; reject interior gaps"
+  },
+  "rules": [
+    "Freeze this protocol before new-dataset performance is inspected; do not revise after final evaluation.",
+    "Fit forecasters on train; fit action labels on policy; choose candidates and margins on validation only.",
+    "Include forecast-only, policy-only, combined, and arrival-metadata ablations; promotion refers only to the predeclared combined method.",
+    "Apply the same origin, target, decision grid, and per-sensor acquisition costs to every sequential method.",
+    "Every method may acquire each currently unavailable origin-slot sensor once; acquisitions persist across waits; stop at deadline.",
+    "Oracle is retrospective headroom only and never a deployable competitor.",
+    "All datasets train separately; results are not zero-shot transfer or universal superiority.",
+    "All arrival timestamps and information costs are simulated. No measured deployment savings claim.",
+    "If the gate fails retain the production model, report failure, and do not retune on newly exposed tests."
+  ],
+  "schema": "asofcast.research-diagnosis.v1",
+  "seeds": [
+    42,
+    43,
+    44
+  ],
+  "training_config": "configs/ett_m1.json"
+}

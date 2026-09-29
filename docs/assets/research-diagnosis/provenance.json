@@ -1,0 +1,1173 @@
+{
+  "base_training_config": {
+    "acquisition_cost_weight": 0.03,
+    "acquisition_epochs": 40,
+    "acquisition_pareto_weights": [
+      0,
+      0.01,
+      0.03,
+      0.05,
+      0.1
+    ],
+    "arrival_seed": 811,
+    "batch_size": 128,
+    "calibration_ridges": [
+      1,
+      10,
+      100,
+      1000,
+      10000,
+      100000
+    ],
+    "cpu_threads": 2,
+    "delay_cost": 0.02,
+    "epochs": 25,
+    "horizon": 6,
+    "learning_rate": 0.001,
+    "lookback": 48,
+    "policy_epochs": 60,
+    "seed": 42,
+    "stride": 4,
+    "target": "OT",
+    "thresholds": [
+      0,
+      0.01,
+      0.02,
+      0.05,
+      0.1,
+      0.2,
+      1000000
+    ],
+    "waits_seconds": [
+      0,
+      1800,
+      3600
+    ]
+  },
+  "base_training_config_sha256": "b95c1dc4a1c116ab5f5144009fbb155529e650225ec019023cbab347434c4bb0",
+  "code_local_commit": "ce4240229c51be92b546b988981a82e1c36f682d",
+  "code_remote_commit": "6c3cc20ad9501860ea1fb33efadab2bfbce8b840",
+  "code_tree": "d6558d98cd32a189327d6e153a4f321c614bd6d7",
+  "consumed_bundles": {
+    "Appliances-42": {
+      "config_sha256": "22d20cc2a02805929d97ef96c26e658e37024019f02ba9ab1670ec595adf1847",
+      "effective_config": {
+        "acquisition_cost_weight": 0.03,
+        "acquisition_epochs": 40,
+        "acquisition_pareto_weights": [
+          0.0,
+          0.01,
+          0.03,
+          0.05,
+          0.1
+        ],
+        "arrival_seed": 811,
+        "batch_size": 128,
+        "calibration_ridges": [
+          1.0,
+          10.0,
+          100.0,
+          1000.0,
+          10000.0,
+          100000.0
+        ],
+        "cpu_threads": 2,
+        "delay_cost": 0.02,
+        "epochs": 25,
+        "horizon": 6,
+        "learning_rate": 0.001,
+        "lookback": 48,
+        "policy_epochs": 60,
+        "seed": 42,
+        "stride": 4,
+        "target": "Appliances",
+        "thresholds": [
+          0.0,
+          0.01,
+          0.02,
+          0.05,
+          0.1,
+          0.2,
+          1000000.0
+        ],
+        "waits_seconds": [
+          0.0,
+          1800.0,
+          3600.0
+        ]
+      },
+      "files": {
+        "acquisition.pt": "321f65376284618ecf8c8e7bcb3f6c4792f86a00896b8669d7828b32523ee622",
+        "arrival.pt": "1dceb522576ffde806c95e725a2252f81f0c0ce993eb7e7e9aaab8cb45f48f4f",
+        "calibrated.pt": "e14f11eb42537ba52beee9ae24dd6530a15bfd5afea0fd5209e97c537c2a2e75",
+        "config.json": "22d20cc2a02805929d97ef96c26e658e37024019f02ba9ab1670ec595adf1847",
+        "dlinear.pt": "90e35191a3424ca384dba8cb9db65a4f56c0fb0cbc660c77fc4147de57f3dcad",
+        "policy.pt": "e3f7b8f0ae9af53eb288feadb4d1e7e34a8887cb571c6d2fbafd09a0030ac90f",
+        "replay.npz": "cf0d90eebcf5b11151a834b84d5be01f58a723da54c55d6a315e4c9248792c88",
+        "report.json": "5b718318801c054e7f7902c520f0a18723109d1a0c46e67d199b507b39464d48",
+        "scaler.json": "57adc8f4512dab209979628430f83dcb735c347ecbf6a2eec8963ec75e520512",
+        "test_predictions.csv": "3748ad32f284192527ba7b177cf5622cdb5c10d13793a5b3d851882e91724698",
+        "training_history.json": "1a8ff146cc54fd2f5302bce744536b332d460bccc69dc93cc59703f5733d4421",
+        "value_only.pt": "9d17599ae1180bbd33413fc8b46a2dbc2147bc7d2cd4bcf7df7a9a5921182aa5"
+      },
+      "manifest_sha256": "a3e032b15255b17666153c4fdb120a51d1848b26b3e3b2b4238cfa1535da578d",
+      "source": {
+        "arrival_profile": "mixed",
+        "arrival_seed": 811,
+        "arrival_times": "synthetic, not measured",
+        "file_name": "Appliances-hourly.csv",
+        "grid_seconds": 3600,
+        "kind": "user-provided-csv",
+        "measurement_values": 23023,
+        "rows": 3289,
+        "sensor_columns": [
+          "T1",
+          "RH_1",
+          "T2",
+          "RH_2",
+          "T3",
+          "RH_3",
+          "Appliances"
+        ],
+        "sha256": "57fcbdbaabb82d951db73c80bfac267515e8083e34d3b312ef422a3a1f72681f",
+        "timestamp_convention": "dataset-local naive timestamps encoded as ordinal seconds; no timezone inferred"
+      },
+      "training_runtime": {
+        "device": "cpu",
+        "numpy": "2.3.5",
+        "platform": "Linux-6.18.44-x86_64-with-glibc2.39",
+        "python": "3.12.14",
+        "threads": 2,
+        "torch": "2.10.0+cpu"
+      }
+    },
+    "Appliances-43": {
+      "config_sha256": "4a617d46f821c67ddf4ffd15a29d784db2a7e51a1add638ece9bf8d43d7c1911",
+      "effective_config": {
+        "acquisition_cost_weight": 0.03,
+        "acquisition_epochs": 40,
+        "acquisition_pareto_weights": [
+          0.0,
+          0.01,
+          0.03,
+          0.05,
+          0.1
+        ],
+        "arrival_seed": 811,
+        "batch_size": 128,
+        "calibration_ridges": [
+          1.0,
+          10.0,
+          100.0,
+          1000.0,
+          10000.0,
+          100000.0
+        ],
+        "cpu_threads": 2,
+        "delay_cost": 0.02,
+        "epochs": 25,
+        "horizon": 6,
+        "learning_rate": 0.001,
+        "lookback": 48,
+        "policy_epochs": 60,
+        "seed": 43,
+        "stride": 4,
+        "target": "Appliances",
+        "thresholds": [
+          0.0,
+          0.01,
+          0.02,
+          0.05,
+          0.1,
+          0.2,
+          1000000.0
+        ],
+        "waits_seconds": [
+          0.0,
+          1800.0,
+          3600.0
+        ]
+      },
+      "files": {
+        "acquisition.pt": "22853f037e0ae5e2b9b85ae65cd1a594977b1361f0ed7d9727c33f9f54605c86",
+        "arrival.pt": "f83018fc62fb3427639c5ecd4f12a6e69dae9ab9d609e3f9defd190292162d9e",
+        "calibrated.pt": "74bacc9e0f0f8122806f5cc93b9777b6b6f9cdcc1bf09898582eede6f919782b",
+        "config.json": "4a617d46f821c67ddf4ffd15a29d784db2a7e51a1add638ece9bf8d43d7c1911",
+        "dlinear.pt": "f26ddd2ede3eef512176cedc8ce24ad779cae1c9b0d7600a7334fc47dfd8da34",
+        "policy.pt": "523280745347b5916e263da91ca410ec7575e83991426a9b6d42e1fdac02e1a2",
+        "replay.npz": "cf0d90eebcf5b11151a834b84d5be01f58a723da54c55d6a315e4c9248792c88",
+        "report.json": "be1e09619cef48e3ab43b5701f715eae11a76308dc1a58d1718ffa1a8a90399f",
+        "scaler.json": "57adc8f4512dab209979628430f83dcb735c347ecbf6a2eec8963ec75e520512",
+        "test_predictions.csv": "b332c3d21e5e6d9c81458ba8c223aba97a696c9798ab310f869586ad4d77e639",
+        "training_history.json": "b2c77bea9f165b2951bb83f26ea59d71bb0b0dbfadf5795182af2b9d22efcc89",
+        "value_only.pt": "9c0e7294e4b89b4b65ecf393864fde976bbfd38727c326ef18d15d401451ebae"
+      },
+      "manifest_sha256": "df7d2b03a6bede1c20b7fe48b85ad5cadb5bdd0a1bc2bdc48931105f3f97c010",
+      "source": {
+        "arrival_profile": "mixed",
+        "arrival_seed": 811,
+        "arrival_times": "synthetic, not measured",
+        "file_name": "Appliances-hourly.csv",
+        "grid_seconds": 3600,
+        "kind": "user-provided-csv",
+        "measurement_values": 23023,
+        "rows": 3289,
+        "sensor_columns": [
+          "T1",
+          "RH_1",
+          "T2",
+          "RH_2",
+          "T3",
+          "RH_3",
+          "Appliances"
+        ],
+        "sha256": "57fcbdbaabb82d951db73c80bfac267515e8083e34d3b312ef422a3a1f72681f",
+        "timestamp_convention": "dataset-local naive timestamps encoded as ordinal seconds; no timezone inferred"
+      },
+      "training_runtime": {
+        "device": "cpu",
+        "numpy": "2.3.5",
+        "platform": "Linux-6.18.44-x86_64-with-glibc2.39",
+        "python": "3.12.14",
+        "threads": 2,
+        "torch": "2.10.0+cpu"
+      }
+    },
+    "Appliances-44": {
+      "config_sha256": "12eabc0a5f854c46747fcdb4df24c23e4ce27d0ec3d795908c37181ce42526fc",
+      "effective_config": {
+        "acquisition_cost_weight": 0.03,
+        "acquisition_epochs": 40,
+        "acquisition_pareto_weights": [
+          0.0,
+          0.01,
+          0.03,
+          0.05,
+          0.1
+        ],
+        "arrival_seed": 811,
+        "batch_size": 128,
+        "calibration_ridges": [
+          1.0,
+          10.0,
+          100.0,
+          1000.0,
+          10000.0,
+          100000.0
+        ],
+        "cpu_threads": 2,
+        "delay_cost": 0.02,
+        "epochs": 25,
+        "horizon": 6,
+        "learning_rate": 0.001,
+        "lookback": 48,
+        "policy_epochs": 60,
+        "seed": 44,
+        "stride": 4,
+        "target": "Appliances",
+        "thresholds": [
+          0.0,
+          0.01,
+          0.02,
+          0.05,
+          0.1,
+          0.2,
+          1000000.0
+        ],
+        "waits_seconds": [
+          0.0,
+          1800.0,
+          3600.0
+        ]
+      },
+      "files": {
+        "acquisition.pt": "781b7befc44186a3c68102c9e8da438adfee91c695a9fa232b4d27d86286e582",
+        "arrival.pt": "cb8b9e0613c6279dcac8d1d86e6f91f15fa88d87e3e0df63f348e44dc804a704",
+        "calibrated.pt": "8e253bb8578ecca010d3c39426cb4275f6b73cf352f2ac793c0c0f13dd3c7d01",
+        "config.json": "12eabc0a5f854c46747fcdb4df24c23e4ce27d0ec3d795908c37181ce42526fc",
+        "dlinear.pt": "d00ebfac2e9baa2414d43364c8d03a725f732d4f71e96f51f4bd4c9143a37f6f",
+        "policy.pt": "7cd08131c8129f7368c19b480b1268e03e17af20a74d07e8826749109d953477",
+        "replay.npz": "cf0d90eebcf5b11151a834b84d5be01f58a723da54c55d6a315e4c9248792c88",
+        "report.json": "36d8b7eb03147b17c9c65bb755370530d327a2987d31ad843e7a376c62963701",
+        "scaler.json": "57adc8f4512dab209979628430f83dcb735c347ecbf6a2eec8963ec75e520512",
+        "test_predictions.csv": "81f9f4a35daea204ecf44a16b52148d8e6e23193efdd13a978fc8273d5e225bf",
+        "training_history.json": "4ba8083c128875eeb93caa8053947d2d924f1153c0d52bdd7d740afa86074f75",
+        "value_only.pt": "43ad824e988edb95a2d281cce71567adf4af5829450157c671023ad57971006b"
+      },
+      "manifest_sha256": "4120d6bfbcb10a934ba82b4350790fa596dbaa1105e1f2f34dd4a684dc29bf7f",
+      "source": {
+        "arrival_profile": "mixed",
+        "arrival_seed": 811,
+        "arrival_times": "synthetic, not measured",
+        "file_name": "Appliances-hourly.csv",
+        "grid_seconds": 3600,
+        "kind": "user-provided-csv",
+        "measurement_values": 23023,
+        "rows": 3289,
+        "sensor_columns": [
+          "T1",
+          "RH_1",
+          "T2",
+          "RH_2",
+          "T3",
+          "RH_3",
+          "Appliances"
+        ],
+        "sha256": "57fcbdbaabb82d951db73c80bfac267515e8083e34d3b312ef422a3a1f72681f",
+        "timestamp_convention": "dataset-local naive timestamps encoded as ordinal seconds; no timezone inferred"
+      },
+      "training_runtime": {
+        "device": "cpu",
+        "numpy": "2.3.5",
+        "platform": "Linux-6.18.44-x86_64-with-glibc2.39",
+        "python": "3.12.14",
+        "threads": 2,
+        "torch": "2.10.0+cpu"
+      }
+    },
+    "ETTh1-42": {
+      "config_sha256": "117a16e65b3f186d562b8410fe9e2117e33c4044c995acd652480c3def489284",
+      "effective_config": {
+        "acquisition_cost_weight": 0.03,
+        "acquisition_epochs": 40,
+        "acquisition_pareto_weights": [
+          0.0,
+          0.01,
+          0.03,
+          0.05,
+          0.1
+        ],
+        "arrival_seed": 811,
+        "batch_size": 128,
+        "calibration_ridges": [
+          1.0,
+          10.0,
+          100.0,
+          1000.0,
+          10000.0,
+          100000.0
+        ],
+        "cpu_threads": 2,
+        "delay_cost": 0.02,
+        "epochs": 25,
+        "horizon": 6,
+        "learning_rate": 0.001,
+        "lookback": 48,
+        "policy_epochs": 60,
+        "seed": 42,
+        "stride": 4,
+        "target": "OT",
+        "thresholds": [
+          0.0,
+          0.01,
+          0.02,
+          0.05,
+          0.1,
+          0.2,
+          1000000.0
+        ],
+        "waits_seconds": [
+          0.0,
+          1800.0,
+          3600.0
+        ]
+      },
+      "files": {
+        "acquisition.pt": "62101c2a132e55704fadff75d1509f9b17a2b5932994255f1edb9df9a8f0f23b",
+        "arrival.pt": "9a0a8d44ea61a2bbe5cdd04388fbcb317ab0c4bafbde021a67f264c28183e8d9",
+        "calibrated.pt": "ff9f5b8fc707f5e02d7e6ee48d9dc51c4adb5c8ea50f30dc82cf2b0dd2ef5cc4",
+        "config.json": "117a16e65b3f186d562b8410fe9e2117e33c4044c995acd652480c3def489284",
+        "dlinear.pt": "bd953c766e93757240621ab6d10559d1e51b4ecdefc9e8536d230fe227da8c17",
+        "policy.pt": "f6178e1acd11bd29fcbe1ddea42822bbd341bc727e5a9ce978be5cbcf0254991",
+        "replay.npz": "954a7c2f3ab3d1e412cfaf6b248de4a48798b28c330703523cb92f3741de3aab",
+        "report.json": "d9089a367c58525fc4b438714becf05b5b96a3e286389c6a595d363d7df791f1",
+        "scaler.json": "ee71b468537955e95f22e96ca196f2f981cdb64c36c4b5eb3203403db10cf496",
+        "test_predictions.csv": "0784e81cf307abfa2b148a848b792944e4d6072cfc1e4344ab2fe4afc8d1dc58",
+        "training_history.json": "5c169f23a6550b1ffa1cd17735aaeca5212ae34f5e9f89b4f1eca34db7674de3",
+        "value_only.pt": "debd9ee668203c99fbc66d188c23d5f61f14d4589746dd2460af20b2d1c56dfb"
+      },
+      "manifest_sha256": "5148335e1eb78d058b28230085baa0e81b13b75755eee15d757c8b1a09e32eda",
+      "source": {
+        "arrival_profile": "mixed",
+        "arrival_seed": 811,
+        "arrival_times": "synthetic, not measured",
+        "file_name": "ETTh1.csv",
+        "git_blob_sha1": "a52c4925778c07c1ef1a2cf6fd01594919717d9e",
+        "grid_seconds": 3600,
+        "kind": "ett",
+        "measurement_values": 121940,
+        "rows": 17420,
+        "sensor_columns": [
+          "HUFL",
+          "HULL",
+          "MUFL",
+          "MULL",
+          "LUFL",
+          "LULL",
+          "OT"
+        ],
+        "sha256": "f18de3ad269cef59bb07b5438d79bb3042d3be49bdeecf01c1cd6d29695ee066",
+        "timestamp_convention": "dataset-local naive timestamps encoded as ordinal seconds; no timezone inferred",
+        "url": "https://raw.githubusercontent.com/zhouhaoyi/ETDataset/main/ETT-small/ETTh1.csv"
+      },
+      "training_runtime": {
+        "device": "cpu",
+        "numpy": "2.3.5",
+        "platform": "Linux-6.18.44-x86_64-with-glibc2.39",
+        "python": "3.12.14",
+        "threads": 2,
+        "torch": "2.10.0+cpu"
+      }
+    },
+    "ETTh1-43": {
+      "config_sha256": "9615e93ef88fe2859571e6ab9ae2fc2ef7e89701cecb8d2d8334dfdcf02c27cd",
+      "effective_config": {
+        "acquisition_cost_weight": 0.03,
+        "acquisition_epochs": 40,
+        "acquisition_pareto_weights": [
+          0.0,
+          0.01,
+          0.03,
+          0.05,
+          0.1
+        ],
+        "arrival_seed": 811,
+        "batch_size": 128,
+        "calibration_ridges": [
+          1.0,
+          10.0,
+          100.0,
+          1000.0,
+          10000.0,
+          100000.0
+        ],
+        "cpu_threads": 2,
+        "delay_cost": 0.02,
+        "epochs": 25,
+        "horizon": 6,
+        "learning_rate": 0.001,
+        "lookback": 48,
+        "policy_epochs": 60,
+        "seed": 43,
+        "stride": 4,
+        "target": "OT",
+        "thresholds": [
+          0.0,
+          0.01,
+          0.02,
+          0.05,
+          0.1,
+          0.2,
+          1000000.0
+        ],
+        "waits_seconds": [
+          0.0,
+          1800.0,
+          3600.0
+        ]
+      },
+      "files": {
+        "acquisition.pt": "6a807c5bce6b5ca1b56d170b871bb5699845509f9a4a7882570320d01dcbe948",
+        "arrival.pt": "b4a4251b68191bd4e381e80a1467114bb588d493be76199fcfc2a02bc3b30e68",
+        "calibrated.pt": "b41ae925adc315bf9307a6d91a2e7cb48d7515b2a61cc132dcccd8941beb3d54",
+        "config.json": "9615e93ef88fe2859571e6ab9ae2fc2ef7e89701cecb8d2d8334dfdcf02c27cd",
+        "dlinear.pt": "29e1d0efa917542f8c28efc51ac076b734e3a5bea8f3c17f779d22ad3621764b",
+        "policy.pt": "48cb6478ccc8bc0cec5e9f53df2060f07e5f4cc53cd93ad7ce86b4c39f27fc70",
+        "replay.npz": "954a7c2f3ab3d1e412cfaf6b248de4a48798b28c330703523cb92f3741de3aab",
+        "report.json": "5d84520175927dee2d19509394de648460270dbafebcf1eb2baadfd8e1bcc77b",
+        "scaler.json": "ee71b468537955e95f22e96ca196f2f981cdb64c36c4b5eb3203403db10cf496",
+        "test_predictions.csv": "5cea45c844ef95582ce31e616e74ca0ec9fa6599cc813f97c90aeadfb8191f1d",
+        "training_history.json": "dffeeb8b6cd92bb28504b05e3673ae293e3725ee8f94cac03c47f259bc1c2e28",
+        "value_only.pt": "233c272bfd145e350e218f46e335f74ac4161891bf23003a799a1821654f8f03"
+      },
+      "manifest_sha256": "64f27408911731a6107eff4b7866375ca4b9e924c32d548630c1be39d829f236",
+      "source": {
+        "arrival_profile": "mixed",
+        "arrival_seed": 811,
+        "arrival_times": "synthetic, not measured",
+        "file_name": "ETTh1.csv",
+        "git_blob_sha1": "a52c4925778c07c1ef1a2cf6fd01594919717d9e",
+        "grid_seconds": 3600,
+        "kind": "ett",
+        "measurement_values": 121940,
+        "rows": 17420,
+        "sensor_columns": [
+          "HUFL",
+          "HULL",
+          "MUFL",
+          "MULL",
+          "LUFL",
+          "LULL",
+          "OT"
+        ],
+        "sha256": "f18de3ad269cef59bb07b5438d79bb3042d3be49bdeecf01c1cd6d29695ee066",
+        "timestamp_convention": "dataset-local naive timestamps encoded as ordinal seconds; no timezone inferred",
+        "url": "https://raw.githubusercontent.com/zhouhaoyi/ETDataset/main/ETT-small/ETTh1.csv"
+      },
+      "training_runtime": {
+        "device": "cpu",
+        "numpy": "2.3.5",
+        "platform": "Linux-6.18.44-x86_64-with-glibc2.39",
+        "python": "3.12.14",
+        "threads": 2,
+        "torch": "2.10.0+cpu"
+      }
+    },
+    "ETTh1-44": {
+      "config_sha256": "3985fc53995dc3ac22bce2de4b6803e45d958f2468151e7f36462de6962759f1",
+      "effective_config": {
+        "acquisition_cost_weight": 0.03,
+        "acquisition_epochs": 40,
+        "acquisition_pareto_weights": [
+          0.0,
+          0.01,
+          0.03,
+          0.05,
+          0.1
+        ],
+        "arrival_seed": 811,
+        "batch_size": 128,
+        "calibration_ridges": [
+          1.0,
+          10.0,
+          100.0,
+          1000.0,
+          10000.0,
+          100000.0
+        ],
+        "cpu_threads": 2,
+        "delay_cost": 0.02,
+        "epochs": 25,
+        "horizon": 6,
+        "learning_rate": 0.001,
+        "lookback": 48,
+        "policy_epochs": 60,
+        "seed": 44,
+        "stride": 4,
+        "target": "OT",
+        "thresholds": [
+          0.0,
+          0.01,
+          0.02,
+          0.05,
+          0.1,
+          0.2,
+          1000000.0
+        ],
+        "waits_seconds": [
+          0.0,
+          1800.0,
+          3600.0
+        ]
+      },
+      "files": {
+        "acquisition.pt": "20a6701a7f77f8d9e24b787d75f0df3d474fdd1e67733df36970541bf09b5de3",
+        "arrival.pt": "28559a1be3e9bb6c400313b27744cd355f3f3110dc66e632b874d31f1be691d6",
+        "calibrated.pt": "b18667a8fde75a3f48ca830c5ce18b90cac8d1b9b7f0f9c0e628edea9a8f21e1",
+        "config.json": "3985fc53995dc3ac22bce2de4b6803e45d958f2468151e7f36462de6962759f1",
+        "dlinear.pt": "a056e4cebcecc8dbba42b26aa1c823465e3ad749854251c0ee006585f1c29bc8",
+        "policy.pt": "f100d956c79f370f2000cebaf3c9b0c8928a1ae04d3333920a73ea55931506c5",
+        "replay.npz": "954a7c2f3ab3d1e412cfaf6b248de4a48798b28c330703523cb92f3741de3aab",
+        "report.json": "aa9d9f35835b3121cc57c39781752b0c8d6adbe6e256a2461ed693b09583b420",
+        "scaler.json": "ee71b468537955e95f22e96ca196f2f981cdb64c36c4b5eb3203403db10cf496",
+        "test_predictions.csv": "d8df04f05792c0f8e5c5486c025f0498438389771e0c39895ad28207a07148d4",
+        "training_history.json": "e01efd171631e72e5479dbcd9a1911cfd5cff4f8225688e8fcb47c0e3905965b",
+        "value_only.pt": "922dd0c38da3abfa7dd24b187ef9a325596f92de66f00346714a7092f16c51c9"
+      },
+      "manifest_sha256": "5402ff04d8250e73d8577ce2031657c33654a12e4b9871ff4fe4b96e28d9a59e",
+      "source": {
+        "arrival_profile": "mixed",
+        "arrival_seed": 811,
+        "arrival_times": "synthetic, not measured",
+        "file_name": "ETTh1.csv",
+        "git_blob_sha1": "a52c4925778c07c1ef1a2cf6fd01594919717d9e",
+        "grid_seconds": 3600,
+        "kind": "ett",
+        "measurement_values": 121940,
+        "rows": 17420,
+        "sensor_columns": [
+          "HUFL",
+          "HULL",
+          "MUFL",
+          "MULL",
+          "LUFL",
+          "LULL",
+          "OT"
+        ],
+        "sha256": "f18de3ad269cef59bb07b5438d79bb3042d3be49bdeecf01c1cd6d29695ee066",
+        "timestamp_convention": "dataset-local naive timestamps encoded as ordinal seconds; no timezone inferred",
+        "url": "https://raw.githubusercontent.com/zhouhaoyi/ETDataset/main/ETT-small/ETTh1.csv"
+      },
+      "training_runtime": {
+        "device": "cpu",
+        "numpy": "2.3.5",
+        "platform": "Linux-6.18.44-x86_64-with-glibc2.39",
+        "python": "3.12.14",
+        "threads": 2,
+        "torch": "2.10.0+cpu"
+      }
+    },
+    "ETTh2-42": {
+      "config_sha256": "117a16e65b3f186d562b8410fe9e2117e33c4044c995acd652480c3def489284",
+      "effective_config": {
+        "acquisition_cost_weight": 0.03,
+        "acquisition_epochs": 40,
+        "acquisition_pareto_weights": [
+          0.0,
+          0.01,
+          0.03,
+          0.05,
+          0.1
+        ],
+        "arrival_seed": 811,
+        "batch_size": 128,
+        "calibration_ridges": [
+          1.0,
+          10.0,
+          100.0,
+          1000.0,
+          10000.0,
+          100000.0
+        ],
+        "cpu_threads": 2,
+        "delay_cost": 0.02,
+        "epochs": 25,
+        "horizon": 6,
+        "learning_rate": 0.001,
+        "lookback": 48,
+        "policy_epochs": 60,
+        "seed": 42,
+        "stride": 4,
+        "target": "OT",
+        "thresholds": [
+          0.0,
+          0.01,
+          0.02,
+          0.05,
+          0.1,
+          0.2,
+          1000000.0
+        ],
+        "waits_seconds": [
+          0.0,
+          1800.0,
+          3600.0
+        ]
+      },
+      "files": {
+        "acquisition.pt": "50b4a92fb4a6f212a6542994d848f9fc8dbf47fee124b7fdf11b9487044cd5ce",
+        "arrival.pt": "64eae80149466faec28b58a61ef76e59500b3883a44f11041bcb03d819695009",
+        "calibrated.pt": "f1bf0b50ebf36ee77b778ea1c696f8cd5ccbc3f5b14cdedba1919ce69e2154a2",
+        "config.json": "117a16e65b3f186d562b8410fe9e2117e33c4044c995acd652480c3def489284",
+        "dlinear.pt": "1b1a227dd812403029e5b955a7705c593df0ca3659c276e4fd23fdee654a163c",
+        "policy.pt": "8bc753baf21f500b5fb49cbaa466a13895da46d83d6737e16907e15f3b9dd531",
+        "replay.npz": "e8c813c227315c592e63ce2b5f59cd1dc20d5a43efc7763d452a34bc7d6dee03",
+        "report.json": "a2d188de9035c4e74879b3987cbb4575aaeacb4d750954cff5aa6430ba559b2f",
+        "scaler.json": "e6a3fefeaf4780d1e026aed6bff1949bd96f52f2cd7f78b7866dffc6e0511f96",
+        "test_predictions.csv": "1c2eed3d6e1c386aa51ef85c75fce1976ed7158043c3fcaf0f6ccbcd0567da97",
+        "training_history.json": "851d001fad6b01acf1e81cb35e3578dca80393e6a13b8d1b197ac255169080ea",
+        "value_only.pt": "1b167ef7380424cfdfc8c899dbefb62c622f9612047f6f02a2c288225b611afc"
+      },
+      "manifest_sha256": "faa5c2fa419dd1702fd0bdf4d46b822daca807a980bc106a5d261f57c29ee260",
+      "source": {
+        "arrival_profile": "mixed",
+        "arrival_seed": 811,
+        "arrival_times": "synthetic, not measured",
+        "file_name": "ETTh2.csv",
+        "grid_seconds": 3600,
+        "kind": "user-provided-csv",
+        "measurement_values": 121940,
+        "rows": 17420,
+        "sensor_columns": [
+          "HUFL",
+          "HULL",
+          "MUFL",
+          "MULL",
+          "LUFL",
+          "LULL",
+          "OT"
+        ],
+        "sha256": "a3dc2c597b9218c7ce1cd55eb77b283fd459a1d09d753063f944967dd6b9218b",
+        "timestamp_convention": "dataset-local naive timestamps encoded as ordinal seconds; no timezone inferred"
+      },
+      "training_runtime": {
+        "device": "cpu",
+        "numpy": "2.3.5",
+        "platform": "Linux-6.18.44-x86_64-with-glibc2.39",
+        "python": "3.12.14",
+        "threads": 2,
+        "torch": "2.10.0+cpu"
+      }
+    },
+    "ETTh2-43": {
+      "config_sha256": "9615e93ef88fe2859571e6ab9ae2fc2ef7e89701cecb8d2d8334dfdcf02c27cd",
+      "effective_config": {
+        "acquisition_cost_weight": 0.03,
+        "acquisition_epochs": 40,
+        "acquisition_pareto_weights": [
+          0.0,
+          0.01,
+          0.03,
+          0.05,
+          0.1
+        ],
+        "arrival_seed": 811,
+        "batch_size": 128,
+        "calibration_ridges": [
+          1.0,
+          10.0,
+          100.0,
+          1000.0,
+          10000.0,
+          100000.0
+        ],
+        "cpu_threads": 2,
+        "delay_cost": 0.02,
+        "epochs": 25,
+        "horizon": 6,
+        "learning_rate": 0.001,
+        "lookback": 48,
+        "policy_epochs": 60,
+        "seed": 43,
+        "stride": 4,
+        "target": "OT",
+        "thresholds": [
+          0.0,
+          0.01,
+          0.02,
+          0.05,
+          0.1,
+          0.2,
+          1000000.0
+        ],
+        "waits_seconds": [
+          0.0,
+          1800.0,
+          3600.0
+        ]
+      },
+      "files": {
+        "acquisition.pt": "943a0e6cdc3eb7b39db85f29776d09d190e73569be04ea566a76777547a3114e",
+        "arrival.pt": "313d6512e17fc9266dd663f72a8403601afa8335be5300c694174aefcc34e50c",
+        "calibrated.pt": "11c6a8a7c84f7b47e3212b8e7d90a0d5bfe765340f87601768e1ccce9e8316e1",
+        "config.json": "9615e93ef88fe2859571e6ab9ae2fc2ef7e89701cecb8d2d8334dfdcf02c27cd",
+        "dlinear.pt": "d8511b9724b2db6627e979d071a574f0cf02b383ac725bbac39783624b0c8933",
+        "policy.pt": "3882842360505613f0abe2cedb2e23463c8e8c2d9c003fbdebdd400552c0be0b",
+        "replay.npz": "e8c813c227315c592e63ce2b5f59cd1dc20d5a43efc7763d452a34bc7d6dee03",
+        "report.json": "dea4f4b61feeaff1cd01d0efa1c65a54c64bf51ff0d0cfec6af96874758be341",
+        "scaler.json": "e6a3fefeaf4780d1e026aed6bff1949bd96f52f2cd7f78b7866dffc6e0511f96",
+        "test_predictions.csv": "a4ec832d9b380fb41dea6f56f0b59d794dd572a83eb0c0d066dbf8697ebe7427",
+        "training_history.json": "cc0c1555ac03e44cad3a9eece6d4d83aeb158551e6399198afcae75bc71b5ce3",
+        "value_only.pt": "fba023f67d43408b80b156dd101834f92b7070670cea5a7b018b0d99456d4750"
+      },
+      "manifest_sha256": "63824630c1a917467ae456fd2f9c0a0106b0f05f8177b1e875f92ef0c459800b",
+      "source": {
+        "arrival_profile": "mixed",
+        "arrival_seed": 811,
+        "arrival_times": "synthetic, not measured",
+        "file_name": "ETTh2.csv",
+        "grid_seconds": 3600,
+        "kind": "user-provided-csv",
+        "measurement_values": 121940,
+        "rows": 17420,
+        "sensor_columns": [
+          "HUFL",
+          "HULL",
+          "MUFL",
+          "MULL",
+          "LUFL",
+          "LULL",
+          "OT"
+        ],
+        "sha256": "a3dc2c597b9218c7ce1cd55eb77b283fd459a1d09d753063f944967dd6b9218b",
+        "timestamp_convention": "dataset-local naive timestamps encoded as ordinal seconds; no timezone inferred"
+      },
+      "training_runtime": {
+        "device": "cpu",
+        "numpy": "2.3.5",
+        "platform": "Linux-6.18.44-x86_64-with-glibc2.39",
+        "python": "3.12.14",
+        "threads": 2,
+        "torch": "2.10.0+cpu"
+      }
+    },
+    "ETTh2-44": {
+      "config_sha256": "3985fc53995dc3ac22bce2de4b6803e45d958f2468151e7f36462de6962759f1",
+      "effective_config": {
+        "acquisition_cost_weight": 0.03,
+        "acquisition_epochs": 40,
+        "acquisition_pareto_weights": [
+          0.0,
+          0.01,
+          0.03,
+          0.05,
+          0.1
+        ],
+        "arrival_seed": 811,
+        "batch_size": 128,
+        "calibration_ridges": [
+          1.0,
+          10.0,
+          100.0,
+          1000.0,
+          10000.0,
+          100000.0
+        ],
+        "cpu_threads": 2,
+        "delay_cost": 0.02,
+        "epochs": 25,
+        "horizon": 6,
+        "learning_rate": 0.001,
+        "lookback": 48,
+        "policy_epochs": 60,
+        "seed": 44,
+        "stride": 4,
+        "target": "OT",
+        "thresholds": [
+          0.0,
+          0.01,
+          0.02,
+          0.05,
+          0.1,
+          0.2,
+          1000000.0
+        ],
+        "waits_seconds": [
+          0.0,
+          1800.0,
+          3600.0
+        ]
+      },
+      "files": {
+        "acquisition.pt": "6410f6ac1bdbb816cbfc4ad0e1fccc4eb8131742ef94d5defd6fd431d7258abb",
+        "arrival.pt": "9cc7aff44b364bfabb54c4bf382d0c6efbc90bbda75ce9bbb981043c74029d12",
+        "calibrated.pt": "ef3f5183ec33e967e6ed9cdebaa43f0e12e73d1c21eb1968f6f7d11a15b2edba",
+        "config.json": "3985fc53995dc3ac22bce2de4b6803e45d958f2468151e7f36462de6962759f1",
+        "dlinear.pt": "0e4d2d9c7684fb291e9b5425fd9f47a7dacb89912adb0802ce5873c577dfad0d",
+        "policy.pt": "fa7adfc46a365ef37e2ff3000d5df24bbc5c82698772e2f51a322d8589a437b5",
+        "replay.npz": "e8c813c227315c592e63ce2b5f59cd1dc20d5a43efc7763d452a34bc7d6dee03",
+        "report.json": "b21614f1aa49506426c20dc153ad6630177f7e32ed0f28ff61438278638a6be2",
+        "scaler.json": "e6a3fefeaf4780d1e026aed6bff1949bd96f52f2cd7f78b7866dffc6e0511f96",
+        "test_predictions.csv": "b362dabd2b7669aaf47096b2ed1789343b20b3c41ffdd4a57618666bd551ece2",
+        "training_history.json": "e7ab3361d061bd95a493bad09f44b288f0dc9854d1d2c29c357ec7367850fc09",
+        "value_only.pt": "e1fe591daaedabea585d8fa7b58e339ac04d7c2b73cff2481f3f974626437daa"
+      },
+      "manifest_sha256": "db075ca0e0e2432a224404a7513977dec234cde0b33e972e6f22e9641669c936",
+      "source": {
+        "arrival_profile": "mixed",
+        "arrival_seed": 811,
+        "arrival_times": "synthetic, not measured",
+        "file_name": "ETTh2.csv",
+        "grid_seconds": 3600,
+        "kind": "user-provided-csv",
+        "measurement_values": 121940,
+        "rows": 17420,
+        "sensor_columns": [
+          "HUFL",
+          "HULL",
+          "MUFL",
+          "MULL",
+          "LUFL",
+          "LULL",
+          "OT"
+        ],
+        "sha256": "a3dc2c597b9218c7ce1cd55eb77b283fd459a1d09d753063f944967dd6b9218b",
+        "timestamp_convention": "dataset-local naive timestamps encoded as ordinal seconds; no timezone inferred"
+      },
+      "training_runtime": {
+        "device": "cpu",
+        "numpy": "2.3.5",
+        "platform": "Linux-6.18.44-x86_64-with-glibc2.39",
+        "python": "3.12.14",
+        "threads": 2,
+        "torch": "2.10.0+cpu"
+      }
+    },
+    "Tetouan-42": {
+      "config_sha256": "f15ead49b342866e7a9cfa3f9680c68a607c95b4190424823d00b480f8a4a4eb",
+      "effective_config": {
+        "acquisition_cost_weight": 0.03,
+        "acquisition_epochs": 40,
+        "acquisition_pareto_weights": [
+          0.0,
+          0.01,
+          0.03,
+          0.05,
+          0.1
+        ],
+        "arrival_seed": 811,
+        "batch_size": 128,
+        "calibration_ridges": [
+          1.0,
+          10.0,
+          100.0,
+          1000.0,
+          10000.0,
+          100000.0
+        ],
+        "cpu_threads": 2,
+        "delay_cost": 0.02,
+        "epochs": 25,
+        "horizon": 6,
+        "learning_rate": 0.001,
+        "lookback": 48,
+        "policy_epochs": 60,
+        "seed": 42,
+        "stride": 4,
+        "target": "Zone 1 Power Consumption",
+        "thresholds": [
+          0.0,
+          0.01,
+          0.02,
+          0.05,
+          0.1,
+          0.2,
+          1000000.0
+        ],
+        "waits_seconds": [
+          0.0,
+          1800.0,
+          3600.0
+        ]
+      },
+      "files": {
+        "acquisition.pt": "d1b063ca21a1ff0762abf243c5483612ff61e1a620cc2155ccb3960a01f455ce",
+        "arrival.pt": "502ff9d22e43a9a5a10837815ce64a5db64cb50d7686e56c8272cfdc3a3351c7",
+        "calibrated.pt": "c0fe113134651f8c8ae512cd57c614d2a6a0d179d79e9b08a59c21fbfd3c9874",
+        "config.json": "f15ead49b342866e7a9cfa3f9680c68a607c95b4190424823d00b480f8a4a4eb",
+        "dlinear.pt": "beeb8fbd5b17ad1dca5db1438d8b2d3f276c4099c92a95f644c66945db0c1299",
+        "policy.pt": "ff75c078e0dcccaadbc6d40b7fca656775db5a1f3a7d1803c3e899ce041c1103",
+        "replay.npz": "8f40045dfbdb66e3031e776172fa96987c7cce91030c0aa6adeaefc8575d0e74",
+        "report.json": "b2b1b16c1da2f8bc438bc5abc37c7ba1027459b3c52c2b45e3510d3e82ca428f",
+        "scaler.json": "e037711da48bfce969125bb9f75fa7ea727d02f4ada2555657c4a4ffc7bc0c59",
+        "test_predictions.csv": "45ce8c75b066e61cb61c392dba88544576e599710998558dd1b0377330c99a75",
+        "training_history.json": "ba4391fa43a5c822ae277322b324818f8c12991b5cb3f75de060ed7e9e7a6d7b",
+        "value_only.pt": "60a3b4bd673be9aa59a578a80fc6081e436a0bf0788bc15ab77269f15c5314b4"
+      },
+      "manifest_sha256": "167c7e465031721c5d522a68a5c4a55b35b9e212f1554bacc3f8ef9c303c4540",
+      "source": {
+        "arrival_profile": "mixed",
+        "arrival_seed": 811,
+        "arrival_times": "synthetic, not measured",
+        "file_name": "Tetouan-hourly.csv",
+        "grid_seconds": 3600,
+        "kind": "user-provided-csv",
+        "measurement_values": 69880,
+        "rows": 8735,
+        "sensor_columns": [
+          "Temperature",
+          "Humidity",
+          "Wind Speed",
+          "general diffuse flows",
+          "diffuse flows",
+          "Zone 1 Power Consumption",
+          "Zone 2 Power Consumption",
+          "Zone 3 Power Consumption"
+        ],
+        "sha256": "a2002d6e7e53027234614d98f5ef7748d67c5a168dda5b4b5e8a59178e0a4779",
+        "timestamp_convention": "dataset-local naive timestamps encoded as ordinal seconds; no timezone inferred"
+      },
+      "training_runtime": {
+        "device": "cpu",
+        "numpy": "2.3.5",
+        "platform": "Linux-6.18.44-x86_64-with-glibc2.39",
+        "python": "3.12.14",
+        "threads": 2,
+        "torch": "2.10.0+cpu"
+      }
+    },
+    "Tetouan-43": {
+      "config_sha256": "0df482d974fed8aa9f4ba17fd4cba461cd82352fdaf39e03d852e9814b9f739d",
+      "effective_config": {
+        "acquisition_cost_weight": 0.03,
+        "acquisition_epochs": 40,
+        "acquisition_pareto_weights": [
+          0.0,
+          0.01,
+          0.03,
+          0.05,
+          0.1
+        ],
+        "arrival_seed": 811,
+        "batch_size": 128,
+        "calibration_ridges": [
+          1.0,
+          10.0,
+          100.0,
+          1000.0,
+          10000.0,
+          100000.0
+        ],
+        "cpu_threads": 2,
+        "delay_cost": 0.02,
+        "epochs": 25,
+        "horizon": 6,
+        "learning_rate": 0.001,
+        "lookback": 48,
+        "policy_epochs": 60,
+        "seed": 43,
+        "stride": 4,
+        "target": "Zone 1 Power Consumption",
+        "thresholds": [
+          0.0,
+          0.01,
+          0.02,
+          0.05,
+          0.1,
+          0.2,
+          1000000.0
+        ],
+        "waits_seconds": [
+          0.0,
+          1800.0,
+          3600.0
+        ]
+      },
+      "files": {
+        "acquisition.pt": "ca38d2caa5f7c0afdef5c3d35dd2e07f0e4d33462344307f6e27d35c448d0937",
+        "arrival.pt": "7ae528b73e38b4b23e54e2d4540b7d6db7ff4beb985aed95b1891c86128b1cad",
+        "calibrated.pt": "a19ba44894e9d12c010b382b011ba8feb675e98734518a11e3121061017e1d33",
+        "config.json": "0df482d974fed8aa9f4ba17fd4cba461cd82352fdaf39e03d852e9814b9f739d",
+        "dlinear.pt": "3bc515597b681990841bce3781115f851e4f31ded6500da3e63e73ff5b0c0fc4",
+        "policy.pt": "fd9e775dd18bd774863f0aab0a2760b132afcfb0b461160170869785cd89f334",
+        "replay.npz": "8f40045dfbdb66e3031e776172fa96987c7cce91030c0aa6adeaefc8575d0e74",
+        "report.json": "5693da3c6f20ddf553bac23f114da279f61e9299e2e279fd0d8afaa39349c04e",
+        "scaler.json": "e037711da48bfce969125bb9f75fa7ea727d02f4ada2555657c4a4ffc7bc0c59",
+        "test_predictions.csv": "0073c97b1f64275ff985d92034f6f5eafb088fe26d5314aab057117355e4cdbd",
+        "training_history.json": "087a8dd8fa792c6ec2474a0d1e6cafab0e8cd8a97deef78cf63e8762b7805b83",
+        "value_only.pt": "bbc0ec85c8d315758dbf42d390df10057b90d737f083b62f1f7cbfedacdca8c5"
+      },
+      "manifest_sha256": "a4d5bb860e773a5667385c3f2a0954151f01b8c5e01780857d6c4cc117c72e06",
+      "source": {
+        "arrival_profile": "mixed",
+        "arrival_seed": 811,
+        "arrival_times": "synthetic, not measured",
+        "file_name": "Tetouan-hourly.csv",
+        "grid_seconds": 3600,
+        "kind": "user-provided-csv",
+        "measurement_values": 69880,
+        "rows": 8735,
+        "sensor_columns": [
+          "Temperature",
+          "Humidity",
+          "Wind Speed",
+          "general diffuse flows",
+          "diffuse flows",
+          "Zone 1 Power Consumption",
+          "Zone 2 Power Consumption",
+          "Zone 3 Power Consumption"
+        ],
+        "sha256": "a2002d6e7e53027234614d98f5ef7748d67c5a168dda5b4b5e8a59178e0a4779",
+        "timestamp_convention": "dataset-local naive timestamps encoded as ordinal seconds; no timezone inferred"
+      },
+      "training_runtime": {
+        "device": "cpu",
+        "numpy": "2.3.5",
+        "platform": "Linux-6.18.44-x86_64-with-glibc2.39",
+        "python": "3.12.14",
+        "threads": 2,
+        "torch": "2.10.0+cpu"
+      }
+    },
+    "Tetouan-44": {
+      "config_sha256": "d06e41f3e0166673a29484c13c30909bae74c5fd9fc10aade7d807ffc1a5b381",
+      "effective_config": {
+        "acquisition_cost_weight": 0.03,
+        "acquisition_epochs": 40,
+        "acquisition_pareto_weights": [
+          0.0,
+          0.01,
+          0.03,
+          0.05,
+          0.1
+        ],
+        "arrival_seed": 811,
+        "batch_size": 128,
+        "calibration_ridges": [
+          1.0,
+          10.0,
+          100.0,
+          1000.0,
+          10000.0,
+          100000.0
+        ],
+        "cpu_threads": 2,
+        "delay_cost": 0.02,
+        "epochs": 25,
+        "horizon": 6,
+        "learning_rate": 0.001,
+        "lookback": 48,
+        "policy_epochs": 60,
+        "seed": 44,
+        "stride": 4,
+        "target": "Zone 1 Power Consumption",
+        "thresholds": [
+          0.0,
+          0.01,
+          0.02,
+          0.05,
+          0.1,
+          0.2,
+          1000000.0
+        ],
+        "waits_seconds": [
+          0.0,
+          1800.0,
+          3600.0
+        ]
+      },
+      "files": {
+        "acquisition.pt": "67425639cc4f5686cb28b5cf4cb9edafca16bc8385e4597e02149efe41d89eaa",
+        "arrival.pt": "cf33dc0d3164f600b6ee292e5d8ce03956339f1fb977dc98c7eec5e166befc47",
+        "calibrated.pt": "dea07c2b0069dd8be7c025aa63721738f4fdeeba59c0f4206d48964f9e6bac8b",
+        "config.json": "d06e41f3e0166673a29484c13c30909bae74c5fd9fc10aade7d807ffc1a5b381",
+        "dlinear.pt": "3ffb1a8f93499ac9e75cf2570228928d9679228dbc6e6afabbbf0f53b50818a6",
+        "policy.pt": "2f0a40f8e18492a826449ba4a8814222c892fd3f06c2f1acda3efb500d63151b",
+        "replay.npz": "8f40045dfbdb66e3031e776172fa96987c7cce91030c0aa6adeaefc8575d0e74",
+        "report.json": "a7a5e0ad1c5cb02ed08d3906835abcea9ac77eeaa4e8b52219b931408f639636",
+        "scaler.json": "e037711da48bfce969125bb9f75fa7ea727d02f4ada2555657c4a4ffc7bc0c59",
+        "test_predictions.csv": "0449b8bb6b1bef31b018f2feb9fbb9d0c5447c38d31b536242fef312f4c39f9b",
+        "training_history.json": "eca4b97355001c2f8accbba74b7dcca7f02c845d4c226b643fcf0a81d8e3453c",
+        "value_only.pt": "f248d67909a483526ac099e1bc3a5d44005f1b16c12f85e974e8f39b65d58d1a"
+      },
+      "manifest_sha256": "d0ef286934a3612f5fc180e5bd12fa3527e27098a465b4cb6ae0e0b70fd4a26e",
+      "source": {
+        "arrival_profile": "mixed",
+        "arrival_seed": 811,
+        "arrival_times": "synthetic, not measured",
+        "file_name": "Tetouan-hourly.csv",
+        "grid_seconds": 3600,
+        "kind": "user-provided-csv",
+        "measurement_values": 69880,
+        "rows": 8735,
+        "sensor_columns": [
+          "Temperature",
+          "Humidity",
+          "Wind Speed",
+          "general diffuse flows",
+          "diffuse flows",
+          "Zone 1 Power Consumption",
+          "Zone 2 Power Consumption",
+          "Zone 3 Power Consumption"
+        ],
+        "sha256": "a2002d6e7e53027234614d98f5ef7748d67c5a168dda5b4b5e8a59178e0a4779",
+        "timestamp_convention": "dataset-local naive timestamps encoded as ordinal seconds; no timezone inferred"
+      },
+      "training_runtime": {
+        "device": "cpu",
+        "numpy": "2.3.5",
+        "platform": "Linux-6.18.44-x86_64-with-glibc2.39",
+        "python": "3.12.14",
+        "threads": 2,
+        "torch": "2.10.0+cpu"
+      }
+    }
+  },
+  "note": "Companion provenance records effective per-dataset configs and every consumed bundle manifest/file hash. Bundle training was repeated from scratch for reproducibility.",
+  "protocol_identical_to_preexperiment_commit": true,
+  "protocol_local_commit": "2758d55",
+  "protocol_remote_commit": "552655d69d5533bd4f3bfaa935f76d039eac097b",
+  "protocol_sha256": "80e669d602f61169c38cc2aa905effa272a62aafde95272017fa8a8b16a14a8b",
+  "schema": "asofcast.research-diagnosis.provenance.v1",
+  "source_hashes_match_executed_report": true
+}
