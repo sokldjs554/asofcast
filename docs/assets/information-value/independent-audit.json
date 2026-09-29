@@ -1,0 +1,48 @@
+{
+  "passed": true,
+  "arrays_exact": 2106,
+  "npz_hash_exact": true,
+  "verified_bundle_files": 144,
+  "checkpoint_pairs_exact": 36,
+  "checkpoint_tensors_exact": 288,
+  "verified_report_metrics": 1296,
+  "validated_origin_action_traces": 35316,
+  "independent_bootstrap_intervals": 60,
+  "origins_per_seed_condition": {
+    "Jena2020": 182,
+    "GasCO": 145
+  },
+  "gate_checks": {
+    "Jena2020/mixed_2811": {
+      "legacy_joint": true,
+      "validation_simple": false,
+      "mae": true
+    },
+    "Jena2020/mixed_3811": {
+      "legacy_joint": true,
+      "validation_simple": false,
+      "mae": true
+    },
+    "Jena2020/outage_2811": {
+      "legacy_joint": true,
+      "validation_simple": false,
+      "mae": true
+    },
+    "GasCO/mixed_2811": {
+      "legacy_joint": true,
+      "validation_simple": false,
+      "mae": false
+    },
+    "GasCO/mixed_3811": {
+      "legacy_joint": true,
+      "validation_simple": false,
+      "mae": false
+    },
+    "GasCO/outage_2811": {
+      "legacy_joint": true,
+      "validation_simple": false,
+      "mae": true
+    }
+  },
+  "promotion_gate_passed": false
+}
