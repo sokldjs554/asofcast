@@ -1,0 +1,337 @@
+{
+  "all_arrays_exact": true,
+  "base_model_config_and_scaler_exact": true,
+  "bundles_per_execution": 6,
+  "checkpoint_details": [
+    {
+      "all_tensors_exact": true,
+      "bundle": "GasCO-42",
+      "file": "acquisition.pt",
+      "sha256_run1": "5d680fddee5dea3d88cb3fd86f0ca7a4b8defddcc1c9e24657f4795888baf3ef",
+      "sha256_run2": "5d680fddee5dea3d88cb3fd86f0ca7a4b8defddcc1c9e24657f4795888baf3ef",
+      "tensors": 8
+    },
+    {
+      "all_tensors_exact": true,
+      "bundle": "GasCO-42",
+      "file": "arrival.pt",
+      "sha256_run1": "661456e107890fe56fd90f288dc3395e22b21a2a1ac29f7e61b34f06ad049f77",
+      "sha256_run2": "661456e107890fe56fd90f288dc3395e22b21a2a1ac29f7e61b34f06ad049f77",
+      "tensors": 10
+    },
+    {
+      "all_tensors_exact": true,
+      "bundle": "GasCO-42",
+      "file": "calibrated.pt",
+      "sha256_run1": "d68810200dafee2edf774af33ad1107ea6c83b7083a1355e7d77e700713e17a5",
+      "sha256_run2": "d68810200dafee2edf774af33ad1107ea6c83b7083a1355e7d77e700713e17a5",
+      "tensors": 8
+    },
+    {
+      "all_tensors_exact": true,
+      "bundle": "GasCO-42",
+      "file": "dlinear.pt",
+      "sha256_run1": "fb9bcaaa80e9229915e2024837aa73ec1f792e1d76bfe10edbe3f8b7117dfd40",
+      "sha256_run2": "fb9bcaaa80e9229915e2024837aa73ec1f792e1d76bfe10edbe3f8b7117dfd40",
+      "tensors": 4
+    },
+    {
+      "all_tensors_exact": true,
+      "bundle": "GasCO-42",
+      "file": "policy.pt",
+      "sha256_run1": "9b21619eacde4a80e59056f8e66959d3adb3073c735c40cff5f4109c3f767d5f",
+      "sha256_run2": "9b21619eacde4a80e59056f8e66959d3adb3073c735c40cff5f4109c3f767d5f",
+      "tensors": 8
+    },
+    {
+      "all_tensors_exact": true,
+      "bundle": "GasCO-42",
+      "file": "value_only.pt",
+      "sha256_run1": "8aeb9b2ebf3e21c0197d272637cb8908e2b2dc59a81b5aed17013c7e9550a816",
+      "sha256_run2": "8aeb9b2ebf3e21c0197d272637cb8908e2b2dc59a81b5aed17013c7e9550a816",
+      "tensors": 10
+    },
+    {
+      "all_tensors_exact": true,
+      "bundle": "GasCO-43",
+      "file": "acquisition.pt",
+      "sha256_run1": "694e6d363cd762056101bcb9a36760ea3929830bec7573838f10d8e0a416c257",
+      "sha256_run2": "694e6d363cd762056101bcb9a36760ea3929830bec7573838f10d8e0a416c257",
+      "tensors": 8
+    },
+    {
+      "all_tensors_exact": true,
+      "bundle": "GasCO-43",
+      "file": "arrival.pt",
+      "sha256_run1": "1b089947fe6406ed04460c60f92eaf5b615923f75befba87fd9271e92348d142",
+      "sha256_run2": "1b089947fe6406ed04460c60f92eaf5b615923f75befba87fd9271e92348d142",
+      "tensors": 10
+    },
+    {
+      "all_tensors_exact": true,
+      "bundle": "GasCO-43",
+      "file": "calibrated.pt",
+      "sha256_run1": "36fbd5d57bc1ed5edd3655c8943afa8272bb2e530b39b1079fc7989f7bfa8ccc",
+      "sha256_run2": "36fbd5d57bc1ed5edd3655c8943afa8272bb2e530b39b1079fc7989f7bfa8ccc",
+      "tensors": 8
+    },
+    {
+      "all_tensors_exact": true,
+      "bundle": "GasCO-43",
+      "file": "dlinear.pt",
+      "sha256_run1": "9342b71fb51a367d4799e3af80bdad678cbc3bdc69a741794eae50ed5645db92",
+      "sha256_run2": "9342b71fb51a367d4799e3af80bdad678cbc3bdc69a741794eae50ed5645db92",
+      "tensors": 4
+    },
+    {
+      "all_tensors_exact": true,
+      "bundle": "GasCO-43",
+      "file": "policy.pt",
+      "sha256_run1": "201968c65495c4d307e577bc62debbd35c6bff2de0e9b0779f2ac8d91d2a0711",
+      "sha256_run2": "201968c65495c4d307e577bc62debbd35c6bff2de0e9b0779f2ac8d91d2a0711",
+      "tensors": 8
+    },
+    {
+      "all_tensors_exact": true,
+      "bundle": "GasCO-43",
+      "file": "value_only.pt",
+      "sha256_run1": "c0ca9ed16a9d6ad7462f7ae9ebe8a10b9507234ac3d56253d74ae820e5f71fbd",
+      "sha256_run2": "c0ca9ed16a9d6ad7462f7ae9ebe8a10b9507234ac3d56253d74ae820e5f71fbd",
+      "tensors": 10
+    },
+    {
+      "all_tensors_exact": true,
+      "bundle": "GasCO-44",
+      "file": "acquisition.pt",
+      "sha256_run1": "fe715e08fae10d72349fcc8e4ba5433de9a6c97e705928081ab1f912df78b0b7",
+      "sha256_run2": "fe715e08fae10d72349fcc8e4ba5433de9a6c97e705928081ab1f912df78b0b7",
+      "tensors": 8
+    },
+    {
+      "all_tensors_exact": true,
+      "bundle": "GasCO-44",
+      "file": "arrival.pt",
+      "sha256_run1": "4b20e7cf3008f28933329dd886c18531b7b9c007e89a864d1f0b43c016694d68",
+      "sha256_run2": "4b20e7cf3008f28933329dd886c18531b7b9c007e89a864d1f0b43c016694d68",
+      "tensors": 10
+    },
+    {
+      "all_tensors_exact": true,
+      "bundle": "GasCO-44",
+      "file": "calibrated.pt",
+      "sha256_run1": "0b0f8d25e0d960afb9cac31d7790ad40e1342482e69f0c3c512250df38641bf0",
+      "sha256_run2": "0b0f8d25e0d960afb9cac31d7790ad40e1342482e69f0c3c512250df38641bf0",
+      "tensors": 8
+    },
+    {
+      "all_tensors_exact": true,
+      "bundle": "GasCO-44",
+      "file": "dlinear.pt",
+      "sha256_run1": "ebccab824f5c3e29d11b265e1d2be3a060eb4ee7ddc1a1acd6a1db6ef658cd47",
+      "sha256_run2": "ebccab824f5c3e29d11b265e1d2be3a060eb4ee7ddc1a1acd6a1db6ef658cd47",
+      "tensors": 4
+    },
+    {
+      "all_tensors_exact": true,
+      "bundle": "GasCO-44",
+      "file": "policy.pt",
+      "sha256_run1": "508d2cafd52bc3cadbfbc5db958121320915f49cb421fb6753217154197930de",
+      "sha256_run2": "508d2cafd52bc3cadbfbc5db958121320915f49cb421fb6753217154197930de",
+      "tensors": 8
+    },
+    {
+      "all_tensors_exact": true,
+      "bundle": "GasCO-44",
+      "file": "value_only.pt",
+      "sha256_run1": "8897e654c43c63d7a789d2b4dc944ac9de32d438ae77639af9f11ed004cadc5d",
+      "sha256_run2": "8897e654c43c63d7a789d2b4dc944ac9de32d438ae77639af9f11ed004cadc5d",
+      "tensors": 10
+    },
+    {
+      "all_tensors_exact": true,
+      "bundle": "Jena2020-42",
+      "file": "acquisition.pt",
+      "sha256_run1": "54b4bd9f926d3d085d57132f98f542d3fb80b0288874f3997e382ee07a22e556",
+      "sha256_run2": "54b4bd9f926d3d085d57132f98f542d3fb80b0288874f3997e382ee07a22e556",
+      "tensors": 8
+    },
+    {
+      "all_tensors_exact": true,
+      "bundle": "Jena2020-42",
+      "file": "arrival.pt",
+      "sha256_run1": "b8f062cb0c3f9709fe97e514dff2b3e4aaa7f9799c0b856ff52ae42a00d67a89",
+      "sha256_run2": "b8f062cb0c3f9709fe97e514dff2b3e4aaa7f9799c0b856ff52ae42a00d67a89",
+      "tensors": 10
+    },
+    {
+      "all_tensors_exact": true,
+      "bundle": "Jena2020-42",
+      "file": "calibrated.pt",
+      "sha256_run1": "98a359138fcc35ccaad476f34972dbfd4d2beea726890cd9815fb65863fb0a8f",
+      "sha256_run2": "98a359138fcc35ccaad476f34972dbfd4d2beea726890cd9815fb65863fb0a8f",
+      "tensors": 8
+    },
+    {
+      "all_tensors_exact": true,
+      "bundle": "Jena2020-42",
+      "file": "dlinear.pt",
+      "sha256_run1": "82c79c47395103427147e726a05fb89bb741d65426d44e139c3f8a2879d66741",
+      "sha256_run2": "82c79c47395103427147e726a05fb89bb741d65426d44e139c3f8a2879d66741",
+      "tensors": 4
+    },
+    {
+      "all_tensors_exact": true,
+      "bundle": "Jena2020-42",
+      "file": "policy.pt",
+      "sha256_run1": "781d6252a79c7f9bc30ba05d9d3c8c80a4b69e3f95363ec9fa34fb44ade1f738",
+      "sha256_run2": "781d6252a79c7f9bc30ba05d9d3c8c80a4b69e3f95363ec9fa34fb44ade1f738",
+      "tensors": 8
+    },
+    {
+      "all_tensors_exact": true,
+      "bundle": "Jena2020-42",
+      "file": "value_only.pt",
+      "sha256_run1": "c185cef568f51fc2396057c4b0b63e0ce60be3938d81f070fbca333a1e8ba815",
+      "sha256_run2": "c185cef568f51fc2396057c4b0b63e0ce60be3938d81f070fbca333a1e8ba815",
+      "tensors": 10
+    },
+    {
+      "all_tensors_exact": true,
+      "bundle": "Jena2020-43",
+      "file": "acquisition.pt",
+      "sha256_run1": "a601e89f12c422fae78c6d1def889a4015904c4a9f676c5d3af0ba7860fb292f",
+      "sha256_run2": "a601e89f12c422fae78c6d1def889a4015904c4a9f676c5d3af0ba7860fb292f",
+      "tensors": 8
+    },
+    {
+      "all_tensors_exact": true,
+      "bundle": "Jena2020-43",
+      "file": "arrival.pt",
+      "sha256_run1": "14d3f58b44745f655c2ff311d8dea34316b84586f757f1139d0e77f873ad594c",
+      "sha256_run2": "14d3f58b44745f655c2ff311d8dea34316b84586f757f1139d0e77f873ad594c",
+      "tensors": 10
+    },
+    {
+      "all_tensors_exact": true,
+      "bundle": "Jena2020-43",
+      "file": "calibrated.pt",
+      "sha256_run1": "a07b5642d886139b2910ce1716096d9276b65cea96ccf84c5e79d4f5c0aac351",
+      "sha256_run2": "a07b5642d886139b2910ce1716096d9276b65cea96ccf84c5e79d4f5c0aac351",
+      "tensors": 8
+    },
+    {
+      "all_tensors_exact": true,
+      "bundle": "Jena2020-43",
+      "file": "dlinear.pt",
+      "sha256_run1": "689e7166ccf6f3b44ceb671e9deed985d06dcbc5833759288ad8eedba64faddd",
+      "sha256_run2": "689e7166ccf6f3b44ceb671e9deed985d06dcbc5833759288ad8eedba64faddd",
+      "tensors": 4
+    },
+    {
+      "all_tensors_exact": true,
+      "bundle": "Jena2020-43",
+      "file": "policy.pt",
+      "sha256_run1": "5345f75b882f22ca72ce2eb02134975fa853dbbcac802462b90889e098b769fd",
+      "sha256_run2": "5345f75b882f22ca72ce2eb02134975fa853dbbcac802462b90889e098b769fd",
+      "tensors": 8
+    },
+    {
+      "all_tensors_exact": true,
+      "bundle": "Jena2020-43",
+      "file": "value_only.pt",
+      "sha256_run1": "7dad565daddbf3c0c2435426d767d8227643a506703cda3a5d3d9053bc7f637f",
+      "sha256_run2": "7dad565daddbf3c0c2435426d767d8227643a506703cda3a5d3d9053bc7f637f",
+      "tensors": 10
+    },
+    {
+      "all_tensors_exact": true,
+      "bundle": "Jena2020-44",
+      "file": "acquisition.pt",
+      "sha256_run1": "0f8a0e34ebda6de16f2bc39efc7fc4b6a345c6ddc6aa5f881a342e9bcc0ebe96",
+      "sha256_run2": "0f8a0e34ebda6de16f2bc39efc7fc4b6a345c6ddc6aa5f881a342e9bcc0ebe96",
+      "tensors": 8
+    },
+    {
+      "all_tensors_exact": true,
+      "bundle": "Jena2020-44",
+      "file": "arrival.pt",
+      "sha256_run1": "6847724cb7d75f028a92b6d507ead5bea453e25e506a367d119024fa8f66918f",
+      "sha256_run2": "6847724cb7d75f028a92b6d507ead5bea453e25e506a367d119024fa8f66918f",
+      "tensors": 10
+    },
+    {
+      "all_tensors_exact": true,
+      "bundle": "Jena2020-44",
+      "file": "calibrated.pt",
+      "sha256_run1": "e7e3b0e5d643e6f020a4643346ef25eb21a23248fab85aeb6b2edc146196f983",
+      "sha256_run2": "e7e3b0e5d643e6f020a4643346ef25eb21a23248fab85aeb6b2edc146196f983",
+      "tensors": 8
+    },
+    {
+      "all_tensors_exact": true,
+      "bundle": "Jena2020-44",
+      "file": "dlinear.pt",
+      "sha256_run1": "efb909b297583f401f17180bec2440a7a9ecb97a3f6efa0968a3e36d67396f79",
+      "sha256_run2": "efb909b297583f401f17180bec2440a7a9ecb97a3f6efa0968a3e36d67396f79",
+      "tensors": 4
+    },
+    {
+      "all_tensors_exact": true,
+      "bundle": "Jena2020-44",
+      "file": "policy.pt",
+      "sha256_run1": "260f8a973bc2c01cb43d49436d958bbbb0d208f4476d24a435370f8d4fa6018e",
+      "sha256_run2": "260f8a973bc2c01cb43d49436d958bbbb0d208f4476d24a435370f8d4fa6018e",
+      "tensors": 8
+    },
+    {
+      "all_tensors_exact": true,
+      "bundle": "Jena2020-44",
+      "file": "value_only.pt",
+      "sha256_run1": "9a19e14c11dbee3c1163580e82f646e8432c66f9d905f0f588b4ce97d0e64292",
+      "sha256_run2": "9a19e14c11dbee3c1163580e82f646e8432c66f9d905f0f588b4ce97d0e64292",
+      "tensors": 10
+    }
+  ],
+  "checkpoint_pairs": 36,
+  "checkpoint_tensors": 288,
+  "evaluated_settings_per_execution": 18,
+  "exact_arrays": 2106,
+  "exact_report_fields": [
+    "schema",
+    "development_only",
+    "protocol",
+    "protocol_sha256",
+    "source_files",
+    "code_commit",
+    "runtime",
+    "sources",
+    "selections",
+    "runs",
+    "cells",
+    "promotion_gate"
+  ],
+  "independent_training_executions": 2,
+  "methods_per_setting": 12,
+  "omitted_repeat_npz": "All 2106 arrays compared exactly; the common arrays are archived once.",
+  "passed": true,
+  "permitted_differences": [
+    "elapsed_seconds",
+    "bundle manifest/report file hashes reflecting execution timing"
+  ],
+  "reports": [
+    {
+      "elapsed_seconds": 266.7564759060042,
+      "path": "artifacts/information-value/confirmation1/report.json",
+      "raw_losses_sha256": "9d0a87ec8aa403697a7bf3cd596ed428b9e2cf1817e6e61321d4901dc2057c47",
+      "sha256": "09d336790aab17307776ad13bc9aed48b3718af172ec9b79e2b656f169691447"
+    },
+    {
+      "elapsed_seconds": 248.1450987749995,
+      "path": "artifacts/information-value/confirmation2/report.json",
+      "raw_losses_sha256": "9d0a87ec8aa403697a7bf3cd596ed428b9e2cf1817e6e61321d4901dc2057c47",
+      "sha256": "873996396f3394955f9d3096e6e3d329b954cfea043d34f7563d9314ae932775"
+    }
+  ],
+  "schema": "asofcast.information-reproducibility.v1",
+  "scope": "Numerical repeatability of the failed confirmatory result, not model superiority."
+}

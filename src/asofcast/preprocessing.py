@@ -92,4 +92,9 @@ def simulate_arrivals(times: NDArray, channels: int, seed: int = 42,
     delays[u > .995] = np.inf
     if profile == 'outage':
         delays = delays * 2.5
-    return times[:, None].astype(float) + delays
+    # Original constants describe an hourly grid. Preserve the same distribution
+    # in sampling intervals for faster sensors; hourly results remain identical.
+    grid = np.diff(times)
+    if (grid <= 0).any() or not np.all(grid == grid[0]):
+        raise ValueError('regular increasing event times required')
+    return times[:, None].astype(float) + delays * (float(grid[0]) / 3600.)

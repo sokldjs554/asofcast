@@ -1,0 +1,69 @@
+{
+  "files": {
+    "component-losses.npz": {
+      "bytes": 1636988,
+      "sha256": "8eef9fb548584d80a7bbd78ff481be334dac0f8fdc295c22e4abdd5cb2cc9a19"
+    },
+    "component-report.json": {
+      "bytes": 245915,
+      "sha256": "4a972c69c464cda66a845617ffa415c6b8a2542c2570c40b42c27f273ed1d1a6"
+    },
+    "component-runner.py": {
+      "bytes": 4152,
+      "sha256": "205ca4708bd927292f578ac578c4c276d729a79e0d5e8b15e89ba98bf287e64f"
+    },
+    "component-supplement.log": {
+      "bytes": 1158,
+      "sha256": "4e818e64d362221b38b9550c42899045e346f8443dc855a3e6eaaa36be53200d"
+    },
+    "confirmation1.log": {
+      "bytes": 3817,
+      "sha256": "7bd712cc90e7db4e775960ed730533f46980de41dcbd7160efc4485abe805a34"
+    },
+    "confirmation2.log": {
+      "bytes": 3817,
+      "sha256": "d7f461b12d78243c249c703bf4bf4e0de1f4c59c7afc58f1ae8e08a9d3986b61"
+    },
+    "development-report.json": {
+      "bytes": 66704,
+      "sha256": "f1d97ff1e2a7dcc533e6d12b9cbb509ddd33972816569ef823a838c7e0c986c8"
+    },
+    "final-tests.log": {
+      "bytes": 800,
+      "sha256": "d365a21bc6a6996d93c3ced75c4bf32bd85079ef23a49efa82958763018afc15"
+    },
+    "frozen-code-tests.log": {
+      "bytes": 800,
+      "sha256": "e6857ca1169b220351fec0f3a52e2d6f89a9c17efbb0f36f70557e79a8f7a1b0"
+    },
+    "independent-audit.json": {
+      "bytes": 1114,
+      "sha256": "903b701aa110b7d5bd3ef66267437e4aed396de539ff566039c72443917b3a92"
+    },
+    "independent-audit.py": {
+      "bytes": 11093,
+      "sha256": "de879a2331bb185be6270ea0d9b063017ab8dcc558bb7d533e16ea5e47cbbd73"
+    },
+    "paired-losses.npz": {
+      "bytes": 1570611,
+      "sha256": "9d0a87ec8aa403697a7bf3cd596ed428b9e2cf1817e6e61321d4901dc2057c47"
+    },
+    "provenance.json": {
+      "bytes": 14057,
+      "sha256": "c37ed0e07c078011366ec8507e7fcab6b93e217162acc07dd8555e4520b251de"
+    },
+    "repeat-report.json": {
+      "bytes": 433161,
+      "sha256": "873996396f3394955f9d3096e6e3d329b954cfea043d34f7563d9314ae932775"
+    },
+    "report.json": {
+      "bytes": 433161,
+      "sha256": "09d336790aab17307776ad13bc9aed48b3718af172ec9b79e2b656f169691447"
+    },
+    "reproducibility.json": {
+      "bytes": 12477,
+      "sha256": "3227d54cf5fbc86970b75b57d805d1bc6d8fe5fd80d9fca41fb1d1289db6c2ad"
+    }
+  },
+  "schema": "asofcast.information-evidence-manifest.v1"
+}

@@ -1,0 +1,37 @@
+{"training_base": "Jena2020-42"}
+{"fitting_policy": "Jena2020-42", "elapsed": 7.7}
+{"selected": "Jena2020-42", "choices": {"information": "margin_0.01", "myopic": "margin_0.03", "decision_penalty_removed": "margin_0.01"}}
+{"evaluated": "Jena2020__42__mixed_2811", "elapsed": 32.0}
+{"evaluated": "Jena2020__42__mixed_3811", "elapsed": 32.4}
+{"evaluated": "Jena2020__42__outage_2811", "elapsed": 32.9}
+{"training_base": "Jena2020-43"}
+{"fitting_policy": "Jena2020-43", "elapsed": 38.6}
+{"selected": "Jena2020-43", "choices": {"information": "margin_0.0", "myopic": "margin_0.03", "decision_penalty_removed": "margin_0.03"}}
+{"evaluated": "Jena2020__43__mixed_2811", "elapsed": 62.4}
+{"evaluated": "Jena2020__43__mixed_3811", "elapsed": 62.8}
+{"evaluated": "Jena2020__43__outage_2811", "elapsed": 63.2}
+{"training_base": "Jena2020-44"}
+{"fitting_policy": "Jena2020-44", "elapsed": 69.4}
+{"selected": "Jena2020-44", "choices": {"information": "margin_0.03", "myopic": "margin_0.03", "decision_penalty_removed": "margin_0.03"}}
+{"evaluated": "Jena2020__44__mixed_2811", "elapsed": 100.4}
+{"evaluated": "Jena2020__44__mixed_3811", "elapsed": 100.9}
+{"evaluated": "Jena2020__44__outage_2811", "elapsed": 101.4}
+{"training_base": "GasCO-42"}
+{"fitting_policy": "GasCO-42", "elapsed": 120.8}
+{"selected": "GasCO-42", "choices": {"information": "simple", "myopic": "simple", "decision_penalty_removed": "simple"}}
+{"evaluated": "GasCO__42__mixed_2811", "elapsed": 154.4}
+{"evaluated": "GasCO__42__mixed_3811", "elapsed": 155.7}
+{"evaluated": "GasCO__42__outage_2811", "elapsed": 157.3}
+{"training_base": "GasCO-43"}
+{"fitting_policy": "GasCO-43", "elapsed": 166.3}
+{"selected": "GasCO-43", "choices": {"information": "simple", "myopic": "simple", "decision_penalty_removed": "simple"}}
+{"evaluated": "GasCO__43__mixed_2811", "elapsed": 209.7}
+{"evaluated": "GasCO__43__mixed_3811", "elapsed": 210.4}
+{"evaluated": "GasCO__43__outage_2811", "elapsed": 211.0}
+{"training_base": "GasCO-44"}
+{"fitting_policy": "GasCO-44", "elapsed": 219.1}
+{"selected": "GasCO-44", "choices": {"information": "margin_0.0", "myopic": "simple", "decision_penalty_removed": "simple"}}
+{"evaluated": "GasCO__44__mixed_2811", "elapsed": 263.6}
+{"evaluated": "GasCO__44__mixed_3811", "elapsed": 264.5}
+{"evaluated": "GasCO__44__outage_2811", "elapsed": 266.1}
+{"complete": "artifacts/information-value/confirmation1", "gate": {"passed": false, "reasons": ["Jena2020/mixed_2811/validation_simple: confidence interval does not establish improvement", "Jena2020/mixed_2811/validation_simple: practical improvement below 1.0%", "Jena2020/mixed_2811/validation_simple: not every seed improves", "Jena2020/mixed_3811/validation_simple: practical improvement below 1.0%", "Jena2020/mixed_3811/validation_simple: not every seed improves", "Jena2020/outage_2811/validation_simple: confidence interval does not establish improvement", "Jena2020/outage_2811/validation_simple: practical improvement below 1.0%", "Jena2020/outage_2811/validation_simple: not every seed improves", "GasCO/mixed_2811/validation_simple: confidence interval does not establish improvement", "GasCO/mixed_2811/validation_simple: practical improvement below 1.0%", "GasCO/mixed_2811/validation_simple: not every seed improves", "GasCO/mixed_2811: MAE regression exceeds limit", "GasCO/mixed_3811/validation_simple: confidence interval does not establish improvement", "GasCO/mixed_3811/validation_simple: practical improvement below 1.0%", "GasCO/mixed_3811/validation_simple: not every seed improves", "GasCO/mixed_3811: MAE regression exceeds limit", "GasCO/outage_2811/validation_simple: confidence interval does not establish improvement", "GasCO/outage_2811/validation_simple: not every seed improves"], "scope": "all predeclared new-dataset conditions; not universal superiority"}}

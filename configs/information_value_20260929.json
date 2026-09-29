@@ -1,0 +1,233 @@
+{
+  "schema": "asofcast.information-value.v1",
+  "seeds": [
+    42,
+    43,
+    44
+  ],
+  "development_datasets": [
+    "ETTh1",
+    "ETTh2",
+    "Appliances",
+    "Tetouan"
+  ],
+  "confirmatory_datasets": [
+    "Jena2020",
+    "GasCO"
+  ],
+  "preprocessing": {
+    "Appliances": {
+      "columns": [
+        "T1",
+        "RH_1",
+        "T2",
+        "RH_2",
+        "T3",
+        "RH_3",
+        "Appliances"
+      ],
+      "target": "Appliances"
+    },
+    "Tetouan": {
+      "columns": [
+        "Temperature",
+        "Humidity",
+        "Wind Speed",
+        "general diffuse flows",
+        "diffuse flows",
+        "Zone 1 Power Consumption",
+        "Zone 2 Power Consumption",
+        "Zone 3 Power Consumption"
+      ],
+      "target": "Zone 1 Power Consumption"
+    },
+    "hourly": "right-closed, right-labeled mean of six 10-minute observations; remove incomplete edge bins only; reject interior gaps"
+  },
+  "training_config": "configs/ett_m1.json",
+  "conditions": [
+    {
+      "name": "mixed_2811",
+      "profile": "mixed",
+      "arrival_seed": 2811
+    },
+    {
+      "name": "mixed_3811",
+      "profile": "mixed",
+      "arrival_seed": 3811
+    },
+    {
+      "name": "outage_2811",
+      "profile": "outage",
+      "arrival_seed": 2811
+    }
+  ],
+  "forecast": {
+    "leaf_candidates": [
+      7,
+      15
+    ],
+    "weights": [
+      0,
+      0.5,
+      1
+    ],
+    "iterations": 100,
+    "min_samples_leaf": 40,
+    "l2_regularization": 10,
+    "loss": "absolute_error",
+    "early_stopping": false
+  },
+  "policy": {
+    "max_leaf_nodes": 7,
+    "iterations": 100,
+    "min_samples_leaf": 64,
+    "l2_regularization": 10,
+    "loss": "squared_error",
+    "early_stopping": false,
+    "margins": [
+      0,
+      0.005,
+      0.01,
+      0.03
+    ],
+    "augmentation": "one independently sampled acquired subset per policy origin and wait; probability uniform in [0,1]; plus empty subset"
+  },
+  "objective": {
+    "absolute_error": "training-scale standardized",
+    "cost_weight": 0.03,
+    "delay_weight": 0.02,
+    "deadline_seconds": 3600
+  },
+  "gate": {
+    "minimum_relative_improvement": 0.01,
+    "mae_regression_limit": 0.01,
+    "every_seed_positive": true,
+    "every_confirmatory_condition_passes": true,
+    "comparators": [
+      "legacy_joint",
+      "validation_simple"
+    ],
+    "confidence": 0.95,
+    "block_origins": 42,
+    "sensitivity_block_origins": 6,
+    "bootstrap_repeats": 2000,
+    "bootstrap_seed": 20260929
+  },
+  "rules": [
+    "Freeze this protocol before new-dataset performance is inspected; do not revise after final evaluation.",
+    "Fit forecasters on train; fit action labels on policy; choose candidates and margins on validation only.",
+    "Include forecast-only, policy-only, combined, and arrival-metadata ablations; promotion refers only to the predeclared combined method.",
+    "Apply the same origin, target, decision grid, and per-sensor acquisition costs to every sequential method.",
+    "Every method may acquire each currently unavailable origin-slot sensor once; acquisitions persist across waits; stop at deadline.",
+    "Oracle is retrospective headroom only and never a deployable competitor.",
+    "All datasets train separately; results are not zero-shot transfer or universal superiority.",
+    "All arrival timestamps and information costs are simulated. No measured deployment savings claim.",
+    "If the gate fails retain the production model, report failure, and do not retune on newly exposed tests.",
+    "This protocol is a new attempt; the previous failed gate remains unchanged.",
+    "Dataset preprocessing may inspect timestamps/missingness, never forecasting or policy test scores before freezing.",
+    "No candidate family or threshold changes after any Jena2020/GasCO test score is exposed.",
+    "For each dataset retain a six-grid-step horizon and one-grid-step deadline; simulated arrivals scale with grid length, objective weights do not change.",
+    "Primary information policy uses depth two and one ensemble standard deviation penalty; myopic and decision-penalty-removed versions are ablations only.",
+    "Ensemble spread is a heuristic and is never called a confidence bound.",
+    "Legacy training eagerly writes unused legacy test scores; full candidate family and code are frozen before that operation, and fitting/selection never consume those scores."
+  ],
+  "information_policy": {
+    "members": 3,
+    "iterations": 60,
+    "leaves": 7,
+    "min_leaf": 64,
+    "ridge": 10.0,
+    "block_origins": 42,
+    "depths": [
+      1,
+      2
+    ],
+    "margins": [
+      0.0,
+      0.01,
+      0.03
+    ],
+    "primary_depth": 2,
+    "primary_uncertainty": 1.0,
+    "training_conditions": [
+      {
+        "profile": "mixed",
+        "arrival_seed": 811
+      },
+      {
+        "profile": "mixed",
+        "arrival_seed": 911
+      },
+      {
+        "profile": "outage",
+        "arrival_seed": 1011
+      }
+    ],
+    "selection": "validation mean objective, <=1% MAE regression, always admit the same strong simple comparator; exact ties retain simple",
+    "ablation_scope": "myopic: one-stage fitted value; decision_penalty_removed: remove disagreement penalty only from deployed action scores while retaining uncertainty=1 in backup training. Primary remains depth=2, uncertainty=1."
+  },
+  "new_data": {
+    "Jena2020": {
+      "grid_seconds": 3600,
+      "target": "T (degC)",
+      "columns": [
+        "p (mbar)",
+        "T (degC)",
+        "rh (%)",
+        "wv (m/s)",
+        "wd (deg)",
+        "rain (mm)",
+        "SWDR (W/m²)"
+      ],
+      "preprocessing": "discard all duplicate timestamps and invalid/sentinel rows; choose longest contiguous complete ten-minute segment, earliest on ties; right-closed six-point hourly means; no imputation"
+    },
+    "GasCO": {
+      "grid_seconds": 10,
+      "target": "S0",
+      "member": "ethylene_CO.txt",
+      "sensor_indices": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "preprocessing": "first eight sensors (two per sensor type); at each ten-second boundary take the latest sample at or before that boundary, at most 0.1 seconds old; duplicate source timestamps retain first occurrence; reject decreasing timestamps; longest complete contiguous grid segment, earliest on ties; relative experiment time anchored to 2000-01-01; do not use concentration setpoints",
+      "max_sample_age_seconds": 0.1
+    }
+  },
+  "downloads": [
+    {
+      "name": "jena2020a",
+      "url": "https://www.bgc-jena.mpg.de/wetter/data/mpi_roof_2020a.zip",
+      "sha256": "6a0be0552a2a26a04c3b41a5281d4a55ae251d4c65ce630971a8662f43b31f9f",
+      "bytes": 1292650,
+      "members": [
+        "mpi_roof_2020a.csv"
+      ]
+    },
+    {
+      "name": "jena2020b",
+      "url": "https://www.bgc-jena.mpg.de/wetter/data/mpi_roof_2020b.zip",
+      "sha256": "c37eca910ee2803b17b8c587f3194bc7625abf994576c50f32538dd7cb65ac77",
+      "bytes": 1298224,
+      "members": [
+        "mpi_roof_2020b.csv"
+      ]
+    },
+    {
+      "name": "gas",
+      "url": "https://archive.ics.uci.edu/static/public/322/gas+sensor+array+under+dynamic+gas+mixtures.zip",
+      "sha256": "8b6323b801363e11343ba1a5a7718e76666b715e753b3a40dbdfd1838d953fe7",
+      "bytes": 369001314,
+      "members": [
+        "ethylene_CO.txt",
+        "ethylene_methane.txt"
+      ]
+    }
+  ],
+  "protocol_revision_before_test": "Raw source timestamp inspection found jitter/duplicate exact ten-second timestamps; exact-boundary sampling was replaced by causal last-sample selection with a 100 ms age limit, before any new-dataset training or performance evaluation. No model, objective, comparator, or gate changed."
+}

@@ -1,0 +1,418 @@
+{
+  "component_supplement": {
+    "candidate_family": "unchanged frozen previous research family",
+    "not_an_ablation_of_every_new_InformationPolicy_component": true,
+    "overlapping_methods_exact": true,
+    "primary_report_unchanged": true,
+    "raw_arrays": "component-losses.npz",
+    "reports": "component-report.json",
+    "timing": "after primary test exposure"
+  },
+  "execution": {
+    "new_fits": "six base bundles plus fitted research forecasters/policies per execution; all fitted anew in run2",
+    "raw_archives": "same read-only raw ZIPs (hard links); separate preprocessing/model/output directories",
+    "run1": "python scripts/evaluate_information_value.py --models artifacts/information-value/models1 --out artifacts/information-value/confirmation1",
+    "run2": "python scripts/evaluate_information_value.py --data data/information-value-repeat --models artifacts/information-value/models2 --out artifacts/information-value/confirmation2",
+    "thread_environment": {
+      "OMP_NUM_THREADS": "2",
+      "OPENBLAS_NUM_THREADS": "2"
+    }
+  },
+  "frozen_local_code_commit": "b8d76a57da6aba3146d81ab3c2917ba38256b187",
+  "frozen_remote_code_commit": "707130df9299a18b4cb1ab205434d4110ebb9f68",
+  "frozen_tree": "3049a9a85d63c16bea66b8f314e313453f35c690",
+  "limitations": [
+    "Simulated arrivals and acquisition costs; zero acquisition latency.",
+    "Each dataset is trained separately; no zero-shot or cross-domain transfer claim.",
+    "Base training eagerly creates legacy test reports; frozen fitting/selection do not consume them.",
+    "Jena2020/GasCO test outcomes are exposed after this experiment; not available for fresh confirmation after tuning.",
+    "Inherited protocol rule about prior component/arrival-metadata ablations was omitted from the initial 12-method confirmation. The frozen previous-component family was evaluated later as descriptive analysis, without revising primary results or candidate selection. This does not retroactively make the initial confirmation complete.",
+    "Gradient-boosting policy objects are fitted in memory rather than saved as checkpoints; repeated predictions, selections and outcomes match, not serialized policy weights."
+  ],
+  "registration": [
+    {
+      "local": "14ca7885e3295b1d07432c1baa16a2788f7cf0c1",
+      "remote": "6bc2fcd650cd7c5aa8f04007e24292a24f5b30f0",
+      "scope": "initial protocol"
+    },
+    {
+      "local": "edd82692b2f30cedb955c980e755e498442535b1",
+      "remote": "26228647d27708bed46ce5e2c84612c5bd35a15c",
+      "scope": "timestamp-based preprocessing clarification before new performance"
+    },
+    {
+      "local": "6736c3ef310a95b2dc7e48d3ccdc5538531d72d3",
+      "remote": "b2398ac6a24512dadcd7afb5bd6d2ed67a382562",
+      "scope": "implementation used for development validation"
+    },
+    {
+      "local": "b8d76a57da6aba3146d81ab3c2917ba38256b187",
+      "remote": "707130df9299a18b4cb1ab205434d4110ebb9f68",
+      "scope": "reviewed final code before new training"
+    }
+  ],
+  "remote_registration_precedes_any_new_dataset_training": true,
+  "runtime": {
+    "numpy": "2.3.5",
+    "pandas": "2.2.3",
+    "python": "3.12.14",
+    "sklearn": "1.8.0",
+    "torch": "2.10.0+cpu"
+  },
+  "scalers": {
+    "GasCO-42": {
+      "counts": [
+        2307,
+        2301,
+        2305,
+        2307,
+        2300,
+        2298,
+        2301,
+        2304
+      ],
+      "cutoff": 946707930.0,
+      "mean": [
+        2216.259908972691,
+        813.2960365058658,
+        4343.0920260303665,
+        4776.325249241437,
+        1991.705091304347,
+        2328.5139208006913,
+        5092.699465449807,
+        5364.547999131948
+      ],
+      "scale": [
+        813.4183723571782,
+        1745.8619606413247,
+        1579.4934158055332,
+        1700.5272355422192,
+        446.9939342828798,
+        443.0314941477383,
+        1943.3843104326827,
+        2037.218926148913
+      ]
+    },
+    "GasCO-43": {
+      "counts": [
+        2307,
+        2301,
+        2305,
+        2307,
+        2300,
+        2298,
+        2301,
+        2304
+      ],
+      "cutoff": 946707930.0,
+      "mean": [
+        2216.259908972691,
+        813.2960365058658,
+        4343.0920260303665,
+        4776.325249241437,
+        1991.705091304347,
+        2328.5139208006913,
+        5092.699465449807,
+        5364.547999131948
+      ],
+      "scale": [
+        813.4183723571782,
+        1745.8619606413247,
+        1579.4934158055332,
+        1700.5272355422192,
+        446.9939342828798,
+        443.0314941477383,
+        1943.3843104326827,
+        2037.218926148913
+      ]
+    },
+    "GasCO-44": {
+      "counts": [
+        2307,
+        2301,
+        2305,
+        2307,
+        2300,
+        2298,
+        2301,
+        2304
+      ],
+      "cutoff": 946707930.0,
+      "mean": [
+        2216.259908972691,
+        813.2960365058658,
+        4343.0920260303665,
+        4776.325249241437,
+        1991.705091304347,
+        2328.5139208006913,
+        5092.699465449807,
+        5364.547999131948
+      ],
+      "scale": [
+        813.4183723571782,
+        1745.8619606413247,
+        1579.4934158055332,
+        1700.5272355422192,
+        446.9939342828798,
+        443.0314941477383,
+        1943.3843104326827,
+        2037.218926148913
+      ]
+    },
+    "Jena2020-42": {
+      "counts": [
+        2848,
+        2848,
+        2840,
+        2840,
+        2845,
+        2852,
+        2842
+      ],
+      "cutoff": 1601038800.0,
+      "mean": [
+        989.2542778549164,
+        18.42042720033499,
+        66.8388233567993,
+        1.8773169014118651,
+        172.06603690673396,
+        0.016129032257875167,
+        201.0931046210157
+      ],
+      "scale": [
+        5.930332155541887,
+        5.050201115305811,
+        20.768793847961387,
+        1.2832503638061725,
+        71.74389892648726,
+        0.14359983441776963,
+        251.22513362919543
+      ]
+    },
+    "Jena2020-43": {
+      "counts": [
+        2848,
+        2848,
+        2840,
+        2840,
+        2845,
+        2852,
+        2842
+      ],
+      "cutoff": 1601038800.0,
+      "mean": [
+        989.2542778549164,
+        18.42042720033499,
+        66.8388233567993,
+        1.8773169014118651,
+        172.06603690673396,
+        0.016129032257875167,
+        201.0931046210157
+      ],
+      "scale": [
+        5.930332155541887,
+        5.050201115305811,
+        20.768793847961387,
+        1.2832503638061725,
+        71.74389892648726,
+        0.14359983441776963,
+        251.22513362919543
+      ]
+    },
+    "Jena2020-44": {
+      "counts": [
+        2848,
+        2848,
+        2840,
+        2840,
+        2845,
+        2852,
+        2842
+      ],
+      "cutoff": 1601038800.0,
+      "mean": [
+        989.2542778549164,
+        18.42042720033499,
+        66.8388233567993,
+        1.8773169014118651,
+        172.06603690673396,
+        0.016129032257875167,
+        201.0931046210157
+      ],
+      "scale": [
+        5.930332155541887,
+        5.050201115305811,
+        20.768793847961387,
+        1.2832503638061725,
+        71.74389892648726,
+        0.14359983441776963,
+        251.22513362919543
+      ]
+    }
+  },
+  "schema": "asofcast.information-provenance.v1",
+  "scope": "Research evidence only; primary gate failed; no production model promotion.",
+  "source_files": {
+    "scripts/evaluate_information_value.py": "0d89d2e1b417bf633fb569e0d4a5d69ed36cc2785e46d6145f4b722587b1f06e",
+    "scripts/evaluate_research_diagnosis.py": "e923d9c6a2e62e6e42fe67b98e75c0a7a6640a277247473ea76659414f7f9bcf",
+    "src/asofcast/__init__.py": "15d7b1d3b85137ec507830b4d5fad65690b286d2691d093b91d28295d4037bae",
+    "src/asofcast/__main__.py": "11f660dcb9e53948eb4502b3f1fdb664d7036e43f0b7ad411576583397461e3c",
+    "src/asofcast/acquisition.py": "cc8ee5ea3dbbddd0c85227c82cb74dbfbfd89f58b7fe62c8a83da37b3b26e159",
+    "src/asofcast/bundle.py": "6cd8241dde6f9ffebff867e1d3e72897e475d9e8aafe7c804b0712310549e844",
+    "src/asofcast/calibration.py": "06ed711d48681505d5ad4b89ff4b745cc2218ef55d47997ec05436087e0e663f",
+    "src/asofcast/cli.py": "95d57f3c41b0060643e4ebc1e64252266b4ff1ac767e40579639a8e3e6a413e5",
+    "src/asofcast/data.py": "1b954208d73feca65902146387d89e275a2509b96c0a19b651886ef6148a2dd5",
+    "src/asofcast/decision_evidence.py": "60d25ba3d9692ec380ea1183be9b25875d8edc40c6f5d443c929aa1e489088d4",
+    "src/asofcast/experiment.py": "3cccc7ce1426a0576bf749f48514487f1b803715c08a0580fbbdb7339a9d8e4c",
+    "src/asofcast/information_data.py": "264a1cd853894c0a47ddb934538ed4230af3e14a6a06905657a026d72564a7e8",
+    "src/asofcast/information_policy.py": "f9a6a1c93c8919358b5b5824571cf853dfd808c8a75812065b91034e6944d3c9",
+    "src/asofcast/large_data.py": "0a17ab0ae1debcca5a07c8749b2ac10e9a67f1513fbc1eb1b8f8f5f597215331",
+    "src/asofcast/metrics.py": "b8a31ba98afd9740e7b4bb6995b1229e154172d976506d90beb2c3398f1231d3",
+    "src/asofcast/mlops.py": "8e28a75073a161dd9b71f2f670767320e62cbe4ed1f500ceee67b39f8f9fcda2",
+    "src/asofcast/models.py": "80d726e0be38085da09c48c9fd52e216cf072aa8076ab9ae24f13fec06edc9fe",
+    "src/asofcast/onnx_contract.py": "aacceaa463d496c9a572530773c87ad469b194c7ba99c4e187b6967cd133575a",
+    "src/asofcast/onnx_eval.py": "71b04e4f1beebc619b980f746a3c3b6e04644e759406335c312fd9b03694b61a",
+    "src/asofcast/optimize.py": "d607f471b07bdb2c874acc9887bf9767a9ea32847117806f380eefc4b7109c98",
+    "src/asofcast/policy.py": "9f768d89c55cd0b9f45a2c35d8c492f7f226c1038b67d5318cd40ab99d13fe55",
+    "src/asofcast/preprocessing.py": "b3787d1fc1304689866c47a7bc2e08009231c055bdaed282525cfca7bb2509a3",
+    "src/asofcast/reference_eval.py": "a73a8d48bb39f8118f7d0a4d62492e6226ce573934863431312be04b2db14c90",
+    "src/asofcast/research_data.py": "af6731573a626a3b9964d40770dd0bfd9cfdfb311e230a6aee6f9f00063b5dc5",
+    "src/asofcast/research_diagnosis.py": "98d0a1727f6b2117c1d8571225c6258d49e9a562e4b59f7558eb8fbe9f7de68f",
+    "src/asofcast/research_learning.py": "63a9ed84c88d37b30874d573125947221cb7eccc55a55314357424bb237cdbc0",
+    "src/asofcast/service.py": "35eba5dde7c0fc17b1535c24bf9a8b5c3beecbfb771152b1bec30168e167012a",
+    "src/asofcast/timeline.py": "cb2cee99b8cdb8035a0ad433daa5b1c4ddfb3a995106abb62ff2b70cecdc0537",
+    "src/asofcast/training.py": "61cf6f06fc7ffdacecdd72ae200eac2972eefd60a48014ac56749fa8c7f8ea06"
+  },
+  "sources": {
+    "GasCO": {
+      "downloads": [
+        {
+          "bytes": 369001314,
+          "members": [
+            "ethylene_CO.txt",
+            "ethylene_methane.txt"
+          ],
+          "name": "gas",
+          "sha256": "8b6323b801363e11343ba1a5a7718e76666b715e753b3a40dbdfd1838d953fe7",
+          "url": "https://archive.ics.uci.edu/static/public/322/gas+sensor+array+under+dynamic+gas+mixtures.zip"
+        }
+      ],
+      "end": "2000-01-01 11:41:20",
+      "missing_values_imputed": 0,
+      "name": "GasCO",
+      "prepared_rows": 4209,
+      "prepared_sha256": "d0f5579a7b3226aeabb14b3036e0737111507406a40a135620911a5cfbcf6fb2",
+      "preprocessing": {
+        "grid_seconds": 10,
+        "max_sample_age_seconds": 0.1,
+        "member": "ethylene_CO.txt",
+        "preprocessing": "first eight sensors (two per sensor type); at each ten-second boundary take the latest sample at or before that boundary, at most 0.1 seconds old; duplicate source timestamps retain first occurrence; reject decreasing timestamps; longest complete contiguous grid segment, earliest on ties; relative experiment time anchored to 2000-01-01; do not use concentration setpoints",
+        "sensor_indices": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7
+        ],
+        "target": "S0"
+      },
+      "raw_rows": 4208261,
+      "retained_measurements": 4209,
+      "start": "2000-01-01 00:00:00",
+      "test_previously_exposed_before_protocol": false
+    },
+    "Jena2020": {
+      "downloads": [
+        {
+          "bytes": 1292650,
+          "members": [
+            "mpi_roof_2020a.csv"
+          ],
+          "name": "jena2020a",
+          "sha256": "6a0be0552a2a26a04c3b41a5281d4a55ae251d4c65ce630971a8662f43b31f9f",
+          "url": "https://www.bgc-jena.mpg.de/wetter/data/mpi_roof_2020a.zip"
+        },
+        {
+          "bytes": 1298224,
+          "members": [
+            "mpi_roof_2020b.csv"
+          ],
+          "name": "jena2020b",
+          "sha256": "c37eca910ee2803b17b8c587f3194bc7625abf994576c50f32538dd7cb65ac77",
+          "url": "https://www.bgc-jena.mpg.de/wetter/data/mpi_roof_2020b.zip"
+        }
+      ],
+      "end": "2021-01-01 00:00:00",
+      "missing_values_imputed": 0,
+      "name": "Jena2020",
+      "prepared_rows": 5197,
+      "prepared_sha256": "bebc885cab5389106f0ff8ff132ab317a1592361ad626139c2f6834c59895485",
+      "preprocessing": {
+        "columns": [
+          "p (mbar)",
+          "T (degC)",
+          "rh (%)",
+          "wv (m/s)",
+          "wd (deg)",
+          "rain (mm)",
+          "SWDR (W/m²)"
+        ],
+        "grid_seconds": 3600,
+        "preprocessing": "discard all duplicate timestamps and invalid/sentinel rows; choose longest contiguous complete ten-minute segment, earliest on ties; right-closed six-point hourly means; no imputation",
+        "target": "T (degC)"
+      },
+      "raw_rows": 52696,
+      "retained_measurements": 31182,
+      "start": "2020-05-29 12:00:00",
+      "test_previously_exposed_before_protocol": false
+    }
+  },
+  "training_config": {
+    "acquisition_cost_weight": 0.03,
+    "acquisition_epochs": 40,
+    "acquisition_pareto_weights": [
+      0,
+      0.01,
+      0.03,
+      0.05,
+      0.1
+    ],
+    "arrival_seed": 811,
+    "batch_size": 128,
+    "calibration_ridges": [
+      1,
+      10,
+      100,
+      1000,
+      10000,
+      100000
+    ],
+    "cpu_threads": 2,
+    "delay_cost": 0.02,
+    "epochs": 25,
+    "horizon": 6,
+    "learning_rate": 0.001,
+    "lookback": 48,
+    "policy_epochs": 60,
+    "seed": 42,
+    "stride": 4,
+    "target": "OT",
+    "thresholds": [
+      0,
+      0.01,
+      0.02,
+      0.05,
+      0.1,
+      0.2,
+      1000000
+    ],
+    "waits_seconds": [
+      0,
+      1800,
+      3600
+    ]
+  }
+}
