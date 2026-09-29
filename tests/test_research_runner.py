@@ -11,6 +11,8 @@ from asofcast.experiment import run_experiment
 from asofcast.preprocessing import partition_bounds
 from asofcast.timeline import Timeline
 
+pytest.importorskip('sklearn')
+
 
 @pytest.fixture(scope='module')
 def small_bundle(tmp_path_factory):

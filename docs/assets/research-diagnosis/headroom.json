@@ -1,0 +1,248 @@
+{
+  "cells": {
+    "ETTh1/mixed_1811": {
+      "commit_objective": 0.12728035437661067,
+      "mlp_gain": -0.0031881411493134997,
+      "mlp_gain_relative": -0.0250481793905137,
+      "oracle_acquisition_gain": 0.007395477004737282,
+      "oracle_acquisition_gain_relative": 0.058103837320052996,
+      "oracle_acquisition_objective": 0.11988487737187341,
+      "oracle_acquisition_rate": 0.21302083333333333,
+      "oracle_wait_gain": 0.010503595510691714,
+      "oracle_wait_gain_relative": 0.08252330504684609,
+      "ridge_gain": -0.00048074118979275223,
+      "ridge_gain_relative": -0.003777025858761235
+    },
+    "ETTh1/mixed_811": {
+      "commit_objective": 0.125786994502414,
+      "mlp_gain": -0.002743867344145353,
+      "mlp_gain_relative": -0.021813601278888133,
+      "oracle_acquisition_gain": 0.006639608380501159,
+      "oracle_acquisition_gain_relative": 0.052784537914797994,
+      "oracle_acquisition_objective": 0.11914738612191285,
+      "oracle_acquisition_rate": 0.19583333333333333,
+      "oracle_wait_gain": 0.010148762668172516,
+      "oracle_wait_gain_relative": 0.0806821302020834,
+      "ridge_gain": -0.00023432859219610683,
+      "ridge_gain_relative": -0.001862900001093593
+    },
+    "ETTh1/outage_1811": {
+      "commit_objective": 0.12831953819065045,
+      "mlp_gain": -0.00492004819532546,
+      "mlp_gain_relative": -0.03834215946144935,
+      "oracle_acquisition_gain": 0.008929005426509927,
+      "oracle_acquisition_gain_relative": 0.06958414558228598,
+      "oracle_acquisition_objective": 0.11939053276414051,
+      "oracle_acquisition_rate": 0.23072916666666665,
+      "oracle_wait_gain": 0.00930608941342992,
+      "oracle_wait_gain_relative": 0.07252277825067778,
+      "ridge_gain": -0.0012246024437869588,
+      "ridge_gain_relative": -0.009543382567099865
+    },
+    "ETTh2/mixed_1811": {
+      "commit_objective": 0.22243176744511098,
+      "mlp_gain": 0.0025865382850849207,
+      "mlp_gain_relative": 0.011628457188441823,
+      "oracle_acquisition_gain": 0.027028702855187773,
+      "oracle_acquisition_gain_relative": 0.12151458024923346,
+      "oracle_acquisition_objective": 0.1954030645899232,
+      "oracle_acquisition_rate": 0.3411458333333333,
+      "oracle_wait_gain": 0.026469542320153167,
+      "oracle_wait_gain_relative": 0.11900072828709146,
+      "ridge_gain": 0.003291759597283088,
+      "ridge_gain_relative": 0.014798963453344804
+    },
+    "ETTh2/mixed_811": {
+      "commit_objective": 0.21932705564807597,
+      "mlp_gain": 0.0005573672913985001,
+      "mlp_gain_relative": 0.0025412609937773972,
+      "oracle_acquisition_gain": 0.025055478627158057,
+      "oracle_acquisition_gain_relative": 0.11423797466811912,
+      "oracle_acquisition_objective": 0.1942715770209179,
+      "oracle_acquisition_rate": 0.34375,
+      "oracle_wait_gain": 0.02491554845819094,
+      "oracle_wait_gain_relative": 0.11359997691378988,
+      "ridge_gain": 0.00017429981641665267,
+      "ridge_gain_relative": 0.0007947027597740958
+    },
+    "ETTh2/outage_1811": {
+      "commit_objective": 0.2264187294251315,
+      "mlp_gain": 0.004828088083668262,
+      "mlp_gain_relative": 0.021323713351481977,
+      "oracle_acquisition_gain": 0.031722246040599804,
+      "oracle_acquisition_gain_relative": 0.14010433730964472,
+      "oracle_acquisition_objective": 0.19469648338453163,
+      "oracle_acquisition_rate": 0.3536458333333334,
+      "oracle_wait_gain": 0.02568378930959443,
+      "oracle_wait_gain_relative": 0.11343491492424053,
+      "ridge_gain": 0.005605686920103228,
+      "ridge_gain_relative": 0.02475805307421278
+    }
+  },
+  "runs": {
+    "ETTh1__42__mixed_1811": {
+      "commit_objective": 0.1264357438136358,
+      "mlp_gain": -0.0030308610764332115,
+      "oracle_acquisition_gain": 0.007638027217471972,
+      "oracle_acquisition_objective": 0.11879771659616382,
+      "oracle_acquisition_rate": 0.2296875,
+      "oracle_wait_gain": 0.011300903771305455,
+      "ridge_gain": -0.0005085362773388623
+    },
+    "ETTh1__42__mixed_811": {
+      "commit_objective": 0.1253689795266837,
+      "mlp_gain": -0.002424607381690294,
+      "oracle_acquisition_gain": 0.006823811155511066,
+      "oracle_acquisition_objective": 0.11854516837117261,
+      "oracle_acquisition_rate": 0.2125,
+      "oracle_wait_gain": 0.011167064086766912,
+      "ridge_gain": -0.00017803801503032442
+    },
+    "ETTh1__42__outage_1811": {
+      "commit_objective": 0.1275829309830442,
+      "mlp_gain": -0.005073554172413424,
+      "oracle_acquisition_gain": 0.00948159336671233,
+      "oracle_acquisition_objective": 0.11810133761633188,
+      "oracle_acquisition_rate": 0.2546875,
+      "oracle_wait_gain": 0.01003192030917853,
+      "ridge_gain": -0.0014722438920289278
+    },
+    "ETTh1__43__mixed_1811": {
+      "commit_objective": 0.12628216532757505,
+      "mlp_gain": -0.004055392635054887,
+      "oracle_acquisition_gain": 0.007625245247967541,
+      "oracle_acquisition_objective": 0.11865692007960753,
+      "oracle_acquisition_rate": 0.228125,
+      "oracle_wait_gain": 0.01133316268911585,
+      "ridge_gain": -0.00028322438709437847
+    },
+    "ETTh1__43__mixed_811": {
+      "commit_objective": 0.12520243203907738,
+      "mlp_gain": -0.003391699497355148,
+      "oracle_acquisition_gain": 0.006787253562011755,
+      "oracle_acquisition_objective": 0.11841517847706565,
+      "oracle_acquisition_rate": 0.209375,
+      "oracle_wait_gain": 0.011145820351433938,
+      "ridge_gain": -0.00021395317930728193
+    },
+    "ETTh1__43__outage_1811": {
+      "commit_objective": 0.12738083680160345,
+      "mlp_gain": -0.005483932915143669,
+      "oracle_acquisition_gain": 0.009466244496870784,
+      "oracle_acquisition_objective": 0.11791459230473264,
+      "oracle_acquisition_rate": 0.2546875,
+      "oracle_wait_gain": 0.010054256166797133,
+      "ridge_gain": -0.001257893422618508
+    },
+    "ETTh1__44__mixed_1811": {
+      "commit_objective": 0.1291231539886212,
+      "mlp_gain": -0.002478169736452401,
+      "oracle_acquisition_gain": 0.0069231585487723344,
+      "oracle_acquisition_objective": 0.12219999543984886,
+      "oracle_acquisition_rate": 0.18125,
+      "oracle_wait_gain": 0.008876720071653835,
+      "ridge_gain": -0.0006504629049450159
+    },
+    "ETTh1__44__mixed_811": {
+      "commit_objective": 0.12678957194148097,
+      "mlp_gain": -0.0024152951533906166,
+      "oracle_acquisition_gain": 0.0063077604239806535,
+      "oracle_acquisition_objective": 0.12048181151750033,
+      "oracle_acquisition_rate": 0.165625,
+      "oracle_wait_gain": 0.0081334035663167,
+      "ridge_gain": -0.00031099458225071415
+    },
+    "ETTh1__44__outage_1811": {
+      "commit_objective": 0.1299948467873037,
+      "mlp_gain": -0.004202657498419285,
+      "oracle_acquisition_gain": 0.007839178415946663,
+      "oracle_acquisition_objective": 0.12215566837135702,
+      "oracle_acquisition_rate": 0.1828125,
+      "oracle_wait_gain": 0.0078320917643141,
+      "ridge_gain": -0.0009436700167134406
+    },
+    "ETTh2__42__mixed_1811": {
+      "commit_objective": 0.22280938795156544,
+      "mlp_gain": 0.003890204739640466,
+      "oracle_acquisition_gain": 0.02937250089575536,
+      "oracle_acquisition_objective": 0.19343688705581008,
+      "oracle_acquisition_rate": 0.3984375,
+      "oracle_wait_gain": 0.02883085923508042,
+      "ridge_gain": 0.0027496624732157205
+    },
+    "ETTh2__42__mixed_811": {
+      "commit_objective": 0.21865764912290614,
+      "mlp_gain": -0.0007618122044950734,
+      "oracle_acquisition_gain": 0.026313951136777175,
+      "oracle_acquisition_objective": 0.192343697986129,
+      "oracle_acquisition_rate": 0.3796875,
+      "oracle_wait_gain": 0.026903530473617134,
+      "ridge_gain": -0.0014206167439406287
+    },
+    "ETTh2__42__outage_1811": {
+      "commit_objective": 0.22749954689570587,
+      "mlp_gain": 0.004770168061018922,
+      "oracle_acquisition_gain": 0.03506238184924586,
+      "oracle_acquisition_objective": 0.19243716504646,
+      "oracle_acquisition_rate": 0.4328125,
+      "oracle_wait_gain": 0.02938985966079053,
+      "ridge_gain": 0.005988422379334223
+    },
+    "ETTh2__43__mixed_1811": {
+      "commit_objective": 0.22197505165677284,
+      "mlp_gain": 0.0006253346267039862,
+      "oracle_acquisition_gain": 0.02580038092489121,
+      "oracle_acquisition_objective": 0.19617467073188163,
+      "oracle_acquisition_rate": 0.3109375,
+      "oracle_wait_gain": 0.025217971748381383,
+      "ridge_gain": 0.004434306986746376
+    },
+    "ETTh2__43__mixed_811": {
+      "commit_objective": 0.21935566449719773,
+      "mlp_gain": 0.0001025582422735153,
+      "oracle_acquisition_gain": 0.024349756995332424,
+      "oracle_acquisition_objective": 0.1950059075018653,
+      "oracle_acquisition_rate": 0.3265625,
+      "oracle_wait_gain": 0.023829297299627794,
+      "ridge_gain": 0.0008332385197281824
+    },
+    "ETTh2__43__outage_1811": {
+      "commit_objective": 0.22556790673552313,
+      "mlp_gain": 0.0039657031610840915,
+      "oracle_acquisition_gain": 0.029925687181821554,
+      "oracle_acquisition_objective": 0.1956422195537016,
+      "oracle_acquisition_rate": 0.3125,
+      "oracle_wait_gain": 0.02379652654071105,
+      "ridge_gain": 0.005726138161640846
+    },
+    "ETTh2__44__mixed_1811": {
+      "commit_objective": 0.22251086272699466,
+      "mlp_gain": 0.0032440754889103106,
+      "oracle_acquisition_gain": 0.02591322674491675,
+      "oracle_acquisition_objective": 0.19659763598207794,
+      "oracle_acquisition_rate": 0.3140625,
+      "oracle_wait_gain": 0.025359795976997702,
+      "ridge_gain": 0.0026913093318871673
+    },
+    "ETTh2__44__mixed_811": {
+      "commit_objective": 0.219967853324124,
+      "mlp_gain": 0.0023313558364170582,
+      "oracle_acquisition_gain": 0.024502727749364565,
+      "oracle_acquisition_objective": 0.19546512557475942,
+      "oracle_acquisition_rate": 0.325,
+      "oracle_wait_gain": 0.024013817601327897,
+      "ridge_gain": 0.0011102776734624043
+    },
+    "ETTh2__44__outage_1811": {
+      "commit_objective": 0.2261887346441654,
+      "mlp_gain": 0.0057483930289017725,
+      "oracle_acquisition_gain": 0.030178669090731997,
+      "oracle_acquisition_objective": 0.19601006555343342,
+      "oracle_acquisition_rate": 0.315625,
+      "oracle_wait_gain": 0.023864981727281697,
+      "ridge_gain": 0.005102500219334614
+    }
+  },
+  "scope": "retrospective oracle with current forecaster; one pull OR waiting separately; not a joint oracle or achievable claim",
+  "source_sha256": "edf57f0d62809ed7e407b9e0a9ec1c82f35aa6bf060e67b90dbeaa2306e9d73f"
+}

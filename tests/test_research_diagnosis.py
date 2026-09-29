@@ -110,6 +110,7 @@ def test_source_columns_normalize_tetouan_spacing_without_changing_measurements(
 
 
 def test_transition_labels_keep_acquisition_after_wait_and_mask_unavailable_actions():
+    pytest.importorskip('sklearn')
     from asofcast.research_learning import transition_examples
     t = _timeline()
     cfg = dict(lookback=4, horizon=3, waits_seconds=[0, 1800, 3600])
@@ -123,6 +124,7 @@ def test_transition_labels_keep_acquisition_after_wait_and_mask_unavailable_acti
 
 
 def test_residual_candidate_selection_can_retain_baseline_without_test_targets():
+    pytest.importorskip('sklearn')
     from asofcast.research_learning import fit_residual_forecast
     rng = np.random.default_rng(4)
     x = rng.normal(size=(100, 48, 2, 4)).astype(np.float32)
