@@ -10,7 +10,7 @@
 
 ## 29초 데모로 먼저 보기
 
-[![실제 공개 데모 시연 — 추천 실행, 세 선택 비교, 사후 평가와 직접 센서 취득](docs/assets/live-m2/asofcast-m2-demo.gif)](https://github.com/sokldjs554/asofcast/raw/refs/heads/main/docs/assets/live-m2/asofcast-m2-demo.mp4)
+[![실제 공개 데모 시연 — 세 선택의 시간·비용 비교, 사후 오차 확인, 추천 실행과 직접 센서 취득](docs/assets/live-m2/asofcast-m2-demo.gif)](https://github.com/sokldjs554/asofcast/raw/refs/heads/main/docs/assets/live-m2/asofcast-m2-demo.mp4)
 
 **[MP4 고화질 재생 · 29초](https://github.com/sokldjs554/asofcast/raw/refs/heads/main/docs/assets/live-m2/asofcast-m2-demo.mp4)** · [첫 화면 캡처](docs/assets/live-m2/m2-decision-console.png) · [모바일 화면](docs/assets/live-m2/m2-mobile.png) · [이번 데모 검증 기록](docs/demo-verification-20260928.md)
 
@@ -20,9 +20,9 @@
 
 **숫자를 읽는 법:** 예측값이 내려갔다고 더 정확해진 것은 아닙니다. 사후 정답과의 거리인 **절대 오차**가 작아야 더 정확합니다. 기다리거나 센서를 추가해도 오차가 늘 수 있으며, 그 결과도 그대로 표시합니다. 정보 비용은 학습 구간의 도착 지연으로 만든 0.2~1.0의 상대값이고 실제 금액이 아닙니다.
 
-![같은 입력·같은 목표에서 지금 확정, 대기, 센서 추가 취득의 예측값과 비용 비교](docs/assets/live-m2/m2-choice-comparison.png)
+![같은 목표에서 세 선택의 예측값·추가 대기·정보 비용과 사후 오차 비교](docs/assets/live-m2/m2-choice-audit.png)
 
-같은 출발점의 세 선택을 실제 API로 계산한 미리보기입니다. 현재 체험 기록과 추천은 유지됩니다. [사후 오차 화면](docs/assets/live-m2/m2-choice-audit.png) · [실제 내려받은 비교 JSON](docs/assets/live-m2/comparison-example.json)
+사후 평가를 켠 화면입니다. 같은 출발점의 세 선택을 실제 API로 계산하며 현재 체험 기록과 추천은 유지됩니다. 정답은 평가에만 사용합니다. [사후 평가를 켜기 전 화면](docs/assets/live-m2/m2-choice-comparison.png) · [실제 내려받은 비교 JSON](docs/assets/live-m2/comparison-example.json)
 
 ## 면접에서 보여줄 핵심
 

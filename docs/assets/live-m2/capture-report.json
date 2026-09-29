@@ -1,8 +1,8 @@
 {
   "status": "captured",
   "source_url": "https://asofcast.onrender.com",
-  "ui_version": "choice-lab-20260928",
-  "captured_at_unix": 1790579660,
+  "ui_version": "interview-clarity-20260928",
+  "captured_at_unix": 1790614695,
   "browser": "Chromium via Playwright",
   "public_http_verified": true,
   "model_run_id": "bd4b198464ea3244",
@@ -28,10 +28,11 @@
   ],
   "video": "asofcast-m2-demo.webm",
   "comparison_evidence": "comparison-example.json",
+  "video_start_offset_seconds": 2.806,
   "scopes": [
     "real HTTP assets and model API; not the local TestClient bridge",
     "cold start and expert/mobile checks excluded from short video",
-    "the actual recommendation is executed before independent alternatives and a manual choice",
+    "independent alternatives and opt-in audit precede the actual recommendation and a manual choice",
     "comparison preserves session state, fixed target and opt-in retrospective truth",
     "manual acquisition records the real before/after values",
     "desktop flow and 390px/320px overflow checks; not a full production load test"

@@ -1,42 +1,58 @@
 {
-  "capture_workflow_run": 36389658868,
+  "capture_workflow_run": 36409726173,
   "capture_attempt": 2,
-  "artifact_id": 10956501263,
-  "captured_code_commit": "b0c952a034fb55d9b2f47fed0226b3bf9d83c80c",
-  "source_url": "https://asofcast.onrender.com/",
-  "source_mp4_sha256": "2629a4238ec06c756744aa9e723a03df7c4f9490beaa2990f60e5be0d7db8640",
+  "artifact_id": 10984623039,
+  "artifact_sha256": "8c82cbac68d1404fb27f7e40b9370ed6b5cdf80b0889da6cda468c2a8b3a1dd7",
+  "capture_workflow_source_commit": "14219c7326e67a80bb36f07d7bcaf1cd2679e1bb",
+  "captured_code_commit": "70d70c25c8fcb39adb5548802bf6befb8e7877b8",
+  "render_deploy_id": "dep-dat9nqbtqb8s73aj8j0g",
+  "source_url": "https://asofcast.onrender.com",
+  "ui_version": "interview-clarity-20260928",
+  "model_run_id": "bd4b198464ea3244",
   "video": {
     "file": "asofcast-m2-demo.mp4",
-    "duration_seconds": 28.64,
+    "duration_seconds": 28.88,
     "width": 1440,
     "height": 1000,
     "codec": "H.264",
-    "removed_leading_seconds": 3,
+    "fps": "25/1",
+    "removed_leading_seconds": 2.806,
     "playback_speed": 1,
-    "edit": "Removed only the initial blank/loading interval; original screenshot and comparison JSON files retained."
+    "edit": "Workflow removes only the initial load interval. Public capture artifact bytes are retained unchanged."
   },
   "gif": {
     "file": "asofcast-m2-demo.gif",
     "width": 800,
     "height": 556,
-    "frames": 115,
-    "preview_fps": 4
+    "frames": 116,
+    "preview_fps": 4,
+    "duration_seconds": 29.0
   },
   "files": [
     {
       "name": "asofcast-m2-demo.gif",
-      "bytes": 2460681,
-      "sha256": "56b3ad734866b01d7c8fa840bcd08c93d27125ae4edc68dfc8a44b2b72409795"
+      "bytes": 3392653,
+      "sha256": "21c769421fe744566b7ef5ede5e329b7811e2fb4a0420429f5610228fd2b0d5f"
     },
     {
       "name": "asofcast-m2-demo.mp4",
-      "bytes": 1851596,
-      "sha256": "93910b6c8e437e0fc82f358feea26c4dcd2701906d85f4dae535e788a15da897"
+      "bytes": 2671644,
+      "sha256": "9380d82897ec33f5500cde77e2703cd3942c678ead67c9efb70c0f46ab230900"
+    },
+    {
+      "name": "browser-ett-check.json",
+      "bytes": 1164,
+      "sha256": "b165a347ee36d3817c66d291dae4fd0db54cb576b8dd7ccaef9a378617c9f63c"
+    },
+    {
+      "name": "browser-synthetic-check.json",
+      "bytes": 1135,
+      "sha256": "5fd33ada88cc2a5ae0f36fd64e1e2da7153934794884bfee9233570fb16c95bc"
     },
     {
       "name": "capture-report.json",
-      "bytes": 1564,
-      "sha256": "d38ee19974c47b925b3c917904af1250b2564e81b1f675dcee8e73989f492a47"
+      "bytes": 1616,
+      "sha256": "4e57d457cb855e30241ba179080e12b2a3c3a544bc4801ffe4e8a1f507bcac2a"
     },
     {
       "name": "comparison-example.json",
@@ -45,53 +61,53 @@
     },
     {
       "name": "m2-after-acquisition.png",
-      "bytes": 281756,
-      "sha256": "26884f9795ca9e4f702acbcd9128848937d1ccaac9f45d5c5c7c306b80eb5044"
+      "bytes": 273549,
+      "sha256": "b61651c1c764e40b14c5b494d3c3830dc9f7c993e47458900f622baa688436e0"
     },
     {
       "name": "m2-choice-audit.png",
-      "bytes": 206617,
-      "sha256": "1f5355af9bee831817828a739b219af2d6278062819538b2d155b6636fe08777"
+      "bytes": 230575,
+      "sha256": "f25b7495640f4c06e53c807fca61353de03d0b1a58bcd3bff6941b2cb8c49f02"
     },
     {
       "name": "m2-choice-comparison.png",
-      "bytes": 207151,
-      "sha256": "da0400462670dcdd901699e4944d51129f03902ad1fef116a137f212e061bedd"
+      "bytes": 235007,
+      "sha256": "eb1893cd1f7e3d917643cfe38a3b28b3630893a90499f9ede04e3b748799c1c1"
     },
     {
       "name": "m2-counterfactual.png",
-      "bytes": 103806,
-      "sha256": "fb3e3f1f191f15f44fe0a63ef5b833648fdc28b18f732ccd22db6624ed9037d4"
+      "bytes": 103872,
+      "sha256": "5ee6d864ef7cda93fb7f3dd11a47e528c9b1bb6163a04e5353ddd967c990af55"
     },
     {
       "name": "m2-decision-console.png",
-      "bytes": 326789,
-      "sha256": "adac612b2b484cb3a4b0a6a5b59e6ec4670fdda0fdd174594d343e04a5f68af4"
+      "bytes": 329519,
+      "sha256": "4e981e2894d8e016f6aaf9c5da047dae18796280f3d3da6f7e55f73fec6cd981"
     },
     {
       "name": "m2-full.png",
-      "bytes": 626515,
-      "sha256": "a4f1de912763ff083f7b1bd9f61c126b04b18fdefc6b6d0d4f6dc7c34ac2a2c0"
+      "bytes": 710985,
+      "sha256": "2474b6115e7a521278c5f63f448a5a0a94f9aff92cd7f92e13155abf71841e8d"
     },
     {
       "name": "m2-mobile.png",
-      "bytes": 130518,
-      "sha256": "f7973058abcd35336174323e15bf31259d5f9a53d581704506346cb91d27ce52"
+      "bytes": 136598,
+      "sha256": "051b408d45a757c0b461c3d81ff62dec7f7e04a2411bfc4c117f7db908d11c25"
     },
     {
       "name": "m2-pareto.png",
-      "bytes": 122496,
-      "sha256": "801d81c774f9cefcdd380a982b55119a06339a146f695c278995a4c63def4209"
+      "bytes": 128404,
+      "sha256": "cb65f2ccf14b7034bf318cfac9f2599680a850f385d6d783e870d70094ad008f"
     },
     {
       "name": "m2-recommended-action.png",
-      "bytes": 280788,
-      "sha256": "962dd6cf1fe6c9b479e1b0afa3dc2875cf6c4036e3fd207a37df3c69bd990172"
+      "bytes": 271619,
+      "sha256": "260b30cbb2534a29a970e40375869b2e48e9c677a030e8af62e425e3e1907380"
     },
     {
       "name": "m2-revision.png",
-      "bytes": 119424,
-      "sha256": "b67052ef6f7a6b0fdc3f9c242782eac75e5f8c27bab15692dd06d6d2412c35f1"
+      "bytes": 118909,
+      "sha256": "02106a1bad29383e974893d98c3ed5b5a7853945dfa53c786c53a48ac2bd8ead"
     }
   ]
 }
