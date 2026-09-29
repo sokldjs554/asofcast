@@ -99,3 +99,32 @@ def test_sensor_grid_uses_only_recent_past_measurements():
     sampled = causal_grid_sample(raw, 10, .1)
     assert list(sampled.index) == [0., 10.]
     np.testing.assert_array_equal(sampled['S0'], [1., 2.])
+
+
+def test_sensor_sample_includes_exact_age_limit():
+    import pandas as pd
+
+    from asofcast.information_data import causal_grid_sample
+    raw = pd.DataFrame({'S0': [2., 3.]}, index=[19.9, 20.5])
+    sampled = causal_grid_sample(raw, 10, .1)
+    assert list(sampled.index) == [20.]
+    assert sampled.iloc[0, 0] == 2
+
+
+def test_aggregate_rejects_same_length_but_different_paired_origins():
+    import json
+    from pathlib import Path
+
+    from scripts.evaluate_information_value import aggregate
+    protocol = json.loads((Path(__file__).resolve().parents[1] / 'configs/information_value_20260929.json').read_text())
+    protocol.update(confirmatory_datasets=['new'], conditions=[{'name': 'mixed'}])
+    reports, arrays = {}, {}
+    for seed in [42, 43, 44]:
+        prefix = f'new__{seed}__mixed'
+        reports[prefix] = {'methods': {name: {'objective': 1., 'native_error': 1.}
+            for name in ['information', 'legacy_joint', 'validation_simple', 'prior_combined', 'myopic', 'decision_penalty_removed']}}
+        arrays[prefix + '__origins'] = np.array([10, 20]) + (1 if seed == 43 else 0)
+        for name in reports[prefix]['methods']:
+            arrays[f'{prefix}__{name}__objective'] = np.ones(2)
+    with pytest.raises(ValueError, match='paired origins'):
+        aggregate(protocol, reports, arrays)

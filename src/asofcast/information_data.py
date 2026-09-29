@@ -37,7 +37,8 @@ def causal_grid_sample(frame, grid_seconds, max_age):
                      np.floor(times[-1] / grid_seconds) * grid_seconds + grid_seconds,
                      grid_seconds)
     indices = np.searchsorted(times, grid, side='right') - 1
-    keep = (indices >= 0) & (grid - times[np.maximum(indices, 0)] <= max_age)
+    # A nanosecond tolerance handles decimal timestamps exactly at the age cap.
+    keep = (indices >= 0) & (grid - times[np.maximum(indices, 0)] <= max_age + 1e-9)
     result = frame.iloc[indices[keep]].copy()
     result.index = grid[keep]
     return result

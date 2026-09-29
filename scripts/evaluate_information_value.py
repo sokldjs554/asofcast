@@ -9,6 +9,7 @@ import time
 from pathlib import Path
 
 import numpy as np
+import pandas as pd
 import sklearn
 import torch
 
@@ -59,7 +60,7 @@ def fit_information(bundle, protocol):
     simple_scores = outcomes(bundle, simple_result, y, protocol)
     records, probes, policies, choices = {}, {}, {}, {}
     for name, depth, uncertainty in [('information', settings['primary_depth'], settings['primary_uncertainty']),
-                                      ('myopic', 1, 1.), ('no_penalty', 2, 0.)]:
+                                      ('myopic', 1, 1.), ('decision_penalty_removed', 2, 0.)]:
         candidates, available = {'simple': simple_scores}, {'simple': simple}
         actions = {'simple': simple_result['actions']}
         for margin in settings['margins']:
@@ -120,11 +121,13 @@ def aggregate(protocol, reports, arrays):
     for dataset in protocol['confirmatory_datasets']:
         for condition in protocol['conditions']:
             prefixes = [f'{dataset}__{seed}__{condition["name"]}' for seed in protocol['seeds']]
+            if not all(np.array_equal(arrays[f'{prefixes[0]}__origins'], arrays[f'{p}__origins']) for p in prefixes):
+                raise ValueError('paired origins differ across training seeds')
             averages = {name: {metric: float(np.mean([reports[p]['methods'][name][metric] for p in prefixes]))
                               for metric in reports[prefixes[0]]['methods'][name]}
                         for name in reports[prefixes[0]]['methods']}
             comparisons = {}
-            for comparator in ('legacy_joint', 'validation_simple', 'prior_combined', 'myopic', 'no_penalty'):
+            for comparator in ('legacy_joint', 'validation_simple', 'prior_combined', 'myopic', 'decision_penalty_removed'):
                 delta = np.stack([arrays[f'{p}__{comparator}__objective'] - arrays[f'{p}__information__objective']
                                   for p in prefixes])
                 interval = paired_block_interval(delta, block=gate['block_origins'],
@@ -155,6 +158,9 @@ def run(protocol_path, out, models, data, *, development=False):
     if out.exists():
         raise FileExistsError(f'refusing to overwrite {out}')
     protocol = json.loads(protocol_path.read_text())
+    protocol_digest = sha256_file(protocol_path)
+    if protocol['seeds'] != [42, 43, 44]:
+        raise ValueError('three distinct frozen training seeds required')
     cfg = json.loads((ROOT / protocol['training_config']).read_text())
     torch.set_num_threads(cfg['cpu_threads'])
     source_paths = sorted([*ROOT.glob('src/asofcast/*.py'), Path(__file__), ROOT / 'scripts/evaluate_research_diagnosis.py'])
@@ -201,13 +207,14 @@ def run(protocol_path, out, models, data, *, development=False):
                     print(json.dumps({'evaluated': prefix, 'elapsed': round(time.monotonic() - started, 1)}), flush=True)
             write_json(out / 'progress.json', dict(selections=selections, reports=reports))
     cells, gate = ({}, {'passed': False, 'reason': 'development only; no confirmatory test evaluated'}) if development else aggregate(protocol, reports, arrays)
-    if hashes != {str(p.relative_to(ROOT)): sha256_file(p) for p in source_paths}:
-        raise RuntimeError('source code changed during execution')
+    if (hashes != {str(p.relative_to(ROOT)): sha256_file(p) for p in source_paths}
+            or sha256_file(protocol_path) != protocol_digest):
+        raise RuntimeError('source code or protocol changed during execution')
     np.savez_compressed(out / 'paired-losses.npz', **arrays)
     report = dict(schema=protocol['schema'], development_only=development, protocol=protocol,
         protocol_sha256=sha256_file(protocol_path), source_files=hashes,
         code_commit=subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=ROOT, text=True).strip(),
-        runtime=dict(python=platform.python_version(), numpy=np.__version__, torch=torch.__version__, sklearn=sklearn.__version__),
+        runtime=dict(python=platform.python_version(), numpy=np.__version__, pandas=pd.__version__, torch=torch.__version__, sklearn=sklearn.__version__),
         sources=sources, bundles=bundles, selections=selections, runs=reports, cells=cells, promotion_gate=gate,
         raw_losses_sha256=sha256_file(out / 'paired-losses.npz'), elapsed_seconds=time.monotonic() - started)
     write_json(out / 'report.json', report)

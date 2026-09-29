@@ -73,7 +73,7 @@ def test_information_selection_never_reads_final_test_outcomes(small_bundle):
                     small_bundle.timeline.arrivals, small_bundle.timeline.columns))
     second = fit_information(other, protocol)
     assert first['selection'] == second['selection']
-    assert set(first['policies']) == {'information', 'myopic', 'no_penalty'}
+    assert set(first['policies']) == {'information', 'myopic', 'decision_penalty_removed'}
     for name in first['probes']:
         np.testing.assert_array_equal(first['probes'][name], second['probes'][name])
     assert first['selection']['candidates']['simple']['objective'] >= first['selection']['selected']['objective']

@@ -127,7 +127,7 @@
     "Dataset preprocessing may inspect timestamps/missingness, never forecasting or policy test scores before freezing.",
     "No candidate family or threshold changes after any Jena2020/GasCO test score is exposed.",
     "For each dataset retain a six-grid-step horizon and one-grid-step deadline; simulated arrivals scale with grid length, objective weights do not change.",
-    "Primary information policy uses depth two and one ensemble standard deviation penalty; myopic and no-penalty versions are ablations only.",
+    "Primary information policy uses depth two and one ensemble standard deviation penalty; myopic and decision-penalty-removed versions are ablations only.",
     "Ensemble spread is a heuristic and is never called a confidence bound.",
     "Legacy training eagerly writes unused legacy test scores; full candidate family and code are frozen before that operation, and fitting/selection never consume those scores."
   ],
@@ -163,7 +163,8 @@
         "arrival_seed": 1011
       }
     ],
-    "selection": "validation mean objective, <=1% MAE regression, always admit the same strong simple comparator; exact ties retain simple"
+    "selection": "validation mean objective, <=1% MAE regression, always admit the same strong simple comparator; exact ties retain simple",
+    "ablation_scope": "myopic: one-stage fitted value; decision_penalty_removed: remove disagreement penalty only from deployed action scores while retaining uncertainty=1 in backup training. Primary remains depth=2, uncertainty=1."
   },
   "new_data": {
     "Jena2020": {
