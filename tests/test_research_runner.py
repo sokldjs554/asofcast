@@ -57,3 +57,23 @@ def test_full_evaluation_returns_all_ablation_and_sequential_scores(small_bundle
         assert np.isfinite(arrays[name + '__objective']).all()
         assert not arrays[name + '__deadline_violation'].any()
     assert report['selection'] == fitted['selection']
+
+
+def test_information_selection_never_reads_final_test_outcomes(small_bundle):
+    from scripts.evaluate_information_value import fit_information
+    root = Path(__file__).resolve().parents[1]
+    protocol = json.loads((root / 'configs/information_value_20260929.json').read_text())
+    protocol.update(forecast=settings()['forecast'], policy=settings()['policy'])
+    protocol['information_policy'].update(members=2, iterations=2, min_leaf=4,
+        margins=[0., .03], training_conditions=[{'profile': 'mixed', 'arrival_seed': 811}])
+    first = fit_information(small_bundle, protocol)
+    values = small_bundle.timeline.values.copy()
+    values[partition_bounds(len(values))['test'][0]:] += 12345
+    other = replace(small_bundle, timeline=Timeline(small_bundle.timeline.times, values,
+                    small_bundle.timeline.arrivals, small_bundle.timeline.columns))
+    second = fit_information(other, protocol)
+    assert first['selection'] == second['selection']
+    assert set(first['policies']) == {'information', 'myopic', 'no_penalty'}
+    for name in first['probes']:
+        np.testing.assert_array_equal(first['probes'][name], second['probes'][name])
+    assert first['selection']['candidates']['simple']['objective'] >= first['selection']['selected']['objective']
