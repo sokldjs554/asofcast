@@ -1,0 +1,30 @@
+name: Research source verification
+on:
+  push:
+    branches: [research/causal-action-value-20261002]
+    paths: [.github/workflows/research-checkout.yml]
+permissions:
+  contents: read
+jobs:
+  source:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Export exact tracked source
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p export
+          git rev-parse HEAD > export/SOURCE_COMMIT.txt
+          git ls-tree -r HEAD > export/GIT_TREE.txt
+          git archive --format=tar HEAD | gzip -1 > export/asofcast-source.tar.gz
+          sha256sum export/asofcast-source.tar.gz > export/SHA256SUMS.txt
+      - uses: actions/upload-artifact@v4
+        with:
+          name: asofcast-research-source
+          path: export/
+          if-no-files-found: error
+          retention-days: 7
