@@ -1,0 +1,67 @@
+name: Research new source metadata
+on:
+  push:
+    branches: [research/causal-action-value-20261002]
+    paths: [.github/workflows/research-new-data.yml]
+permissions:
+  contents: read
+jobs:
+  prepare:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install 'numpy==2.3.5' 'pandas==2.2.3'
+      - name: Download originals and inspect structure without fitting or scoring
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import hashlib, json, zipfile, io, urllib.request
+          from pathlib import Path
+          import numpy as np
+          import pandas as pd
+          out=Path('export'); out.mkdir()
+          sources={
+              'occupancy.zip':'https://archive.ics.uci.edu/static/public/357/occupancy%2Bdetection.zip',
+              'PEMS04.npz':'https://raw.githubusercontent.com/guoshnBJTU/ASTGNN/9c2e19b98c4cedf1f35214d8789685b6381b3aad/data/PEMS04/PEMS04.npz',
+              'PEMS04.csv':'https://raw.githubusercontent.com/guoshnBJTU/ASTGNN/9c2e19b98c4cedf1f35214d8789685b6381b3aad/data/PEMS04/PEMS04.csv',
+          }
+          records={}
+          expected={'PEMS04.npz':'a1a39eac4b86963b1ac22874fd1cc693eb642cd2','PEMS04.csv':'2569623e29fa9685ae230246a20f31741ee6cf01'}
+          for name,url in sources.items():
+              with urllib.request.urlopen(url, timeout=120) as response:
+                  data=response.read()
+              sha=hashlib.sha256(data).hexdigest()
+              gitsha=hashlib.sha1(b'blob '+str(len(data)).encode()+b'\0'+data).hexdigest()
+              if name in expected and expected[name]!=gitsha:
+                  raise ValueError('original Git blob mismatch: '+name)
+              (out/name).write_bytes(data)
+              records[name]={'url':url,'sha256':sha,'git_blob_sha':gitsha,'bytes':len(data)}
+          occupancy=[]
+          with zipfile.ZipFile(out/'occupancy.zip') as z:
+              for name in sorted(z.namelist()):
+                  if name.endswith('.txt') and not name.startswith('__MACOSX/'):
+                      frame=pd.read_csv(io.BytesIO(z.read(name)))
+                      if 'date' not in frame:
+                          continue
+                      dates=pd.to_datetime(frame['date'])
+                      deltas=dates.diff().dt.total_seconds().dropna()
+                      occupancy.append({'file':name,'rows':len(frame),'columns':list(frame.columns),'first':str(dates.min()),'last':str(dates.max()),'duplicate_dates':int(dates.duplicated().sum()),'time_deltas':{str(k):int(v) for k,v in deltas.value_counts().items()},'null_cells':int(frame.isna().sum().sum())})
+          with np.load(out/'PEMS04.npz',allow_pickle=False) as z:
+              pems={key:{'shape':list(z[key].shape),'dtype':str(z[key].dtype),'nonfinite':int((~np.isfinite(z[key])).sum())} for key in z.files}
+          metadata={'purpose':'structure and timestamp inspection only; no model or performance results','sources':records,'occupancy_structure':occupancy,'pems_structure':pems}
+          (out/'metadata.json').write_text(json.dumps(metadata,indent=2))
+          print(json.dumps(metadata,indent=2))
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: asofcast-fresh-source-candidates
+          path: export/
+          if-no-files-found: error
+          retention-days: 7
