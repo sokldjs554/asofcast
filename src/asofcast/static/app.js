@@ -754,7 +754,7 @@
       metadata = await requestJSON('/api/metadata');
       $('caseId').max = metadata.cases - 1;
       $('modelName').textContent = metadata.serving_forecaster;
-      $('servingBackend').textContent = metadata.serving_backend === 'onnx' ? 'ONNX Runtime · CPU' : 'PyTorch · CPU';
+      $('servingBackend').textContent = metadata.serving_backend === 'onnxruntime' ? 'ONNX Runtime · CPU' : 'PyTorch · CPU';
       $('waitSelect').replaceChildren(...metadata.config.waits_seconds.map(wait => {
         const option = document.createElement('option'); option.value = String(wait);
         option.textContent = wait === 0 ? '기준 시각' : `${duration(wait)} 뒤`;
