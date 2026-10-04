@@ -1,0 +1,17 @@
+.git/
+.github/
+.worktrees/
+.superpowers/
+data/
+artifacts/
+mlruns/
+htmlcov/
+__pycache__/
+*.pyc
+*.pyo
+*.db
+*.db-*
+*.zip
+*.bundle
+build/
+dist/

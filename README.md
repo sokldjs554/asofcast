@@ -1,12 +1,32 @@
 # AsOfCast M2
 
-> **센서 데이터가 덜 도착한 상태에서, 예측을 지금 확정할지·더 기다릴지·센서 하나를 추가 확인할지 비교하는 시계열 AI 시스템**
+> **늦게 도착하는 센서 데이터에서 같은 미래 목표를 유지한 채, 지금 확정·대기·추가 확인을 비용과 함께 비교하는 시계열 AI 시스템**
 
-설비 담당자에게 몇 시간 뒤 상태의 예측을 전달해야 하는 상황을 가정했습니다. 일부 센서 값이 늦으면 **부족한 정보로 지금 판단하는 선택**과 **시간·추가 정보 비용을 들이는 선택**을 비교해야 합니다. AsOfCast는 같은 미래 목표를 유지하며 그 차이를 실제 모델로 계산합니다. 공개 데모는 이 문제를 설명하기 위한 합성 데이터 체험입니다.
+설비 담당자가 몇 시간 뒤 상태를 예측해야 하지만 일부 센서가 늦게 도착하는 상황을 모델링했습니다. **측정 시각과 도착 시각을 분리해 판단 당시 알 수 있었던 정보만 사용**하고, 예측 정확도뿐 아니라 기다린 시간과 추가 정보 비용까지 함께 평가합니다.
 
-[예측 체험](https://asofcast.onrender.com) · [검증 기록](docs/verification.md) · [API](https://asofcast.onrender.com/docs)
+[예측 체험](https://asofcast.onrender.com) · [API](https://asofcast.onrender.com/docs) · [데이터플로 공고 대응 근거](docs/dataflow-role-evidence.md) · [검증 기록](docs/verification.md)
 
-**검증 상태: 일반적인 성능 우위 목표는 미달성입니다.** 건물 전력 데이터에서 예측 오차를 약 11% 줄였지만, 후속 기상·화학 센서 평가에서도 전체 행동 정책은 강한 단순 기준을 안정적으로 이기지 못했습니다. 새 데이터 2종·학습 시드 3개·지연 조건 3개의 [정보 가치 개선 실험과 실패 결과](docs/information-value-20260929.md), 앞선 4개 데이터셋의 [예측기·순차 행동 검증](docs/research-diagnosis-20260929.md)을 공개합니다. 코드·재현 검사 통과와 성능 목표 달성은 별개입니다.
+## 한눈에 보는 엔지니어링 근거
+
+| 영역 | 구현·검증 근거 |
+|---|---|
+| **모델 설계·학습** | PyTorch 기반 시계열 예측기와 WAIT/ACQUIRE/COMMIT 정책을 학습하고 시간순 train/policy/validation/test로 분리 |
+| **성능 평가·개선** | Appliances에서 예측 MAE **10.83~11.15% 감소**를 확인했으며, 강한 단순 기준·다중 seed·bootstrap 구간으로 정책 후보는 별도 검증 |
+| **서비스 추론 최적화** | FastAPI + PyTorch 기준 구현에 **ONNX Runtime 서빙 경로**를 추가하고 출력 parity·모델 identity·SHA-256을 검증. 명시적 ONNX 모드는 불일치 시 fail-closed |
+| **MLOps** | **MLflow + DVC + release gate**로 실험 기록과 모델 승격 판단을 분리. 성능 기준을 못 넘은 2026-10-02 후보는 테스트 성공과 무관하게 `rejected`로 기록 |
+| **대규모 데이터** | UCI ElectricityLoadDiagrams **51,894,720 measurement cells**를 PySpark로 파싱·검사하고 Parquet write/read 검증 |
+| **논문 구현·재현** | **DLinear** 공식 구현을 고정해 같은 데이터·초기 조건에서 로컬 구현과 독립 학습·반복 대조 |
+| **클라우드·운영 검증** | Render 공개 FastAPI의 `/health`·`/ready` 원격 smoke + Docker에서 실측 ETTh1 bundle과 검증된 ONNX runtime을 read-only mount해 재시작 smoke |
+
+GitHub Actions는 Python 3.11/3.13 전체 테스트, 실측 ETTh1 학습, ONNX, DLinear 대조, MLflow/DVC, Spark, Docker 서빙, 브라우저 회귀를 서로 다른 job으로 실행합니다. **CI 통과는 실행 계약의 재현을 뜻하고, 모델 성능 우위는 별도의 release gate가 판단합니다.**
+
+## 연구 상태와 한계
+
+**전체 행동 정책의 일반적인 성능 우위는 아직 입증하지 못했습니다.** 2026-09-29 기상·화학 센서 새 데이터에서는 강한 단순 기준 대비 채택 조건을 통과한 경우가 0/6이었습니다. 2026-10-02 후속 후보는 새 전력·거래 시계열 6개 자료·도착 조건 중 주 수치 기준을 통과한 조건이 1개였지만, 전체 목표에는 미달해 공개 모델로 승격하지 않았습니다.
+
+이 실패도 결과로 보존했습니다. 비용·합격 기준을 결과를 본 뒤 낮추지 않았고, `docs/research-20261002/release-decision.json`의 release gate는 해당 후보를 **rejected**로 기록합니다. 코드·재현 검사 통과와 성능 목표 달성을 같은 의미로 사용하지 않습니다.
+
+[2026-10-02 전체 결과와 실패 조건](docs/research-20261002/RESULTS_KO.md) · [승격 판단](docs/research-20261002/release-decision.json) · [고정 프로토콜](configs/posterior_candidate_confirmation_20261002.json) · [실행기](scripts/run_posterior_confirmation.py)
 
 ## 29초 데모로 먼저 보기
 

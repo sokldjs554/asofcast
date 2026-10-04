@@ -73,6 +73,8 @@ def test_complete_m2_desktop_mobile_flow(page):
 def test_runtime_caption_distinguishes_serving_from_benchmark(page):
     page.locator('#technicalDetails > summary').click()
     card = page.locator('.verification-grid article').nth(2)
-    assert card.locator('strong').inner_text() == 'PyTorch · CPU'
-    assert 'ONNX Runtime' in card.locator('small').inner_text()
-    assert '비교 실험' in card.locator('small').inner_text()
+    meta = page.evaluate("async () => JSON.parse((await asgiFetch('/api/metadata', 'GET', null)).body)")
+    expected = 'ONNX Runtime · CPU' if meta['serving_backend'] == 'onnxruntime' else 'PyTorch · CPU'
+    assert card.locator('strong').inner_text() == expected
+    assert 'PyTorch 기준' in card.locator('small').inner_text()
+    assert 'ONNX Runtime 선택 경로' in card.locator('small').inner_text()

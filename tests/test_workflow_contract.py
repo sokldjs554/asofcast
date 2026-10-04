@@ -55,3 +55,45 @@ def test_native_onnx_and_reference_checks_are_mandatory_ci_steps():
     assert 'python -m asofcast.reference_eval' in workflow
     assert 'dlinear-reference-evidence' in workflow
     assert 'optimization-onnx/' in workflow
+
+
+def test_ci_builds_and_restarts_onnx_serving_container():
+    workflow = WORKFLOW.read_text(encoding='utf-8')
+    required = [
+        'python -m asofcast serving-runtime',
+        'container-cloud:',
+        'docker build',
+        'ASOFCAST_SERVING_BACKEND=onnx',
+        'scripts/container_smoke.py',
+        'container-smoke-1.json',
+        'container-smoke-2.json',
+        'container-cloud-evidence',
+    ]
+    missing = [item for item in required if item not in workflow]
+    assert not missing, f'container serving verification is incomplete: {missing}'
+
+
+def test_docker_image_is_cpu_runtime_only_and_models_are_external():
+    root = WORKFLOW.parents[2]
+    dockerfile = root / 'Dockerfile'
+    dockerignore = root / '.dockerignore'
+    smoke = root / 'scripts' / 'container_smoke.py'
+    assert dockerfile.exists()
+    assert dockerignore.exists()
+    assert smoke.exists()
+    text = dockerfile.read_text(encoding='utf-8')
+    assert 'download.pytorch.org/whl/cpu' in text
+    assert ".[optimize]" in text
+    assert 'USER asofcast' in text
+    assert 'ASOFCAST_ARTIFACTS=/models' in text
+    assert 'ASOFCAST_RUNTIME_DIR=/runtime' in text
+    assert 'ASOFCAST_SERVING_BACKEND=onnx' in text
+    ignored = dockerignore.read_text(encoding='utf-8')
+    assert 'artifacts/' in ignored and 'data/' in ignored and '.git/' in ignored
+
+
+def test_ci_cancels_stale_runs_on_the_same_branch():
+    text = WORKFLOW.read_text(encoding='utf-8')
+    assert 'concurrency:' in text
+    assert 'group: asofcast-ci-${{ github.ref }}' in text
+    assert 'cancel-in-progress: true' in text

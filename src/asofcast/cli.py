@@ -34,6 +34,19 @@ def main(argv: list[str] | None = None) -> int:
     onnx_eval.add_argument('--threads',type=int,default=2)
     onnx_eval.add_argument('--warmup',type=int,default=20)
     onnx_eval.add_argument('--rounds',type=int,default=3)
+    serving_runtime = commands.add_parser('serving-runtime',help='Export a parity-verified ONNX serving runtime')
+    serving_runtime.add_argument('--artifacts',type=Path,required=True)
+    serving_runtime.add_argument('--out',type=Path,required=True)
+    serving_runtime.add_argument('--threads',type=int,default=2)
+    release_gate = commands.add_parser('release-gate',help='Create a hash-bound model promotion or rejection decision')
+    release_gate.add_argument('--evaluation',type=Path,required=True)
+    release_gate.add_argument('--out',type=Path,required=True)
+    release_gate.add_argument('--artifacts',type=Path)
+    release_gate.add_argument('--runtime-dir',type=Path)
+    track_release = commands.add_parser('track-release',help='Log a release decision to MLflow')
+    track_release.add_argument('--decision',type=Path,required=True)
+    track_release.add_argument('--tracking-uri',default='sqlite:///mlflow.db')
+    track_release.add_argument('--experiment',default='AsOfCast Releases')
     mlflow_cmd = commands.add_parser('track-mlflow',help='Log a verified bundle to an MLflow tracking store')
     mlflow_cmd.add_argument('--artifacts',type=Path,required=True)
     mlflow_cmd.add_argument('--tracking-uri',default='sqlite:///mlflow.db')
@@ -69,6 +82,16 @@ def main(argv: list[str] | None = None) -> int:
             from asofcast.onnx_eval import evaluate_onnx
             result = evaluate_onnx(args.artifacts,args.out,repeats=args.repeats,
                                    threads=args.threads,warmup=args.warmup,rounds=args.rounds)
+        elif args.command == 'serving-runtime':
+            from asofcast.serving_runtime import prepare_serving_runtime
+            result = prepare_serving_runtime(args.artifacts,args.out,threads=args.threads)
+        elif args.command == 'release-gate':
+            from asofcast.release_gate import build_release_decision
+            result = build_release_decision(args.evaluation,args.out,bundle_dir=args.artifacts,
+                                            runtime_dir=args.runtime_dir)
+        elif args.command == 'track-release':
+            from asofcast.mlops import log_release_decision_mlflow
+            result = log_release_decision_mlflow(args.decision,args.tracking_uri,args.experiment)
         elif args.command == 'track-mlflow':
             from asofcast.mlops import log_bundle_mlflow
             result = log_bundle_mlflow(args.artifacts,args.tracking_uri,args.experiment)
