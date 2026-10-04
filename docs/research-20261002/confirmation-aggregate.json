@@ -1,0 +1,4756 @@
+{
+  "cells": {
+    "MSFT/mixed_2811": {
+      "comparisons": {
+        "legacy_joint": {
+          "block_origins": 42,
+          "bootstrap_repeats": 2000,
+          "lower95": 0.0043029659479309436,
+          "mean": 0.010174124901732534,
+          "origins": 287,
+          "relative_improvement": 0.07845943319710705,
+          "scope": "conditional on these training seeds; circular blocks over shared target origins",
+          "seed_improvements": [
+            -0.00048408392292925104,
+            0.0328973568788876,
+            -0.0018908982507607488
+          ],
+          "sensitivity_block6": {
+            "block_origins": 6,
+            "bootstrap_repeats": 2000,
+            "lower95": 0.006675428853651462,
+            "mean": 0.010174124901732534,
+            "origins": 287,
+            "scope": "conditional on these training seeds; circular blocks over shared target origins",
+            "seed_improvements": [
+              -0.00048408392292925104,
+              0.0328973568788876,
+              -0.0018908982507607488
+            ],
+            "training_seeds": 3,
+            "upper95": 0.01393260743267578
+          },
+          "training_seeds": 3,
+          "upper95": 0.0171256738446732
+        },
+        "original_validation_simple": {
+          "block_origins": 42,
+          "bootstrap_repeats": 2000,
+          "lower95": 0.0,
+          "mean": 0.0,
+          "origins": 287,
+          "relative_improvement": 0.0,
+          "scope": "conditional on these training seeds; circular blocks over shared target origins",
+          "seed_improvements": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "sensitivity_block6": {
+            "block_origins": 6,
+            "bootstrap_repeats": 2000,
+            "lower95": 0.0,
+            "mean": 0.0,
+            "origins": 287,
+            "scope": "conditional on these training seeds; circular blocks over shared target origins",
+            "seed_improvements": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "training_seeds": 3,
+            "upper95": 0.0
+          },
+          "training_seeds": 3,
+          "upper95": 0.0
+        },
+        "same_gaussian_simple": {
+          "block_origins": 42,
+          "bootstrap_repeats": 2000,
+          "lower95": 0.028902732341530055,
+          "mean": 0.04721060916513462,
+          "origins": 287,
+          "relative_improvement": 0.28318971475976823,
+          "scope": "conditional on these training seeds; circular blocks over shared target origins",
+          "seed_improvements": [
+            0.047888093845170294,
+            0.0475685078788373,
+            0.04617522577139626
+          ],
+          "sensitivity_block6": {
+            "block_origins": 6,
+            "bootstrap_repeats": 2000,
+            "lower95": 0.03454455346560373,
+            "mean": 0.04721060916513462,
+            "origins": 287,
+            "scope": "conditional on these training seeds; circular blocks over shared target origins",
+            "seed_improvements": [
+              0.047888093845170294,
+              0.0475685078788373,
+              0.04617522577139626
+            ],
+            "training_seeds": 3,
+            "upper95": 0.05921390440729706
+          },
+          "training_seeds": 3,
+          "upper95": 0.06682111366735762
+        },
+        "same_original_simple": {
+          "block_origins": 42,
+          "bootstrap_repeats": 2000,
+          "lower95": 0.0,
+          "mean": 0.0,
+          "origins": 287,
+          "relative_improvement": 0.0,
+          "scope": "conditional on these training seeds; circular blocks over shared target origins",
+          "seed_improvements": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "sensitivity_block6": {
+            "block_origins": 6,
+            "bootstrap_repeats": 2000,
+            "lower95": 0.0,
+            "mean": 0.0,
+            "origins": 287,
+            "scope": "conditional on these training seeds; circular blocks over shared target origins",
+            "seed_improvements": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "training_seeds": 3,
+            "upper95": 0.0
+          },
+          "training_seeds": 3,
+          "upper95": 0.0
+        },
+        "validation_simple": {
+          "block_origins": 42,
+          "bootstrap_repeats": 2000,
+          "lower95": 0.0,
+          "mean": 0.0,
+          "origins": 287,
+          "relative_improvement": 0.0,
+          "scope": "conditional on these training seeds; circular blocks over shared target origins",
+          "seed_improvements": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "sensitivity_block6": {
+            "block_origins": 6,
+            "bootstrap_repeats": 2000,
+            "lower95": 0.0,
+            "mean": 0.0,
+            "origins": 287,
+            "scope": "conditional on these training seeds; circular blocks over shared target origins",
+            "seed_improvements": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "training_seeds": 3,
+            "upper95": 0.0
+          },
+          "training_seeds": 3,
+          "upper95": 0.0
+        }
+      },
+      "mae_regressions": [
+        0.010655319111566808,
+        0.04632980848130597,
+        0.03204486523868799
+      ],
+      "origins": 287
+    },
+    "MSFT/mixed_3811": {
+      "comparisons": {
+        "legacy_joint": {
+          "block_origins": 42,
+          "bootstrap_repeats": 2000,
+          "lower95": 0.0026915948794467804,
+          "mean": 0.008539845510556315,
+          "origins": 287,
+          "relative_improvement": 0.06452537078734548,
+          "scope": "conditional on these training seeds; circular blocks over shared target origins",
+          "seed_improvements": [
+            -0.00018865345586736236,
+            0.029313528636703164,
+            -0.003505338649166856
+          ],
+          "sensitivity_block6": {
+            "block_origins": 6,
+            "bootstrap_repeats": 2000,
+            "lower95": 0.004669831542459685,
+            "mean": 0.008539845510556315,
+            "origins": 287,
+            "scope": "conditional on these training seeds; circular blocks over shared target origins",
+            "seed_improvements": [
+              -0.00018865345586736236,
+              0.029313528636703164,
+              -0.003505338649166856
+            ],
+            "training_seeds": 3,
+            "upper95": 0.012573731472699282
+          },
+          "training_seeds": 3,
+          "upper95": 0.01590883472961971
+        },
+        "original_validation_simple": {
+          "block_origins": 42,
+          "bootstrap_repeats": 2000,
+          "lower95": 0.0,
+          "mean": 0.0,
+          "origins": 287,
+          "relative_improvement": 0.0,
+          "scope": "conditional on these training seeds; circular blocks over shared target origins",
+          "seed_improvements": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "sensitivity_block6": {
+            "block_origins": 6,
+            "bootstrap_repeats": 2000,
+            "lower95": 0.0,
+            "mean": 0.0,
+            "origins": 287,
+            "scope": "conditional on these training seeds; circular blocks over shared target origins",
+            "seed_improvements": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "training_seeds": 3,
+            "upper95": 0.0
+          },
+          "training_seeds": 3,
+          "upper95": 0.0
+        },
+        "same_gaussian_simple": {
+          "block_origins": 42,
+          "bootstrap_repeats": 2000,
+          "lower95": 0.02620936614411247,
+          "mean": 0.04645582612847497,
+          "origins": 287,
+          "relative_improvement": 0.272844846413849,
+          "scope": "conditional on these training seeds; circular blocks over shared target origins",
+          "seed_improvements": [
+            0.04802905717171418,
+            0.046040784520862875,
+            0.045297636692847865
+          ],
+          "sensitivity_block6": {
+            "block_origins": 6,
+            "bootstrap_repeats": 2000,
+            "lower95": 0.0333440112447763,
+            "mean": 0.04645582612847497,
+            "origins": 287,
+            "scope": "conditional on these training seeds; circular blocks over shared target origins",
+            "seed_improvements": [
+              0.04802905717171418,
+              0.046040784520862875,
+              0.045297636692847865
+            ],
+            "training_seeds": 3,
+            "upper95": 0.0592811970326771
+          },
+          "training_seeds": 3,
+          "upper95": 0.06894766139955567
+        },
+        "same_original_simple": {
+          "block_origins": 42,
+          "bootstrap_repeats": 2000,
+          "lower95": 0.0,
+          "mean": 0.0,
+          "origins": 287,
+          "relative_improvement": 0.0,
+          "scope": "conditional on these training seeds; circular blocks over shared target origins",
+          "seed_improvements": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "sensitivity_block6": {
+            "block_origins": 6,
+            "bootstrap_repeats": 2000,
+            "lower95": 0.0,
+            "mean": 0.0,
+            "origins": 287,
+            "scope": "conditional on these training seeds; circular blocks over shared target origins",
+            "seed_improvements": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "training_seeds": 3,
+            "upper95": 0.0
+          },
+          "training_seeds": 3,
+          "upper95": 0.0
+        },
+        "validation_simple": {
+          "block_origins": 42,
+          "bootstrap_repeats": 2000,
+          "lower95": 0.0,
+          "mean": 0.0,
+          "origins": 287,
+          "relative_improvement": 0.0,
+          "scope": "conditional on these training seeds; circular blocks over shared target origins",
+          "seed_improvements": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "sensitivity_block6": {
+            "block_origins": 6,
+            "bootstrap_repeats": 2000,
+            "lower95": 0.0,
+            "mean": 0.0,
+            "origins": 287,
+            "scope": "conditional on these training seeds; circular blocks over shared target origins",
+            "seed_improvements": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "training_seeds": 3,
+            "upper95": 0.0
+          },
+          "training_seeds": 3,
+          "upper95": 0.0
+        }
+      },
+      "mae_regressions": [
+        0.0064387004626786926,
+        0.08194861787636376,
+        0.04083117879882914
+      ],
+      "origins": 287
+    },
+    "MSFT/outage_2811": {
+      "comparisons": {
+        "legacy_joint": {
+          "block_origins": 42,
+          "bootstrap_repeats": 2000,
+          "lower95": 0.0020934962558716744,
+          "mean": 0.008312987617199681,
+          "origins": 287,
+          "relative_improvement": 0.0633667673671003,
+          "scope": "conditional on these training seeds; circular blocks over shared target origins",
+          "seed_improvements": [
+            -0.0009477914879148959,
+            0.028058664472163916,
+            -0.00217191013264998
+          ],
+          "sensitivity_block6": {
+            "block_origins": 6,
+            "bootstrap_repeats": 2000,
+            "lower95": 0.004955035254181234,
+            "mean": 0.008312987617199681,
+            "origins": 287,
+            "scope": "conditional on these training seeds; circular blocks over shared target origins",
+            "seed_improvements": [
+              -0.0009477914879148959,
+              0.028058664472163916,
+              -0.00217191013264998
+            ],
+            "training_seeds": 3,
+            "upper95": 0.011893662958964525
+          },
+          "training_seeds": 3,
+          "upper95": 0.014977163459345631
+        },
+        "original_validation_simple": {
+          "block_origins": 42,
+          "bootstrap_repeats": 2000,
+          "lower95": 0.0,
+          "mean": 0.0,
+          "origins": 287,
+          "relative_improvement": 0.0,
+          "scope": "conditional on these training seeds; circular blocks over shared target origins",
+          "seed_improvements": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "sensitivity_block6": {
+            "block_origins": 6,
+            "bootstrap_repeats": 2000,
+            "lower95": 0.0,
+            "mean": 0.0,
+            "origins": 287,
+            "scope": "conditional on these training seeds; circular blocks over shared target origins",
+            "seed_improvements": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "training_seeds": 3,
+            "upper95": 0.0
+          },
+          "training_seeds": 3,
+          "upper95": 0.0
+        },
+        "same_gaussian_simple": {
+          "block_origins": 42,
+          "bootstrap_repeats": 2000,
+          "lower95": 0.02632837753733125,
+          "mean": 0.04436991184247576,
+          "origins": 287,
+          "relative_improvement": 0.26529829969208846,
+          "scope": "conditional on these training seeds; circular blocks over shared target origins",
+          "seed_improvements": [
+            0.04514157977982181,
+            0.04466476935966679,
+            0.043303386387938694
+          ],
+          "sensitivity_block6": {
+            "block_origins": 6,
+            "bootstrap_repeats": 2000,
+            "lower95": 0.03167497625359077,
+            "mean": 0.04436991184247576,
+            "origins": 287,
+            "scope": "conditional on these training seeds; circular blocks over shared target origins",
+            "seed_improvements": [
+              0.04514157977982181,
+              0.04466476935966679,
+              0.043303386387938694
+            ],
+            "training_seeds": 3,
+            "upper95": 0.05704237813672138
+          },
+          "training_seeds": 3,
+          "upper95": 0.06328292834235061
+        },
+        "same_original_simple": {
+          "block_origins": 42,
+          "bootstrap_repeats": 2000,
+          "lower95": 0.0,
+          "mean": 0.0,
+          "origins": 287,
+          "relative_improvement": 0.0,
+          "scope": "conditional on these training seeds; circular blocks over shared target origins",
+          "seed_improvements": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "sensitivity_block6": {
+            "block_origins": 6,
+            "bootstrap_repeats": 2000,
+            "lower95": 0.0,
+            "mean": 0.0,
+            "origins": 287,
+            "scope": "conditional on these training seeds; circular blocks over shared target origins",
+            "seed_improvements": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "training_seeds": 3,
+            "upper95": 0.0
+          },
+          "training_seeds": 3,
+          "upper95": 0.0
+        },
+        "validation_simple": {
+          "block_origins": 42,
+          "bootstrap_repeats": 2000,
+          "lower95": 0.0,
+          "mean": 0.0,
+          "origins": 287,
+          "relative_improvement": 0.0,
+          "scope": "conditional on these training seeds; circular blocks over shared target origins",
+          "seed_improvements": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "sensitivity_block6": {
+            "block_origins": 6,
+            "bootstrap_repeats": 2000,
+            "lower95": 0.0,
+            "mean": 0.0,
+            "origins": 287,
+            "scope": "conditional on these training seeds; circular blocks over shared target origins",
+            "seed_improvements": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "training_seeds": 3,
+            "upper95": 0.0
+          },
+          "training_seeds": 3,
+          "upper95": 0.0
+        }
+      },
+      "mae_regressions": [
+        0.015440444156128663,
+        0.06540761244786686,
+        0.032359040292334385
+      ],
+      "origins": 287
+    },
+    "Taylor/mixed_2811": {
+      "comparisons": {
+        "legacy_joint": {
+          "block_origins": 42,
+          "bootstrap_repeats": 2000,
+          "lower95": 0.060126840781589176,
+          "mean": 0.08130519979902436,
+          "origins": 138,
+          "relative_improvement": 0.3402846144147436,
+          "scope": "conditional on these training seeds; circular blocks over shared target origins",
+          "seed_improvements": [
+            0.08851714151335975,
+            0.07158679532207408,
+            0.08381166256163919
+          ],
+          "sensitivity_block6": {
+            "block_origins": 6,
+            "bootstrap_repeats": 2000,
+            "lower95": 0.05468209635316986,
+            "mean": 0.08130519979902436,
+            "origins": 138,
+            "scope": "conditional on these training seeds; circular blocks over shared target origins",
+            "seed_improvements": [
+              0.08851714151335975,
+              0.07158679532207408,
+              0.08381166256163919
+            ],
+            "training_seeds": 3,
+            "upper95": 0.10868031116309947
+          },
+          "training_seeds": 3,
+          "upper95": 0.10291011763508003
+        },
+        "original_validation_simple": {
+          "block_origins": 42,
+          "bootstrap_repeats": 2000,
+          "lower95": 0.0025132519982398174,
+          "mean": 0.009738758619734746,
+          "origins": 138,
+          "relative_improvement": 0.05818822343232575,
+          "scope": "conditional on these training seeds; circular blocks over shared target origins",
+          "seed_improvements": [
+            0.008334767515750912,
+            0.009389763719933457,
+            0.011491744623519873
+          ],
+          "sensitivity_block6": {
+            "block_origins": 6,
+            "bootstrap_repeats": 2000,
+            "lower95": -0.0013819451146749725,
+            "mean": 0.009738758619734746,
+            "origins": 138,
+            "scope": "conditional on these training seeds; circular blocks over shared target origins",
+            "seed_improvements": [
+              0.008334767515750912,
+              0.009389763719933457,
+              0.011491744623519873
+            ],
+            "training_seeds": 3,
+            "upper95": 0.022945942723940405
+          },
+          "training_seeds": 3,
+          "upper95": 0.0172717195814966
+        },
+        "same_gaussian_simple": {
+          "block_origins": 42,
+          "bootstrap_repeats": 2000,
+          "lower95": 0.2705189096847865,
+          "mean": 0.317625129123897,
+          "origins": 138,
+          "relative_improvement": 0.6683287079713255,
+          "scope": "conditional on these training seeds; circular blocks over shared target origins",
+          "seed_improvements": [
+            0.318974016867607,
+            0.3137983845267978,
+            0.3201029859772863
+          ],
+          "sensitivity_block6": {
+            "block_origins": 6,
+            "bootstrap_repeats": 2000,
+            "lower95": 0.24166028321427394,
+            "mean": 0.317625129123897,
+            "origins": 138,
+            "scope": "conditional on these training seeds; circular blocks over shared target origins",
+            "seed_improvements": [
+              0.318974016867607,
+              0.3137983845267978,
+              0.3201029859772863
+            ],
+            "training_seeds": 3,
+            "upper95": 0.39342629573336263
+          },
+          "training_seeds": 3,
+          "upper95": 0.36989657898777123
+        },
+        "same_original_simple": {
+          "block_origins": 42,
+          "bootstrap_repeats": 2000,
+          "lower95": 0.0025132519982398174,
+          "mean": 0.009738758619734746,
+          "origins": 138,
+          "relative_improvement": 0.05818822343232575,
+          "scope": "conditional on these training seeds; circular blocks over shared target origins",
+          "seed_improvements": [
+            0.008334767515750912,
+            0.009389763719933457,
+            0.011491744623519873
+          ],
+          "sensitivity_block6": {
+            "block_origins": 6,
+            "bootstrap_repeats": 2000,
+            "lower95": -0.0013819451146749725,
+            "mean": 0.009738758619734746,
+            "origins": 138,
+            "scope": "conditional on these training seeds; circular blocks over shared target origins",
+            "seed_improvements": [
+              0.008334767515750912,
+              0.009389763719933457,
+              0.011491744623519873
+            ],
+            "training_seeds": 3,
+            "upper95": 0.022945942723940405
+          },
+          "training_seeds": 3,
+          "upper95": 0.0172717195814966
+        },
+        "validation_simple": {
+          "block_origins": 42,
+          "bootstrap_repeats": 2000,
+          "lower95": 0.0025132519982398174,
+          "mean": 0.009738758619734746,
+          "origins": 138,
+          "relative_improvement": 0.05818822343232575,
+          "scope": "conditional on these training seeds; circular blocks over shared target origins",
+          "seed_improvements": [
+            0.008334767515750912,
+            0.009389763719933457,
+            0.011491744623519873
+          ],
+          "sensitivity_block6": {
+            "block_origins": 6,
+            "bootstrap_repeats": 2000,
+            "lower95": -0.0013819451146749725,
+            "mean": 0.009738758619734746,
+            "origins": 138,
+            "scope": "conditional on these training seeds; circular blocks over shared target origins",
+            "seed_improvements": [
+              0.008334767515750912,
+              0.009389763719933457,
+              0.011491744623519873
+            ],
+            "training_seeds": 3,
+            "upper95": 0.022945942723940405
+          },
+          "training_seeds": 3,
+          "upper95": 0.0172717195814966
+        }
+      },
+      "mae_regressions": [
+        -0.05401914829358334,
+        -0.11104321096385117,
+        -0.12966759886302426
+      ],
+      "origins": 138
+    },
+    "Taylor/mixed_3811": {
+      "comparisons": {
+        "legacy_joint": {
+          "block_origins": 42,
+          "bootstrap_repeats": 2000,
+          "lower95": 0.053743353746212,
+          "mean": 0.08170043946358765,
+          "origins": 138,
+          "relative_improvement": 0.33981675791368576,
+          "scope": "conditional on these training seeds; circular blocks over shared target origins",
+          "seed_improvements": [
+            0.08170683450025702,
+            0.07839438736074382,
+            0.08500009652976215
+          ],
+          "sensitivity_block6": {
+            "block_origins": 6,
+            "bootstrap_repeats": 2000,
+            "lower95": 0.05318579903903088,
+            "mean": 0.08170043946358765,
+            "origins": 138,
+            "scope": "conditional on these training seeds; circular blocks over shared target origins",
+            "seed_improvements": [
+              0.08170683450025702,
+              0.07839438736074382,
+              0.08500009652976215
+            ],
+            "training_seeds": 3,
+            "upper95": 0.11184623246620021
+          },
+          "training_seeds": 3,
+          "upper95": 0.10917442000778549
+        },
+        "original_validation_simple": {
+          "block_origins": 42,
+          "bootstrap_repeats": 2000,
+          "lower95": -0.007815061945414106,
+          "mean": 0.0008013290732655824,
+          "origins": 138,
+          "relative_improvement": 0.005023191800403503,
+          "scope": "conditional on these training seeds; circular blocks over shared target origins",
+          "seed_improvements": [
+            0.0013741967653452347,
+            0.0003259238809779131,
+            0.000703866573473597
+          ],
+          "sensitivity_block6": {
+            "block_origins": 6,
+            "bootstrap_repeats": 2000,
+            "lower95": -0.00839702386087853,
+            "mean": 0.0008013290732655824,
+            "origins": 138,
+            "scope": "conditional on these training seeds; circular blocks over shared target origins",
+            "seed_improvements": [
+              0.0013741967653452347,
+              0.0003259238809779131,
+              0.000703866573473597
+            ],
+            "training_seeds": 3,
+            "upper95": 0.011918551561584959
+          },
+          "training_seeds": 3,
+          "upper95": 0.013030100699080494
+        },
+        "same_gaussian_simple": {
+          "block_origins": 42,
+          "bootstrap_repeats": 2000,
+          "lower95": 0.2710854321322067,
+          "mean": 0.31833009708739324,
+          "origins": 138,
+          "relative_improvement": 0.6672822515200755,
+          "scope": "conditional on these training seeds; circular blocks over shared target origins",
+          "seed_improvements": [
+            0.31447109410204005,
+            0.3187025516373877,
+            0.3218166455227519
+          ],
+          "sensitivity_block6": {
+            "block_origins": 6,
+            "bootstrap_repeats": 2000,
+            "lower95": 0.24265475148096596,
+            "mean": 0.31833009708739324,
+            "origins": 138,
+            "scope": "conditional on these training seeds; circular blocks over shared target origins",
+            "seed_improvements": [
+              0.31447109410204005,
+              0.3187025516373877,
+              0.3218166455227519
+            ],
+            "training_seeds": 3,
+            "upper95": 0.39038819132904595
+          },
+          "training_seeds": 3,
+          "upper95": 0.3669457277807976
+        },
+        "same_original_simple": {
+          "block_origins": 42,
+          "bootstrap_repeats": 2000,
+          "lower95": -0.007815061945414106,
+          "mean": 0.0008013290732655824,
+          "origins": 138,
+          "relative_improvement": 0.005023191800403503,
+          "scope": "conditional on these training seeds; circular blocks over shared target origins",
+          "seed_improvements": [
+            0.0013741967653452347,
+            0.0003259238809779131,
+            0.000703866573473597
+          ],
+          "sensitivity_block6": {
+            "block_origins": 6,
+            "bootstrap_repeats": 2000,
+            "lower95": -0.00839702386087853,
+            "mean": 0.0008013290732655824,
+            "origins": 138,
+            "scope": "conditional on these training seeds; circular blocks over shared target origins",
+            "seed_improvements": [
+              0.0013741967653452347,
+              0.0003259238809779131,
+              0.000703866573473597
+            ],
+            "training_seeds": 3,
+            "upper95": 0.011918551561584959
+          },
+          "training_seeds": 3,
+          "upper95": 0.013030100699080494
+        },
+        "validation_simple": {
+          "block_origins": 42,
+          "bootstrap_repeats": 2000,
+          "lower95": -0.007815061945414106,
+          "mean": 0.0008013290732655824,
+          "origins": 138,
+          "relative_improvement": 0.005023191800403503,
+          "scope": "conditional on these training seeds; circular blocks over shared target origins",
+          "seed_improvements": [
+            0.0013741967653452347,
+            0.0003259238809779131,
+            0.000703866573473597
+          ],
+          "sensitivity_block6": {
+            "block_origins": 6,
+            "bootstrap_repeats": 2000,
+            "lower95": -0.00839702386087853,
+            "mean": 0.0008013290732655824,
+            "origins": 138,
+            "scope": "conditional on these training seeds; circular blocks over shared target origins",
+            "seed_improvements": [
+              0.0013741967653452347,
+              0.0003259238809779131,
+              0.000703866573473597
+            ],
+            "training_seeds": 3,
+            "upper95": 0.011918551561584959
+          },
+          "training_seeds": 3,
+          "upper95": 0.013030100699080494
+        }
+      },
+      "mae_regressions": [
+        -0.004265182537509737,
+        -0.059367177818501427,
+        -0.0645666304129271
+      ],
+      "origins": 138
+    },
+    "Taylor/outage_2811": {
+      "comparisons": {
+        "legacy_joint": {
+          "block_origins": 42,
+          "bootstrap_repeats": 2000,
+          "lower95": 0.04519357150960831,
+          "mean": 0.07023607738696763,
+          "origins": 138,
+          "relative_improvement": 0.2900633294920047,
+          "scope": "conditional on these training seeds; circular blocks over shared target origins",
+          "seed_improvements": [
+            0.07538422056844041,
+            0.06111511756262943,
+            0.07420889402983305
+          ],
+          "sensitivity_block6": {
+            "block_origins": 6,
+            "bootstrap_repeats": 2000,
+            "lower95": 0.04001954195166506,
+            "mean": 0.07023607738696763,
+            "origins": 138,
+            "scope": "conditional on these training seeds; circular blocks over shared target origins",
+            "seed_improvements": [
+              0.07538422056844041,
+              0.06111511756262943,
+              0.07420889402983305
+            ],
+            "training_seeds": 3,
+            "upper95": 0.10097897623890843
+          },
+          "training_seeds": 3,
+          "upper95": 0.09586513769080231
+        },
+        "original_validation_simple": {
+          "block_origins": 42,
+          "bootstrap_repeats": 2000,
+          "lower95": -0.007915715184274313,
+          "mean": 0.01019384632154599,
+          "origins": 138,
+          "relative_improvement": 0.05597992125358117,
+          "scope": "conditional on these training seeds; circular blocks over shared target origins",
+          "seed_improvements": [
+            0.01508031452471905,
+            0.00564061074420999,
+            0.009860613695708929
+          ],
+          "sensitivity_block6": {
+            "block_origins": 6,
+            "bootstrap_repeats": 2000,
+            "lower95": -0.008674620477899273,
+            "mean": 0.01019384632154599,
+            "origins": 138,
+            "scope": "conditional on these training seeds; circular blocks over shared target origins",
+            "seed_improvements": [
+              0.01508031452471905,
+              0.00564061074420999,
+              0.009860613695708929
+            ],
+            "training_seeds": 3,
+            "upper95": 0.031817645180369024
+          },
+          "training_seeds": 3,
+          "upper95": 0.03378001099711865
+        },
+        "same_gaussian_simple": {
+          "block_origins": 42,
+          "bootstrap_repeats": 2000,
+          "lower95": 0.27114222610334243,
+          "mean": 0.31288920693645356,
+          "origins": 138,
+          "relative_improvement": 0.6454070203622542,
+          "scope": "conditional on these training seeds; circular blocks over shared target origins",
+          "seed_improvements": [
+            0.3150309151170291,
+            0.3086947386132082,
+            0.3149419670791236
+          ],
+          "sensitivity_block6": {
+            "block_origins": 6,
+            "bootstrap_repeats": 2000,
+            "lower95": 0.23928412993912287,
+            "mean": 0.31288920693645356,
+            "origins": 138,
+            "scope": "conditional on these training seeds; circular blocks over shared target origins",
+            "seed_improvements": [
+              0.3150309151170291,
+              0.3086947386132082,
+              0.3149419670791236
+            ],
+            "training_seeds": 3,
+            "upper95": 0.38558785405578355
+          },
+          "training_seeds": 3,
+          "upper95": 0.36015547653524105
+        },
+        "same_original_simple": {
+          "block_origins": 42,
+          "bootstrap_repeats": 2000,
+          "lower95": -0.007915715184274313,
+          "mean": 0.01019384632154599,
+          "origins": 138,
+          "relative_improvement": 0.05597992125358117,
+          "scope": "conditional on these training seeds; circular blocks over shared target origins",
+          "seed_improvements": [
+            0.01508031452471905,
+            0.00564061074420999,
+            0.009860613695708929
+          ],
+          "sensitivity_block6": {
+            "block_origins": 6,
+            "bootstrap_repeats": 2000,
+            "lower95": -0.008674620477899273,
+            "mean": 0.01019384632154599,
+            "origins": 138,
+            "scope": "conditional on these training seeds; circular blocks over shared target origins",
+            "seed_improvements": [
+              0.01508031452471905,
+              0.00564061074420999,
+              0.009860613695708929
+            ],
+            "training_seeds": 3,
+            "upper95": 0.031817645180369024
+          },
+          "training_seeds": 3,
+          "upper95": 0.03378001099711865
+        },
+        "validation_simple": {
+          "block_origins": 42,
+          "bootstrap_repeats": 2000,
+          "lower95": -0.007915715184274313,
+          "mean": 0.01019384632154599,
+          "origins": 138,
+          "relative_improvement": 0.05597992125358117,
+          "scope": "conditional on these training seeds; circular blocks over shared target origins",
+          "seed_improvements": [
+            0.01508031452471905,
+            0.00564061074420999,
+            0.009860613695708929
+          ],
+          "sensitivity_block6": {
+            "block_origins": 6,
+            "bootstrap_repeats": 2000,
+            "lower95": -0.008674620477899273,
+            "mean": 0.01019384632154599,
+            "origins": 138,
+            "scope": "conditional on these training seeds; circular blocks over shared target origins",
+            "seed_improvements": [
+              0.01508031452471905,
+              0.00564061074420999,
+              0.009860613695708929
+            ],
+            "training_seeds": 3,
+            "upper95": 0.031817645180369024
+          },
+          "training_seeds": 3,
+          "upper95": 0.03378001099711865
+        }
+      },
+      "mae_regressions": [
+        -0.10755571284639598,
+        -0.10383416847019111,
+        -0.1313430146918505
+      ],
+      "origins": 138
+    }
+  },
+  "development_only": false,
+  "diagnostics": {
+    "MSFT/mixed_2811": {
+      "combined/legacy_joint": {
+        "block_origins": 42,
+        "bootstrap_repeats": 2000,
+        "lower95": -0.0506360459868434,
+        "mean": -0.03703648426340208,
+        "origins": 287,
+        "relative_improvement": -0.2856129240584876,
+        "scope": "conditional on these training seeds; circular blocks over shared target origins",
+        "seed_improvements": [
+          -0.048372177768099545,
+          -0.014671150999949695,
+          -0.048066124022157014
+        ],
+        "sensitivity_block6": {
+          "block_origins": 6,
+          "bootstrap_repeats": 2000,
+          "lower95": -0.04829361826658586,
+          "mean": -0.03703648426340208,
+          "origins": 287,
+          "scope": "conditional on these training seeds; circular blocks over shared target origins",
+          "seed_improvements": [
+            -0.048372177768099545,
+            -0.014671150999949695,
+            -0.048066124022157014
+          ],
+          "training_seeds": 3,
+          "upper95": -0.02523724635246697
+        },
+        "training_seeds": 3,
+        "upper95": -0.023698608873660824
+      },
+      "combined/original_validation_simple": {
+        "block_origins": 42,
+        "bootstrap_repeats": 2000,
+        "lower95": -0.06682111366735763,
+        "mean": -0.04721060916513462,
+        "origins": 287,
+        "relative_improvement": -0.3950692681046842,
+        "scope": "conditional on these training seeds; circular blocks over shared target origins",
+        "seed_improvements": [
+          -0.047888093845170294,
+          -0.0475685078788373,
+          -0.04617522577139626
+        ],
+        "sensitivity_block6": {
+          "block_origins": 6,
+          "bootstrap_repeats": 2000,
+          "lower95": -0.05921390440729709,
+          "mean": -0.04721060916513462,
+          "origins": 287,
+          "scope": "conditional on these training seeds; circular blocks over shared target origins",
+          "seed_improvements": [
+            -0.047888093845170294,
+            -0.0475685078788373,
+            -0.04617522577139626
+          ],
+          "training_seeds": 3,
+          "upper95": -0.03454455346560373
+        },
+        "training_seeds": 3,
+        "upper95": -0.028902732341530058
+      },
+      "combined/same_gaussian_simple": {
+        "block_origins": 42,
+        "bootstrap_repeats": 2000,
+        "lower95": 0.0,
+        "mean": 0.0,
+        "origins": 287,
+        "relative_improvement": 0.0,
+        "scope": "conditional on these training seeds; circular blocks over shared target origins",
+        "seed_improvements": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "sensitivity_block6": {
+          "block_origins": 6,
+          "bootstrap_repeats": 2000,
+          "lower95": 0.0,
+          "mean": 0.0,
+          "origins": 287,
+          "scope": "conditional on these training seeds; circular blocks over shared target origins",
+          "seed_improvements": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "training_seeds": 3,
+          "upper95": 0.0
+        },
+        "training_seeds": 3,
+        "upper95": 0.0
+      },
+      "combined/same_original_simple": {
+        "block_origins": 42,
+        "bootstrap_repeats": 2000,
+        "lower95": -0.06682111366735763,
+        "mean": -0.04721060916513462,
+        "origins": 287,
+        "relative_improvement": -0.3950692681046842,
+        "scope": "conditional on these training seeds; circular blocks over shared target origins",
+        "seed_improvements": [
+          -0.047888093845170294,
+          -0.0475685078788373,
+          -0.04617522577139626
+        ],
+        "sensitivity_block6": {
+          "block_origins": 6,
+          "bootstrap_repeats": 2000,
+          "lower95": -0.05921390440729709,
+          "mean": -0.04721060916513462,
+          "origins": 287,
+          "scope": "conditional on these training seeds; circular blocks over shared target origins",
+          "seed_improvements": [
+            -0.047888093845170294,
+            -0.0475685078788373,
+            -0.04617522577139626
+          ],
+          "training_seeds": 3,
+          "upper95": -0.03454455346560373
+        },
+        "training_seeds": 3,
+        "upper95": -0.028902732341530058
+      },
+      "combined/validation_simple": {
+        "block_origins": 42,
+        "bootstrap_repeats": 2000,
+        "lower95": -0.06682111366735763,
+        "mean": -0.04721060916513462,
+        "origins": 287,
+        "relative_improvement": -0.3950692681046842,
+        "scope": "conditional on these training seeds; circular blocks over shared target origins",
+        "seed_improvements": [
+          -0.047888093845170294,
+          -0.0475685078788373,
+          -0.04617522577139626
+        ],
+        "sensitivity_block6": {
+          "block_origins": 6,
+          "bootstrap_repeats": 2000,
+          "lower95": -0.05921390440729709,
+          "mean": -0.04721060916513462,
+          "origins": 287,
+          "scope": "conditional on these training seeds; circular blocks over shared target origins",
+          "seed_improvements": [
+            -0.047888093845170294,
+            -0.0475685078788373,
+            -0.04617522577139626
+          ],
+          "training_seeds": 3,
+          "upper95": -0.03454455346560373
+        },
+        "training_seeds": 3,
+        "upper95": -0.028902732341530058
+      },
+      "forecast_only/legacy_joint": {
+        "block_origins": 42,
+        "bootstrap_repeats": 2000,
+        "lower95": -0.06701887425929406,
+        "mean": -0.047572410006680124,
+        "origins": 287,
+        "relative_improvement": -0.36686244379690136,
+        "scope": "conditional on these training seeds; circular blocks over shared target origins",
+        "seed_improvements": [
+          -0.04887294614459696,
+          -0.045068737165681244,
+          -0.048775546709762155
+        ],
+        "sensitivity_block6": {
+          "block_origins": 6,
+          "bootstrap_repeats": 2000,
+          "lower95": -0.06002270345037517,
+          "mean": -0.047572410006680124,
+          "origins": 287,
+          "scope": "conditional on these training seeds; circular blocks over shared target origins",
+          "seed_improvements": [
+            -0.04887294614459696,
+            -0.045068737165681244,
+            -0.048775546709762155
+          ],
+          "training_seeds": 3,
+          "upper95": -0.034644988310267744
+        },
+        "training_seeds": 3,
+        "upper95": -0.028747144791639995
+      },
+      "forecast_only/original_validation_simple": {
+        "block_origins": 42,
+        "bootstrap_repeats": 2000,
+        "lower95": -0.08387595861077292,
+        "mean": -0.05774653490841266,
+        "origins": 287,
+        "relative_improvement": -0.4832363251668526,
+        "scope": "conditional on these training seeds; circular blocks over shared target origins",
+        "seed_improvements": [
+          -0.04838886222166772,
+          -0.07796609404456885,
+          -0.046884648459001414
+        ],
+        "sensitivity_block6": {
+          "block_origins": 6,
+          "bootstrap_repeats": 2000,
+          "lower95": -0.071717348642184,
+          "mean": -0.05774653490841266,
+          "origins": 287,
+          "scope": "conditional on these training seeds; circular blocks over shared target origins",
+          "seed_improvements": [
+            -0.04838886222166772,
+            -0.07796609404456885,
+            -0.046884648459001414
+          ],
+          "training_seeds": 3,
+          "upper95": -0.04343458529539398
+        },
+        "training_seeds": 3,
+        "upper95": -0.034134430586427164
+      },
+      "forecast_only/same_gaussian_simple": {
+        "block_origins": 42,
+        "bootstrap_repeats": 2000,
+        "lower95": -0.01729420599724677,
+        "mean": -0.010535925743278038,
+        "origins": 287,
+        "relative_improvement": -0.06319905332152473,
+        "scope": "conditional on these training seeds; circular blocks over shared target origins",
+        "seed_improvements": [
+          -0.0005007683764974198,
+          -0.030397586165731547,
+          -0.0007094226876051517
+        ],
+        "sensitivity_block6": {
+          "block_origins": 6,
+          "bootstrap_repeats": 2000,
+          "lower95": -0.013633740569498277,
+          "mean": -0.010535925743278038,
+          "origins": 287,
+          "scope": "conditional on these training seeds; circular blocks over shared target origins",
+          "seed_improvements": [
+            -0.0005007683764974198,
+            -0.030397586165731547,
+            -0.0007094226876051517
+          ],
+          "training_seeds": 3,
+          "upper95": -0.007525766935464181
+        },
+        "training_seeds": 3,
+        "upper95": -0.0045888737073820005
+      },
+      "forecast_only/same_original_simple": {
+        "block_origins": 42,
+        "bootstrap_repeats": 2000,
+        "lower95": -0.08387595861077292,
+        "mean": -0.05774653490841266,
+        "origins": 287,
+        "relative_improvement": -0.4832363251668526,
+        "scope": "conditional on these training seeds; circular blocks over shared target origins",
+        "seed_improvements": [
+          -0.04838886222166772,
+          -0.07796609404456885,
+          -0.046884648459001414
+        ],
+        "sensitivity_block6": {
+          "block_origins": 6,
+          "bootstrap_repeats": 2000,
+          "lower95": -0.071717348642184,
+          "mean": -0.05774653490841266,
+          "origins": 287,
+          "scope": "conditional on these training seeds; circular blocks over shared target origins",
+          "seed_improvements": [
+            -0.04838886222166772,
+            -0.07796609404456885,
+            -0.046884648459001414
+          ],
+          "training_seeds": 3,
+          "upper95": -0.04343458529539398
+        },
+        "training_seeds": 3,
+        "upper95": -0.034134430586427164
+      },
+      "forecast_only/validation_simple": {
+        "block_origins": 42,
+        "bootstrap_repeats": 2000,
+        "lower95": -0.08387595861077292,
+        "mean": -0.05774653490841266,
+        "origins": 287,
+        "relative_improvement": -0.4832363251668526,
+        "scope": "conditional on these training seeds; circular blocks over shared target origins",
+        "seed_improvements": [
+          -0.04838886222166772,
+          -0.07796609404456885,
+          -0.046884648459001414
+        ],
+        "sensitivity_block6": {
+          "block_origins": 6,
+          "bootstrap_repeats": 2000,
+          "lower95": -0.071717348642184,
+          "mean": -0.05774653490841266,
+          "origins": 287,
+          "scope": "conditional on these training seeds; circular blocks over shared target origins",
+          "seed_improvements": [
+            -0.04838886222166772,
+            -0.07796609404456885,
+            -0.046884648459001414
+          ],
+          "training_seeds": 3,
+          "upper95": -0.04343458529539398
+        },
+        "training_seeds": 3,
+        "upper95": -0.034134430586427164
+      },
+      "policy_only/legacy_joint": {
+        "block_origins": 42,
+        "bootstrap_repeats": 2000,
+        "lower95": 0.0043029659479309436,
+        "mean": 0.010174124901732534,
+        "origins": 287,
+        "relative_improvement": 0.07845943319710705,
+        "scope": "conditional on these training seeds; circular blocks over shared target origins",
+        "seed_improvements": [
+          -0.00048408392292925104,
+          0.0328973568788876,
+          -0.0018908982507607488
+        ],
+        "sensitivity_block6": {
+          "block_origins": 6,
+          "bootstrap_repeats": 2000,
+          "lower95": 0.006675428853651462,
+          "mean": 0.010174124901732534,
+          "origins": 287,
+          "scope": "conditional on these training seeds; circular blocks over shared target origins",
+          "seed_improvements": [
+            -0.00048408392292925104,
+            0.0328973568788876,
+            -0.0018908982507607488
+          ],
+          "training_seeds": 3,
+          "upper95": 0.01393260743267578
+        },
+        "training_seeds": 3,
+        "upper95": 0.0171256738446732
+      },
+      "policy_only/original_validation_simple": {
+        "block_origins": 42,
+        "bootstrap_repeats": 2000,
+        "lower95": 0.0,
+        "mean": 0.0,
+        "origins": 287,
+        "relative_improvement": 0.0,
+        "scope": "conditional on these training seeds; circular blocks over shared target origins",
+        "seed_improvements": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "sensitivity_block6": {
+          "block_origins": 6,
+          "bootstrap_repeats": 2000,
+          "lower95": 0.0,
+          "mean": 0.0,
+          "origins": 287,
+          "scope": "conditional on these training seeds; circular blocks over shared target origins",
+          "seed_improvements": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "training_seeds": 3,
+          "upper95": 0.0
+        },
+        "training_seeds": 3,
+        "upper95": 0.0
+      },
+      "policy_only/same_gaussian_simple": {
+        "block_origins": 42,
+        "bootstrap_repeats": 2000,
+        "lower95": 0.028902732341530055,
+        "mean": 0.04721060916513462,
+        "origins": 287,
+        "relative_improvement": 0.28318971475976823,
+        "scope": "conditional on these training seeds; circular blocks over shared target origins",
+        "seed_improvements": [
+          0.047888093845170294,
+          0.0475685078788373,
+          0.04617522577139626
+        ],
+        "sensitivity_block6": {
+          "block_origins": 6,
+          "bootstrap_repeats": 2000,
+          "lower95": 0.03454455346560373,
+          "mean": 0.04721060916513462,
+          "origins": 287,
+          "scope": "conditional on these training seeds; circular blocks over shared target origins",
+          "seed_improvements": [
+            0.047888093845170294,
+            0.0475685078788373,
+            0.04617522577139626
+          ],
+          "training_seeds": 3,
+          "upper95": 0.05921390440729706
+        },
+        "training_seeds": 3,
+        "upper95": 0.06682111366735762
+      },
+      "policy_only/same_original_simple": {
+        "block_origins": 42,
+        "bootstrap_repeats": 2000,
+        "lower95": 0.0,
+        "mean": 0.0,
+        "origins": 287,
+        "relative_improvement": 0.0,
+        "scope": "conditional on these training seeds; circular blocks over shared target origins",
+        "seed_improvements": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "sensitivity_block6": {
+          "block_origins": 6,
+          "bootstrap_repeats": 2000,
+          "lower95": 0.0,
+          "mean": 0.0,
+          "origins": 287,
+          "scope": "conditional on these training seeds; circular blocks over shared target origins",
+          "seed_improvements": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "training_seeds": 3,
+          "upper95": 0.0
+        },
+        "training_seeds": 3,
+        "upper95": 0.0
+      },
+      "policy_only/validation_simple": {
+        "block_origins": 42,
+        "bootstrap_repeats": 2000,
+        "lower95": 0.0,
+        "mean": 0.0,
+        "origins": 287,
+        "relative_improvement": 0.0,
+        "scope": "conditional on these training seeds; circular blocks over shared target origins",
+        "seed_improvements": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "sensitivity_block6": {
+          "block_origins": 6,
+          "bootstrap_repeats": 2000,
+          "lower95": 0.0,
+          "mean": 0.0,
+          "origins": 287,
+          "scope": "conditional on these training seeds; circular blocks over shared target origins",
+          "seed_improvements": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "training_seeds": 3,
+          "upper95": 0.0
+        },
+        "training_seeds": 3,
+        "upper95": 0.0
+      },
+      "primary/legacy_joint": {
+        "block_origins": 42,
+        "bootstrap_repeats": 2000,
+        "lower95": 0.0043029659479309436,
+        "mean": 0.010174124901732534,
+        "origins": 287,
+        "relative_improvement": 0.07845943319710705,
+        "scope": "conditional on these training seeds; circular blocks over shared target origins",
+        "seed_improvements": [
+          -0.00048408392292925104,
+          0.0328973568788876,
+          -0.0018908982507607488
+        ],
+        "sensitivity_block6": {
+          "block_origins": 6,
+          "bootstrap_repeats": 2000,
+          "lower95": 0.006675428853651462,
+          "mean": 0.010174124901732534,
+          "origins": 287,
+          "scope": "conditional on these training seeds; circular blocks over shared target origins",
+          "seed_improvements": [
+            -0.00048408392292925104,
+            0.0328973568788876,
+            -0.0018908982507607488
+          ],
+          "training_seeds": 3,
+          "upper95": 0.01393260743267578
+        },
+        "training_seeds": 3,
+        "upper95": 0.0171256738446732
+      },
+      "primary/original_validation_simple": {
+        "block_origins": 42,
+        "bootstrap_repeats": 2000,
+        "lower95": 0.0,
+        "mean": 0.0,
+        "origins": 287,
+        "relative_improvement": 0.0,
+        "scope": "conditional on these training seeds; circular blocks over shared target origins",
+        "seed_improvements": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "sensitivity_block6": {
+          "block_origins": 6,
+          "bootstrap_repeats": 2000,
+          "lower95": 0.0,
+          "mean": 0.0,
+          "origins": 287,
+          "scope": "conditional on these training seeds; circular blocks over shared target origins",
+          "seed_improvements": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "training_seeds": 3,
+          "upper95": 0.0
+        },
+        "training_seeds": 3,
+        "upper95": 0.0
+      },
+      "primary/same_gaussian_simple": {
+        "block_origins": 42,
+        "bootstrap_repeats": 2000,
+        "lower95": 0.028902732341530055,
+        "mean": 0.04721060916513462,
+        "origins": 287,
+        "relative_improvement": 0.28318971475976823,
+        "scope": "conditional on these training seeds; circular blocks over shared target origins",
+        "seed_improvements": [
+          0.047888093845170294,
+          0.0475685078788373,
+          0.04617522577139626
+        ],
+        "sensitivity_block6": {
+          "block_origins": 6,
+          "bootstrap_repeats": 2000,
+          "lower95": 0.03454455346560373,
+          "mean": 0.04721060916513462,
+          "origins": 287,
+          "scope": "conditional on these training seeds; circular blocks over shared target origins",
+          "seed_improvements": [
+            0.047888093845170294,
+            0.0475685078788373,
+            0.04617522577139626
+          ],
+          "training_seeds": 3,
+          "upper95": 0.05921390440729706
+        },
+        "training_seeds": 3,
+        "upper95": 0.06682111366735762
+      },
+      "primary/same_original_simple": {
+        "block_origins": 42,
+        "bootstrap_repeats": 2000,
+        "lower95": 0.0,
+        "mean": 0.0,
+        "origins": 287,
+        "relative_improvement": 0.0,
+        "scope": "conditional on these training seeds; circular blocks over shared target origins",
+        "seed_improvements": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "sensitivity_block6": {
+          "block_origins": 6,
+          "bootstrap_repeats": 2000,
+          "lower95": 0.0,
+          "mean": 0.0,
+          "origins": 287,
+          "scope": "conditional on these training seeds; circular blocks over shared target origins",
+          "seed_improvements": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "training_seeds": 3,
+          "upper95": 0.0
+        },
+        "training_seeds": 3,
+        "upper95": 0.0
+      },
+      "primary/validation_simple": {
+        "block_origins": 42,
+        "bootstrap_repeats": 2000,
+        "lower95": 0.0,
+        "mean": 0.0,
+        "origins": 287,
+        "relative_improvement": 0.0,
+        "scope": "conditional on these training seeds; circular blocks over shared target origins",
+        "seed_improvements": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "sensitivity_block6": {
+          "block_origins": 6,
+          "bootstrap_repeats": 2000,
+          "lower95": 0.0,
+          "mean": 0.0,
+          "origins": 287,
+          "scope": "conditional on these training seeds; circular blocks over shared target origins",
+          "seed_improvements": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "training_seeds": 3,
+          "upper95": 0.0
+        },
+        "training_seeds": 3,
+        "upper95": 0.0
+      }
+    },
+    "MSFT/mixed_3811": {
+      "combined/legacy_joint": {
+        "block_origins": 42,
+        "bootstrap_repeats": 2000,
+        "lower95": -0.05423679867967731,
+        "mean": -0.03791598061791866,
+        "origins": 287,
+        "relative_improvement": -0.2864855933415627,
+        "scope": "conditional on these training seeds; circular blocks over shared target origins",
+        "seed_improvements": [
+          -0.048217710627581546,
+          -0.01672725588415971,
+          -0.04880297534201473
+        ],
+        "sensitivity_block6": {
+          "block_origins": 6,
+          "bootstrap_repeats": 2000,
+          "lower95": -0.04995265517265777,
+          "mean": -0.03791598061791866,
+          "origins": 287,
+          "scope": "conditional on these training seeds; circular blocks over shared target origins",
+          "seed_improvements": [
+            -0.048217710627581546,
+            -0.01672725588415971,
+            -0.04880297534201473
+          ],
+          "training_seeds": 3,
+          "upper95": -0.025589304106143188
+        },
+        "training_seeds": 3,
+        "upper95": -0.021498002736487172
+      },
+      "combined/original_validation_simple": {
+        "block_origins": 42,
+        "bootstrap_repeats": 2000,
+        "lower95": -0.06894766139955567,
+        "mean": -0.04645582612847497,
+        "origins": 287,
+        "relative_improvement": -0.3752223236928806,
+        "scope": "conditional on these training seeds; circular blocks over shared target origins",
+        "seed_improvements": [
+          -0.04802905717171418,
+          -0.046040784520862875,
+          -0.045297636692847865
+        ],
+        "sensitivity_block6": {
+          "block_origins": 6,
+          "bootstrap_repeats": 2000,
+          "lower95": -0.0592811970326771,
+          "mean": -0.04645582612847497,
+          "origins": 287,
+          "scope": "conditional on these training seeds; circular blocks over shared target origins",
+          "seed_improvements": [
+            -0.04802905717171418,
+            -0.046040784520862875,
+            -0.045297636692847865
+          ],
+          "training_seeds": 3,
+          "upper95": -0.03334401124477632
+        },
+        "training_seeds": 3,
+        "upper95": -0.02620936614411247
+      },
+      "combined/same_gaussian_simple": {
+        "block_origins": 42,
+        "bootstrap_repeats": 2000,
+        "lower95": 0.0,
+        "mean": 0.0,
+        "origins": 287,
+        "relative_improvement": 0.0,
+        "scope": "conditional on these training seeds; circular blocks over shared target origins",
+        "seed_improvements": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "sensitivity_block6": {
+          "block_origins": 6,
+          "bootstrap_repeats": 2000,
+          "lower95": 0.0,
+          "mean": 0.0,
+          "origins": 287,
+          "scope": "conditional on these training seeds; circular blocks over shared target origins",
+          "seed_improvements": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "training_seeds": 3,
+          "upper95": 0.0
+        },
+        "training_seeds": 3,
+        "upper95": 0.0
+      },
+      "combined/same_original_simple": {
+        "block_origins": 42,
+        "bootstrap_repeats": 2000,
+        "lower95": -0.06894766139955567,
+        "mean": -0.04645582612847497,
+        "origins": 287,
+        "relative_improvement": -0.3752223236928806,
+        "scope": "conditional on these training seeds; circular blocks over shared target origins",
+        "seed_improvements": [
+          -0.04802905717171418,
+          -0.046040784520862875,
+          -0.045297636692847865
+        ],
+        "sensitivity_block6": {
+          "block_origins": 6,
+          "bootstrap_repeats": 2000,
+          "lower95": -0.0592811970326771,
+          "mean": -0.04645582612847497,
+          "origins": 287,
+          "scope": "conditional on these training seeds; circular blocks over shared target origins",
+          "seed_improvements": [
+            -0.04802905717171418,
+            -0.046040784520862875,
+            -0.045297636692847865
+          ],
+          "training_seeds": 3,
+          "upper95": -0.03334401124477632
+        },
+        "training_seeds": 3,
+        "upper95": -0.02620936614411247
+      },
+      "combined/validation_simple": {
+        "block_origins": 42,
+        "bootstrap_repeats": 2000,
+        "lower95": -0.06894766139955567,
+        "mean": -0.04645582612847497,
+        "origins": 287,
+        "relative_improvement": -0.3752223236928806,
+        "scope": "conditional on these training seeds; circular blocks over shared target origins",
+        "seed_improvements": [
+          -0.04802905717171418,
+          -0.046040784520862875,
+          -0.045297636692847865
+        ],
+        "sensitivity_block6": {
+          "block_origins": 6,
+          "bootstrap_repeats": 2000,
+          "lower95": -0.0592811970326771,
+          "mean": -0.04645582612847497,
+          "origins": 287,
+          "scope": "conditional on these training seeds; circular blocks over shared target origins",
+          "seed_improvements": [
+            -0.04802905717171418,
+            -0.046040784520862875,
+            -0.045297636692847865
+          ],
+          "training_seeds": 3,
+          "upper95": -0.03334401124477632
+        },
+        "training_seeds": 3,
+        "upper95": -0.02620936614411247
+      },
+      "forecast_only/legacy_joint": {
+        "block_origins": 42,
+        "bootstrap_repeats": 2000,
+        "lower95": -0.06967997661501628,
+        "mean": -0.04798006229584164,
+        "origins": 287,
+        "relative_improvement": -0.36252778884725245,
+        "scope": "conditional on these training seeds; circular blocks over shared target origins",
+        "seed_improvements": [
+          -0.048996432662437764,
+          -0.04600415685493584,
+          -0.04893959737015132
+        ],
+        "sensitivity_block6": {
+          "block_origins": 6,
+          "bootstrap_repeats": 2000,
+          "lower95": -0.06082019859300201,
+          "mean": -0.04798006229584164,
+          "origins": 287,
+          "scope": "conditional on these training seeds; circular blocks over shared target origins",
+          "seed_improvements": [
+            -0.048996432662437764,
+            -0.04600415685493584,
+            -0.04893959737015132
+          ],
+          "training_seeds": 3,
+          "upper95": -0.03505031230083485
+        },
+        "training_seeds": 3,
+        "upper95": -0.027201324070146672
+      },
+      "forecast_only/original_validation_simple": {
+        "block_origins": 42,
+        "bootstrap_repeats": 2000,
+        "lower95": -0.08524692002512267,
+        "mean": -0.05651990780639797,
+        "origins": 287,
+        "relative_improvement": -0.4565096115904595,
+        "scope": "conditional on these training seeds; circular blocks over shared target origins",
+        "seed_improvements": [
+          -0.0488077792065704,
+          -0.07531768549163899,
+          -0.045434258720984465
+        ],
+        "sensitivity_block6": {
+          "block_origins": 6,
+          "bootstrap_repeats": 2000,
+          "lower95": -0.07054145707057845,
+          "mean": -0.05651990780639797,
+          "origins": 287,
+          "scope": "conditional on these training seeds; circular blocks over shared target origins",
+          "seed_improvements": [
+            -0.0488077792065704,
+            -0.07531768549163899,
+            -0.045434258720984465
+          ],
+          "training_seeds": 3,
+          "upper95": -0.04219299847968836
+        },
+        "training_seeds": 3,
+        "upper95": -0.03128841943191395
+      },
+      "forecast_only/same_gaussian_simple": {
+        "block_origins": 42,
+        "bootstrap_repeats": 2000,
+        "lower95": -0.016400181614358342,
+        "mean": -0.01006408167792298,
+        "origins": 287,
+        "relative_improvement": -0.05910847031576552,
+        "scope": "conditional on these training seeds; circular blocks over shared target origins",
+        "seed_improvements": [
+          -0.0007787220348562217,
+          -0.02927690097077613,
+          -0.0001366220281365938
+        ],
+        "sensitivity_block6": {
+          "block_origins": 6,
+          "bootstrap_repeats": 2000,
+          "lower95": -0.013120660830280543,
+          "mean": -0.01006408167792298,
+          "origins": 287,
+          "scope": "conditional on these training seeds; circular blocks over shared target origins",
+          "seed_improvements": [
+            -0.0007787220348562217,
+            -0.02927690097077613,
+            -0.0001366220281365938
+          ],
+          "training_seeds": 3,
+          "upper95": -0.00714476737761161
+        },
+        "training_seeds": 3,
+        "upper95": -0.004692978192008491
+      },
+      "forecast_only/same_original_simple": {
+        "block_origins": 42,
+        "bootstrap_repeats": 2000,
+        "lower95": -0.08524692002512267,
+        "mean": -0.05651990780639797,
+        "origins": 287,
+        "relative_improvement": -0.4565096115904595,
+        "scope": "conditional on these training seeds; circular blocks over shared target origins",
+        "seed_improvements": [
+          -0.0488077792065704,
+          -0.07531768549163899,
+          -0.045434258720984465
+        ],
+        "sensitivity_block6": {
+          "block_origins": 6,
+          "bootstrap_repeats": 2000,
+          "lower95": -0.07054145707057845,
+          "mean": -0.05651990780639797,
+          "origins": 287,
+          "scope": "conditional on these training seeds; circular blocks over shared target origins",
+          "seed_improvements": [
+            -0.0488077792065704,
+            -0.07531768549163899,
+            -0.045434258720984465
+          ],
+          "training_seeds": 3,
+          "upper95": -0.04219299847968836
+        },
+        "training_seeds": 3,
+        "upper95": -0.03128841943191395
+      },
+      "forecast_only/validation_simple": {
+        "block_origins": 42,
+        "bootstrap_repeats": 2000,
+        "lower95": -0.08524692002512267,
+        "mean": -0.05651990780639797,
+        "origins": 287,
+        "relative_improvement": -0.4565096115904595,
+        "scope": "conditional on these training seeds; circular blocks over shared target origins",
+        "seed_improvements": [
+          -0.0488077792065704,
+          -0.07531768549163899,
+          -0.045434258720984465
+        ],
+        "sensitivity_block6": {
+          "block_origins": 6,
+          "bootstrap_repeats": 2000,
+          "lower95": -0.07054145707057845,
+          "mean": -0.05651990780639797,
+          "origins": 287,
+          "scope": "conditional on these training seeds; circular blocks over shared target origins",
+          "seed_improvements": [
+            -0.0488077792065704,
+            -0.07531768549163899,
+            -0.045434258720984465
+          ],
+          "training_seeds": 3,
+          "upper95": -0.04219299847968836
+        },
+        "training_seeds": 3,
+        "upper95": -0.03128841943191395
+      },
+      "policy_only/legacy_joint": {
+        "block_origins": 42,
+        "bootstrap_repeats": 2000,
+        "lower95": 0.0026915948794467804,
+        "mean": 0.008539845510556315,
+        "origins": 287,
+        "relative_improvement": 0.06452537078734548,
+        "scope": "conditional on these training seeds; circular blocks over shared target origins",
+        "seed_improvements": [
+          -0.00018865345586736236,
+          0.029313528636703164,
+          -0.003505338649166856
+        ],
+        "sensitivity_block6": {
+          "block_origins": 6,
+          "bootstrap_repeats": 2000,
+          "lower95": 0.004669831542459685,
+          "mean": 0.008539845510556315,
+          "origins": 287,
+          "scope": "conditional on these training seeds; circular blocks over shared target origins",
+          "seed_improvements": [
+            -0.00018865345586736236,
+            0.029313528636703164,
+            -0.003505338649166856
+          ],
+          "training_seeds": 3,
+          "upper95": 0.012573731472699282
+        },
+        "training_seeds": 3,
+        "upper95": 0.01590883472961971
+      },
+      "policy_only/original_validation_simple": {
+        "block_origins": 42,
+        "bootstrap_repeats": 2000,
+        "lower95": 0.0,
+        "mean": 0.0,
+        "origins": 287,
+        "relative_improvement": 0.0,
+        "scope": "conditional on these training seeds; circular blocks over shared target origins",
+        "seed_improvements": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "sensitivity_block6": {
+          "block_origins": 6,
+          "bootstrap_repeats": 2000,
+          "lower95": 0.0,
+          "mean": 0.0,
+          "origins": 287,
+          "scope": "conditional on these training seeds; circular blocks over shared target origins",
+          "seed_improvements": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "training_seeds": 3,
+          "upper95": 0.0
+        },
+        "training_seeds": 3,
+        "upper95": 0.0
+      },
+      "policy_only/same_gaussian_simple": {
+        "block_origins": 42,
+        "bootstrap_repeats": 2000,
+        "lower95": 0.02620936614411247,
+        "mean": 0.04645582612847497,
+        "origins": 287,
+        "relative_improvement": 0.272844846413849,
+        "scope": "conditional on these training seeds; circular blocks over shared target origins",
+        "seed_improvements": [
+          0.04802905717171418,
+          0.046040784520862875,
+          0.045297636692847865
+        ],
+        "sensitivity_block6": {
+          "block_origins": 6,
+          "bootstrap_repeats": 2000,
+          "lower95": 0.0333440112447763,
+          "mean": 0.04645582612847497,
+          "origins": 287,
+          "scope": "conditional on these training seeds; circular blocks over shared target origins",
+          "seed_improvements": [
+            0.04802905717171418,
+            0.046040784520862875,
+            0.045297636692847865
+          ],
+          "training_seeds": 3,
+          "upper95": 0.0592811970326771
+        },
+        "training_seeds": 3,
+        "upper95": 0.06894766139955567
+      },
+      "policy_only/same_original_simple": {
+        "block_origins": 42,
+        "bootstrap_repeats": 2000,
+        "lower95": 0.0,
+        "mean": 0.0,
+        "origins": 287,
+        "relative_improvement": 0.0,
+        "scope": "conditional on these training seeds; circular blocks over shared target origins",
+        "seed_improvements": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "sensitivity_block6": {
+          "block_origins": 6,
+          "bootstrap_repeats": 2000,
+          "lower95": 0.0,
+          "mean": 0.0,
+          "origins": 287,
+          "scope": "conditional on these training seeds; circular blocks over shared target origins",
+          "seed_improvements": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "training_seeds": 3,
+          "upper95": 0.0
+        },
+        "training_seeds": 3,
+        "upper95": 0.0
+      },
+      "policy_only/validation_simple": {
+        "block_origins": 42,
+        "bootstrap_repeats": 2000,
+        "lower95": 0.0,
+        "mean": 0.0,
+        "origins": 287,
+        "relative_improvement": 0.0,
+        "scope": "conditional on these training seeds; circular blocks over shared target origins",
+        "seed_improvements": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "sensitivity_block6": {
+          "block_origins": 6,
+          "bootstrap_repeats": 2000,
+          "lower95": 0.0,
+          "mean": 0.0,
+          "origins": 287,
+          "scope": "conditional on these training seeds; circular blocks over shared target origins",
+          "seed_improvements": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "training_seeds": 3,
+          "upper95": 0.0
+        },
+        "training_seeds": 3,
+        "upper95": 0.0
+      },
+      "primary/legacy_joint": {
+        "block_origins": 42,
+        "bootstrap_repeats": 2000,
+        "lower95": 0.0026915948794467804,
+        "mean": 0.008539845510556315,
+        "origins": 287,
+        "relative_improvement": 0.06452537078734548,
+        "scope": "conditional on these training seeds; circular blocks over shared target origins",
+        "seed_improvements": [
+          -0.00018865345586736236,
+          0.029313528636703164,
+          -0.003505338649166856
+        ],
+        "sensitivity_block6": {
+          "block_origins": 6,
+          "bootstrap_repeats": 2000,
+          "lower95": 0.004669831542459685,
+          "mean": 0.008539845510556315,
+          "origins": 287,
+          "scope": "conditional on these training seeds; circular blocks over shared target origins",
+          "seed_improvements": [
+            -0.00018865345586736236,
+            0.029313528636703164,
+            -0.003505338649166856
+          ],
+          "training_seeds": 3,
+          "upper95": 0.012573731472699282
+        },
+        "training_seeds": 3,
+        "upper95": 0.01590883472961971
+      },
+      "primary/original_validation_simple": {
+        "block_origins": 42,
+        "bootstrap_repeats": 2000,
+        "lower95": 0.0,
+        "mean": 0.0,
+        "origins": 287,
+        "relative_improvement": 0.0,
+        "scope": "conditional on these training seeds; circular blocks over shared target origins",
+        "seed_improvements": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "sensitivity_block6": {
+          "block_origins": 6,
+          "bootstrap_repeats": 2000,
+          "lower95": 0.0,
+          "mean": 0.0,
+          "origins": 287,
+          "scope": "conditional on these training seeds; circular blocks over shared target origins",
+          "seed_improvements": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "training_seeds": 3,
+          "upper95": 0.0
+        },
+        "training_seeds": 3,
+        "upper95": 0.0
+      },
+      "primary/same_gaussian_simple": {
+        "block_origins": 42,
+        "bootstrap_repeats": 2000,
+        "lower95": 0.02620936614411247,
+        "mean": 0.04645582612847497,
+        "origins": 287,
+        "relative_improvement": 0.272844846413849,
+        "scope": "conditional on these training seeds; circular blocks over shared target origins",
+        "seed_improvements": [
+          0.04802905717171418,
+          0.046040784520862875,
+          0.045297636692847865
+        ],
+        "sensitivity_block6": {
+          "block_origins": 6,
+          "bootstrap_repeats": 2000,
+          "lower95": 0.0333440112447763,
+          "mean": 0.04645582612847497,
+          "origins": 287,
+          "scope": "conditional on these training seeds; circular blocks over shared target origins",
+          "seed_improvements": [
+            0.04802905717171418,
+            0.046040784520862875,
+            0.045297636692847865
+          ],
+          "training_seeds": 3,
+          "upper95": 0.0592811970326771
+        },
+        "training_seeds": 3,
+        "upper95": 0.06894766139955567
+      },
+      "primary/same_original_simple": {
+        "block_origins": 42,
+        "bootstrap_repeats": 2000,
+        "lower95": 0.0,
+        "mean": 0.0,
+        "origins": 287,
+        "relative_improvement": 0.0,
+        "scope": "conditional on these training seeds; circular blocks over shared target origins",
+        "seed_improvements": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "sensitivity_block6": {
+          "block_origins": 6,
+          "bootstrap_repeats": 2000,
+          "lower95": 0.0,
+          "mean": 0.0,
+          "origins": 287,
+          "scope": "conditional on these training seeds; circular blocks over shared target origins",
+          "seed_improvements": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "training_seeds": 3,
+          "upper95": 0.0
+        },
+        "training_seeds": 3,
+        "upper95": 0.0
+      },
+      "primary/validation_simple": {
+        "block_origins": 42,
+        "bootstrap_repeats": 2000,
+        "lower95": 0.0,
+        "mean": 0.0,
+        "origins": 287,
+        "relative_improvement": 0.0,
+        "scope": "conditional on these training seeds; circular blocks over shared target origins",
+        "seed_improvements": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "sensitivity_block6": {
+          "block_origins": 6,
+          "bootstrap_repeats": 2000,
+          "lower95": 0.0,
+          "mean": 0.0,
+          "origins": 287,
+          "scope": "conditional on these training seeds; circular blocks over shared target origins",
+          "seed_improvements": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "training_seeds": 3,
+          "upper95": 0.0
+        },
+        "training_seeds": 3,
+        "upper95": 0.0
+      }
+    },
+    "MSFT/outage_2811": {
+      "combined/legacy_joint": {
+        "block_origins": 42,
+        "bootstrap_repeats": 2000,
+        "lower95": -0.049836557541083626,
+        "mean": -0.03605692422527609,
+        "origins": 287,
+        "relative_improvement": -0.2748483258448418,
+        "scope": "conditional on these training seeds; circular blocks over shared target origins",
+        "seed_improvements": [
+          -0.04608937126773671,
+          -0.016606104887502873,
+          -0.04547529652058867
+        ],
+        "sensitivity_block6": {
+          "block_origins": 6,
+          "bootstrap_repeats": 2000,
+          "lower95": -0.047402100602211526,
+          "mean": -0.03605692422527609,
+          "origins": 287,
+          "scope": "conditional on these training seeds; circular blocks over shared target origins",
+          "seed_improvements": [
+            -0.04608937126773671,
+            -0.016606104887502873,
+            -0.04547529652058867
+          ],
+          "training_seeds": 3,
+          "upper95": -0.02373817206294921
+        },
+        "training_seeds": 3,
+        "upper95": -0.022227022311270238
+      },
+      "combined/original_validation_simple": {
+        "block_origins": 42,
+        "bootstrap_repeats": 2000,
+        "lower95": -0.06328292834235061,
+        "mean": -0.04436991184247576,
+        "origins": 287,
+        "relative_improvement": -0.3610966186425084,
+        "scope": "conditional on these training seeds; circular blocks over shared target origins",
+        "seed_improvements": [
+          -0.04514157977982181,
+          -0.04466476935966679,
+          -0.043303386387938694
+        ],
+        "sensitivity_block6": {
+          "block_origins": 6,
+          "bootstrap_repeats": 2000,
+          "lower95": -0.05704237813672138,
+          "mean": -0.04436991184247576,
+          "origins": 287,
+          "scope": "conditional on these training seeds; circular blocks over shared target origins",
+          "seed_improvements": [
+            -0.04514157977982181,
+            -0.04466476935966679,
+            -0.043303386387938694
+          ],
+          "training_seeds": 3,
+          "upper95": -0.031674976253590774
+        },
+        "training_seeds": 3,
+        "upper95": -0.02632837753733125
+      },
+      "combined/same_gaussian_simple": {
+        "block_origins": 42,
+        "bootstrap_repeats": 2000,
+        "lower95": 0.0,
+        "mean": 0.0,
+        "origins": 287,
+        "relative_improvement": 0.0,
+        "scope": "conditional on these training seeds; circular blocks over shared target origins",
+        "seed_improvements": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "sensitivity_block6": {
+          "block_origins": 6,
+          "bootstrap_repeats": 2000,
+          "lower95": 0.0,
+          "mean": 0.0,
+          "origins": 287,
+          "scope": "conditional on these training seeds; circular blocks over shared target origins",
+          "seed_improvements": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "training_seeds": 3,
+          "upper95": 0.0
+        },
+        "training_seeds": 3,
+        "upper95": 0.0
+      },
+      "combined/same_original_simple": {
+        "block_origins": 42,
+        "bootstrap_repeats": 2000,
+        "lower95": -0.06328292834235061,
+        "mean": -0.04436991184247576,
+        "origins": 287,
+        "relative_improvement": -0.3610966186425084,
+        "scope": "conditional on these training seeds; circular blocks over shared target origins",
+        "seed_improvements": [
+          -0.04514157977982181,
+          -0.04466476935966679,
+          -0.043303386387938694
+        ],
+        "sensitivity_block6": {
+          "block_origins": 6,
+          "bootstrap_repeats": 2000,
+          "lower95": -0.05704237813672138,
+          "mean": -0.04436991184247576,
+          "origins": 287,
+          "scope": "conditional on these training seeds; circular blocks over shared target origins",
+          "seed_improvements": [
+            -0.04514157977982181,
+            -0.04466476935966679,
+            -0.043303386387938694
+          ],
+          "training_seeds": 3,
+          "upper95": -0.031674976253590774
+        },
+        "training_seeds": 3,
+        "upper95": -0.02632837753733125
+      },
+      "combined/validation_simple": {
+        "block_origins": 42,
+        "bootstrap_repeats": 2000,
+        "lower95": -0.06328292834235061,
+        "mean": -0.04436991184247576,
+        "origins": 287,
+        "relative_improvement": -0.3610966186425084,
+        "scope": "conditional on these training seeds; circular blocks over shared target origins",
+        "seed_improvements": [
+          -0.04514157977982181,
+          -0.04466476935966679,
+          -0.043303386387938694
+        ],
+        "sensitivity_block6": {
+          "block_origins": 6,
+          "bootstrap_repeats": 2000,
+          "lower95": -0.05704237813672138,
+          "mean": -0.04436991184247576,
+          "origins": 287,
+          "scope": "conditional on these training seeds; circular blocks over shared target origins",
+          "seed_improvements": [
+            -0.04514157977982181,
+            -0.04466476935966679,
+            -0.043303386387938694
+          ],
+          "training_seeds": 3,
+          "upper95": -0.031674976253590774
+        },
+        "training_seeds": 3,
+        "upper95": -0.02632837753733125
+      },
+      "forecast_only/legacy_joint": {
+        "block_origins": 42,
+        "bootstrap_repeats": 2000,
+        "lower95": -0.06547875977501424,
+        "mean": -0.046185848856101615,
+        "origins": 287,
+        "relative_improvement": -0.35205729575025146,
+        "scope": "conditional on these training seeds; circular blocks over shared target origins",
+        "seed_improvements": [
+          -0.04735381137795239,
+          -0.04472945110662163,
+          -0.04647428408373083
+        ],
+        "sensitivity_block6": {
+          "block_origins": 6,
+          "bootstrap_repeats": 2000,
+          "lower95": -0.05922381455906615,
+          "mean": -0.046185848856101615,
+          "origins": 287,
+          "scope": "conditional on these training seeds; circular blocks over shared target origins",
+          "seed_improvements": [
+            -0.04735381137795239,
+            -0.04472945110662163,
+            -0.04647428408373083
+          ],
+          "training_seeds": 3,
+          "upper95": -0.03320476976883827
+        },
+        "training_seeds": 3,
+        "upper95": -0.027959268122462994
+      },
+      "forecast_only/original_validation_simple": {
+        "block_origins": 42,
+        "bootstrap_repeats": 2000,
+        "lower95": -0.07865691262162856,
+        "mean": -0.0544988364733013,
+        "origins": 287,
+        "relative_improvement": -0.44352906628092226,
+        "scope": "conditional on these training seeds; circular blocks over shared target origins",
+        "seed_improvements": [
+          -0.046406019890037495,
+          -0.07278811557878556,
+          -0.04430237395108086
+        ],
+        "sensitivity_block6": {
+          "block_origins": 6,
+          "bootstrap_repeats": 2000,
+          "lower95": -0.06908944277304917,
+          "mean": -0.0544988364733013,
+          "origins": 287,
+          "scope": "conditional on these training seeds; circular blocks over shared target origins",
+          "seed_improvements": [
+            -0.046406019890037495,
+            -0.07278811557878556,
+            -0.04430237395108086
+          ],
+          "training_seeds": 3,
+          "upper95": -0.04050995447575519
+        },
+        "training_seeds": 3,
+        "upper95": -0.03211274510205458
+      },
+      "forecast_only/same_gaussian_simple": {
+        "block_origins": 42,
+        "bootstrap_repeats": 2000,
+        "lower95": -0.016258183388454462,
+        "mean": -0.010128924630825537,
+        "origins": 287,
+        "relative_improvement": -0.060563259440485503,
+        "scope": "conditional on these training seeds; circular blocks over shared target origins",
+        "seed_improvements": [
+          -0.001264440110215685,
+          -0.02812334621911877,
+          -0.0009989875631421623
+        ],
+        "sensitivity_block6": {
+          "block_origins": 6,
+          "bootstrap_repeats": 2000,
+          "lower95": -0.013085114746003221,
+          "mean": -0.010128924630825537,
+          "origins": 287,
+          "scope": "conditional on these training seeds; circular blocks over shared target origins",
+          "seed_improvements": [
+            -0.001264440110215685,
+            -0.02812334621911877,
+            -0.0009989875631421623
+          ],
+          "training_seeds": 3,
+          "upper95": -0.007467889236420087
+        },
+        "training_seeds": 3,
+        "upper95": -0.005071826474369874
+      },
+      "forecast_only/same_original_simple": {
+        "block_origins": 42,
+        "bootstrap_repeats": 2000,
+        "lower95": -0.07865691262162856,
+        "mean": -0.0544988364733013,
+        "origins": 287,
+        "relative_improvement": -0.44352906628092226,
+        "scope": "conditional on these training seeds; circular blocks over shared target origins",
+        "seed_improvements": [
+          -0.046406019890037495,
+          -0.07278811557878556,
+          -0.04430237395108086
+        ],
+        "sensitivity_block6": {
+          "block_origins": 6,
+          "bootstrap_repeats": 2000,
+          "lower95": -0.06908944277304917,
+          "mean": -0.0544988364733013,
+          "origins": 287,
+          "scope": "conditional on these training seeds; circular blocks over shared target origins",
+          "seed_improvements": [
+            -0.046406019890037495,
+            -0.07278811557878556,
+            -0.04430237395108086
+          ],
+          "training_seeds": 3,
+          "upper95": -0.04050995447575519
+        },
+        "training_seeds": 3,
+        "upper95": -0.03211274510205458
+      },
+      "forecast_only/validation_simple": {
+        "block_origins": 42,
+        "bootstrap_repeats": 2000,
+        "lower95": -0.07865691262162856,
+        "mean": -0.0544988364733013,
+        "origins": 287,
+        "relative_improvement": -0.44352906628092226,
+        "scope": "conditional on these training seeds; circular blocks over shared target origins",
+        "seed_improvements": [
+          -0.046406019890037495,
+          -0.07278811557878556,
+          -0.04430237395108086
+        ],
+        "sensitivity_block6": {
+          "block_origins": 6,
+          "bootstrap_repeats": 2000,
+          "lower95": -0.06908944277304917,
+          "mean": -0.0544988364733013,
+          "origins": 287,
+          "scope": "conditional on these training seeds; circular blocks over shared target origins",
+          "seed_improvements": [
+            -0.046406019890037495,
+            -0.07278811557878556,
+            -0.04430237395108086
+          ],
+          "training_seeds": 3,
+          "upper95": -0.04050995447575519
+        },
+        "training_seeds": 3,
+        "upper95": -0.03211274510205458
+      },
+      "policy_only/legacy_joint": {
+        "block_origins": 42,
+        "bootstrap_repeats": 2000,
+        "lower95": 0.0020934962558716744,
+        "mean": 0.008312987617199681,
+        "origins": 287,
+        "relative_improvement": 0.0633667673671003,
+        "scope": "conditional on these training seeds; circular blocks over shared target origins",
+        "seed_improvements": [
+          -0.0009477914879148959,
+          0.028058664472163916,
+          -0.00217191013264998
+        ],
+        "sensitivity_block6": {
+          "block_origins": 6,
+          "bootstrap_repeats": 2000,
+          "lower95": 0.004955035254181234,
+          "mean": 0.008312987617199681,
+          "origins": 287,
+          "scope": "conditional on these training seeds; circular blocks over shared target origins",
+          "seed_improvements": [
+            -0.0009477914879148959,
+            0.028058664472163916,
+            -0.00217191013264998
+          ],
+          "training_seeds": 3,
+          "upper95": 0.011893662958964525
+        },
+        "training_seeds": 3,
+        "upper95": 0.014977163459345631
+      },
+      "policy_only/original_validation_simple": {
+        "block_origins": 42,
+        "bootstrap_repeats": 2000,
+        "lower95": 0.0,
+        "mean": 0.0,
+        "origins": 287,
+        "relative_improvement": 0.0,
+        "scope": "conditional on these training seeds; circular blocks over shared target origins",
+        "seed_improvements": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "sensitivity_block6": {
+          "block_origins": 6,
+          "bootstrap_repeats": 2000,
+          "lower95": 0.0,
+          "mean": 0.0,
+          "origins": 287,
+          "scope": "conditional on these training seeds; circular blocks over shared target origins",
+          "seed_improvements": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "training_seeds": 3,
+          "upper95": 0.0
+        },
+        "training_seeds": 3,
+        "upper95": 0.0
+      },
+      "policy_only/same_gaussian_simple": {
+        "block_origins": 42,
+        "bootstrap_repeats": 2000,
+        "lower95": 0.02632837753733125,
+        "mean": 0.04436991184247576,
+        "origins": 287,
+        "relative_improvement": 0.26529829969208846,
+        "scope": "conditional on these training seeds; circular blocks over shared target origins",
+        "seed_improvements": [
+          0.04514157977982181,
+          0.04466476935966679,
+          0.043303386387938694
+        ],
+        "sensitivity_block6": {
+          "block_origins": 6,
+          "bootstrap_repeats": 2000,
+          "lower95": 0.03167497625359077,
+          "mean": 0.04436991184247576,
+          "origins": 287,
+          "scope": "conditional on these training seeds; circular blocks over shared target origins",
+          "seed_improvements": [
+            0.04514157977982181,
+            0.04466476935966679,
+            0.043303386387938694
+          ],
+          "training_seeds": 3,
+          "upper95": 0.05704237813672138
+        },
+        "training_seeds": 3,
+        "upper95": 0.06328292834235061
+      },
+      "policy_only/same_original_simple": {
+        "block_origins": 42,
+        "bootstrap_repeats": 2000,
+        "lower95": 0.0,
+        "mean": 0.0,
+        "origins": 287,
+        "relative_improvement": 0.0,
+        "scope": "conditional on these training seeds; circular blocks over shared target origins",
+        "seed_improvements": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "sensitivity_block6": {
+          "block_origins": 6,
+          "bootstrap_repeats": 2000,
+          "lower95": 0.0,
+          "mean": 0.0,
+          "origins": 287,
+          "scope": "conditional on these training seeds; circular blocks over shared target origins",
+          "seed_improvements": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "training_seeds": 3,
+          "upper95": 0.0
+        },
+        "training_seeds": 3,
+        "upper95": 0.0
+      },
+      "policy_only/validation_simple": {
+        "block_origins": 42,
+        "bootstrap_repeats": 2000,
+        "lower95": 0.0,
+        "mean": 0.0,
+        "origins": 287,
+        "relative_improvement": 0.0,
+        "scope": "conditional on these training seeds; circular blocks over shared target origins",
+        "seed_improvements": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "sensitivity_block6": {
+          "block_origins": 6,
+          "bootstrap_repeats": 2000,
+          "lower95": 0.0,
+          "mean": 0.0,
+          "origins": 287,
+          "scope": "conditional on these training seeds; circular blocks over shared target origins",
+          "seed_improvements": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "training_seeds": 3,
+          "upper95": 0.0
+        },
+        "training_seeds": 3,
+        "upper95": 0.0
+      },
+      "primary/legacy_joint": {
+        "block_origins": 42,
+        "bootstrap_repeats": 2000,
+        "lower95": 0.0020934962558716744,
+        "mean": 0.008312987617199681,
+        "origins": 287,
+        "relative_improvement": 0.0633667673671003,
+        "scope": "conditional on these training seeds; circular blocks over shared target origins",
+        "seed_improvements": [
+          -0.0009477914879148959,
+          0.028058664472163916,
+          -0.00217191013264998
+        ],
+        "sensitivity_block6": {
+          "block_origins": 6,
+          "bootstrap_repeats": 2000,
+          "lower95": 0.004955035254181234,
+          "mean": 0.008312987617199681,
+          "origins": 287,
+          "scope": "conditional on these training seeds; circular blocks over shared target origins",
+          "seed_improvements": [
+            -0.0009477914879148959,
+            0.028058664472163916,
+            -0.00217191013264998
+          ],
+          "training_seeds": 3,
+          "upper95": 0.011893662958964525
+        },
+        "training_seeds": 3,
+        "upper95": 0.014977163459345631
+      },
+      "primary/original_validation_simple": {
+        "block_origins": 42,
+        "bootstrap_repeats": 2000,
+        "lower95": 0.0,
+        "mean": 0.0,
+        "origins": 287,
+        "relative_improvement": 0.0,
+        "scope": "conditional on these training seeds; circular blocks over shared target origins",
+        "seed_improvements": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "sensitivity_block6": {
+          "block_origins": 6,
+          "bootstrap_repeats": 2000,
+          "lower95": 0.0,
+          "mean": 0.0,
+          "origins": 287,
+          "scope": "conditional on these training seeds; circular blocks over shared target origins",
+          "seed_improvements": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "training_seeds": 3,
+          "upper95": 0.0
+        },
+        "training_seeds": 3,
+        "upper95": 0.0
+      },
+      "primary/same_gaussian_simple": {
+        "block_origins": 42,
+        "bootstrap_repeats": 2000,
+        "lower95": 0.02632837753733125,
+        "mean": 0.04436991184247576,
+        "origins": 287,
+        "relative_improvement": 0.26529829969208846,
+        "scope": "conditional on these training seeds; circular blocks over shared target origins",
+        "seed_improvements": [
+          0.04514157977982181,
+          0.04466476935966679,
+          0.043303386387938694
+        ],
+        "sensitivity_block6": {
+          "block_origins": 6,
+          "bootstrap_repeats": 2000,
+          "lower95": 0.03167497625359077,
+          "mean": 0.04436991184247576,
+          "origins": 287,
+          "scope": "conditional on these training seeds; circular blocks over shared target origins",
+          "seed_improvements": [
+            0.04514157977982181,
+            0.04466476935966679,
+            0.043303386387938694
+          ],
+          "training_seeds": 3,
+          "upper95": 0.05704237813672138
+        },
+        "training_seeds": 3,
+        "upper95": 0.06328292834235061
+      },
+      "primary/same_original_simple": {
+        "block_origins": 42,
+        "bootstrap_repeats": 2000,
+        "lower95": 0.0,
+        "mean": 0.0,
+        "origins": 287,
+        "relative_improvement": 0.0,
+        "scope": "conditional on these training seeds; circular blocks over shared target origins",
+        "seed_improvements": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "sensitivity_block6": {
+          "block_origins": 6,
+          "bootstrap_repeats": 2000,
+          "lower95": 0.0,
+          "mean": 0.0,
+          "origins": 287,
+          "scope": "conditional on these training seeds; circular blocks over shared target origins",
+          "seed_improvements": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "training_seeds": 3,
+          "upper95": 0.0
+        },
+        "training_seeds": 3,
+        "upper95": 0.0
+      },
+      "primary/validation_simple": {
+        "block_origins": 42,
+        "bootstrap_repeats": 2000,
+        "lower95": 0.0,
+        "mean": 0.0,
+        "origins": 287,
+        "relative_improvement": 0.0,
+        "scope": "conditional on these training seeds; circular blocks over shared target origins",
+        "seed_improvements": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "sensitivity_block6": {
+          "block_origins": 6,
+          "bootstrap_repeats": 2000,
+          "lower95": 0.0,
+          "mean": 0.0,
+          "origins": 287,
+          "scope": "conditional on these training seeds; circular blocks over shared target origins",
+          "seed_improvements": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "training_seeds": 3,
+          "upper95": 0.0
+        },
+        "training_seeds": 3,
+        "upper95": 0.0
+      }
+    },
+    "Taylor/mixed_2811": {
+      "combined/legacy_joint": {
+        "block_origins": 42,
+        "bootstrap_repeats": 2000,
+        "lower95": -0.30251853617067465,
+        "mean": -0.23631992932487272,
+        "origins": 138,
+        "relative_improvement": -0.9890638757128882,
+        "scope": "conditional on these training seeds; circular blocks over shared target origins",
+        "seed_improvements": [
+          -0.23045687535424722,
+          -0.2422115892047237,
+          -0.23629132341564713
+        ],
+        "sensitivity_block6": {
+          "block_origins": 6,
+          "bootstrap_repeats": 2000,
+          "lower95": -0.3142404607323669,
+          "mean": -0.23631992932487272,
+          "origins": 138,
+          "scope": "conditional on these training seeds; circular blocks over shared target origins",
+          "seed_improvements": [
+            -0.23045687535424722,
+            -0.2422115892047237,
+            -0.23629132341564713
+          ],
+          "training_seeds": 3,
+          "upper95": -0.15468452880495148
+        },
+        "training_seeds": 3,
+        "upper95": -0.1765327394032518
+      },
+      "combined/original_validation_simple": {
+        "block_origins": 42,
+        "bootstrap_repeats": 2000,
+        "lower95": -0.3599852859579527,
+        "mean": -0.3078863705041623,
+        "origins": 138,
+        "relative_improvement": -1.8395938967375272,
+        "scope": "conditional on these training seeds; circular blocks over shared target origins",
+        "seed_improvements": [
+          -0.3106392493518561,
+          -0.30440862080686437,
+          -0.3086112413537665
+        ],
+        "sensitivity_block6": {
+          "block_origins": 6,
+          "bootstrap_repeats": 2000,
+          "lower95": -0.3810138026685913,
+          "mean": -0.3078863705041623,
+          "origins": 138,
+          "scope": "conditional on these training seeds; circular blocks over shared target origins",
+          "seed_improvements": [
+            -0.3106392493518561,
+            -0.30440862080686437,
+            -0.3086112413537665
+          ],
+          "training_seeds": 3,
+          "upper95": -0.23279851353847447
+        },
+        "training_seeds": 3,
+        "upper95": -0.26104415140360554
+      },
+      "combined/same_gaussian_simple": {
+        "block_origins": 42,
+        "bootstrap_repeats": 2000,
+        "lower95": 0.0,
+        "mean": 0.0,
+        "origins": 138,
+        "relative_improvement": 0.0,
+        "scope": "conditional on these training seeds; circular blocks over shared target origins",
+        "seed_improvements": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "sensitivity_block6": {
+          "block_origins": 6,
+          "bootstrap_repeats": 2000,
+          "lower95": 0.0,
+          "mean": 0.0,
+          "origins": 138,
+          "scope": "conditional on these training seeds; circular blocks over shared target origins",
+          "seed_improvements": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "training_seeds": 3,
+          "upper95": 0.0
+        },
+        "training_seeds": 3,
+        "upper95": 0.0
+      },
+      "combined/same_original_simple": {
+        "block_origins": 42,
+        "bootstrap_repeats": 2000,
+        "lower95": -0.3599852859579527,
+        "mean": -0.3078863705041623,
+        "origins": 138,
+        "relative_improvement": -1.8395938967375272,
+        "scope": "conditional on these training seeds; circular blocks over shared target origins",
+        "seed_improvements": [
+          -0.3106392493518561,
+          -0.30440862080686437,
+          -0.3086112413537665
+        ],
+        "sensitivity_block6": {
+          "block_origins": 6,
+          "bootstrap_repeats": 2000,
+          "lower95": -0.3810138026685913,
+          "mean": -0.3078863705041623,
+          "origins": 138,
+          "scope": "conditional on these training seeds; circular blocks over shared target origins",
+          "seed_improvements": [
+            -0.3106392493518561,
+            -0.30440862080686437,
+            -0.3086112413537665
+          ],
+          "training_seeds": 3,
+          "upper95": -0.23279851353847447
+        },
+        "training_seeds": 3,
+        "upper95": -0.26104415140360554
+      },
+      "combined/validation_simple": {
+        "block_origins": 42,
+        "bootstrap_repeats": 2000,
+        "lower95": -0.3599852859579527,
+        "mean": -0.3078863705041623,
+        "origins": 138,
+        "relative_improvement": -1.8395938967375272,
+        "scope": "conditional on these training seeds; circular blocks over shared target origins",
+        "seed_improvements": [
+          -0.3106392493518561,
+          -0.30440862080686437,
+          -0.3086112413537665
+        ],
+        "sensitivity_block6": {
+          "block_origins": 6,
+          "bootstrap_repeats": 2000,
+          "lower95": -0.3810138026685913,
+          "mean": -0.3078863705041623,
+          "origins": 138,
+          "scope": "conditional on these training seeds; circular blocks over shared target origins",
+          "seed_improvements": [
+            -0.3106392493518561,
+            -0.30440862080686437,
+            -0.3086112413537665
+          ],
+          "training_seeds": 3,
+          "upper95": -0.23279851353847447
+        },
+        "training_seeds": 3,
+        "upper95": -0.26104415140360554
+      },
+      "forecast_only/legacy_joint": {
+        "block_origins": 42,
+        "bootstrap_repeats": 2000,
+        "lower95": -0.3397765135547724,
+        "mean": -0.2619767097542832,
+        "origins": 138,
+        "relative_improvement": -1.0964445556340567,
+        "scope": "conditional on these training seeds; circular blocks over shared target origins",
+        "seed_improvements": [
+          -0.2559656612270326,
+          -0.26763938684674843,
+          -0.26232508118906855
+        ],
+        "sensitivity_block6": {
+          "block_origins": 6,
+          "bootstrap_repeats": 2000,
+          "lower95": -0.34446846636923556,
+          "mean": -0.2619767097542832,
+          "origins": 138,
+          "scope": "conditional on these training seeds; circular blocks over shared target origins",
+          "seed_improvements": [
+            -0.2559656612270326,
+            -0.26763938684674843,
+            -0.26232508118906855
+          ],
+          "training_seeds": 3,
+          "upper95": -0.17562324416448094
+        },
+        "training_seeds": 3,
+        "upper95": -0.19514479482674515
+      },
+      "forecast_only/original_validation_simple": {
+        "block_origins": 42,
+        "bootstrap_repeats": 2000,
+        "lower95": -0.3963087857302632,
+        "mean": -0.3335431509335728,
+        "origins": 138,
+        "relative_improvement": -1.992890895921323,
+        "scope": "conditional on these training seeds; circular blocks over shared target origins",
+        "seed_improvements": [
+          -0.3361480352246415,
+          -0.3298364184488891,
+          -0.3346449991271878
+        ],
+        "sensitivity_block6": {
+          "block_origins": 6,
+          "bootstrap_repeats": 2000,
+          "lower95": -0.4092814257004552,
+          "mean": -0.3335431509335728,
+          "origins": 138,
+          "scope": "conditional on these training seeds; circular blocks over shared target origins",
+          "seed_improvements": [
+            -0.3361480352246415,
+            -0.3298364184488891,
+            -0.3346449991271878
+          ],
+          "training_seeds": 3,
+          "upper95": -0.2551420649324083
+        },
+        "training_seeds": 3,
+        "upper95": -0.2814410801405867
+      },
+      "forecast_only/same_gaussian_simple": {
+        "block_origins": 42,
+        "bootstrap_repeats": 2000,
+        "lower95": -0.04116773812716878,
+        "mean": -0.025656780429410504,
+        "origins": 138,
+        "relative_improvement": -0.053985536227529614,
+        "scope": "conditional on these training seeds; circular blocks over shared target origins",
+        "seed_improvements": [
+          -0.025508785872785378,
+          -0.025427797642024748,
+          -0.026033757773421387
+        ],
+        "sensitivity_block6": {
+          "block_origins": 6,
+          "bootstrap_repeats": 2000,
+          "lower95": -0.038410807566194964,
+          "mean": -0.025656780429410504,
+          "origins": 138,
+          "scope": "conditional on these training seeds; circular blocks over shared target origins",
+          "seed_improvements": [
+            -0.025508785872785378,
+            -0.025427797642024748,
+            -0.026033757773421387
+          ],
+          "training_seeds": 3,
+          "upper95": -0.013261847751955946
+        },
+        "training_seeds": 3,
+        "upper95": -0.012239547912792113
+      },
+      "forecast_only/same_original_simple": {
+        "block_origins": 42,
+        "bootstrap_repeats": 2000,
+        "lower95": -0.3963087857302632,
+        "mean": -0.3335431509335728,
+        "origins": 138,
+        "relative_improvement": -1.992890895921323,
+        "scope": "conditional on these training seeds; circular blocks over shared target origins",
+        "seed_improvements": [
+          -0.3361480352246415,
+          -0.3298364184488891,
+          -0.3346449991271878
+        ],
+        "sensitivity_block6": {
+          "block_origins": 6,
+          "bootstrap_repeats": 2000,
+          "lower95": -0.4092814257004552,
+          "mean": -0.3335431509335728,
+          "origins": 138,
+          "scope": "conditional on these training seeds; circular blocks over shared target origins",
+          "seed_improvements": [
+            -0.3361480352246415,
+            -0.3298364184488891,
+            -0.3346449991271878
+          ],
+          "training_seeds": 3,
+          "upper95": -0.2551420649324083
+        },
+        "training_seeds": 3,
+        "upper95": -0.2814410801405867
+      },
+      "forecast_only/validation_simple": {
+        "block_origins": 42,
+        "bootstrap_repeats": 2000,
+        "lower95": -0.3963087857302632,
+        "mean": -0.3335431509335728,
+        "origins": 138,
+        "relative_improvement": -1.992890895921323,
+        "scope": "conditional on these training seeds; circular blocks over shared target origins",
+        "seed_improvements": [
+          -0.3361480352246415,
+          -0.3298364184488891,
+          -0.3346449991271878
+        ],
+        "sensitivity_block6": {
+          "block_origins": 6,
+          "bootstrap_repeats": 2000,
+          "lower95": -0.4092814257004552,
+          "mean": -0.3335431509335728,
+          "origins": 138,
+          "scope": "conditional on these training seeds; circular blocks over shared target origins",
+          "seed_improvements": [
+            -0.3361480352246415,
+            -0.3298364184488891,
+            -0.3346449991271878
+          ],
+          "training_seeds": 3,
+          "upper95": -0.2551420649324083
+        },
+        "training_seeds": 3,
+        "upper95": -0.2814410801405867
+      },
+      "policy_only/legacy_joint": {
+        "block_origins": 42,
+        "bootstrap_repeats": 2000,
+        "lower95": 0.060126840781589176,
+        "mean": 0.08130519979902436,
+        "origins": 138,
+        "relative_improvement": 0.3402846144147436,
+        "scope": "conditional on these training seeds; circular blocks over shared target origins",
+        "seed_improvements": [
+          0.08851714151335975,
+          0.07158679532207408,
+          0.08381166256163919
+        ],
+        "sensitivity_block6": {
+          "block_origins": 6,
+          "bootstrap_repeats": 2000,
+          "lower95": 0.05468209635316986,
+          "mean": 0.08130519979902436,
+          "origins": 138,
+          "scope": "conditional on these training seeds; circular blocks over shared target origins",
+          "seed_improvements": [
+            0.08851714151335975,
+            0.07158679532207408,
+            0.08381166256163919
+          ],
+          "training_seeds": 3,
+          "upper95": 0.10868031116309947
+        },
+        "training_seeds": 3,
+        "upper95": 0.10291011763508003
+      },
+      "policy_only/original_validation_simple": {
+        "block_origins": 42,
+        "bootstrap_repeats": 2000,
+        "lower95": 0.0025132519982398174,
+        "mean": 0.009738758619734746,
+        "origins": 138,
+        "relative_improvement": 0.05818822343232575,
+        "scope": "conditional on these training seeds; circular blocks over shared target origins",
+        "seed_improvements": [
+          0.008334767515750912,
+          0.009389763719933457,
+          0.011491744623519873
+        ],
+        "sensitivity_block6": {
+          "block_origins": 6,
+          "bootstrap_repeats": 2000,
+          "lower95": -0.0013819451146749725,
+          "mean": 0.009738758619734746,
+          "origins": 138,
+          "scope": "conditional on these training seeds; circular blocks over shared target origins",
+          "seed_improvements": [
+            0.008334767515750912,
+            0.009389763719933457,
+            0.011491744623519873
+          ],
+          "training_seeds": 3,
+          "upper95": 0.022945942723940405
+        },
+        "training_seeds": 3,
+        "upper95": 0.0172717195814966
+      },
+      "policy_only/same_gaussian_simple": {
+        "block_origins": 42,
+        "bootstrap_repeats": 2000,
+        "lower95": 0.2705189096847865,
+        "mean": 0.317625129123897,
+        "origins": 138,
+        "relative_improvement": 0.6683287079713255,
+        "scope": "conditional on these training seeds; circular blocks over shared target origins",
+        "seed_improvements": [
+          0.318974016867607,
+          0.3137983845267978,
+          0.3201029859772863
+        ],
+        "sensitivity_block6": {
+          "block_origins": 6,
+          "bootstrap_repeats": 2000,
+          "lower95": 0.24166028321427394,
+          "mean": 0.317625129123897,
+          "origins": 138,
+          "scope": "conditional on these training seeds; circular blocks over shared target origins",
+          "seed_improvements": [
+            0.318974016867607,
+            0.3137983845267978,
+            0.3201029859772863
+          ],
+          "training_seeds": 3,
+          "upper95": 0.39342629573336263
+        },
+        "training_seeds": 3,
+        "upper95": 0.36989657898777123
+      },
+      "policy_only/same_original_simple": {
+        "block_origins": 42,
+        "bootstrap_repeats": 2000,
+        "lower95": 0.0025132519982398174,
+        "mean": 0.009738758619734746,
+        "origins": 138,
+        "relative_improvement": 0.05818822343232575,
+        "scope": "conditional on these training seeds; circular blocks over shared target origins",
+        "seed_improvements": [
+          0.008334767515750912,
+          0.009389763719933457,
+          0.011491744623519873
+        ],
+        "sensitivity_block6": {
+          "block_origins": 6,
+          "bootstrap_repeats": 2000,
+          "lower95": -0.0013819451146749725,
+          "mean": 0.009738758619734746,
+          "origins": 138,
+          "scope": "conditional on these training seeds; circular blocks over shared target origins",
+          "seed_improvements": [
+            0.008334767515750912,
+            0.009389763719933457,
+            0.011491744623519873
+          ],
+          "training_seeds": 3,
+          "upper95": 0.022945942723940405
+        },
+        "training_seeds": 3,
+        "upper95": 0.0172717195814966
+      },
+      "policy_only/validation_simple": {
+        "block_origins": 42,
+        "bootstrap_repeats": 2000,
+        "lower95": 0.0025132519982398174,
+        "mean": 0.009738758619734746,
+        "origins": 138,
+        "relative_improvement": 0.05818822343232575,
+        "scope": "conditional on these training seeds; circular blocks over shared target origins",
+        "seed_improvements": [
+          0.008334767515750912,
+          0.009389763719933457,
+          0.011491744623519873
+        ],
+        "sensitivity_block6": {
+          "block_origins": 6,
+          "bootstrap_repeats": 2000,
+          "lower95": -0.0013819451146749725,
+          "mean": 0.009738758619734746,
+          "origins": 138,
+          "scope": "conditional on these training seeds; circular blocks over shared target origins",
+          "seed_improvements": [
+            0.008334767515750912,
+            0.009389763719933457,
+            0.011491744623519873
+          ],
+          "training_seeds": 3,
+          "upper95": 0.022945942723940405
+        },
+        "training_seeds": 3,
+        "upper95": 0.0172717195814966
+      },
+      "primary/legacy_joint": {
+        "block_origins": 42,
+        "bootstrap_repeats": 2000,
+        "lower95": 0.060126840781589176,
+        "mean": 0.08130519979902436,
+        "origins": 138,
+        "relative_improvement": 0.3402846144147436,
+        "scope": "conditional on these training seeds; circular blocks over shared target origins",
+        "seed_improvements": [
+          0.08851714151335975,
+          0.07158679532207408,
+          0.08381166256163919
+        ],
+        "sensitivity_block6": {
+          "block_origins": 6,
+          "bootstrap_repeats": 2000,
+          "lower95": 0.05468209635316986,
+          "mean": 0.08130519979902436,
+          "origins": 138,
+          "scope": "conditional on these training seeds; circular blocks over shared target origins",
+          "seed_improvements": [
+            0.08851714151335975,
+            0.07158679532207408,
+            0.08381166256163919
+          ],
+          "training_seeds": 3,
+          "upper95": 0.10868031116309947
+        },
+        "training_seeds": 3,
+        "upper95": 0.10291011763508003
+      },
+      "primary/original_validation_simple": {
+        "block_origins": 42,
+        "bootstrap_repeats": 2000,
+        "lower95": 0.0025132519982398174,
+        "mean": 0.009738758619734746,
+        "origins": 138,
+        "relative_improvement": 0.05818822343232575,
+        "scope": "conditional on these training seeds; circular blocks over shared target origins",
+        "seed_improvements": [
+          0.008334767515750912,
+          0.009389763719933457,
+          0.011491744623519873
+        ],
+        "sensitivity_block6": {
+          "block_origins": 6,
+          "bootstrap_repeats": 2000,
+          "lower95": -0.0013819451146749725,
+          "mean": 0.009738758619734746,
+          "origins": 138,
+          "scope": "conditional on these training seeds; circular blocks over shared target origins",
+          "seed_improvements": [
+            0.008334767515750912,
+            0.009389763719933457,
+            0.011491744623519873
+          ],
+          "training_seeds": 3,
+          "upper95": 0.022945942723940405
+        },
+        "training_seeds": 3,
+        "upper95": 0.0172717195814966
+      },
+      "primary/same_gaussian_simple": {
+        "block_origins": 42,
+        "bootstrap_repeats": 2000,
+        "lower95": 0.2705189096847865,
+        "mean": 0.317625129123897,
+        "origins": 138,
+        "relative_improvement": 0.6683287079713255,
+        "scope": "conditional on these training seeds; circular blocks over shared target origins",
+        "seed_improvements": [
+          0.318974016867607,
+          0.3137983845267978,
+          0.3201029859772863
+        ],
+        "sensitivity_block6": {
+          "block_origins": 6,
+          "bootstrap_repeats": 2000,
+          "lower95": 0.24166028321427394,
+          "mean": 0.317625129123897,
+          "origins": 138,
+          "scope": "conditional on these training seeds; circular blocks over shared target origins",
+          "seed_improvements": [
+            0.318974016867607,
+            0.3137983845267978,
+            0.3201029859772863
+          ],
+          "training_seeds": 3,
+          "upper95": 0.39342629573336263
+        },
+        "training_seeds": 3,
+        "upper95": 0.36989657898777123
+      },
+      "primary/same_original_simple": {
+        "block_origins": 42,
+        "bootstrap_repeats": 2000,
+        "lower95": 0.0025132519982398174,
+        "mean": 0.009738758619734746,
+        "origins": 138,
+        "relative_improvement": 0.05818822343232575,
+        "scope": "conditional on these training seeds; circular blocks over shared target origins",
+        "seed_improvements": [
+          0.008334767515750912,
+          0.009389763719933457,
+          0.011491744623519873
+        ],
+        "sensitivity_block6": {
+          "block_origins": 6,
+          "bootstrap_repeats": 2000,
+          "lower95": -0.0013819451146749725,
+          "mean": 0.009738758619734746,
+          "origins": 138,
+          "scope": "conditional on these training seeds; circular blocks over shared target origins",
+          "seed_improvements": [
+            0.008334767515750912,
+            0.009389763719933457,
+            0.011491744623519873
+          ],
+          "training_seeds": 3,
+          "upper95": 0.022945942723940405
+        },
+        "training_seeds": 3,
+        "upper95": 0.0172717195814966
+      },
+      "primary/validation_simple": {
+        "block_origins": 42,
+        "bootstrap_repeats": 2000,
+        "lower95": 0.0025132519982398174,
+        "mean": 0.009738758619734746,
+        "origins": 138,
+        "relative_improvement": 0.05818822343232575,
+        "scope": "conditional on these training seeds; circular blocks over shared target origins",
+        "seed_improvements": [
+          0.008334767515750912,
+          0.009389763719933457,
+          0.011491744623519873
+        ],
+        "sensitivity_block6": {
+          "block_origins": 6,
+          "bootstrap_repeats": 2000,
+          "lower95": -0.0013819451146749725,
+          "mean": 0.009738758619734746,
+          "origins": 138,
+          "scope": "conditional on these training seeds; circular blocks over shared target origins",
+          "seed_improvements": [
+            0.008334767515750912,
+            0.009389763719933457,
+            0.011491744623519873
+          ],
+          "training_seeds": 3,
+          "upper95": 0.022945942723940405
+        },
+        "training_seeds": 3,
+        "upper95": 0.0172717195814966
+      }
+    },
+    "Taylor/mixed_3811": {
+      "combined/legacy_joint": {
+        "block_origins": 42,
+        "bootstrap_repeats": 2000,
+        "lower95": -0.30054127608744013,
+        "mean": -0.2366296576238055,
+        "origins": 138,
+        "relative_improvement": -0.9842140826645689,
+        "scope": "conditional on these training seeds; circular blocks over shared target origins",
+        "seed_improvements": [
+          -0.23276425960178299,
+          -0.24030816427664392,
+          -0.2368165489929898
+        ],
+        "sensitivity_block6": {
+          "block_origins": 6,
+          "bootstrap_repeats": 2000,
+          "lower95": -0.31380133881101585,
+          "mean": -0.2366296576238055,
+          "origins": 138,
+          "scope": "conditional on these training seeds; circular blocks over shared target origins",
+          "seed_improvements": [
+            -0.23276425960178299,
+            -0.24030816427664392,
+            -0.2368165489929898
+          ],
+          "training_seeds": 3,
+          "upper95": -0.15796812494232018
+        },
+        "training_seeds": 3,
+        "upper95": -0.18009971899316018
+      },
+      "combined/original_validation_simple": {
+        "block_origins": 42,
+        "bootstrap_repeats": 2000,
+        "lower95": -0.37130566923427366,
+        "mean": -0.3175287680141277,
+        "origins": 138,
+        "relative_improvement": -1.9904530574197237,
+        "scope": "conditional on these training seeds; circular blocks over shared target origins",
+        "seed_improvements": [
+          -0.31309689733669477,
+          -0.31837662775640985,
+          -0.3211127789492783
+        ],
+        "sensitivity_block6": {
+          "block_origins": 6,
+          "bootstrap_repeats": 2000,
+          "lower95": -0.38701876513454786,
+          "mean": -0.3175287680141277,
+          "origins": 138,
+          "scope": "conditional on these training seeds; circular blocks over shared target origins",
+          "seed_improvements": [
+            -0.31309689733669477,
+            -0.31837662775640985,
+            -0.3211127789492783
+          ],
+          "training_seeds": 3,
+          "upper95": -0.24542123632227425
+        },
+        "training_seeds": 3,
+        "upper95": -0.26995278539297773
+      },
+      "combined/same_gaussian_simple": {
+        "block_origins": 42,
+        "bootstrap_repeats": 2000,
+        "lower95": 0.0,
+        "mean": 0.0,
+        "origins": 138,
+        "relative_improvement": 0.0,
+        "scope": "conditional on these training seeds; circular blocks over shared target origins",
+        "seed_improvements": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "sensitivity_block6": {
+          "block_origins": 6,
+          "bootstrap_repeats": 2000,
+          "lower95": 0.0,
+          "mean": 0.0,
+          "origins": 138,
+          "scope": "conditional on these training seeds; circular blocks over shared target origins",
+          "seed_improvements": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "training_seeds": 3,
+          "upper95": 0.0
+        },
+        "training_seeds": 3,
+        "upper95": 0.0
+      },
+      "combined/same_original_simple": {
+        "block_origins": 42,
+        "bootstrap_repeats": 2000,
+        "lower95": -0.37130566923427366,
+        "mean": -0.3175287680141277,
+        "origins": 138,
+        "relative_improvement": -1.9904530574197237,
+        "scope": "conditional on these training seeds; circular blocks over shared target origins",
+        "seed_improvements": [
+          -0.31309689733669477,
+          -0.31837662775640985,
+          -0.3211127789492783
+        ],
+        "sensitivity_block6": {
+          "block_origins": 6,
+          "bootstrap_repeats": 2000,
+          "lower95": -0.38701876513454786,
+          "mean": -0.3175287680141277,
+          "origins": 138,
+          "scope": "conditional on these training seeds; circular blocks over shared target origins",
+          "seed_improvements": [
+            -0.31309689733669477,
+            -0.31837662775640985,
+            -0.3211127789492783
+          ],
+          "training_seeds": 3,
+          "upper95": -0.24542123632227425
+        },
+        "training_seeds": 3,
+        "upper95": -0.26995278539297773
+      },
+      "combined/validation_simple": {
+        "block_origins": 42,
+        "bootstrap_repeats": 2000,
+        "lower95": -0.37130566923427366,
+        "mean": -0.3175287680141277,
+        "origins": 138,
+        "relative_improvement": -1.9904530574197237,
+        "scope": "conditional on these training seeds; circular blocks over shared target origins",
+        "seed_improvements": [
+          -0.31309689733669477,
+          -0.31837662775640985,
+          -0.3211127789492783
+        ],
+        "sensitivity_block6": {
+          "block_origins": 6,
+          "bootstrap_repeats": 2000,
+          "lower95": -0.38701876513454786,
+          "mean": -0.3175287680141277,
+          "origins": 138,
+          "scope": "conditional on these training seeds; circular blocks over shared target origins",
+          "seed_improvements": [
+            -0.31309689733669477,
+            -0.31837662775640985,
+            -0.3211127789492783
+          ],
+          "training_seeds": 3,
+          "upper95": -0.24542123632227425
+        },
+        "training_seeds": 3,
+        "upper95": -0.26995278539297773
+      },
+      "forecast_only/legacy_joint": {
+        "block_origins": 42,
+        "bootstrap_repeats": 2000,
+        "lower95": -0.3394706863565068,
+        "mean": -0.26428970034011,
+        "origins": 138,
+        "relative_improvement": -1.0992605389788923,
+        "scope": "conditional on these training seeds; circular blocks over shared target origins",
+        "seed_improvements": [
+          -0.2607147767149274,
+          -0.2665761074274993,
+          -0.26557821687790334
+        ],
+        "sensitivity_block6": {
+          "block_origins": 6,
+          "bootstrap_repeats": 2000,
+          "lower95": -0.34615135483264137,
+          "mean": -0.26428970034011,
+          "origins": 138,
+          "scope": "conditional on these training seeds; circular blocks over shared target origins",
+          "seed_improvements": [
+            -0.2607147767149274,
+            -0.2665761074274993,
+            -0.26557821687790334
+          ],
+          "training_seeds": 3,
+          "upper95": -0.17853897828457527
+        },
+        "training_seeds": 3,
+        "upper95": -0.20235000699167952
+      },
+      "forecast_only/original_validation_simple": {
+        "block_origins": 42,
+        "bootstrap_repeats": 2000,
+        "lower95": -0.4042321917765138,
+        "mean": -0.3451888107304321,
+        "origins": 138,
+        "relative_improvement": -2.163842123668293,
+        "scope": "conditional on these training seeds; circular blocks over shared target origins",
+        "seed_improvements": [
+          -0.34104741444983905,
+          -0.3446445709072652,
+          -0.34987444683419183
+        ],
+        "sensitivity_block6": {
+          "block_origins": 6,
+          "bootstrap_repeats": 2000,
+          "lower95": -0.418993770678562,
+          "mean": -0.3451888107304321,
+          "origins": 138,
+          "scope": "conditional on these training seeds; circular blocks over shared target origins",
+          "seed_improvements": [
+            -0.34104741444983905,
+            -0.3446445709072652,
+            -0.34987444683419183
+          ],
+          "training_seeds": 3,
+          "upper95": -0.2696649931980539
+        },
+        "training_seeds": 3,
+        "upper95": -0.29263405012516497
+      },
+      "forecast_only/same_gaussian_simple": {
+        "block_origins": 42,
+        "bootstrap_repeats": 2000,
+        "lower95": -0.040912937521519165,
+        "mean": -0.027660042716304428,
+        "origins": 138,
+        "relative_improvement": -0.05798086875778494,
+        "scope": "conditional on these training seeds; circular blocks over shared target origins",
+        "seed_improvements": [
+          -0.027950517113144335,
+          -0.02626794315085539,
+          -0.028761667884913567
+        ],
+        "sensitivity_block6": {
+          "block_origins": 6,
+          "bootstrap_repeats": 2000,
+          "lower95": -0.03970872337567023,
+          "mean": -0.027660042716304428,
+          "origins": 138,
+          "scope": "conditional on these training seeds; circular blocks over shared target origins",
+          "seed_improvements": [
+            -0.027950517113144335,
+            -0.02626794315085539,
+            -0.028761667884913567
+          ],
+          "training_seeds": 3,
+          "upper95": -0.016023669976061226
+        },
+        "training_seeds": 3,
+        "upper95": -0.017130507287465343
+      },
+      "forecast_only/same_original_simple": {
+        "block_origins": 42,
+        "bootstrap_repeats": 2000,
+        "lower95": -0.4042321917765138,
+        "mean": -0.3451888107304321,
+        "origins": 138,
+        "relative_improvement": -2.163842123668293,
+        "scope": "conditional on these training seeds; circular blocks over shared target origins",
+        "seed_improvements": [
+          -0.34104741444983905,
+          -0.3446445709072652,
+          -0.34987444683419183
+        ],
+        "sensitivity_block6": {
+          "block_origins": 6,
+          "bootstrap_repeats": 2000,
+          "lower95": -0.418993770678562,
+          "mean": -0.3451888107304321,
+          "origins": 138,
+          "scope": "conditional on these training seeds; circular blocks over shared target origins",
+          "seed_improvements": [
+            -0.34104741444983905,
+            -0.3446445709072652,
+            -0.34987444683419183
+          ],
+          "training_seeds": 3,
+          "upper95": -0.2696649931980539
+        },
+        "training_seeds": 3,
+        "upper95": -0.29263405012516497
+      },
+      "forecast_only/validation_simple": {
+        "block_origins": 42,
+        "bootstrap_repeats": 2000,
+        "lower95": -0.4042321917765138,
+        "mean": -0.3451888107304321,
+        "origins": 138,
+        "relative_improvement": -2.163842123668293,
+        "scope": "conditional on these training seeds; circular blocks over shared target origins",
+        "seed_improvements": [
+          -0.34104741444983905,
+          -0.3446445709072652,
+          -0.34987444683419183
+        ],
+        "sensitivity_block6": {
+          "block_origins": 6,
+          "bootstrap_repeats": 2000,
+          "lower95": -0.418993770678562,
+          "mean": -0.3451888107304321,
+          "origins": 138,
+          "scope": "conditional on these training seeds; circular blocks over shared target origins",
+          "seed_improvements": [
+            -0.34104741444983905,
+            -0.3446445709072652,
+            -0.34987444683419183
+          ],
+          "training_seeds": 3,
+          "upper95": -0.2696649931980539
+        },
+        "training_seeds": 3,
+        "upper95": -0.29263405012516497
+      },
+      "policy_only/legacy_joint": {
+        "block_origins": 42,
+        "bootstrap_repeats": 2000,
+        "lower95": 0.053743353746212,
+        "mean": 0.08170043946358765,
+        "origins": 138,
+        "relative_improvement": 0.33981675791368576,
+        "scope": "conditional on these training seeds; circular blocks over shared target origins",
+        "seed_improvements": [
+          0.08170683450025702,
+          0.07839438736074382,
+          0.08500009652976215
+        ],
+        "sensitivity_block6": {
+          "block_origins": 6,
+          "bootstrap_repeats": 2000,
+          "lower95": 0.05318579903903088,
+          "mean": 0.08170043946358765,
+          "origins": 138,
+          "scope": "conditional on these training seeds; circular blocks over shared target origins",
+          "seed_improvements": [
+            0.08170683450025702,
+            0.07839438736074382,
+            0.08500009652976215
+          ],
+          "training_seeds": 3,
+          "upper95": 0.11184623246620021
+        },
+        "training_seeds": 3,
+        "upper95": 0.10917442000778549
+      },
+      "policy_only/original_validation_simple": {
+        "block_origins": 42,
+        "bootstrap_repeats": 2000,
+        "lower95": -0.007815061945414106,
+        "mean": 0.0008013290732655824,
+        "origins": 138,
+        "relative_improvement": 0.005023191800403503,
+        "scope": "conditional on these training seeds; circular blocks over shared target origins",
+        "seed_improvements": [
+          0.0013741967653452347,
+          0.0003259238809779131,
+          0.000703866573473597
+        ],
+        "sensitivity_block6": {
+          "block_origins": 6,
+          "bootstrap_repeats": 2000,
+          "lower95": -0.00839702386087853,
+          "mean": 0.0008013290732655824,
+          "origins": 138,
+          "scope": "conditional on these training seeds; circular blocks over shared target origins",
+          "seed_improvements": [
+            0.0013741967653452347,
+            0.0003259238809779131,
+            0.000703866573473597
+          ],
+          "training_seeds": 3,
+          "upper95": 0.011918551561584959
+        },
+        "training_seeds": 3,
+        "upper95": 0.013030100699080494
+      },
+      "policy_only/same_gaussian_simple": {
+        "block_origins": 42,
+        "bootstrap_repeats": 2000,
+        "lower95": 0.2710854321322067,
+        "mean": 0.31833009708739324,
+        "origins": 138,
+        "relative_improvement": 0.6672822515200755,
+        "scope": "conditional on these training seeds; circular blocks over shared target origins",
+        "seed_improvements": [
+          0.31447109410204005,
+          0.3187025516373877,
+          0.3218166455227519
+        ],
+        "sensitivity_block6": {
+          "block_origins": 6,
+          "bootstrap_repeats": 2000,
+          "lower95": 0.24265475148096596,
+          "mean": 0.31833009708739324,
+          "origins": 138,
+          "scope": "conditional on these training seeds; circular blocks over shared target origins",
+          "seed_improvements": [
+            0.31447109410204005,
+            0.3187025516373877,
+            0.3218166455227519
+          ],
+          "training_seeds": 3,
+          "upper95": 0.39038819132904595
+        },
+        "training_seeds": 3,
+        "upper95": 0.3669457277807976
+      },
+      "policy_only/same_original_simple": {
+        "block_origins": 42,
+        "bootstrap_repeats": 2000,
+        "lower95": -0.007815061945414106,
+        "mean": 0.0008013290732655824,
+        "origins": 138,
+        "relative_improvement": 0.005023191800403503,
+        "scope": "conditional on these training seeds; circular blocks over shared target origins",
+        "seed_improvements": [
+          0.0013741967653452347,
+          0.0003259238809779131,
+          0.000703866573473597
+        ],
+        "sensitivity_block6": {
+          "block_origins": 6,
+          "bootstrap_repeats": 2000,
+          "lower95": -0.00839702386087853,
+          "mean": 0.0008013290732655824,
+          "origins": 138,
+          "scope": "conditional on these training seeds; circular blocks over shared target origins",
+          "seed_improvements": [
+            0.0013741967653452347,
+            0.0003259238809779131,
+            0.000703866573473597
+          ],
+          "training_seeds": 3,
+          "upper95": 0.011918551561584959
+        },
+        "training_seeds": 3,
+        "upper95": 0.013030100699080494
+      },
+      "policy_only/validation_simple": {
+        "block_origins": 42,
+        "bootstrap_repeats": 2000,
+        "lower95": -0.007815061945414106,
+        "mean": 0.0008013290732655824,
+        "origins": 138,
+        "relative_improvement": 0.005023191800403503,
+        "scope": "conditional on these training seeds; circular blocks over shared target origins",
+        "seed_improvements": [
+          0.0013741967653452347,
+          0.0003259238809779131,
+          0.000703866573473597
+        ],
+        "sensitivity_block6": {
+          "block_origins": 6,
+          "bootstrap_repeats": 2000,
+          "lower95": -0.00839702386087853,
+          "mean": 0.0008013290732655824,
+          "origins": 138,
+          "scope": "conditional on these training seeds; circular blocks over shared target origins",
+          "seed_improvements": [
+            0.0013741967653452347,
+            0.0003259238809779131,
+            0.000703866573473597
+          ],
+          "training_seeds": 3,
+          "upper95": 0.011918551561584959
+        },
+        "training_seeds": 3,
+        "upper95": 0.013030100699080494
+      },
+      "primary/legacy_joint": {
+        "block_origins": 42,
+        "bootstrap_repeats": 2000,
+        "lower95": 0.053743353746212,
+        "mean": 0.08170043946358765,
+        "origins": 138,
+        "relative_improvement": 0.33981675791368576,
+        "scope": "conditional on these training seeds; circular blocks over shared target origins",
+        "seed_improvements": [
+          0.08170683450025702,
+          0.07839438736074382,
+          0.08500009652976215
+        ],
+        "sensitivity_block6": {
+          "block_origins": 6,
+          "bootstrap_repeats": 2000,
+          "lower95": 0.05318579903903088,
+          "mean": 0.08170043946358765,
+          "origins": 138,
+          "scope": "conditional on these training seeds; circular blocks over shared target origins",
+          "seed_improvements": [
+            0.08170683450025702,
+            0.07839438736074382,
+            0.08500009652976215
+          ],
+          "training_seeds": 3,
+          "upper95": 0.11184623246620021
+        },
+        "training_seeds": 3,
+        "upper95": 0.10917442000778549
+      },
+      "primary/original_validation_simple": {
+        "block_origins": 42,
+        "bootstrap_repeats": 2000,
+        "lower95": -0.007815061945414106,
+        "mean": 0.0008013290732655824,
+        "origins": 138,
+        "relative_improvement": 0.005023191800403503,
+        "scope": "conditional on these training seeds; circular blocks over shared target origins",
+        "seed_improvements": [
+          0.0013741967653452347,
+          0.0003259238809779131,
+          0.000703866573473597
+        ],
+        "sensitivity_block6": {
+          "block_origins": 6,
+          "bootstrap_repeats": 2000,
+          "lower95": -0.00839702386087853,
+          "mean": 0.0008013290732655824,
+          "origins": 138,
+          "scope": "conditional on these training seeds; circular blocks over shared target origins",
+          "seed_improvements": [
+            0.0013741967653452347,
+            0.0003259238809779131,
+            0.000703866573473597
+          ],
+          "training_seeds": 3,
+          "upper95": 0.011918551561584959
+        },
+        "training_seeds": 3,
+        "upper95": 0.013030100699080494
+      },
+      "primary/same_gaussian_simple": {
+        "block_origins": 42,
+        "bootstrap_repeats": 2000,
+        "lower95": 0.2710854321322067,
+        "mean": 0.31833009708739324,
+        "origins": 138,
+        "relative_improvement": 0.6672822515200755,
+        "scope": "conditional on these training seeds; circular blocks over shared target origins",
+        "seed_improvements": [
+          0.31447109410204005,
+          0.3187025516373877,
+          0.3218166455227519
+        ],
+        "sensitivity_block6": {
+          "block_origins": 6,
+          "bootstrap_repeats": 2000,
+          "lower95": 0.24265475148096596,
+          "mean": 0.31833009708739324,
+          "origins": 138,
+          "scope": "conditional on these training seeds; circular blocks over shared target origins",
+          "seed_improvements": [
+            0.31447109410204005,
+            0.3187025516373877,
+            0.3218166455227519
+          ],
+          "training_seeds": 3,
+          "upper95": 0.39038819132904595
+        },
+        "training_seeds": 3,
+        "upper95": 0.3669457277807976
+      },
+      "primary/same_original_simple": {
+        "block_origins": 42,
+        "bootstrap_repeats": 2000,
+        "lower95": -0.007815061945414106,
+        "mean": 0.0008013290732655824,
+        "origins": 138,
+        "relative_improvement": 0.005023191800403503,
+        "scope": "conditional on these training seeds; circular blocks over shared target origins",
+        "seed_improvements": [
+          0.0013741967653452347,
+          0.0003259238809779131,
+          0.000703866573473597
+        ],
+        "sensitivity_block6": {
+          "block_origins": 6,
+          "bootstrap_repeats": 2000,
+          "lower95": -0.00839702386087853,
+          "mean": 0.0008013290732655824,
+          "origins": 138,
+          "scope": "conditional on these training seeds; circular blocks over shared target origins",
+          "seed_improvements": [
+            0.0013741967653452347,
+            0.0003259238809779131,
+            0.000703866573473597
+          ],
+          "training_seeds": 3,
+          "upper95": 0.011918551561584959
+        },
+        "training_seeds": 3,
+        "upper95": 0.013030100699080494
+      },
+      "primary/validation_simple": {
+        "block_origins": 42,
+        "bootstrap_repeats": 2000,
+        "lower95": -0.007815061945414106,
+        "mean": 0.0008013290732655824,
+        "origins": 138,
+        "relative_improvement": 0.005023191800403503,
+        "scope": "conditional on these training seeds; circular blocks over shared target origins",
+        "seed_improvements": [
+          0.0013741967653452347,
+          0.0003259238809779131,
+          0.000703866573473597
+        ],
+        "sensitivity_block6": {
+          "block_origins": 6,
+          "bootstrap_repeats": 2000,
+          "lower95": -0.00839702386087853,
+          "mean": 0.0008013290732655824,
+          "origins": 138,
+          "scope": "conditional on these training seeds; circular blocks over shared target origins",
+          "seed_improvements": [
+            0.0013741967653452347,
+            0.0003259238809779131,
+            0.000703866573473597
+          ],
+          "training_seeds": 3,
+          "upper95": 0.011918551561584959
+        },
+        "training_seeds": 3,
+        "upper95": 0.013030100699080494
+      }
+    },
+    "Taylor/outage_2811": {
+      "combined/legacy_joint": {
+        "block_origins": 42,
+        "bootstrap_repeats": 2000,
+        "lower95": -0.3030932171920833,
+        "mean": -0.24265312954948598,
+        "origins": 138,
+        "relative_improvement": -1.0021171068679102,
+        "scope": "conditional on these training seeds; circular blocks over shared target origins",
+        "seed_improvements": [
+          -0.23964669454858858,
+          -0.24757962105057876,
+          -0.2407330730492905
+        ],
+        "sensitivity_block6": {
+          "block_origins": 6,
+          "bootstrap_repeats": 2000,
+          "lower95": -0.31905815792647263,
+          "mean": -0.24265312954948598,
+          "origins": 138,
+          "scope": "conditional on these training seeds; circular blocks over shared target origins",
+          "seed_improvements": [
+            -0.23964669454858858,
+            -0.24757962105057876,
+            -0.2407330730492905
+          ],
+          "training_seeds": 3,
+          "upper95": -0.16125349568662295
+        },
+        "training_seeds": 3,
+        "upper95": -0.18727627926845292
+      },
+      "combined/original_validation_simple": {
+        "block_origins": 42,
+        "bootstrap_repeats": 2000,
+        "lower95": -0.3541680849359317,
+        "mean": -0.30269536061490754,
+        "origins": 138,
+        "relative_improvement": -1.6622638714134583,
+        "scope": "conditional on these training seeds; circular blocks over shared target origins",
+        "seed_improvements": [
+          -0.29995060059230993,
+          -0.30305412786899816,
+          -0.3050813533834146
+        ],
+        "sensitivity_block6": {
+          "block_origins": 6,
+          "bootstrap_repeats": 2000,
+          "lower95": -0.3790134456351585,
+          "mean": -0.30269536061490754,
+          "origins": 138,
+          "scope": "conditional on these training seeds; circular blocks over shared target origins",
+          "seed_improvements": [
+            -0.29995060059230993,
+            -0.30305412786899816,
+            -0.3050813533834146
+          ],
+          "training_seeds": 3,
+          "upper95": -0.22609384286159492
+        },
+        "training_seeds": 3,
+        "upper95": -0.2511647326702598
+      },
+      "combined/same_gaussian_simple": {
+        "block_origins": 42,
+        "bootstrap_repeats": 2000,
+        "lower95": 0.0,
+        "mean": 0.0,
+        "origins": 138,
+        "relative_improvement": 0.0,
+        "scope": "conditional on these training seeds; circular blocks over shared target origins",
+        "seed_improvements": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "sensitivity_block6": {
+          "block_origins": 6,
+          "bootstrap_repeats": 2000,
+          "lower95": 0.0,
+          "mean": 0.0,
+          "origins": 138,
+          "scope": "conditional on these training seeds; circular blocks over shared target origins",
+          "seed_improvements": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "training_seeds": 3,
+          "upper95": 0.0
+        },
+        "training_seeds": 3,
+        "upper95": 0.0
+      },
+      "combined/same_original_simple": {
+        "block_origins": 42,
+        "bootstrap_repeats": 2000,
+        "lower95": -0.3541680849359317,
+        "mean": -0.30269536061490754,
+        "origins": 138,
+        "relative_improvement": -1.6622638714134583,
+        "scope": "conditional on these training seeds; circular blocks over shared target origins",
+        "seed_improvements": [
+          -0.29995060059230993,
+          -0.30305412786899816,
+          -0.3050813533834146
+        ],
+        "sensitivity_block6": {
+          "block_origins": 6,
+          "bootstrap_repeats": 2000,
+          "lower95": -0.3790134456351585,
+          "mean": -0.30269536061490754,
+          "origins": 138,
+          "scope": "conditional on these training seeds; circular blocks over shared target origins",
+          "seed_improvements": [
+            -0.29995060059230993,
+            -0.30305412786899816,
+            -0.3050813533834146
+          ],
+          "training_seeds": 3,
+          "upper95": -0.22609384286159492
+        },
+        "training_seeds": 3,
+        "upper95": -0.2511647326702598
+      },
+      "combined/validation_simple": {
+        "block_origins": 42,
+        "bootstrap_repeats": 2000,
+        "lower95": -0.3541680849359317,
+        "mean": -0.30269536061490754,
+        "origins": 138,
+        "relative_improvement": -1.6622638714134583,
+        "scope": "conditional on these training seeds; circular blocks over shared target origins",
+        "seed_improvements": [
+          -0.29995060059230993,
+          -0.30305412786899816,
+          -0.3050813533834146
+        ],
+        "sensitivity_block6": {
+          "block_origins": 6,
+          "bootstrap_repeats": 2000,
+          "lower95": -0.3790134456351585,
+          "mean": -0.30269536061490754,
+          "origins": 138,
+          "scope": "conditional on these training seeds; circular blocks over shared target origins",
+          "seed_improvements": [
+            -0.29995060059230993,
+            -0.30305412786899816,
+            -0.3050813533834146
+          ],
+          "training_seeds": 3,
+          "upper95": -0.22609384286159492
+        },
+        "training_seeds": 3,
+        "upper95": -0.2511647326702598
+      },
+      "forecast_only/legacy_joint": {
+        "block_origins": 42,
+        "bootstrap_repeats": 2000,
+        "lower95": -0.3368757700008198,
+        "mean": -0.26592502881455893,
+        "origins": 138,
+        "relative_improvement": -1.0982261840767427,
+        "scope": "conditional on these training seeds; circular blocks over shared target origins",
+        "seed_improvements": [
+          -0.2637695793484687,
+          -0.27095339599786405,
+          -0.263052111097344
+        ],
+        "sensitivity_block6": {
+          "block_origins": 6,
+          "bootstrap_repeats": 2000,
+          "lower95": -0.3477477781895022,
+          "mean": -0.26592502881455893,
+          "origins": 138,
+          "scope": "conditional on these training seeds; circular blocks over shared target origins",
+          "seed_improvements": [
+            -0.2637695793484687,
+            -0.27095339599786405,
+            -0.263052111097344
+          ],
+          "training_seeds": 3,
+          "upper95": -0.1808865498235554
+        },
+        "training_seeds": 3,
+        "upper95": -0.2042529912141905
+      },
+      "forecast_only/original_validation_simple": {
+        "block_origins": 42,
+        "bootstrap_repeats": 2000,
+        "lower95": -0.38520936786410803,
+        "mean": -0.3259672598799806,
+        "origins": 138,
+        "relative_improvement": -1.790062451771347,
+        "scope": "conditional on these training seeds; circular blocks over shared target origins",
+        "seed_improvements": [
+          -0.32407348539219,
+          -0.32642790281628353,
+          -0.3274003914314681
+        ],
+        "sensitivity_block6": {
+          "block_origins": 6,
+          "bootstrap_repeats": 2000,
+          "lower95": -0.4059179472276708,
+          "mean": -0.3259672598799806,
+          "origins": 138,
+          "scope": "conditional on these training seeds; circular blocks over shared target origins",
+          "seed_improvements": [
+            -0.32407348539219,
+            -0.32642790281628353,
+            -0.3274003914314681
+          ],
+          "training_seeds": 3,
+          "upper95": -0.24347461043138025
+        },
+        "training_seeds": 3,
+        "upper95": -0.2701557130652446
+      },
+      "forecast_only/same_gaussian_simple": {
+        "block_origins": 42,
+        "bootstrap_repeats": 2000,
+        "lower95": -0.03647430982764787,
+        "mean": -0.023271899265072962,
+        "origins": 138,
+        "relative_improvement": -0.04800372409743024,
+        "scope": "conditional on these training seeds; circular blocks over shared target origins",
+        "seed_improvements": [
+          -0.024122884799880052,
+          -0.0233737749472853,
+          -0.022319038048053536
+        ],
+        "sensitivity_block6": {
+          "block_origins": 6,
+          "bootstrap_repeats": 2000,
+          "lower95": -0.03659536052115286,
+          "mean": -0.023271899265072962,
+          "origins": 138,
+          "scope": "conditional on these training seeds; circular blocks over shared target origins",
+          "seed_improvements": [
+            -0.024122884799880052,
+            -0.0233737749472853,
+            -0.022319038048053536
+          ],
+          "training_seeds": 3,
+          "upper95": -0.010818922254669398
+        },
+        "training_seeds": 3,
+        "upper95": -0.012275168090070673
+      },
+      "forecast_only/same_original_simple": {
+        "block_origins": 42,
+        "bootstrap_repeats": 2000,
+        "lower95": -0.38520936786410803,
+        "mean": -0.3259672598799806,
+        "origins": 138,
+        "relative_improvement": -1.790062451771347,
+        "scope": "conditional on these training seeds; circular blocks over shared target origins",
+        "seed_improvements": [
+          -0.32407348539219,
+          -0.32642790281628353,
+          -0.3274003914314681
+        ],
+        "sensitivity_block6": {
+          "block_origins": 6,
+          "bootstrap_repeats": 2000,
+          "lower95": -0.4059179472276708,
+          "mean": -0.3259672598799806,
+          "origins": 138,
+          "scope": "conditional on these training seeds; circular blocks over shared target origins",
+          "seed_improvements": [
+            -0.32407348539219,
+            -0.32642790281628353,
+            -0.3274003914314681
+          ],
+          "training_seeds": 3,
+          "upper95": -0.24347461043138025
+        },
+        "training_seeds": 3,
+        "upper95": -0.2701557130652446
+      },
+      "forecast_only/validation_simple": {
+        "block_origins": 42,
+        "bootstrap_repeats": 2000,
+        "lower95": -0.38520936786410803,
+        "mean": -0.3259672598799806,
+        "origins": 138,
+        "relative_improvement": -1.790062451771347,
+        "scope": "conditional on these training seeds; circular blocks over shared target origins",
+        "seed_improvements": [
+          -0.32407348539219,
+          -0.32642790281628353,
+          -0.3274003914314681
+        ],
+        "sensitivity_block6": {
+          "block_origins": 6,
+          "bootstrap_repeats": 2000,
+          "lower95": -0.4059179472276708,
+          "mean": -0.3259672598799806,
+          "origins": 138,
+          "scope": "conditional on these training seeds; circular blocks over shared target origins",
+          "seed_improvements": [
+            -0.32407348539219,
+            -0.32642790281628353,
+            -0.3274003914314681
+          ],
+          "training_seeds": 3,
+          "upper95": -0.24347461043138025
+        },
+        "training_seeds": 3,
+        "upper95": -0.2701557130652446
+      },
+      "policy_only/legacy_joint": {
+        "block_origins": 42,
+        "bootstrap_repeats": 2000,
+        "lower95": 0.04519357150960831,
+        "mean": 0.07023607738696763,
+        "origins": 138,
+        "relative_improvement": 0.2900633294920047,
+        "scope": "conditional on these training seeds; circular blocks over shared target origins",
+        "seed_improvements": [
+          0.07538422056844041,
+          0.06111511756262943,
+          0.07420889402983305
+        ],
+        "sensitivity_block6": {
+          "block_origins": 6,
+          "bootstrap_repeats": 2000,
+          "lower95": 0.04001954195166506,
+          "mean": 0.07023607738696763,
+          "origins": 138,
+          "scope": "conditional on these training seeds; circular blocks over shared target origins",
+          "seed_improvements": [
+            0.07538422056844041,
+            0.06111511756262943,
+            0.07420889402983305
+          ],
+          "training_seeds": 3,
+          "upper95": 0.10097897623890843
+        },
+        "training_seeds": 3,
+        "upper95": 0.09586513769080231
+      },
+      "policy_only/original_validation_simple": {
+        "block_origins": 42,
+        "bootstrap_repeats": 2000,
+        "lower95": -0.007915715184274313,
+        "mean": 0.01019384632154599,
+        "origins": 138,
+        "relative_improvement": 0.05597992125358117,
+        "scope": "conditional on these training seeds; circular blocks over shared target origins",
+        "seed_improvements": [
+          0.01508031452471905,
+          0.00564061074420999,
+          0.009860613695708929
+        ],
+        "sensitivity_block6": {
+          "block_origins": 6,
+          "bootstrap_repeats": 2000,
+          "lower95": -0.008674620477899273,
+          "mean": 0.01019384632154599,
+          "origins": 138,
+          "scope": "conditional on these training seeds; circular blocks over shared target origins",
+          "seed_improvements": [
+            0.01508031452471905,
+            0.00564061074420999,
+            0.009860613695708929
+          ],
+          "training_seeds": 3,
+          "upper95": 0.031817645180369024
+        },
+        "training_seeds": 3,
+        "upper95": 0.03378001099711865
+      },
+      "policy_only/same_gaussian_simple": {
+        "block_origins": 42,
+        "bootstrap_repeats": 2000,
+        "lower95": 0.27114222610334243,
+        "mean": 0.31288920693645356,
+        "origins": 138,
+        "relative_improvement": 0.6454070203622542,
+        "scope": "conditional on these training seeds; circular blocks over shared target origins",
+        "seed_improvements": [
+          0.3150309151170291,
+          0.3086947386132082,
+          0.3149419670791236
+        ],
+        "sensitivity_block6": {
+          "block_origins": 6,
+          "bootstrap_repeats": 2000,
+          "lower95": 0.23928412993912287,
+          "mean": 0.31288920693645356,
+          "origins": 138,
+          "scope": "conditional on these training seeds; circular blocks over shared target origins",
+          "seed_improvements": [
+            0.3150309151170291,
+            0.3086947386132082,
+            0.3149419670791236
+          ],
+          "training_seeds": 3,
+          "upper95": 0.38558785405578355
+        },
+        "training_seeds": 3,
+        "upper95": 0.36015547653524105
+      },
+      "policy_only/same_original_simple": {
+        "block_origins": 42,
+        "bootstrap_repeats": 2000,
+        "lower95": -0.007915715184274313,
+        "mean": 0.01019384632154599,
+        "origins": 138,
+        "relative_improvement": 0.05597992125358117,
+        "scope": "conditional on these training seeds; circular blocks over shared target origins",
+        "seed_improvements": [
+          0.01508031452471905,
+          0.00564061074420999,
+          0.009860613695708929
+        ],
+        "sensitivity_block6": {
+          "block_origins": 6,
+          "bootstrap_repeats": 2000,
+          "lower95": -0.008674620477899273,
+          "mean": 0.01019384632154599,
+          "origins": 138,
+          "scope": "conditional on these training seeds; circular blocks over shared target origins",
+          "seed_improvements": [
+            0.01508031452471905,
+            0.00564061074420999,
+            0.009860613695708929
+          ],
+          "training_seeds": 3,
+          "upper95": 0.031817645180369024
+        },
+        "training_seeds": 3,
+        "upper95": 0.03378001099711865
+      },
+      "policy_only/validation_simple": {
+        "block_origins": 42,
+        "bootstrap_repeats": 2000,
+        "lower95": -0.007915715184274313,
+        "mean": 0.01019384632154599,
+        "origins": 138,
+        "relative_improvement": 0.05597992125358117,
+        "scope": "conditional on these training seeds; circular blocks over shared target origins",
+        "seed_improvements": [
+          0.01508031452471905,
+          0.00564061074420999,
+          0.009860613695708929
+        ],
+        "sensitivity_block6": {
+          "block_origins": 6,
+          "bootstrap_repeats": 2000,
+          "lower95": -0.008674620477899273,
+          "mean": 0.01019384632154599,
+          "origins": 138,
+          "scope": "conditional on these training seeds; circular blocks over shared target origins",
+          "seed_improvements": [
+            0.01508031452471905,
+            0.00564061074420999,
+            0.009860613695708929
+          ],
+          "training_seeds": 3,
+          "upper95": 0.031817645180369024
+        },
+        "training_seeds": 3,
+        "upper95": 0.03378001099711865
+      },
+      "primary/legacy_joint": {
+        "block_origins": 42,
+        "bootstrap_repeats": 2000,
+        "lower95": 0.04519357150960831,
+        "mean": 0.07023607738696763,
+        "origins": 138,
+        "relative_improvement": 0.2900633294920047,
+        "scope": "conditional on these training seeds; circular blocks over shared target origins",
+        "seed_improvements": [
+          0.07538422056844041,
+          0.06111511756262943,
+          0.07420889402983305
+        ],
+        "sensitivity_block6": {
+          "block_origins": 6,
+          "bootstrap_repeats": 2000,
+          "lower95": 0.04001954195166506,
+          "mean": 0.07023607738696763,
+          "origins": 138,
+          "scope": "conditional on these training seeds; circular blocks over shared target origins",
+          "seed_improvements": [
+            0.07538422056844041,
+            0.06111511756262943,
+            0.07420889402983305
+          ],
+          "training_seeds": 3,
+          "upper95": 0.10097897623890843
+        },
+        "training_seeds": 3,
+        "upper95": 0.09586513769080231
+      },
+      "primary/original_validation_simple": {
+        "block_origins": 42,
+        "bootstrap_repeats": 2000,
+        "lower95": -0.007915715184274313,
+        "mean": 0.01019384632154599,
+        "origins": 138,
+        "relative_improvement": 0.05597992125358117,
+        "scope": "conditional on these training seeds; circular blocks over shared target origins",
+        "seed_improvements": [
+          0.01508031452471905,
+          0.00564061074420999,
+          0.009860613695708929
+        ],
+        "sensitivity_block6": {
+          "block_origins": 6,
+          "bootstrap_repeats": 2000,
+          "lower95": -0.008674620477899273,
+          "mean": 0.01019384632154599,
+          "origins": 138,
+          "scope": "conditional on these training seeds; circular blocks over shared target origins",
+          "seed_improvements": [
+            0.01508031452471905,
+            0.00564061074420999,
+            0.009860613695708929
+          ],
+          "training_seeds": 3,
+          "upper95": 0.031817645180369024
+        },
+        "training_seeds": 3,
+        "upper95": 0.03378001099711865
+      },
+      "primary/same_gaussian_simple": {
+        "block_origins": 42,
+        "bootstrap_repeats": 2000,
+        "lower95": 0.27114222610334243,
+        "mean": 0.31288920693645356,
+        "origins": 138,
+        "relative_improvement": 0.6454070203622542,
+        "scope": "conditional on these training seeds; circular blocks over shared target origins",
+        "seed_improvements": [
+          0.3150309151170291,
+          0.3086947386132082,
+          0.3149419670791236
+        ],
+        "sensitivity_block6": {
+          "block_origins": 6,
+          "bootstrap_repeats": 2000,
+          "lower95": 0.23928412993912287,
+          "mean": 0.31288920693645356,
+          "origins": 138,
+          "scope": "conditional on these training seeds; circular blocks over shared target origins",
+          "seed_improvements": [
+            0.3150309151170291,
+            0.3086947386132082,
+            0.3149419670791236
+          ],
+          "training_seeds": 3,
+          "upper95": 0.38558785405578355
+        },
+        "training_seeds": 3,
+        "upper95": 0.36015547653524105
+      },
+      "primary/same_original_simple": {
+        "block_origins": 42,
+        "bootstrap_repeats": 2000,
+        "lower95": -0.007915715184274313,
+        "mean": 0.01019384632154599,
+        "origins": 138,
+        "relative_improvement": 0.05597992125358117,
+        "scope": "conditional on these training seeds; circular blocks over shared target origins",
+        "seed_improvements": [
+          0.01508031452471905,
+          0.00564061074420999,
+          0.009860613695708929
+        ],
+        "sensitivity_block6": {
+          "block_origins": 6,
+          "bootstrap_repeats": 2000,
+          "lower95": -0.008674620477899273,
+          "mean": 0.01019384632154599,
+          "origins": 138,
+          "scope": "conditional on these training seeds; circular blocks over shared target origins",
+          "seed_improvements": [
+            0.01508031452471905,
+            0.00564061074420999,
+            0.009860613695708929
+          ],
+          "training_seeds": 3,
+          "upper95": 0.031817645180369024
+        },
+        "training_seeds": 3,
+        "upper95": 0.03378001099711865
+      },
+      "primary/validation_simple": {
+        "block_origins": 42,
+        "bootstrap_repeats": 2000,
+        "lower95": -0.007915715184274313,
+        "mean": 0.01019384632154599,
+        "origins": 138,
+        "relative_improvement": 0.05597992125358117,
+        "scope": "conditional on these training seeds; circular blocks over shared target origins",
+        "seed_improvements": [
+          0.01508031452471905,
+          0.00564061074420999,
+          0.009860613695708929
+        ],
+        "sensitivity_block6": {
+          "block_origins": 6,
+          "bootstrap_repeats": 2000,
+          "lower95": -0.008674620477899273,
+          "mean": 0.01019384632154599,
+          "origins": 138,
+          "scope": "conditional on these training seeds; circular blocks over shared target origins",
+          "seed_improvements": [
+            0.01508031452471905,
+            0.00564061074420999,
+            0.009860613695708929
+          ],
+          "training_seeds": 3,
+          "upper95": 0.031817645180369024
+        },
+        "training_seeds": 3,
+        "upper95": 0.03378001099711865
+      }
+    }
+  },
+  "gate": {
+    "passed": false,
+    "reasons": [
+      "MSFT/mixed_2811/legacy_joint: not every seed improves",
+      "MSFT/mixed_2811/validation_simple: confidence interval does not establish improvement",
+      "MSFT/mixed_2811/validation_simple: practical improvement below 1.0%",
+      "MSFT/mixed_2811/validation_simple: not every seed improves",
+      "MSFT/mixed_2811: MAE regression exceeds limit",
+      "MSFT/mixed_3811/legacy_joint: not every seed improves",
+      "MSFT/mixed_3811/validation_simple: confidence interval does not establish improvement",
+      "MSFT/mixed_3811/validation_simple: practical improvement below 1.0%",
+      "MSFT/mixed_3811/validation_simple: not every seed improves",
+      "MSFT/mixed_3811: MAE regression exceeds limit",
+      "MSFT/outage_2811/legacy_joint: not every seed improves",
+      "MSFT/outage_2811/validation_simple: confidence interval does not establish improvement",
+      "MSFT/outage_2811/validation_simple: practical improvement below 1.0%",
+      "MSFT/outage_2811/validation_simple: not every seed improves",
+      "MSFT/outage_2811: MAE regression exceeds limit",
+      "Taylor/mixed_3811/validation_simple: confidence interval does not establish improvement",
+      "Taylor/mixed_3811/validation_simple: practical improvement below 1.0%",
+      "Taylor/outage_2811/validation_simple: confidence interval does not establish improvement"
+    ],
+    "scope": "all predeclared new-dataset conditions; not universal superiority"
+  },
+  "general_goal_achieved": false,
+  "schema": "asofcast.posterior-candidate-confirmation.v1",
+  "scope": "predeclared datasets trained separately; simulated arrivals/costs; not universal or operational superiority"
+}

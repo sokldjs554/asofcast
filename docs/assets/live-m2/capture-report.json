@@ -1,8 +1,8 @@
 {
   "status": "captured",
   "source_url": "https://asofcast.onrender.com",
-  "ui_version": "interview-clarity-20260928",
-  "captured_at_unix": 1790614695,
+  "ui_version": "dataflow-20261004",
+  "captured_at_unix": 1791124147,
   "browser": "Chromium via Playwright",
   "public_http_verified": true,
   "model_run_id": "bd4b198464ea3244",
@@ -28,7 +28,7 @@
   ],
   "video": "asofcast-m2-demo.webm",
   "comparison_evidence": "comparison-example.json",
-  "video_start_offset_seconds": 2.806,
+  "video_start_offset_seconds": 3.117,
   "scopes": [
     "real HTTP assets and model API; not the local TestClient bridge",
     "cold start and expert/mobile checks excluded from short video",

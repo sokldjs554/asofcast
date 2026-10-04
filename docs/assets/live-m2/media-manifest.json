@@ -1,22 +1,22 @@
 {
-  "capture_workflow_run": 36409726173,
-  "capture_attempt": 2,
-  "artifact_id": 10984623039,
-  "artifact_sha256": "8c82cbac68d1404fb27f7e40b9370ed6b5cdf80b0889da6cda468c2a8b3a1dd7",
-  "capture_workflow_source_commit": "14219c7326e67a80bb36f07d7bcaf1cd2679e1bb",
-  "captured_code_commit": "70d70c25c8fcb39adb5548802bf6befb8e7877b8",
-  "render_deploy_id": "dep-dat9nqbtqb8s73aj8j0g",
+  "capture_workflow_run": 37209346580,
+  "capture_attempt": 1,
+  "artifact_id": 11305674901,
+  "artifact_sha256": "e10ba66b3cfce58ad6ef12307a19a21c7582de6cfde622538b21ee05c3f12241",
+  "capture_workflow_source_commit": "9b8d65dba64e5299144f16805fb6e6a3ce06e54d",
+  "captured_code_commit": "9b8d65dba64e5299144f16805fb6e6a3ce06e54d",
+  "render_deploy_id": "dep-db164p0jo6nc73a7t38g",
   "source_url": "https://asofcast.onrender.com",
-  "ui_version": "interview-clarity-20260928",
+  "ui_version": "dataflow-20261004",
   "model_run_id": "bd4b198464ea3244",
   "video": {
     "file": "asofcast-m2-demo.mp4",
-    "duration_seconds": 28.88,
+    "duration_seconds": 28.6,
     "width": 1440,
     "height": 1000,
     "codec": "H.264",
     "fps": "25/1",
-    "removed_leading_seconds": 2.806,
+    "removed_leading_seconds": 3.117,
     "playback_speed": 1,
     "edit": "Workflow removes only the initial load interval. Public capture artifact bytes are retained unchanged."
   },
@@ -24,90 +24,186 @@
     "file": "asofcast-m2-demo.gif",
     "width": 800,
     "height": 556,
-    "frames": 116,
+    "frames": 114,
     "preview_fps": 4,
-    "duration_seconds": 29.0
+    "duration_seconds": 28.5
   },
   "files": [
     {
       "name": "asofcast-m2-demo.gif",
-      "bytes": 3392653,
-      "sha256": "21c769421fe744566b7ef5ede5e329b7811e2fb4a0420429f5610228fd2b0d5f"
+      "bytes": 3861576,
+      "sha256": "cb9cac2b0300cd09e98aafb6b7b605c331e138de0efea24fe7514c8a05d8b6ea",
+      "provenance": {
+        "kind": "capture_artifact",
+        "workflow_run": 37209346580,
+        "artifact_id": 11305674901,
+        "capture_date_utc": "2026-10-04"
+      }
     },
     {
       "name": "asofcast-m2-demo.mp4",
-      "bytes": 2671644,
-      "sha256": "9380d82897ec33f5500cde77e2703cd3942c678ead67c9efb70c0f46ab230900"
+      "bytes": 2697033,
+      "sha256": "e1480c4c48bfa360301664a7c888228fc26e1fb06f1128181a88025329bc9e11",
+      "provenance": {
+        "kind": "capture_artifact",
+        "workflow_run": 37209346580,
+        "artifact_id": 11305674901,
+        "capture_date_utc": "2026-10-04"
+      }
     },
     {
       "name": "browser-ett-check.json",
       "bytes": 1164,
-      "sha256": "b165a347ee36d3817c66d291dae4fd0db54cb576b8dd7ccaef9a378617c9f63c"
+      "sha256": "b165a347ee36d3817c66d291dae4fd0db54cb576b8dd7ccaef9a378617c9f63c",
+      "provenance": {
+        "kind": "historical_browser_check",
+        "artifact_id": 10964215395,
+        "capture_date_utc": "2026-09-28",
+        "artifact_sha256": "aee687b6fd9e1d3852a419debfecbb4e7bbebb8c4f1e263c35ab29a3e43cc991"
+      }
     },
     {
       "name": "browser-synthetic-check.json",
       "bytes": 1135,
-      "sha256": "5fd33ada88cc2a5ae0f36fd64e1e2da7153934794884bfee9233570fb16c95bc"
+      "sha256": "5fd33ada88cc2a5ae0f36fd64e1e2da7153934794884bfee9233570fb16c95bc",
+      "provenance": {
+        "kind": "historical_browser_check",
+        "artifact_id": 10964215395,
+        "capture_date_utc": "2026-09-28",
+        "artifact_sha256": "aee687b6fd9e1d3852a419debfecbb4e7bbebb8c4f1e263c35ab29a3e43cc991"
+      }
     },
     {
       "name": "capture-report.json",
-      "bytes": 1616,
-      "sha256": "4e57d457cb855e30241ba179080e12b2a3c3a544bc4801ffe4e8a1f507bcac2a"
+      "bytes": 1607,
+      "sha256": "b05dc5c24f4048ce1e8d24b6d7cfce61b6dd460c99e8a675171073e73f8850cc",
+      "provenance": {
+        "kind": "capture_artifact",
+        "workflow_run": 37209346580,
+        "artifact_id": 11305674901,
+        "capture_date_utc": "2026-10-04"
+      }
     },
     {
       "name": "comparison-example.json",
       "bytes": 1550,
-      "sha256": "977ae9deeecd867dd54d618b3caa1b7785593e7d3d4eb8e74e339a3d1b178e79"
+      "sha256": "977ae9deeecd867dd54d618b3caa1b7785593e7d3d4eb8e74e339a3d1b178e79",
+      "provenance": {
+        "kind": "capture_artifact",
+        "workflow_run": 37209346580,
+        "artifact_id": 11305674901,
+        "capture_date_utc": "2026-10-04"
+      }
     },
     {
       "name": "m2-after-acquisition.png",
-      "bytes": 273549,
-      "sha256": "b61651c1c764e40b14c5b494d3c3830dc9f7c993e47458900f622baa688436e0"
+      "bytes": 256232,
+      "sha256": "79921204f231e1fe56858355f3b2ef3b25fd4124c6e5d59ad6fc7255dfff916b",
+      "provenance": {
+        "kind": "capture_artifact",
+        "workflow_run": 37209346580,
+        "artifact_id": 11305674901,
+        "capture_date_utc": "2026-10-04"
+      }
     },
     {
       "name": "m2-choice-audit.png",
-      "bytes": 230575,
-      "sha256": "f25b7495640f4c06e53c807fca61353de03d0b1a58bcd3bff6941b2cb8c49f02"
+      "bytes": 234019,
+      "sha256": "26cb2695d37181b474f3f3622ac6f72565eda330e7525342e9b70efb8d0f1231",
+      "provenance": {
+        "kind": "capture_artifact",
+        "workflow_run": 37209346580,
+        "artifact_id": 11305674901,
+        "capture_date_utc": "2026-10-04"
+      }
     },
     {
       "name": "m2-choice-comparison.png",
-      "bytes": 235007,
-      "sha256": "eb1893cd1f7e3d917643cfe38a3b28b3630893a90499f9ede04e3b748799c1c1"
+      "bytes": 232712,
+      "sha256": "6768c5e87e80a87506ce4613edf90177b77dc43f95b39153657c090f8d88839f",
+      "provenance": {
+        "kind": "capture_artifact",
+        "workflow_run": 37209346580,
+        "artifact_id": 11305674901,
+        "capture_date_utc": "2026-10-04"
+      }
     },
     {
       "name": "m2-counterfactual.png",
-      "bytes": 103872,
-      "sha256": "5ee6d864ef7cda93fb7f3dd11a47e528c9b1bb6163a04e5353ddd967c990af55"
+      "bytes": 104319,
+      "sha256": "d6c1715d9589b9b8519f510a88bcb97d7246efde13be471f61cd65583a381525",
+      "provenance": {
+        "kind": "capture_artifact",
+        "workflow_run": 37209346580,
+        "artifact_id": 11305674901,
+        "capture_date_utc": "2026-10-04"
+      }
     },
     {
       "name": "m2-decision-console.png",
-      "bytes": 329519,
-      "sha256": "4e981e2894d8e016f6aaf9c5da047dae18796280f3d3da6f7e55f73fec6cd981"
+      "bytes": 329524,
+      "sha256": "ef7a6cfa4db46fa538efeade858e56304992da44f1efd31cc7a150e670c0039a",
+      "provenance": {
+        "kind": "capture_artifact",
+        "workflow_run": 37209346580,
+        "artifact_id": 11305674901,
+        "capture_date_utc": "2026-10-04"
+      }
     },
     {
       "name": "m2-full.png",
-      "bytes": 710985,
-      "sha256": "2474b6115e7a521278c5f63f448a5a0a94f9aff92cd7f92e13155abf71841e8d"
+      "bytes": 751738,
+      "sha256": "7d97ff174b052553ba89fe35d8d9bf3fdeda340ce6cb15244cc35f0aea378005",
+      "provenance": {
+        "kind": "capture_artifact",
+        "workflow_run": 37209346580,
+        "artifact_id": 11305674901,
+        "capture_date_utc": "2026-10-04"
+      }
     },
     {
       "name": "m2-mobile.png",
       "bytes": 136598,
-      "sha256": "051b408d45a757c0b461c3d81ff62dec7f7e04a2411bfc4c117f7db908d11c25"
+      "sha256": "051b408d45a757c0b461c3d81ff62dec7f7e04a2411bfc4c117f7db908d11c25",
+      "provenance": {
+        "kind": "capture_artifact",
+        "workflow_run": 37209346580,
+        "artifact_id": 11305674901,
+        "capture_date_utc": "2026-10-04"
+      }
     },
     {
       "name": "m2-pareto.png",
-      "bytes": 128404,
-      "sha256": "cb65f2ccf14b7034bf318cfac9f2599680a850f385d6d783e870d70094ad008f"
+      "bytes": 128845,
+      "sha256": "32f9c1142edea633dd3c4b78a760c8ed450210a2a581ec9e77daa5837ffb3e19",
+      "provenance": {
+        "kind": "capture_artifact",
+        "workflow_run": 37209346580,
+        "artifact_id": 11305674901,
+        "capture_date_utc": "2026-10-04"
+      }
     },
     {
       "name": "m2-recommended-action.png",
-      "bytes": 271619,
-      "sha256": "260b30cbb2534a29a970e40375869b2e48e9c677a030e8af62e425e3e1907380"
+      "bytes": 254163,
+      "sha256": "db3e627fecb5c1e2be4e9840d7bc4103390ba829b9bfd731a7425fd494387fb1",
+      "provenance": {
+        "kind": "capture_artifact",
+        "workflow_run": 37209346580,
+        "artifact_id": 11305674901,
+        "capture_date_utc": "2026-10-04"
+      }
     },
     {
       "name": "m2-revision.png",
-      "bytes": 118909,
-      "sha256": "02106a1bad29383e974893d98c3ed5b5a7853945dfa53c786c53a48ac2bd8ead"
+      "bytes": 118905,
+      "sha256": "66018b49694a8d3ad9f3088b6f74a91b771d0a20f7e9364aa8fff67c832c9654",
+      "provenance": {
+        "kind": "capture_artifact",
+        "workflow_run": 37209346580,
+        "artifact_id": 11305674901,
+        "capture_date_utc": "2026-10-04"
+      }
     }
   ]
 }
