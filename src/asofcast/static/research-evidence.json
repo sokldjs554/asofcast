@@ -1,0 +1,63 @@
+{
+  "schema": "asofcast.demo-research-evidence.v1",
+  "research_date": "2026-10-02",
+  "candidate_id": "posterior-risk-20261002",
+  "status": "rejected",
+  "gate_passed": false,
+  "evaluation_sha256": "fbb24ac2abcaef871aaff17e1a89a0908b2e0ca43ba55ad1076901d55fadcf21",
+  "aggregate_sha256": "4c5fbc60be75fb081c2c33ee1004ab4cf40cea2a242e2f261af9c5c7e88ae2a4",
+  "total_conditions": 6,
+  "passed_conditions": 1,
+  "training_seeds": 3,
+  "rows": [
+    {
+      "condition": "Taylor/mixed_2811",
+      "improvement_percent": 5.818822343232575,
+      "lower95": 0.0025132519982398174,
+      "upper95": 0.0172717195814966,
+      "improved_seeds": 3,
+      "passed": true
+    },
+    {
+      "condition": "Taylor/mixed_3811",
+      "improvement_percent": 0.5023191800403503,
+      "lower95": -0.007815061945414106,
+      "upper95": 0.013030100699080494,
+      "improved_seeds": 3,
+      "passed": false
+    },
+    {
+      "condition": "Taylor/outage_2811",
+      "improvement_percent": 5.597992125358117,
+      "lower95": -0.007915715184274313,
+      "upper95": 0.03378001099711865,
+      "improved_seeds": 3,
+      "passed": false
+    },
+    {
+      "condition": "MSFT/mixed_2811",
+      "improvement_percent": 0.0,
+      "lower95": 0.0,
+      "upper95": 0.0,
+      "improved_seeds": 0,
+      "passed": false
+    },
+    {
+      "condition": "MSFT/mixed_3811",
+      "improvement_percent": 0.0,
+      "lower95": 0.0,
+      "upper95": 0.0,
+      "improved_seeds": 0,
+      "passed": false
+    },
+    {
+      "condition": "MSFT/outage_2811",
+      "improvement_percent": 0.0,
+      "lower95": 0.0,
+      "upper95": 0.0,
+      "improved_seeds": 0,
+      "passed": false
+    }
+  ],
+  "scope": "predeclared datasets trained separately; simulated arrivals/costs; not universal or operational superiority"
+}

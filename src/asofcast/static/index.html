@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="description" content="늦게 도착하는 센서 데이터로 예측할 때, 추가 확인·대기·확정을 비교하는 AsOfCast. 실제 모델로 선택과 예측 변화를 체험합니다.">
   <title>AsOfCast · 센서가 늦을 때, 예측은 언제 확정할까?</title>
-  <link rel="stylesheet" href="/static/style.css?v=dataflow-20261004">
+  <link rel="stylesheet" href="/static/style.css?v=dataflow-20261005">
 </head>
 <body>
 <a class="skip-link" href="#decision">예측 체험으로 이동</a>
@@ -18,7 +18,7 @@
 </header>
 <main id="decision">
   <section class="hero" aria-labelledby="pageTitle">
-    <div class="hero-title"><div class="eyebrow">AsOfCast · 정보가 덜 왔을 때의 예측 판단</div>
+    <div class="hero-title"><div class="eyebrow">데이터플로 AI 모델 개발자 지원 프로젝트</div>
     <h1 id="pageTitle">센서가 늦게 도착할 때,<br>예측을 지금 보내도 될까요?</h1></div><div class="hero-intro">
     <p>설비 담당자에게 미래 상태의 예측을 전달하는 상황을 가정해 보세요. 센서 값이 덜 왔다면 <strong>지금 확정할지, 기다릴지, 하나 더 확인할지</strong> 판단해야 합니다.</p>
     <div class="hero-actions"><button id="previewChoices" class="hero-preview" disabled>세 선택의 결과 바로 비교 <span aria-hidden="true">↓</span></button><a class="hero-link secondary-link" href="#choiceTitle">모델 추천 직접 실행 ↗</a></div></div>
@@ -80,16 +80,18 @@
   <section class="engineering-evidence" aria-labelledby="engineeringEvidenceTitle">
     <div class="engineering-evidence-head">
       <span class="field-label">DATAFLOW ROLE EVIDENCE</span>
-      <h2 id="engineeringEvidenceTitle">AI 모델 개발 전 과정</h2>
-      <p>모델 학습에서 끝내지 않고 데이터 처리, 추론 최적화, 승격 판단, 배포 검증까지 같은 저장소에서 재현합니다.</p>
+      <h2 id="engineeringEvidenceTitle">데이터플로 AI 개발 직무를 위해</h2>
+      <p>공고의 모델 개발·평가·서빙·실험 공유 요구를 하나의 프로젝트로 연결했습니다. 지연된 데이터를 다루는 문제에서 각 기술이 맡은 역할과 실행 근거를 확인하세요.</p>
+      <a href="#researchEvidence">최신 연구 판정 보기 ↓</a>
+      <a href="https://github.com/sokldjs554/asofcast/blob/main/docs/dataflow-role-evidence.md" target="_blank" rel="noopener">공고 17개 항목과 증거 대조 ↗</a>
     </div>
     <div class="engineering-evidence-grid">
-      <article><span>Model</span><strong>PyTorch</strong><small>학습 · 시간순 평가 · 다중 seed</small></article>
-      <article><span>Serving</span><strong>FastAPI · ONNX Runtime</strong><small>parity · SHA · fail-closed 경로</small></article>
-      <article><span>MLOps</span><strong>MLflow · DVC</strong><small>release gate로 승격과 테스트 분리</small></article>
-      <article><span>Data</span><strong>51,894,720 cells</strong><small>PySpark · Parquet round trip</small></article>
-      <article><span>Reproduction</span><strong>DLinear</strong><small>공식 구현 고정 · 반복 대조</small></article>
-      <article><span>Cloud</span><strong>Docker · Render</strong><small>readiness · restart smoke</small></article>
+      <article><span>모델 개발·평가</span><strong>PyTorch</strong><small>시간순 학습 · 다중 seed · 강한 기준 비교</small><a href="https://github.com/sokldjs554/asofcast/blob/main/docs/research-20261002/RESULTS_KO.md" target="_blank" rel="noopener">연구 결과와 실패 분석 ↗</a></article>
+      <article><span>서빙 최적화</span><strong>FastAPI · ONNX Runtime</strong><small>같은 입력의 추론 측정 · 출력 일치 검증</small><a href="https://github.com/sokldjs554/asofcast/blob/main/docs/adr/0001-serving-runtime-and-release-gate.md" target="_blank" rel="noopener">추론 설계와 선택 이유 ↗</a></article>
+      <article><span>실험·배포 관리</span><strong>MLflow · DVC</strong><small>실험 추적 · 해시 검증 · 승격 거절</small><a href="https://github.com/sokldjs554/asofcast/blob/main/docs/submission-verification-20261005/README.md" target="_blank" rel="noopener">MLOps 실행 원본 ↗</a></article>
+      <article><span>대용량 전처리</span><strong>51,894,720개 셀</strong><small>PySpark · Parquet · 단일 머신 실행</small><a href="https://github.com/sokldjs554/asofcast/blob/main/docs/submission-verification-20261005/README.md" target="_blank" rel="noopener">처리량과 실행 범위 ↗</a></article>
+      <article><span>논문 구현·재현</span><strong>DLinear</strong><small>공식 소스 고정 · 제한된 프로토콜 대조</small><a href="https://github.com/sokldjs554/asofcast/blob/main/README.md#dlinear-공식-구현-대조-실험" target="_blank" rel="noopener">공식 구현 대조 기록 ↗</a></article>
+      <article><span>클라우드 운영</span><strong>Docker · Render</strong><small>모델 준비 상태 · 재시작 · 실제 HTTP 확인</small><a href="https://github.com/sokldjs554/asofcast/blob/main/docs/verification-repair.md" target="_blank" rel="noopener">배포 절차와 점검 ↗</a></article>
     </div>
   </section>
 
@@ -123,14 +125,23 @@
   </section>
 
   <details class="technical-details" id="technicalDetails">
-    <summary><span><strong>모델과 검증 근거 보기</strong><small>추천 이유 · 센서별 비교 · 비용과 오차 · 구현 범위</small></span><span class="details-indicator" aria-hidden="true">＋</span></summary>
+    <summary><span><strong>모델과 검증 근거 보기</strong><small>최신 연구 판정 · 추천 이유 · 센서별 비교 · 구현 범위</small></span><span class="details-indicator" aria-hidden="true">＋</span></summary>
     <div class="technical-content">
       <section class="verification-grid" aria-label="검증 요약">
         <article><span>현재 데이터</span><strong id="currentSource">출처 확인 중</strong><small>합성 데이터 결과와 실측 결과 구분</small></article>
-        <article><span>별도 실측 실험</span><strong>ETTh1·ETTh2 검증</strong><small>18개 설정 · 두 데이터셋은 같은 계열</small></article>
+        <article><span>별도 실측 연구</span><strong>Taylor · MSFT 후속 평가</strong><small>18개 설정 · ETTh1·ETTh2 기록도 보존</small></article>
         <article><span>현재 추론</span><strong id="servingBackend">backend 확인 중</strong><small>PyTorch 기준 · 검증된 ONNX Runtime 선택 경로</small></article>
         <article><span>데이터 처리 검증</span><strong>51,894,720개 셀</strong><small>Spark/Parquet · 단일 머신 실행</small></article>
         <article><span>실행 환경</span><strong id="deploymentLabel">환경 확인 중</strong><small id="modelName">모델 확인 중</small></article>
+      </section>
+      <p class="scope-note" id="runtimeScope">현재 서비스의 추론 방식을 확인하고 있습니다.</p>
+      <section class="panel research-panel" id="researchEvidence" aria-labelledby="researchTitle">
+        <div class="panel-head"><div><span class="field-label">2026-10-02 보존 연구 · 현재 체험과 별도</span><h2 id="researchTitle">개선은 어디까지 확인했나요?</h2><p>새 실측 자료 Taylor·MSFT에 대해 3개 학습 seed × 3개 도착 조건, 총 18개 설정을 평가했습니다. 평균 개선과 채택 기준을 구분합니다.</p></div></div>
+        <div class="research-verdict" id="researchVerdict" role="status">판정 확인 중</div>
+        <p id="researchStatus" class="scope-note" role="status">보존된 평가 결과를 불러오는 중입니다.</p>
+        <div class="table-wrap" tabindex="0" role="region" aria-label="후속 연구 6개 조건 비교, 작은 화면에서는 가로로 스크롤할 수 있습니다"><table><thead><tr><th>자료 / 조건</th><th>강한 단순 기준 대비 손실 감소</th><th>개선량 95% 구간</th><th>개선 seed</th><th>해당 조건</th></tr></thead><tbody id="researchRows"></tbody></table></div>
+        <div class="research-notes"><p><strong>예측기 개선과 행동 정책 개선은 다릅니다.</strong> 별도 Appliances 실험에서 예측기 MAE는 약 10.83~11.15% 개선됐지만, 같은 개선 예측기를 쓰는 강한 단순 정책보다 비용 포함 손실은 0.67~0.92% 나빴습니다.</p><p><strong>양수 평균만으로 채택하지 않습니다.</strong> 각 조건에서 두 비교 기준 모두 대비 손실 1% 이상 감소, 95% 구간 하한 양수, 3개 seed 모두 개선, seed별 MAE 악화 최대 1%를 요구합니다. 6개 조건 전부가 통과해야 전체 성공입니다.</p><p>표의 구간은 백분율이 아닌 표준화 손실 차이입니다. Taylor/mixed_2811도 보조 분석의 블록 길이를 바꾸면 구간에 0이 포함됩니다. 실제 측정값을 사용했지만 도착 시각·취득 비용은 합성했습니다. 실제 설비의 비용 절감이나 일반적인 성능 우위를 입증하지 않았습니다.</p></div>
+        <div class="research-links"><a href="https://github.com/sokldjs554/asofcast/blob/main/docs/research-20261002/RESULTS_KO.md" target="_blank" rel="noopener">원문 보고서 ↗</a><a href="https://github.com/sokldjs554/asofcast/blob/main/docs/research-20261002/confirmation-aggregate.json" target="_blank" rel="noopener">6개 조건 원시 집계 ↗</a><a href="https://github.com/sokldjs554/asofcast/blob/main/docs/research-20261002/release-decision.json" target="_blank" rel="noopener">승격 판정 JSON ↗</a><a href="https://github.com/sokldjs554/asofcast/blob/main/docs/research-diagnosis-20260929.md" target="_blank" rel="noopener">예측기·정책 분리 실험 ↗</a><button id="reloadResearch" class="text-button">연구 결과 다시 읽기</button></div>
       </section>
       <section class="panel audit-panel" id="audit"><div class="panel-head"><div><h2>모델은 왜 이 행동을 골랐나요?</h2><p>현재 들어온 정보로 계산한 추천입니다. 실제 미래 도착정보와 사후 정답은 입력으로 사용하지 않습니다.</p></div></div><div id="auditText" class="audit-body"></div><p class="scope-note">모델 간 예측 차이: <b id="disagreement">—</b>. 서로 다른 모델 출력의 표준편차이며, 보정된 확률이나 신뢰구간이 아닙니다.</p></section>
       <section class="panel counterfactual-panel" id="counterfactual"><div class="panel-head"><div><h2>센서를 읽었을 때의 예상과 실제</h2><p>예상 오차 감소는 모델의 추정, 실제 오차 감소는 정답을 사용한 사후 평가입니다. 비용은 금액·장비 지연이 아닌 상대값입니다.</p></div></div><div class="table-wrap" tabindex="0" role="region" aria-label="센서별 비교 표, 작은 화면에서는 가로로 스크롤할 수 있습니다"><table><thead><tr><th>센서</th><th>상태</th><th>예상 오차 감소</th><th>실제 오차 감소 · 사후</th><th>상대 비용</th><th>정책 점수</th><th>직접 선택</th></tr></thead><tbody id="counterfactualRows"></tbody></table></div><p class="scope-note">오차 감소는 원본 값 단위, 정책 점수는 표준화된 이득에서 가중 비용을 뺀 값입니다. 두 수치의 단위는 다릅니다.</p></section>
@@ -138,11 +149,11 @@
         <section class="panel"><div class="panel-head"><div><h2 id="comparisonHeading">대기만 했을 때 · 별도 비교</h2><p id="comparisonScope">각 시점에서 처음부터 기다린 경우를 계산한 비교입니다. 이번 체험에서 실행한 기록이 아닙니다.</p></div></div><div id="comparisonTimeline" class="revision-timeline"></div></section>
         <section class="panel pareto-panel" id="pareto"><div class="panel-head"><div><h2>더 읽는 비용과 예측 오차</h2><p>현재 데이터의 같은 평가 구간에서, 센서를 한 번 더 읽는 정책의 비용 가중치를 바꿔 비교합니다.</p></div></div><svg id="paretoChart" viewBox="0 0 620 320" role="img" aria-label="센서 취득 상대 비용과 평균 절대 오차 비교"></svg><div id="paretoSummary" class="pareto-summary"></div></section>
       </div>
-      <section class="panel evidence-panel" id="evidence"><div class="panel-head"><div><h2>구현한 범위와 한계</h2><p>실험용 서비스입니다. 실제 장비 제어·영구 저장·상용 운영 성능을 주장하지 않습니다.</p></div></div><div class="evidence-cards"><article><strong>미래 정보 누출 방지</strong><p>측정 시각과 도착 시각을 분리합니다. 당시 알 수 있었던 관측만 추천에 사용합니다.</p></article><article><strong>같은 예측 목표</strong><p>기다리거나 센서를 읽어도 예측 목표는 고정됩니다. 추가 확인도 기준 시각의 값만 공개합니다.</p></article><article><strong>측정값과 지연 구분</strong><p>ETTh1 실험의 측정값은 실측입니다. 원본에 도착 시각이 없어 지연은 합성했습니다.</p></article><article><strong>일반적인 성능 우위 미확보</strong><p>ETTh1·ETTh2, 초기값 3개와 지연 조건 3개를 평가했습니다. ETTh1의 보정 예측 개선이 ETTh2에서는 재현되지 않았고, 새 취득 후보도 채택 기준을 통과하지 못했습니다.</p></article></div><p class="evidence-note">현재 화면은 한 사례의 체험입니다. <a href="https://github.com/sokldjs554/asofcast/blob/main/docs/model-evidence-20260928.md" target="_blank" rel="noopener">18개 설정의 반복 실험 결과</a>를 별도로 공개했습니다. <a href="https://github.com/sokldjs554/asofcast" target="_blank" rel="noopener">소스·실험 기록</a> · <a href="/docs" target="_blank" rel="noopener">API 명세</a></p></section>
+      <section class="panel evidence-panel" id="evidence"><div class="panel-head"><div><h2>구현한 범위와 한계</h2><p>실험용 서비스입니다. 실제 장비 제어·영구 저장·상용 운영 성능을 주장하지 않습니다.</p></div></div><div class="evidence-cards"><article><strong>미래 정보 누출 방지</strong><p>측정 시각과 도착 시각을 분리합니다. 당시 알 수 있었던 관측만 추천에 사용합니다.</p></article><article><strong>같은 예측 목표</strong><p>기다리거나 센서를 읽어도 예측 목표는 고정됩니다. 추가 확인도 기준 시각의 값만 공개합니다.</p></article><article><strong>측정값과 지연 구분</strong><p>ETTh1 실험의 측정값은 실측입니다. 원본에 도착 시각이 없어 지연은 합성했습니다.</p></article><article><strong>일반적인 성능 우위 미확보</strong><p>기존 ETTh1·ETTh2 기록과 후속 Taylor·MSFT 평가를 공개했습니다. 새 후보는 6개 조건 중 1개만 수치 기준을 통과해 전체 성능 목표 미달성으로 승격을 거절했습니다.</p></article></div><p class="evidence-note">현재 화면은 한 사례의 체험입니다. <a href="https://github.com/sokldjs554/asofcast/blob/main/docs/model-evidence-20260928.md" target="_blank" rel="noopener">기존 ETTh1·ETTh2 반복 실험</a>과 위의 최신 연구 결과를 별도로 공개했습니다. <a href="https://github.com/sokldjs554/asofcast" target="_blank" rel="noopener">소스·실험 기록</a> · <a href="/docs" target="_blank" rel="noopener">API 명세</a></p></section>
     </div>
   </details>
   <footer><span>AsOfCast · 데이터가 늦어도, 결정의 근거는 분명하게</span><span id="runFooter">모델 확인 중</span></footer>
 </main>
-<script src="/static/app.js?v=dataflow-20261004" defer></script>
+<script src="/static/app.js?v=dataflow-20261005" defer></script>
 </body>
 </html>
