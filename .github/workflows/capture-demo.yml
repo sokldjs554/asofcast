@@ -55,6 +55,8 @@ jobs:
           test -s docs/assets/live-m2/m2-revision.png
           test -s docs/assets/live-m2/m2-pareto.png
           test -s docs/assets/live-m2/m2-full.png
+          test -s docs/assets/live-m2/m2-research-evidence.png
+          test -s docs/assets/live-m2/m2-engineering-evidence.png
           test -s docs/assets/live-m2/asofcast-m2-demo.mp4
           test -s docs/assets/live-m2/asofcast-m2-demo.gif
           ffprobe -v error -show_entries format=duration,size -of json docs/assets/live-m2/asofcast-m2-demo.mp4

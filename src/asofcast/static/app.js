@@ -749,12 +749,52 @@
   window.addEventListener('hashchange', () => openAnchor(window.location.hash));
   openAnchor(window.location.hash);
 
+  async function loadResearchEvidence() {
+    const button = $('reloadResearch');
+    button.disabled = true;
+    $('researchRows').replaceChildren();
+    $('researchVerdict').textContent = '판정 확인 중';
+    $('researchStatus').textContent = '보존된 평가 결과를 불러오는 중입니다.';
+    try {
+      const research = await requestJSON('/static/research-evidence.json');
+      if (research.schema !== 'asofcast.demo-research-evidence.v1'
+          || research.rows?.length !== research.total_conditions
+          || research.rows.some(row => !Number.isFinite(row.improvement_percent)
+            || !Number.isFinite(row.lower95) || !Number.isFinite(row.upper95)
+            || typeof row.passed !== 'boolean')
+          || research.passed_conditions !== research.rows.filter(row => row.passed).length
+          || research.gate_passed !== research.rows.every(row => row.passed)
+          || research.status !== (research.gate_passed ? 'promoted' : 'rejected')) {
+        throw new Error('연구 결과와 판정 불일치');
+      }
+      $('researchRows').replaceChildren(...research.rows.map(row => {
+        const tr = document.createElement('tr');
+        const values = [row.condition, `${signed(row.improvement_percent, 2)}%`,
+          `[${fmt(row.lower95, 6)}, ${fmt(row.upper95, 6)}]`,
+          `${row.improved_seeds} / ${research.training_seeds}`, row.passed ? '수치 기준 통과' : '미달'];
+        values.forEach(value => { const td = document.createElement('td'); td.textContent = value; tr.append(td); });
+        return tr;
+      }));
+      $('researchVerdict').textContent = `${research.gate_passed ? '전체 기준 통과' : '전체 기준 미달 · 승격 거절'} — 조건 ${research.passed_conditions} / ${research.total_conditions} 통과`;
+      $('researchStatus').textContent = `${research.research_date} 평가 원본과 SHA-256로 연결한 판정입니다. 연구 후보를 현재 체험 모델로 승격하지 않았습니다.`;
+    } catch (error) {
+      $('researchStatus').textContent = '연구 집계를 읽지 못했습니다. 원문 보고서와 승격 판정 JSON에서 확인하거나 다시 읽어 주세요. 예측 체험은 계속 사용할 수 있습니다.';
+    } finally {
+      button.disabled = false;
+    }
+  }
+  $('reloadResearch').addEventListener('click', loadResearchEvidence);
+  loadResearchEvidence();
+
   (async () => {
     try {
       metadata = await requestJSON('/api/metadata');
       $('caseId').max = metadata.cases - 1;
       $('modelName').textContent = metadata.serving_forecaster;
       $('servingBackend').textContent = metadata.serving_backend === 'onnxruntime' ? 'ONNX Runtime · CPU' : 'PyTorch · CPU';
+      $('runtimeScope').textContent = metadata.serving_backend === 'onnxruntime'
+        ? '현재 요청은 검증된 ONNX Runtime 경로에서 계산합니다. 별도 동일 입력 CPU 벤치마크의 지연 수치와 현재 HTTP 응답 시간은 구분합니다.'
+        : '현재 요청은 PyTorch · CPU로 계산합니다. ONNX Runtime은 Docker/CI에서 별도로 검증한 선택 경로이며, 동일 입력 벤치마크의 속도 개선을 현재 공개 서비스의 HTTP 응답 시간으로 해석하지 않습니다.';
       $('waitSelect').replaceChildren(...metadata.config.waits_seconds.map(wait => {
         const option = document.createElement('option'); option.value = String(wait);
         option.textContent = wait === 0 ? '기준 시각' : `${duration(wait)} 뒤`;

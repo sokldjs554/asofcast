@@ -28,7 +28,7 @@ asofcast = "asofcast.cli:main"
 where = ["src"]
 
 [tool.setuptools.package-data]
-asofcast = ["static/*.html", "static/*.css", "static/*.js"]
+asofcast = ["static/*.html", "static/*.css", "static/*.js", "static/*.json"]
 
 [tool.pytest.ini_options]
 pythonpath = ["src"]

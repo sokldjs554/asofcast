@@ -32,6 +32,8 @@ GitHub Actions는 Python 3.11/3.13 전체 테스트, 실측 ETTh1 학습, ONNX, 
 
 **숫자를 읽는 법:** 예측값이 내려갔다고 더 정확해진 것은 아닙니다. 사후 정답과의 거리인 **절대 오차**가 작아야 더 정확합니다. 기다리거나 센서를 추가해도 오차가 늘 수 있으며, 그 결과도 그대로 표시합니다. 정보 비용은 학습 구간의 도착 지연으로 만든 0.2~1.0의 상대값이고 실제 금액이 아닙니다.
 
+**직무와 연구 근거까지 확인:** 체험 바로 아래의 ‘데이터플로 AI 개발 직무를 위해’에서 기술별 실행 기록을 열 수 있습니다. ‘최신 연구 판정 보기’는 Taylor·MSFT의 여섯 조건을 모두 보여주며, 평균 개선과 채택 실패를 구분합니다. 현재 서비스의 추론 방식은 API 상태로 표시하고 별도 ONNX 벤치마크와 구분합니다.
+
 ![같은 목표에서 세 선택의 예측값·추가 대기·정보 비용과 사후 오차 비교](docs/assets/live-m2/m2-choice-audit.png)
 
 사후 평가를 켠 화면입니다. 같은 출발점의 세 선택을 실제 API로 계산하며 현재 체험 기록과 추천은 유지됩니다. 정답은 평가에만 사용합니다. [사후 평가를 켜기 전 화면](docs/assets/live-m2/m2-choice-comparison.png) · [실제 내려받은 비교 JSON](docs/assets/live-m2/comparison-example.json)
@@ -43,6 +45,8 @@ GitHub Actions는 Python 3.11/3.13 전체 테스트, 실측 ETTh1 학습, ONNX, 
 이 실패도 결과로 보존했습니다. 비용·합격 기준을 결과를 본 뒤 낮추지 않았고, `docs/research-20261002/release-decision.json`의 release gate는 해당 후보를 **rejected**로 기록합니다. 코드·재현 검사 통과와 성능 목표 달성을 같은 의미로 사용하지 않습니다.
 
 [2026-10-02 전체 결과와 실패 조건](docs/research-20261002/RESULTS_KO.md) · [승격 판단](docs/research-20261002/release-decision.json) · [고정 프로토콜](configs/posterior_candidate_confirmation_20261002.json) · [실행기](scripts/run_posterior_confirmation.py)
+
+데모의 연구 표는 [생성기](scripts/build_demo_evidence.py)가 보존 집계의 고정 SHA-256, 평가 파일 해시, 기존 수치 gate와 승격 판정의 일치를 확인한 뒤 만듭니다. `PYTHONPATH=src python scripts/build_demo_evidence.py --check`와 전체 테스트가 오래되거나 변조된 표시 파일을 거절합니다. 이 과정에서 연구를 다시 학습하거나 현재 체험 모델을 승격하지 않습니다.
 
 ## 면접에서 보여줄 핵심
 

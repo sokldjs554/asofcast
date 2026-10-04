@@ -10,7 +10,7 @@ from urllib.parse import urlparse
 
 from playwright.sync_api import sync_playwright
 
-UI_VERSION = 'dataflow-20261004'
+UI_VERSION = 'dataflow-20261005'
 VIEWPORT = {'width': 1440, 'height': 1000}
 
 
@@ -168,7 +168,15 @@ def main() -> None:
         wait_for_m2(page, args.url, attempts=2)
         page.locator('#sensorMapGrid .is-candidate .sensor-acquire').first.click()
         ready(page)
-        page.locator('#technicalDetails > summary').click()
+        page.locator('.engineering-evidence-head a[href="#researchEvidence"]').click()
+        page.wait_for_function("document.querySelectorAll('#researchRows tr').length === 6")
+        assert '승격 거절' in page.locator('#researchVerdict').inner_text()
+        assert '1 / 6' in page.locator('#researchVerdict').inner_text()
+        assert page.locator('.engineering-evidence-grid a').count() == 6
+        frame(page, 'researchEvidence')
+        page.screenshot(path=str(out / 'm2-research-evidence.png'))
+        page.locator('#engineeringEvidenceTitle').scroll_into_view_if_needed()
+        page.screenshot(path=str(out / 'm2-engineering-evidence.png'))
         assert page.locator('#counterfactualRows tr').count() == 7
         assert page.locator('#paretoChart circle').count() == 5
         for anchor, name in [('counterfactual', 'm2-counterfactual.png'),
@@ -180,7 +188,9 @@ def main() -> None:
         page.wait_for_function("!document.getElementById('compareChoices').disabled")
         for width in [390, 320]:
             page.set_viewport_size({'width': width, 'height': 844})
+            page.locator('#technicalDetails').evaluate('(element) => element.open = true')
             assert not page.evaluate('document.documentElement.scrollWidth > innerWidth'), f'overflow at {width}px'
+        page.locator('#technicalDetails').evaluate('(element) => element.open = false')
         page.set_viewport_size({'width': 390, 'height': 844})
         frame(page)
         page.screenshot(path=str(out / 'm2-mobile.png'))
@@ -195,7 +205,8 @@ def main() -> None:
     names = ['m2-decision-console.png', 'm2-recommended-action.png', 'm2-after-acquisition.png',
              'm2-choice-comparison.png', 'm2-choice-audit.png', 'comparison-example.json',
              'm2-counterfactual.png', 'm2-revision.png', 'm2-pareto.png',
-             'm2-mobile.png', 'm2-full.png', 'asofcast-m2-demo.webm']
+             'm2-mobile.png', 'm2-full.png', 'm2-research-evidence.png',
+             'm2-engineering-evidence.png', 'asofcast-m2-demo.webm']
     missing = [name for name in names if not (out / name).is_file() or not (out / name).stat().st_size]
     if missing:
         raise RuntimeError(f'missing capture outputs: {missing}')
@@ -210,6 +221,8 @@ def main() -> None:
         'screenshots': [name for name in names if name.endswith('.png')],
         'video': 'asofcast-m2-demo.webm', 'comparison_evidence': 'comparison-example.json',
         'video_start_offset_seconds': video_start_offset_seconds,
+        'research_evidence_verified': {'date': '2026-10-02', 'conditions': 6,
+            'passed_conditions': 1, 'release_status': 'rejected', 'role_evidence_links': 6},
         'scopes': [
             'real HTTP assets and model API; not the local TestClient bridge',
             'cold start and expert/mobile checks excluded from short video',
