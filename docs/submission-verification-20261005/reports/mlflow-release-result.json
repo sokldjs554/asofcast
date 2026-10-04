@@ -1,0 +1,8 @@
+{
+  "status": "logged",
+  "tracking_uri": "sqlite:///mlflow.db",
+  "experiment_id": "2",
+  "mlflow_run_id": "e84f23ab39bc48b596cb4dc3a70f71ef",
+  "candidate_id": "posterior-risk-20261002",
+  "release_status": "rejected"
+}

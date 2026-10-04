@@ -1,8 +1,8 @@
 {
   "status": "captured",
   "source_url": "https://asofcast.onrender.com",
-  "ui_version": "dataflow-20261004",
-  "captured_at_unix": 1791124147,
+  "ui_version": "dataflow-20261005",
+  "captured_at_unix": 1791133374,
   "browser": "Chromium via Playwright",
   "public_http_verified": true,
   "model_run_id": "bd4b198464ea3244",
@@ -24,11 +24,20 @@
     "m2-revision.png",
     "m2-pareto.png",
     "m2-mobile.png",
-    "m2-full.png"
+    "m2-full.png",
+    "m2-research-evidence.png",
+    "m2-engineering-evidence.png"
   ],
   "video": "asofcast-m2-demo.webm",
   "comparison_evidence": "comparison-example.json",
-  "video_start_offset_seconds": 3.117,
+  "video_start_offset_seconds": 2.93,
+  "research_evidence_verified": {
+    "date": "2026-10-02",
+    "conditions": 6,
+    "passed_conditions": 1,
+    "release_status": "rejected",
+    "role_evidence_links": 6
+  },
   "scopes": [
     "real HTTP assets and model API; not the local TestClient bridge",
     "cold start and expert/mobile checks excluded from short video",

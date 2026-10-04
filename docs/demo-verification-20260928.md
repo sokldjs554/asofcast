@@ -1,6 +1,6 @@
 # 2026-09-28 데모 전달력 개선과 검증
 
-> **미디어 갱신 안내:** 이 보고서는 2026-09-28 검증 이력입니다. 아래 `assets/live-m2`의 영상·스크린샷·캡처 보고서는 2026-10-04 캡처로 갱신되었습니다. 현재 파일의 출처와 해시는 [media-manifest.json](assets/live-m2/media-manifest.json)을 따릅니다. 두 브라우저 검사 JSON은 9월 28일 원본을 유지합니다. 이 문서에 적힌 이전 캡처의 바이트 보존 설명은 [당시 소스 스냅샷](https://github.com/sokldjs554/asofcast/tree/9b8d65dba64e5299144f16805fb6e6a3ce06e54d/docs/assets/live-m2)에 적용됩니다.
+> **미디어 갱신 안내:** 이 보고서는 2026-09-28 검증 이력입니다. 아래 `assets/live-m2`의 영상·스크린샷·캡처 보고서는 2026-10-04 캡처로 갱신한 뒤, 최신 연구·직무 근거 화면을 포함한 공개 캡처로 다시 갱신했습니다. 현재 파일의 출처와 해시는 [media-manifest.json](assets/live-m2/media-manifest.json)을 따릅니다. 두 브라우저 검사 JSON은 9월 28일 원본을 유지합니다. 이 문서에 적힌 이전 캡처의 바이트 보존 설명은 [당시 소스 스냅샷](https://github.com/sokldjs554/asofcast/tree/9b8d65dba64e5299144f16805fb6e6a3ce06e54d/docs/assets/live-m2)에 적용됩니다.
 
 ## 무엇을 보완했나
 

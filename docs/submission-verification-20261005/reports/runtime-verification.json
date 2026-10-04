@@ -1,0 +1,79 @@
+{
+  "status": "passed",
+  "source_commit": "9b8d65dba64e5299144f16805fb6e6a3ce06e54d",
+  "real_onnxruntime_executed": true,
+  "measurements": [
+    {
+      "report": "onnx-1.json",
+      "torch": {
+        "p50_ms": 0.054287,
+        "p95_ms": 0.060024999999999995,
+        "repeats": 900
+      },
+      "onnxruntime": {
+        "p50_ms": 0.030199999999999998,
+        "p95_ms": 0.03364,
+        "repeats": 900
+      }
+    },
+    {
+      "report": "onnx-2.json",
+      "torch": {
+        "p50_ms": 0.053525500000000004,
+        "p95_ms": 0.0579815,
+        "repeats": 900
+      },
+      "onnxruntime": {
+        "p50_ms": 0.029679999999999998,
+        "p95_ms": 0.03222294999999999,
+        "repeats": 900
+      }
+    },
+    {
+      "report": "onnx-3.json",
+      "torch": {
+        "p50_ms": 0.053595000000000004,
+        "p95_ms": 0.057371,
+        "repeats": 900
+      },
+      "onnxruntime": {
+        "p50_ms": 0.0295495,
+        "p95_ms": 0.0321385,
+        "repeats": 900
+      }
+    }
+  ],
+  "canaries": [
+    {
+      "fault_injection": "drift",
+      "exit_code": 2,
+      "report": "canaries/drift.json",
+      "blocked": true
+    },
+    {
+      "fault_injection": "nan",
+      "exit_code": 2,
+      "report": "canaries/nan.json",
+      "blocked": true
+    },
+    {
+      "fault_injection": "inf",
+      "exit_code": 2,
+      "report": "canaries/inf.json",
+      "blocked": true
+    },
+    {
+      "fault_injection": "shape",
+      "exit_code": 2,
+      "report": "canaries/shape.json",
+      "blocked": true
+    },
+    {
+      "fault_injection": "runtime_error",
+      "exit_code": 2,
+      "report": "canaries/runtime_error.json",
+      "blocked": true
+    }
+  ],
+  "canary_scope": "real export/runtime outputs deliberately corrupted by a test adapter; not model-quality evidence"
+}
