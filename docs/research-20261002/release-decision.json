@@ -1,0 +1,30 @@
+{
+  "candidate_id": "posterior-risk-20261002",
+  "evaluation_schema": "asofcast.release-evaluation.v1",
+  "evaluation_scope": "predeclared datasets trained separately; simulated arrivals/costs; not universal or operational superiority",
+  "evaluation_sha256": "fbb24ac2abcaef871aaff17e1a89a0908b2e0ca43ba55ad1076901d55fadcf21",
+  "gate_passed": false,
+  "reasons": [
+    "MSFT/mixed_2811/legacy_joint: not every seed improves",
+    "MSFT/mixed_2811/validation_simple: confidence interval does not establish improvement",
+    "MSFT/mixed_2811/validation_simple: practical improvement below 1.0%",
+    "MSFT/mixed_2811/validation_simple: not every seed improves",
+    "MSFT/mixed_2811: MAE regression exceeds limit",
+    "MSFT/mixed_3811/legacy_joint: not every seed improves",
+    "MSFT/mixed_3811/validation_simple: confidence interval does not establish improvement",
+    "MSFT/mixed_3811/validation_simple: practical improvement below 1.0%",
+    "MSFT/mixed_3811/validation_simple: not every seed improves",
+    "MSFT/mixed_3811: MAE regression exceeds limit",
+    "MSFT/outage_2811/legacy_joint: not every seed improves",
+    "MSFT/outage_2811/validation_simple: confidence interval does not establish improvement",
+    "MSFT/outage_2811/validation_simple: practical improvement below 1.0%",
+    "MSFT/outage_2811/validation_simple: not every seed improves",
+    "MSFT/outage_2811: MAE regression exceeds limit",
+    "Taylor/mixed_3811/validation_simple: confidence interval does not establish improvement",
+    "Taylor/mixed_3811/validation_simple: practical improvement below 1.0%",
+    "Taylor/outage_2811/validation_simple: confidence interval does not establish improvement"
+  ],
+  "schema": "asofcast.release-decision.v1",
+  "scope": "artifact promotion decision; not a claim of universal model superiority",
+  "status": "rejected"
+}
