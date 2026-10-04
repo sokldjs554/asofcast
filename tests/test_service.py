@@ -143,8 +143,13 @@ def test_dashboard_assets_are_local_and_served(bundle_dir):
         assert '더 읽는 비용과 예측 오차' in html
         assert 'sensorMap' in html
         assert 'followRecommendation' in html
-        assert '/static/app.js?v=interview-clarity-20260928' in html
-        assert '/static/style.css?v=interview-clarity-20260928' in html
+        assert 'AI 모델 개발 전 과정' in html
+        assert 'MLflow · DVC' in html
+        assert 'Docker · Render' in html
+        assert 'DLinear' in html
+        assert 'servingBackend' in html
+        assert '/static/app.js?v=dataflow-20261004' in html
+        assert '/static/style.css?v=dataflow-20261004' in html
 
 
 def test_service_uses_recorded_cpu_thread_budget(bundle_dir):
