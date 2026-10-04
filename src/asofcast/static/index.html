@@ -29,21 +29,6 @@
     <span id="sourceText">현재 모델의 데이터 출처를 확인하고 있습니다.</span>
   </div>
 
-  <section class="engineering-evidence" aria-labelledby="engineeringEvidenceTitle">
-    <div class="engineering-evidence-head">
-      <span class="field-label">DATAFLOW ROLE EVIDENCE</span>
-      <h2 id="engineeringEvidenceTitle">AI 모델 개발 전 과정</h2>
-      <p>모델 학습에서 끝내지 않고 데이터 처리, 추론 최적화, 승격 판단, 배포 검증까지 같은 저장소에서 재현합니다.</p>
-    </div>
-    <div class="engineering-evidence-grid">
-      <article><span>Model</span><strong>PyTorch</strong><small>학습 · 시간순 평가 · 다중 seed</small></article>
-      <article><span>Serving</span><strong>FastAPI · ONNX Runtime</strong><small>parity · SHA · fail-closed 경로</small></article>
-      <article><span>MLOps</span><strong>MLflow · DVC</strong><small>release gate로 승격과 테스트 분리</small></article>
-      <article><span>Data</span><strong>51,894,720 cells</strong><small>PySpark · Parquet round trip</small></article>
-      <article><span>Reproduction</span><strong>DLinear</strong><small>공식 구현 고정 · 반복 대조</small></article>
-      <article><span>Cloud</span><strong>Docker · Render</strong><small>readiness · restart smoke</small></article>
-    </div>
-  </section>
   <div id="status" class="status" role="status" aria-live="polite">모델과 사례를 불러오는 중입니다.</div>
   <noscript><p class="status error">이 체험에는 JavaScript가 필요합니다. JavaScript를 허용한 브라우저에서 열어 주세요.</p></noscript>
 
@@ -92,6 +77,22 @@
     </section>
   </div>
 
+  <section class="engineering-evidence" aria-labelledby="engineeringEvidenceTitle">
+    <div class="engineering-evidence-head">
+      <span class="field-label">DATAFLOW ROLE EVIDENCE</span>
+      <h2 id="engineeringEvidenceTitle">AI 모델 개발 전 과정</h2>
+      <p>모델 학습에서 끝내지 않고 데이터 처리, 추론 최적화, 승격 판단, 배포 검증까지 같은 저장소에서 재현합니다.</p>
+    </div>
+    <div class="engineering-evidence-grid">
+      <article><span>Model</span><strong>PyTorch</strong><small>학습 · 시간순 평가 · 다중 seed</small></article>
+      <article><span>Serving</span><strong>FastAPI · ONNX Runtime</strong><small>parity · SHA · fail-closed 경로</small></article>
+      <article><span>MLOps</span><strong>MLflow · DVC</strong><small>release gate로 승격과 테스트 분리</small></article>
+      <article><span>Data</span><strong>51,894,720 cells</strong><small>PySpark · Parquet round trip</small></article>
+      <article><span>Reproduction</span><strong>DLinear</strong><small>공식 구현 고정 · 반복 대조</small></article>
+      <article><span>Cloud</span><strong>Docker · Render</strong><small>readiness · restart smoke</small></article>
+    </div>
+  </section>
+
   <section class="controls" id="caseControls" aria-label="사례 선택">
     <div><label for="scenario">데이터 도착 상황</label><select id="scenario"><option value="mixed">일부 센서 지연</option><option value="outage">수집 장애 상황</option></select></div>
     <div><label for="caseId">다른 사례 보기</label><div class="case-picker"><button id="prevCase" aria-label="이전 사례">‹</button><input id="caseId" type="number" min="0" value="0" aria-label="사례 번호"><button id="nextCase" aria-label="다음 사례">›</button></div></div>
@@ -127,7 +128,7 @@
       <section class="verification-grid" aria-label="검증 요약">
         <article><span>현재 데이터</span><strong id="currentSource">출처 확인 중</strong><small>합성 데이터 결과와 실측 결과 구분</small></article>
         <article><span>별도 실측 실험</span><strong>ETTh1·ETTh2 검증</strong><small>18개 설정 · 두 데이터셋은 같은 계열</small></article>
-        <article><span>현재 추론</span><strong id="servingBackend">backend 확인 중</strong><small>PyTorch 기준 · 검증된 ONNX 선택 경로</small></article>
+        <article><span>현재 추론</span><strong id="servingBackend">backend 확인 중</strong><small>PyTorch 기준 · 검증된 ONNX Runtime 선택 경로</small></article>
         <article><span>데이터 처리 검증</span><strong>51,894,720개 셀</strong><small>Spark/Parquet · 단일 머신 실행</small></article>
         <article><span>실행 환경</span><strong id="deploymentLabel">환경 확인 중</strong><small id="modelName">모델 확인 중</small></article>
       </section>
