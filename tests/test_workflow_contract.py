@@ -90,3 +90,10 @@ def test_docker_image_is_cpu_runtime_only_and_models_are_external():
     assert 'ASOFCAST_SERVING_BACKEND=onnx' in text
     ignored = dockerignore.read_text(encoding='utf-8')
     assert 'artifacts/' in ignored and 'data/' in ignored and '.git/' in ignored
+
+
+def test_ci_cancels_stale_runs_on_the_same_branch():
+    text = WORKFLOW.read_text(encoding='utf-8')
+    assert 'concurrency:' in text
+    assert 'group: asofcast-ci-${{ github.ref }}' in text
+    assert 'cancel-in-progress: true' in text
