@@ -24,6 +24,7 @@ from asofcast.policy import policy_features
 from asofcast.preprocessing import simulate_arrivals
 from asofcast.timeline import Snapshot, Timeline
 from asofcast.training import predict
+from asofcast.serving_runtime import ServingRuntime, load_serving_runtime
 
 STATIC = Path(__file__).with_name('static')
 LOGGER = logging.getLogger(__name__)
@@ -47,12 +48,12 @@ class AcquireRequest(BaseModel):
     sensor: str
 
 
-def _infer(bundle: Bundle, normalized: Snapshot, raw: Snapshot, step: int) -> dict:
+def _infer(bundle: Bundle, normalized: Snapshot, raw: Snapshot, step: int, runtime: ServingRuntime | None = None) -> dict:
     started = time.perf_counter()
     waits = bundle.config['waits_seconds']
     x = normalized.features()[None]
     forecaster, _ = select_serving_forecaster(bundle)
-    prediction = float(predict(forecaster, x)[0])
+    prediction = float((runtime.predict(x) if runtime is not None else predict(forecaster, x))[0])
     baseline = float(predict(bundle.dlinear, x)[0])
     target = bundle.manifest['target_channel']
     scale, mean = bundle.scaler.scale[target], bundle.scaler.mean[target]
@@ -97,7 +98,7 @@ def _model_disagreement(bundle: Bundle, x: np.ndarray) -> dict:
 
 
 def _acquisition_state(bundle: Bundle, raw: Timeline, case_id: int, wait_seconds: float,
-                       acquired_names: list[str]) -> dict:
+                       acquired_names: list[str], runtime: ServingRuntime | None = None) -> dict:
     if bundle.acquisition is None or bundle.acquisition_cost_proxy is None:
         raise HTTPException(503, detail='ACQUISITION_MODEL_NOT_READY')
     if case_id >= len(bundle.test_origins):
@@ -121,7 +122,7 @@ def _acquisition_state(bundle: Bundle, raw: Timeline, case_id: int, wait_seconds
         acquired_channels=acquired_indices)
     x = normalized_snapshot.features()[None]
     forecaster, serving_name = select_serving_forecaster(bundle)
-    standardized_prediction = float(predict(forecaster, x)[0])
+    standardized_prediction = float((runtime.predict(x) if runtime is not None else predict(forecaster, x))[0])
     target = bundle.manifest['target_channel']
     scale = float(bundle.scaler.scale[target])
     mean = float(bundle.scaler.mean[target])
@@ -228,20 +229,32 @@ def _acquisition_state(bundle: Bundle, raw: Timeline, case_id: int, wait_seconds
     }
 
 
-def create_app(artifact_dir: Path) -> FastAPI:
+def create_app(artifact_dir: Path, *, runtime_dir: Path | None = None, backend_mode: str | None = None) -> FastAPI:
     app = FastAPI(title='AsOfCast', version='0.1.0', description='Frozen-origin forecasting with audited data arrivals')
     app.state.bundle = None
+    app.state.runtime = None
+    app.state.runtime_error = None
     app.state.timelines = {}
     try:
         bundle = load_bundle(artifact_dir)
         torch.set_num_threads(bundle.config['cpu_threads'])
+        configured_runtime = runtime_dir
+        if configured_runtime is None:
+            env_runtime = os.environ.get('ASOFCAST_RUNTIME_DIR', '').strip()
+            configured_runtime = Path(env_runtime) if env_runtime else Path(artifact_dir) / 'serving-runtime'
+        mode = (backend_mode or os.environ.get('ASOFCAST_SERVING_BACKEND', 'auto')).strip().lower()
+        runtime = load_serving_runtime(bundle, configured_runtime, mode=mode)
         app.state.bundle = bundle
+        app.state.runtime = runtime
         app.state.timelines['mixed'] = bundle.timeline
         raw = bundle.timeline
         outage = simulate_arrivals(raw.times, len(raw.columns), bundle.config['arrival_seed'], profile='outage')
         app.state.timelines['outage'] = Timeline(raw.times, raw.values, outage, raw.columns)
     except (OSError, ValueError, KeyError, RuntimeError) as exc:
-        LOGGER.warning('AsOfCast bundle not ready: %s', exc)
+        app.state.bundle = None
+        app.state.runtime = None
+        app.state.runtime_error = str(exc)
+        LOGGER.warning('AsOfCast bundle/runtime not ready: %s', exc)
 
     def require_bundle() -> Bundle:
         if app.state.bundle is None:
@@ -254,7 +267,8 @@ def create_app(artifact_dir: Path) -> FastAPI:
 
     @app.get('/ready')
     def ready(bundle: Bundle = Depends(require_bundle)):
-        return {'status':'ready', 'run_id':bundle.report['run_id'], 'checksums_verified':True}
+        return {'status':'ready', 'run_id':bundle.report['run_id'], 'checksums_verified':True,
+                **app.state.runtime.metadata()}
 
     @app.get('/')
     def index():
@@ -272,6 +286,7 @@ def create_app(artifact_dir: Path) -> FastAPI:
                 'acquisition_policy':bundle.report.get('acquisition_policy'),
                 'acquisition_pareto':bundle.report.get('acquisition_pareto', []),
                 'paper_score_reproduced':False,
+                **app.state.runtime.metadata(),
                 'cloud_deployed':os.environ.get('ASOFCAST_CLOUD_DEPLOYED','').strip().lower() in {'1','true','yes'}}
 
     @app.get('/api/replay')
@@ -286,7 +301,7 @@ def create_app(artifact_dir: Path) -> FastAPI:
         for step, wait in enumerate(bundle.config['waits_seconds']):
             raw_snap = raw.snapshot(origin, wait, bundle.config['lookback'], bundle.config['horizon'])
             norm_snap = normalized.snapshot(origin, wait, bundle.config['lookback'], bundle.config['horizon'])
-            steps.append(_infer(bundle, norm_snap, raw_snap, step))
+            steps.append(_infer(bundle, norm_snap, raw_snap, step, app.state.runtime))
         chosen = next((s['step'] for s in steps if s['action']=='COMMIT'), len(steps)-1)
         target = bundle.manifest['target_channel']
         return {'run_id':bundle.report['run_id'], 'source_kind':bundle.report['source']['kind'],
@@ -305,7 +320,7 @@ def create_app(artifact_dir: Path) -> FastAPI:
                           bundle: Bundle = Depends(require_bundle)):
         names = [name for name in acquired.split(',') if name]
         return _acquisition_state(bundle, app.state.timelines[scenario], case_id,
-                                  float(wait_seconds), names)
+                                  float(wait_seconds), names, app.state.runtime)
 
     @app.post('/api/acquire')
     def acquire(payload: AcquireRequest, bundle: Bundle = Depends(require_bundle)):
@@ -315,12 +330,12 @@ def create_app(artifact_dir: Path) -> FastAPI:
         if payload.sensor in payload.acquired:
             raise HTTPException(422, detail='sensor already acquired')
         before = _acquisition_state(bundle, raw, payload.case_id,
-                                    float(payload.wait_seconds), payload.acquired)
+                                    float(payload.wait_seconds), payload.acquired, app.state.runtime)
         row = next(item for item in before['candidates'] if item['sensor'] == payload.sensor)
         if not row['eligible']:
             raise HTTPException(422, detail='sensor is already available at this decision time')
         return _acquisition_state(bundle, raw, payload.case_id, float(payload.wait_seconds),
-                                  [*payload.acquired, payload.sensor])
+                                  [*payload.acquired, payload.sensor], app.state.runtime)
 
     @app.get('/api/revision-timeline')
     def revision_timeline(case_id: int = Query(default=0, ge=0),
@@ -331,7 +346,7 @@ def create_app(artifact_dir: Path) -> FastAPI:
             raise HTTPException(404, detail='CASE_NOT_FOUND')
         events = []
         for wait in bundle.config['waits_seconds']:
-            state = _acquisition_state(bundle, raw, case_id, float(wait), [])
+            state = _acquisition_state(bundle, raw, case_id, float(wait), [], app.state.runtime)
             events.append({
                 'kind': 'PASSIVE',
                 'label': '즉시' if wait == 0 else f'{int(wait // 60)}분 대기',
@@ -343,12 +358,12 @@ def create_app(artifact_dir: Path) -> FastAPI:
             })
         acquired = []
         for sequence in range(min(3, len(raw.columns))):
-            state = _acquisition_state(bundle, raw, case_id, 0.0, acquired)
+            state = _acquisition_state(bundle, raw, case_id, 0.0, acquired, app.state.runtime)
             if state['recommended_action'] != 'ACQUIRE' or not state['recommended_sensor']:
                 break
             sensor = state['recommended_sensor']
             acquired.append(sensor)
-            after = _acquisition_state(bundle, raw, case_id, 0.0, acquired)
+            after = _acquisition_state(bundle, raw, case_id, 0.0, acquired, app.state.runtime)
             events.append({
                 'kind': 'ACTIVE_ACQUISITION',
                 'label': f'{sensor} 취득',
@@ -379,7 +394,7 @@ def create_app(artifact_dir: Path) -> FastAPI:
               wait_seconds: float = Query(default=0, ge=0),
               bundle: Bundle = Depends(require_bundle)):
         state = _acquisition_state(bundle, app.state.timelines[scenario], case_id,
-                                   float(wait_seconds), [])
+                                   float(wait_seconds), [], app.state.runtime)
         top = [row for row in state['candidates'] if row['eligible']][:3]
         return {
             'case_id': case_id,
@@ -410,7 +425,7 @@ def create_app(artifact_dir: Path) -> FastAPI:
             step = bundle.config['waits_seconds'].index(payload.wait_seconds)
             raw_snap = raw.snapshot(origin,payload.wait_seconds,bundle.config['lookback'],bundle.config['horizon'])
             norm_snap = norm.snapshot(origin,payload.wait_seconds,bundle.config['lookback'],bundle.config['horizon'])
-            result = _infer(bundle,norm_snap,raw_snap,step)
+            result = _infer(bundle,norm_snap,raw_snap,step,app.state.runtime)
         except (ValueError, IndexError) as exc:
             raise HTTPException(422, detail=str(exc)) from exc
         return {'run_id':bundle.report['run_id'],
