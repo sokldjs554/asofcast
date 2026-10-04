@@ -10,7 +10,7 @@ from urllib.parse import urlparse
 
 from playwright.sync_api import sync_playwright
 
-UI_VERSION = 'interview-clarity-20260928'
+UI_VERSION = 'dataflow-20261004'
 VIEWPORT = {'width': 1440, 'height': 1000}
 
 
