@@ -1,0 +1,38 @@
+{
+  "review_date_kst": "2026-10-05",
+  "serving_commit": "9b8d65dba64e5299144f16805fb6e6a3ce06e54d",
+  "ci_run": 37209346589,
+  "ci_jobs": "10 successful jobs; previous cancelled/failed runs are not counted",
+  "capture_workflow_run": 37209346580,
+  "local_python": "3.12",
+  "local_tests": {
+    "passed_each_run": 227,
+    "runs": 3,
+    "warnings_each_run": 1,
+    "warning": "Starlette TestClient httpx deprecation"
+  },
+  "research_verification": "Restored source executable AST and config bytes match original. Archived raw predictions reproduce aggregate; full training not rerun. general_goal failed and release rejected retained.",
+  "public_browser_verification": "Synthetic fixed-target three-choice comparison and recommended WAIT action observed via real public UI. /ready direct navigation unavailable in review environment; remote HTTP checks use identified CI evidence.",
+  "archives": [
+    {
+      "name": "github-actions-artifact-11305219092.zip",
+      "bytes": 20867,
+      "sha256": "1399788c0ba7baae50137df0dabcf6c31e718b0096102a5474c1f05b37c34a5a"
+    },
+    {
+      "name": "github-actions-artifact-11305164021.zip",
+      "bytes": 48993,
+      "sha256": "457278a36bd2d4ca367d8dad7e5f8868396f55320586dd1c5fbe53fb080a0220"
+    },
+    {
+      "name": "github-actions-artifact-11305972077.zip",
+      "bytes": 7757,
+      "sha256": "63f23d483acb71c9695ed3320922dffcfdd434e9e4d99bd057cffec9a1efbb0d"
+    },
+    {
+      "name": "github-actions-artifact-11305739894.zip",
+      "bytes": 547,
+      "sha256": "acc07b65055c9fd3bb412358507d1c171bb09c15e09f934e203dabef627aa61f"
+    }
+  ]
+}

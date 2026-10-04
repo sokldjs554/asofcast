@@ -20,19 +20,11 @@
 
 GitHub Actions는 Python 3.11/3.13 전체 테스트, 실측 ETTh1 학습, ONNX, DLinear 대조, MLflow/DVC, Spark, Docker 서빙, 브라우저 회귀를 서로 다른 job으로 실행합니다. **CI 통과는 실행 계약의 재현을 뜻하고, 모델 성능 우위는 별도의 release gate가 판단합니다.**
 
-## 연구 상태와 한계
-
-**전체 행동 정책의 일반적인 성능 우위는 아직 입증하지 못했습니다.** 2026-09-29 기상·화학 센서 새 데이터에서는 강한 단순 기준 대비 채택 조건을 통과한 경우가 0/6이었습니다. 2026-10-02 후속 후보는 새 전력·거래 시계열 6개 자료·도착 조건 중 주 수치 기준을 통과한 조건이 1개였지만, 전체 목표에는 미달해 공개 모델로 승격하지 않았습니다.
-
-이 실패도 결과로 보존했습니다. 비용·합격 기준을 결과를 본 뒤 낮추지 않았고, `docs/research-20261002/release-decision.json`의 release gate는 해당 후보를 **rejected**로 기록합니다. 코드·재현 검사 통과와 성능 목표 달성을 같은 의미로 사용하지 않습니다.
-
-[2026-10-02 전체 결과와 실패 조건](docs/research-20261002/RESULTS_KO.md) · [승격 판단](docs/research-20261002/release-decision.json) · [고정 프로토콜](configs/posterior_candidate_confirmation_20261002.json) · [실행기](scripts/run_posterior_confirmation.py)
-
 ## 29초 데모로 먼저 보기
 
 [![실제 공개 데모 시연 — 세 선택의 시간·비용 비교, 사후 오차 확인, 추천 실행과 직접 센서 취득](docs/assets/live-m2/asofcast-m2-demo.gif)](https://github.com/sokldjs554/asofcast/raw/refs/heads/main/docs/assets/live-m2/asofcast-m2-demo.mp4)
 
-**[MP4 고화질 재생 · 29초](https://github.com/sokldjs554/asofcast/raw/refs/heads/main/docs/assets/live-m2/asofcast-m2-demo.mp4)** · [첫 화면 캡처](docs/assets/live-m2/m2-decision-console.png) · [모바일 화면](docs/assets/live-m2/m2-mobile.png) · [이번 데모 검증 기록](docs/demo-verification-20260928.md)
+**[MP4 고화질 재생 · 29초](https://github.com/sokldjs554/asofcast/raw/refs/heads/main/docs/assets/live-m2/asofcast-m2-demo.mp4)** · [첫 화면 캡처](docs/assets/live-m2/m2-decision-console.png) · [모바일 화면](docs/assets/live-m2/m2-mobile.png) · [이번 데모 캡처 검증](docs/assets/live-m2/capture-report.json)
 
 공개 Render 서비스에서 실제 모델 API를 조작한 화면입니다. 무료 호스팅이 쉬고 있으면 첫 접속에 준비 시간이 걸리므로 영상으로 먼저 확인할 수 있습니다. 공개 체험은 **측정값과 도착 지연 모두 합성**이며, 아래 ETTh1 실측 실험과 구분합니다. 영상에서 대기는 시간을 재생하는 동작이고, 센서 읽기는 기준 시각의 값 하나를 공개하는 시뮬레이션입니다.
 
@@ -43,6 +35,14 @@ GitHub Actions는 Python 3.11/3.13 전체 테스트, 실측 ETTh1 학습, ONNX, 
 ![같은 목표에서 세 선택의 예측값·추가 대기·정보 비용과 사후 오차 비교](docs/assets/live-m2/m2-choice-audit.png)
 
 사후 평가를 켠 화면입니다. 같은 출발점의 세 선택을 실제 API로 계산하며 현재 체험 기록과 추천은 유지됩니다. 정답은 평가에만 사용합니다. [사후 평가를 켜기 전 화면](docs/assets/live-m2/m2-choice-comparison.png) · [실제 내려받은 비교 JSON](docs/assets/live-m2/comparison-example.json)
+
+## 연구 상태와 한계
+
+**전체 행동 정책의 일반적인 성능 우위는 아직 입증하지 못했습니다.** 2026-09-29 기상·화학 센서 새 데이터에서는 강한 단순 기준 대비 채택 조건을 통과한 경우가 0/6이었습니다. 2026-10-02 후속 후보는 새 전력·거래 시계열 6개 자료·도착 조건 중 주 수치 기준을 통과한 조건이 1개였지만, 전체 목표에는 미달해 공개 모델로 승격하지 않았습니다.
+
+이 실패도 결과로 보존했습니다. 비용·합격 기준을 결과를 본 뒤 낮추지 않았고, `docs/research-20261002/release-decision.json`의 release gate는 해당 후보를 **rejected**로 기록합니다. 코드·재현 검사 통과와 성능 목표 달성을 같은 의미로 사용하지 않습니다.
+
+[2026-10-02 전체 결과와 실패 조건](docs/research-20261002/RESULTS_KO.md) · [승격 판단](docs/research-20261002/release-decision.json) · [고정 프로토콜](configs/posterior_candidate_confirmation_20261002.json) · [실행기](scripts/run_posterior_confirmation.py)
 
 ## 면접에서 보여줄 핵심
 
