@@ -87,6 +87,7 @@ jobs:
         run: |
           python -m asofcast benchmark --artifacts ci-input/artifacts/ett-m1 --out optimization-int8.json --repeats 300
           python scripts/check_onnx_runtime.py --artifacts ci-input/artifacts/ett-m1 --out optimization-onnx
+          python -m asofcast serving-runtime --artifacts ci-input/artifacts/ett-m1 --out optimization-onnx/serving-runtime --threads 2
       - name: Preserve optimization evidence
         if: always()
         uses: actions/upload-artifact@v4
@@ -97,6 +98,81 @@ jobs:
             optimization-onnx/
           if-no-files-found: error
           retention-days: 14
+
+
+  container-cloud:
+    needs: [real-data, optimization]
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/download-artifact@v4
+        with:
+          name: ett-m1-bundle
+          path: ci-input
+      - uses: actions/download-artifact@v4
+        with:
+          name: optimization-evidence
+          path: ci-runtime
+      - name: Resolve immutable model and runtime identity
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY' > container-env.sh
+          import json
+          bundle=json.load(open('ci-input/artifacts/ett-m1/report.json', encoding='utf-8'))
+          runtime=json.load(open('ci-runtime/optimization-onnx/serving-runtime/runtime-manifest.json', encoding='utf-8'))
+          assert bundle['run_id'] == runtime['bundle_run_id']
+          print(f"RUN_ID={bundle['run_id']}")
+          print(f"RUNTIME_SHA={runtime['onnx_sha256']}")
+          PY
+          cat container-env.sh
+      - name: Build CPU ONNX serving image
+        run: docker build --pull -t asofcast:ci .
+      - name: Run ONNX container, smoke, restart and smoke again
+        shell: bash
+        run: |
+          set -euo pipefail
+          source container-env.sh
+          mkdir -p container-evidence
+          start_container() {
+            docker run -d --name asofcast-ci -p 18080:8000 \
+              -v "$PWD/ci-input/artifacts/ett-m1:/models:ro" \
+              -v "$PWD/ci-runtime/optimization-onnx/serving-runtime:/runtime:ro" \
+              -e ASOFCAST_ARTIFACTS=/models \
+              -e ASOFCAST_RUNTIME_DIR=/runtime \
+              -e ASOFCAST_SERVING_BACKEND=onnx \
+              -e ASOFCAST_CLOUD_DEPLOYED=true \
+              -e PORT=8000 \
+              asofcast:ci
+          }
+          start_container
+          python scripts/container_smoke.py --expected-run-id "$RUN_ID" --expected-runtime-sha "$RUNTIME_SHA" --out container-evidence/container-smoke-1.json
+          docker logs asofcast-ci > container-evidence/container-1.log 2>&1
+          docker rm -f asofcast-ci
+          start_container
+          python scripts/container_smoke.py --expected-run-id "$RUN_ID" --expected-runtime-sha "$RUNTIME_SHA" --out container-evidence/container-smoke-2.json
+          docker logs asofcast-ci > container-evidence/container-2.log 2>&1
+          docker rm -f asofcast-ci
+          python - <<'PY'
+          import json
+          a=json.load(open('container-evidence/container-smoke-1.json', encoding='utf-8'))
+          b=json.load(open('container-evidence/container-smoke-2.json', encoding='utf-8'))
+          assert a['run_id'] == b['run_id']
+          assert a['runtime_sha256'] == b['runtime_sha256']
+          assert a['serving_backend'] == b['serving_backend'] == 'onnxruntime'
+          json.dump({'status':'passed','restart_stable':True,'run_id':a['run_id'],
+                     'runtime_sha256':a['runtime_sha256']},
+                    open('container-evidence/restart-comparison.json','w',encoding='utf-8'), indent=2)
+          PY
+      - name: Preserve container cloud evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: container-cloud-evidence
+          path: container-evidence/
+          if-no-files-found: error
+          retention-days: 30
 
   reference-reproduction:
     needs: real-data
@@ -146,17 +222,20 @@ jobs:
           path: ci-input
       - name: Install MLflow and DVC
         run: python -m pip install -e '.[mlops]'
-      - name: Track experiment in MLflow
+      - name: Track experiment and release decision in MLflow
         run: |
           python -m asofcast track-mlflow --artifacts ci-input/artifacts/ett-m1 --tracking-uri sqlite:///mlflow.db > mlflow-result.json
-      - name: Version model and replay artifacts with DVC
+          python -m asofcast release-gate --evaluation docs/research-20261002/promotion-summary.json --out release-decision.json > release-gate-result.json
+          python -m asofcast track-release --decision release-decision.json --tracking-uri sqlite:///mlflow.db > mlflow-release-result.json
+      - name: Version model, replay and release decision with DVC
         run: |
           mkdir -p dvc-workspace/bundle
           cp ci-input/artifacts/ett-m1/arrival.pt dvc-workspace/bundle/
           cp ci-input/artifacts/ett-m1/replay.npz dvc-workspace/bundle/
+          cp release-decision.json dvc-workspace/bundle/
           cd dvc-workspace
           dvc init --no-scm
-          dvc add bundle/arrival.pt bundle/replay.npz
+          dvc add bundle/arrival.pt bundle/replay.npz bundle/release-decision.json
           dvc status > ../dvc-status.txt
           find . -name '*.dvc' -type f -print -exec cat {} \; > ../dvc-pointers.txt
       - name: Preserve MLOps evidence
@@ -165,6 +244,9 @@ jobs:
           name: mlops-evidence
           path: |
             mlflow-result.json
+            mlflow-release-result.json
+            release-gate-result.json
+            release-decision.json
             mlflow.db
             dvc-status.txt
             dvc-pointers.txt
@@ -173,7 +255,7 @@ jobs:
 
   large-data:
     needs: test
-    if: github.event_name == 'workflow_dispatch' || github.ref == 'refs/heads/feat/point-in-time-m1' || github.ref == 'refs/heads/fix/m2-submission-audit-20260925' || github.ref == 'refs/heads/main'
+    if: github.event_name == 'workflow_dispatch' || github.ref == 'refs/heads/feat/point-in-time-m1' || github.ref == 'refs/heads/fix/m2-submission-audit-20260925' || github.ref == 'refs/heads/feat/dataflow-hardening-20261004' || github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     timeout-minutes: 35
     steps:
