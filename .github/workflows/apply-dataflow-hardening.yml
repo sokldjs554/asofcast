@@ -20,7 +20,7 @@ jobs:
           set -euo pipefail
           base64 -d .upload/hardening.patch.gz.b64 | gzip -d > /tmp/hardening.patch
           echo "3812db6e3f283cc841a1580f1f5c840d2b14a4637923b674efe2524743e936bf  /tmp/hardening.patch" | sha256sum -c -
-      - name: Apply implementation commits
+      - name: Apply implementation commits without workflow mutation
         shell: bash
         run: |
           set -euo pipefail
@@ -36,10 +36,11 @@ jobs:
             git am --skip
           fi
           test "$(git log -4 --format=%s | tail -1)" = "docs: 데이터플로 지원용 보완 설계와 구현 계획 고정"
-      - name: Remove transfer files and push
+          git checkout HEAD^ -- .github/workflows/ci.yml
+          git add .github/workflows/ci.yml
+          git commit --amend --no-edit
+      - name: Push implementation commits
         shell: bash
         run: |
           set -euo pipefail
-          git rm .upload/hardening.patch.gz.b64 .github/workflows/apply-dataflow-hardening.yml
-          git commit -m "chore: remove transfer payload"
           git push origin HEAD:feat/dataflow-hardening-20261004
