@@ -1,0 +1,45 @@
+{
+  "status": "passed",
+  "requested_repeats": 3,
+  "transport": "local Chromium DOM + real FastAPI/PyTorch TestClient bridge",
+  "public_http_verified": false,
+  "python": "3.12.14",
+  "model_bundle": "generated synthetic test fixture",
+  "static_sha256": {
+    "src/asofcast/static/app.js": "ee5083ee6c0e31bd9dd9b14eadf95ecfef6ae17d97ab037a2137c57229713a11",
+    "src/asofcast/static/index.html": "89d53bea2a23c406601dd07c9ec1428e1533912eb42f48b63c6ff85146a010c1",
+    "src/asofcast/static/style.css": "6a479accc5e8966365c84b22baff14c516a4a7a2e962338498cf05859187333d"
+  },
+  "runs": [
+    {
+      "repeat": 1,
+      "return_code": 0,
+      "tests": 46,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 34.391,
+      "passed": true
+    },
+    {
+      "repeat": 2,
+      "return_code": 0,
+      "tests": 46,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 36.841,
+      "passed": true
+    },
+    {
+      "repeat": 3,
+      "return_code": 0,
+      "tests": 46,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 35.515,
+      "passed": true
+    }
+  ]
+}

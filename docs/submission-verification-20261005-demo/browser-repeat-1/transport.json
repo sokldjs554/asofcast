@@ -1,0 +1,142 @@
+{
+  "transport": "local Chromium DOM + real FastAPI/PyTorch TestClient bridge",
+  "public_http_verified": false,
+  "requests": [
+    {
+      "path": "/static/research-evidence.json",
+      "caseId": null,
+      "method": "GET",
+      "body": null,
+      "status": 200,
+      "delivered": true
+    },
+    {
+      "path": "/api/metadata",
+      "caseId": null,
+      "method": "GET",
+      "body": null,
+      "status": 200,
+      "delivered": true
+    },
+    {
+      "path": "/api/pareto",
+      "caseId": null,
+      "method": "GET",
+      "body": null,
+      "status": 200,
+      "delivered": true
+    },
+    {
+      "path": "/api/acquisition",
+      "caseId": "0",
+      "method": "GET",
+      "body": null,
+      "status": 200,
+      "delivered": true
+    },
+    {
+      "path": "/api/revision-timeline",
+      "caseId": "0",
+      "method": "GET",
+      "body": null,
+      "status": 200,
+      "delivered": true
+    },
+    {
+      "path": "/api/acquire",
+      "caseId": null,
+      "method": "POST",
+      "body": "{\"case_id\":0,\"scenario\":\"mixed\",\"wait_seconds\":0,\"acquired\":[],\"sensor\":\"MULL\"}",
+      "status": 200,
+      "delivered": true
+    },
+    {
+      "path": "/api/revision-timeline",
+      "caseId": "0",
+      "method": "GET",
+      "body": null,
+      "status": 200,
+      "delivered": true
+    },
+    {
+      "path": "/api/acquisition",
+      "caseId": "0",
+      "method": "GET",
+      "body": null,
+      "status": 200,
+      "delivered": true
+    },
+    {
+      "path": "/api/revision-timeline",
+      "caseId": "0",
+      "method": "GET",
+      "body": null,
+      "status": 200,
+      "delivered": true
+    },
+    {
+      "path": "/api/acquisition",
+      "caseId": "0",
+      "method": "GET",
+      "body": null,
+      "status": 200,
+      "delivered": true
+    },
+    {
+      "path": "/api/revision-timeline",
+      "caseId": "0",
+      "method": "GET",
+      "body": null,
+      "status": 200,
+      "delivered": true
+    },
+    {
+      "path": "/api/acquisition",
+      "caseId": "0",
+      "method": "GET",
+      "body": null,
+      "status": 200,
+      "delivered": true
+    },
+    {
+      "path": "/api/revision-timeline",
+      "caseId": "0",
+      "method": "GET",
+      "body": null,
+      "status": 200,
+      "delivered": true
+    },
+    {
+      "path": "/api/acquisition",
+      "caseId": "1",
+      "method": "GET",
+      "body": null,
+      "status": 200,
+      "delivered": true
+    },
+    {
+      "path": "/api/revision-timeline",
+      "caseId": "1",
+      "method": "GET",
+      "body": null,
+      "status": 200,
+      "delivered": true
+    },
+    {
+      "path": "/api/acquisition",
+      "caseId": "1",
+      "method": "GET",
+      "body": null,
+      "status": 200,
+      "delivered": true
+    },
+    {
+      "path": "/api/revision-timeline",
+      "caseId": "1",
+      "method": "GET",
+      "body": null,
+      "status": 200,
+      "delivered": true
+    }
+  ]
+}

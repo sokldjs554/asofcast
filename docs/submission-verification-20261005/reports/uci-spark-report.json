@@ -1,0 +1,22 @@
+{
+  "client_columns": 370,
+  "duration_seconds": 112.305516695,
+  "master": "local[2]",
+  "measurement_cells": 51894720,
+  "parquet_rows": 140256,
+  "rows": 140256,
+  "sample_client_means": {
+    "MT_001": 3.970784821605143,
+    "MT_002": 20.768480371108694,
+    "MT_003": 2.9183077021574975,
+    "MT_004": 82.18449040453625,
+    "MT_005": 37.2403093576634,
+    "MT_006": 141.22738489076286,
+    "MT_007": 4.521337515172555,
+    "MT_008": 191.4014757814779
+  },
+  "scope": "full wide-table CSV parse, numeric cast, null scan, Parquet write/read; no long-form explode",
+  "source": "LD2011_2014.txt",
+  "spark_version": "3.5.9",
+  "status": "verified"
+}

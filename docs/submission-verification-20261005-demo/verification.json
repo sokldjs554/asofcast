@@ -1,0 +1,59 @@
+{
+  "schema": "asofcast.demo-final-verification.v1",
+  "source_commit": "3950a06b00bed814bbc24e52e264e38da8959a1f",
+  "source_tree": "de5d64cef3dab6b07f12be98816e4be4587f4972",
+  "ci_run": 37218822609,
+  "ci_jobs": [
+    {
+      "name": "test (3.11)",
+      "conclusion": "success"
+    },
+    {
+      "name": "test (3.13)",
+      "conclusion": "success"
+    },
+    {
+      "name": "cloud-smoke",
+      "conclusion": "success"
+    },
+    {
+      "name": "large-data",
+      "conclusion": "success"
+    },
+    {
+      "name": "real-data",
+      "conclusion": "success"
+    },
+    {
+      "name": "mlops",
+      "conclusion": "success"
+    },
+    {
+      "name": "browser-consistency",
+      "conclusion": "success"
+    },
+    {
+      "name": "reference-reproduction",
+      "conclusion": "success"
+    },
+    {
+      "name": "optimization",
+      "conclusion": "success"
+    },
+    {
+      "name": "container-cloud",
+      "conclusion": "success"
+    }
+  ],
+  "capture_run": 37218822598,
+  "capture_artifact": 11309945875,
+  "capture_zip_sha256": "6f0c0e033ae905268e32468e6953b57819e5d347b974afcad2d018f44ea73e07",
+  "render_deploy": "dep-db18c13m8hqs73dohqeg",
+  "render_live_at_utc": "2026-10-04T17:02:09.284597Z",
+  "local_unit_tests": 236,
+  "local_unit_repeats": 3,
+  "local_browser_scenarios": 46,
+  "local_browser_repeats": 3,
+  "research_candidate_status": "rejected",
+  "research_general_goal_achieved": false
+}

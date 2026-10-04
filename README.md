@@ -20,11 +20,11 @@
 
 GitHub Actions는 Python 3.11/3.13 전체 테스트, 실측 ETTh1 학습, ONNX, DLinear 대조, MLflow/DVC, Spark, Docker 서빙, 브라우저 회귀를 서로 다른 job으로 실행합니다. **CI 통과는 실행 계약의 재현을 뜻하고, 모델 성능 우위는 별도의 release gate가 판단합니다.**
 
-## 29초 데모로 먼저 보기
+## 약 30초 데모로 먼저 보기
 
 [![실제 공개 데모 시연 — 세 선택의 시간·비용 비교, 사후 오차 확인, 추천 실행과 직접 센서 취득](docs/assets/live-m2/asofcast-m2-demo.gif)](https://github.com/sokldjs554/asofcast/raw/refs/heads/main/docs/assets/live-m2/asofcast-m2-demo.mp4)
 
-**[MP4 고화질 재생 · 29초](https://github.com/sokldjs554/asofcast/raw/refs/heads/main/docs/assets/live-m2/asofcast-m2-demo.mp4)** · [첫 화면 캡처](docs/assets/live-m2/m2-decision-console.png) · [모바일 화면](docs/assets/live-m2/m2-mobile.png) · [이번 데모 캡처 검증](docs/assets/live-m2/capture-report.json)
+**[MP4 고화질 재생 · 28.4초](https://github.com/sokldjs554/asofcast/raw/refs/heads/main/docs/assets/live-m2/asofcast-m2-demo.mp4)** · [첫 화면 캡처](docs/assets/live-m2/m2-decision-console.png) · [모바일 화면](docs/assets/live-m2/m2-mobile.png) · [이번 데모 캡처 검증](docs/assets/live-m2/capture-report.json)
 
 공개 Render 서비스에서 실제 모델 API를 조작한 화면입니다. 무료 호스팅이 쉬고 있으면 첫 접속에 준비 시간이 걸리므로 영상으로 먼저 확인할 수 있습니다. 공개 체험은 **측정값과 도착 지연 모두 합성**이며, 아래 ETTh1 실측 실험과 구분합니다. 영상에서 대기는 시간을 재생하는 동작이고, 센서 읽기는 기준 시각의 값 하나를 공개하는 시뮬레이션입니다.
 
@@ -47,6 +47,8 @@ GitHub Actions는 Python 3.11/3.13 전체 테스트, 실측 ETTh1 학습, ONNX, 
 [2026-10-02 전체 결과와 실패 조건](docs/research-20261002/RESULTS_KO.md) · [승격 판단](docs/research-20261002/release-decision.json) · [고정 프로토콜](configs/posterior_candidate_confirmation_20261002.json) · [실행기](scripts/run_posterior_confirmation.py)
 
 데모의 연구 표는 [생성기](scripts/build_demo_evidence.py)가 보존 집계의 고정 SHA-256, 평가 파일 해시, 기존 수치 gate와 승격 판정의 일치를 확인한 뒤 만듭니다. `PYTHONPATH=src python scripts/build_demo_evidence.py --check`와 전체 테스트가 오래되거나 변조된 표시 파일을 거절합니다. 이 과정에서 연구를 다시 학습하거나 현재 체험 모델을 승격하지 않습니다.
+
+[직무별 구현·실행 근거 화면](docs/assets/live-m2/m2-engineering-evidence.png) · [최신 연구 판정 화면](docs/assets/live-m2/m2-research-evidence.png) · [이번 보완의 반복 검증과 범위](docs/submission-verification-20261005-demo/README.md)
 
 ## 면접에서 보여줄 핵심
 

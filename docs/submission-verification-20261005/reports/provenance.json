@@ -1,0 +1,68 @@
+{
+  "scope": "unchanged report bytes extracted from preserved 2026-10-04 CI artifacts; not a new benchmark",
+  "files": [
+    {
+      "file": "runtime-verification.json",
+      "artifact_id": 11305164021,
+      "archive": "github-actions-artifact-11305164021.zip",
+      "archive_entry": "optimization-onnx/runtime-verification.json",
+      "sha256": "a290f8e32784d32fd9716507d8c2c63dd6fa39633cabe1e4f1800d6c96fbc81c"
+    },
+    {
+      "file": "onnx-1.json",
+      "artifact_id": 11305164021,
+      "archive": "github-actions-artifact-11305164021.zip",
+      "archive_entry": "optimization-onnx/onnx-1.json",
+      "sha256": "bc5af0bfd520e23d98aa931d315643aac7ce39e3e6d18a4bde92c087d7ffc08c"
+    },
+    {
+      "file": "onnx-2.json",
+      "artifact_id": 11305164021,
+      "archive": "github-actions-artifact-11305164021.zip",
+      "archive_entry": "optimization-onnx/onnx-2.json",
+      "sha256": "5167ca0ce09c60658a272b8812961c457588b965d51f8cc4b00d3c767a67ff45"
+    },
+    {
+      "file": "onnx-3.json",
+      "artifact_id": 11305164021,
+      "archive": "github-actions-artifact-11305164021.zip",
+      "archive_entry": "optimization-onnx/onnx-3.json",
+      "sha256": "808a78ae3ce230510ed3f43ea1dff0b008eb733ab4b3480584f327be8fc2b738"
+    },
+    {
+      "file": "mlflow-result.json",
+      "artifact_id": 11305219092,
+      "archive": "github-actions-artifact-11305219092.zip",
+      "archive_entry": "mlflow-result.json",
+      "sha256": "91601dad3fda7a70ae9798aa4fc1fb13bcaa0cb3c3c5174f6cde7f90eb5c2d6e"
+    },
+    {
+      "file": "mlflow-release-result.json",
+      "artifact_id": 11305219092,
+      "archive": "github-actions-artifact-11305219092.zip",
+      "archive_entry": "mlflow-release-result.json",
+      "sha256": "c7add4e11545529a7ac689afcb68a2ae0c123e3e2cf5b06461ae090d0325e30b"
+    },
+    {
+      "file": "release-decision.json",
+      "artifact_id": 11305219092,
+      "archive": "github-actions-artifact-11305219092.zip",
+      "archive_entry": "release-decision.json",
+      "sha256": "9ed48364f9114477f60b00cdc984a163ba6918746cc1ba9e55ba4ea107341430"
+    },
+    {
+      "file": "uci-spark-report.json",
+      "artifact_id": 11305739894,
+      "archive": "github-actions-artifact-11305739894.zip",
+      "archive_entry": "uci-spark-report.json",
+      "sha256": "fdb405d5fcd3362255943a078d3c46731438a0751d3c0e7170c6702160746169"
+    },
+    {
+      "file": "restart-comparison.json",
+      "artifact_id": 11305972077,
+      "archive": "github-actions-artifact-11305972077.zip",
+      "archive_entry": "restart-comparison.json",
+      "sha256": "d2de968c9f5bd63748469225f0fff66c586aaf1805bcc7d894ca2b3ed6121320"
+    }
+  ]
+}

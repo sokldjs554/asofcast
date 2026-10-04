@@ -1,0 +1,77 @@
+{
+  "schema": "asofcast.demo-final-local-evidence.v1",
+  "unit_tests": 236,
+  "unit_repeats": 3,
+  "browser_scenarios": 46,
+  "browser_repeats": 3,
+  "public_http_verified": false,
+  "source_commit": "a83dcd9f758f2ca16fae60cc86387b8639dfae49",
+  "source_tree": "de5d64cef3dab6b07f12be98816e4be4587f4972",
+  "files": [
+    {
+      "path": "browser-check.json",
+      "bytes": 1135,
+      "sha256": "8f9a55852a65dc75a1a235aa875e0513cf1a71b3ae655b5f9adc80a8f7ccce38"
+    },
+    {
+      "path": "browser-repeat-1/junit.xml",
+      "bytes": 6609,
+      "sha256": "d3d352ba4d302d94ae7165c3e11426939a8fde94cf4930c28b6fd75be175cedf"
+    },
+    {
+      "path": "browser-repeat-1/pytest.log",
+      "bytes": 617,
+      "sha256": "df751c62367fbb717cf0ead6b2986ae3ead7304ca2469031a5bc16bcdb265587"
+    },
+    {
+      "path": "browser-repeat-1/transport.json",
+      "bytes": 2925,
+      "sha256": "5f44a1ef2f2d6667b83f440a0a9d31ab5a26c0ba9259e4d88abd8f17a7dbee72"
+    },
+    {
+      "path": "browser-repeat-2/junit.xml",
+      "bytes": 6609,
+      "sha256": "0cd43bdbc8ea4e9334b72de2c10e6e44210343353e803929c570972e034a920e"
+    },
+    {
+      "path": "browser-repeat-2/pytest.log",
+      "bytes": 617,
+      "sha256": "e7a0b57f3cbcad903e7f3782f91dfe52915d13667857febe8fc70de41d74b37f"
+    },
+    {
+      "path": "browser-repeat-2/transport.json",
+      "bytes": 2925,
+      "sha256": "5f44a1ef2f2d6667b83f440a0a9d31ab5a26c0ba9259e4d88abd8f17a7dbee72"
+    },
+    {
+      "path": "browser-repeat-3/junit.xml",
+      "bytes": 6609,
+      "sha256": "eb835d9f5f65a28b59c985fd9187d8b4656a475dae6c267c6e25d1d97001acae"
+    },
+    {
+      "path": "browser-repeat-3/pytest.log",
+      "bytes": 617,
+      "sha256": "d0667612892ec32079f471bfd8c4d93fb4546b46a81237026e83cf84e2d416fd"
+    },
+    {
+      "path": "browser-repeat-3/transport.json",
+      "bytes": 2925,
+      "sha256": "5f44a1ef2f2d6667b83f440a0a9d31ab5a26c0ba9259e4d88abd8f17a7dbee72"
+    },
+    {
+      "path": "pytest-1.log",
+      "bytes": 858,
+      "sha256": "0afc8e4a47f52c6bb8a0ca1436e945c374e58744b8eb935d35da9994616cdddd"
+    },
+    {
+      "path": "pytest-2.log",
+      "bytes": 858,
+      "sha256": "48daac9b48234b5e099b21598fbc112090440c9284f5125e27317976e4b7d41f"
+    },
+    {
+      "path": "pytest-3.log",
+      "bytes": 858,
+      "sha256": "309dc8ee869c9d72f2dea528209062e7dae3c68fe5119c0815000981a00b63d5"
+    }
+  ]
+}
