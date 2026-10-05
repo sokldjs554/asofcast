@@ -9,12 +9,13 @@ import logging
 import os
 import time
 from pathlib import Path
-from typing import Literal
+from typing import Annotated, Literal
 
 import numpy as np
 import torch
 from fastapi import Depends, FastAPI, HTTPException, Query
-from fastapi.responses import FileResponse
+from fastapi.exceptions import RequestValidationError
+from fastapi.responses import FileResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, ConfigDict, Field, FiniteFloat
 
@@ -28,11 +29,13 @@ from asofcast.serving_runtime import ServingRuntime, load_serving_runtime
 
 STATIC = Path(__file__).with_name('static')
 LOGGER = logging.getLogger(__name__)
+MAX_EXACT_TIMESTAMP = 2**53 - 1  # Timeline compares integer events to float arrivals.
+Timestamp = Annotated[int, Field(ge=-MAX_EXACT_TIMESTAMP, le=MAX_EXACT_TIMESTAMP)]
 
 
 class PredictRequest(BaseModel):
     model_config = ConfigDict(extra='forbid')
-    event_times: list[int] = Field(min_length=2, max_length=512)
+    event_times: list[Timestamp] = Field(min_length=2, max_length=512)
     values: list[list[FiniteFloat]] = Field(min_length=2, max_length=512)
     arrival_times: list[list[FiniteFloat | None]] = Field(min_length=2, max_length=512)
     columns: list[str] = Field(min_length=1, max_length=64)
@@ -231,6 +234,14 @@ def _acquisition_state(bundle: Bundle, raw: Timeline, case_id: int, wait_seconds
 
 def create_app(artifact_dir: Path, *, runtime_dir: Path | None = None, backend_mode: str | None = None) -> FastAPI:
     app = FastAPI(title='AsOfCast', version='0.1.0', description='Frozen-origin forecasting with audited data arrivals')
+
+    @app.exception_handler(RequestValidationError)
+    async def request_validation_error(_request, exc):
+        # Pydantic's raw input/context may contain NaN/Inf from JSON exponent
+        # overflow. Do not echo those unencodable values into the JSON error.
+        detail = [{key: error[key] for key in ('loc', 'msg', 'type')}
+                  for error in exc.errors()]
+        return JSONResponse(status_code=422, content={'detail': detail})
     app.state.bundle = None
     app.state.runtime = None
     app.state.runtime_error = None
@@ -317,8 +328,11 @@ def create_app(artifact_dir: Path, *, runtime_dir: Path | None = None, backend_m
                           scenario: Literal['mixed','outage'] = 'mixed',
                           wait_seconds: float = Query(default=0, ge=0),
                           acquired: str = '',
+                          acquired_sensor: list[str] | None = Query(default=None, max_length=64),
                           bundle: Bundle = Depends(require_bundle)):
-        names = [name for name in acquired.split(',') if name]
+        if acquired and acquired_sensor is not None:
+            raise HTTPException(422, detail='use either acquired_sensor or legacy acquired, not both')
+        names = acquired_sensor if acquired_sensor is not None else [name for name in acquired.split(',') if name]
         return _acquisition_state(bundle, app.state.timelines[scenario], case_id,
                                   float(wait_seconds), names, app.state.runtime)
 
@@ -420,13 +434,15 @@ def create_app(artifact_dir: Path, *, runtime_dir: Path | None = None, backend_m
             raw = Timeline(np.asarray(payload.event_times),np.asarray(payload.values),arrivals,tuple(payload.columns))
             if raw.grid_seconds != bundle.timeline.grid_seconds:
                 raise ValueError('event grid differs from training grid')
+            if payload.event_times[-1] + bundle.config['horizon'] * raw.grid_seconds > MAX_EXACT_TIMESTAMP:
+                raise ValueError('forecast target exceeds exactly representable timestamp range')
             norm = Timeline(raw.times,bundle.scaler.transform(raw.values),raw.arrivals,raw.columns)
             origin = len(raw.times)-1
             step = bundle.config['waits_seconds'].index(payload.wait_seconds)
             raw_snap = raw.snapshot(origin,payload.wait_seconds,bundle.config['lookback'],bundle.config['horizon'])
             norm_snap = norm.snapshot(origin,payload.wait_seconds,bundle.config['lookback'],bundle.config['horizon'])
             result = _infer(bundle,norm_snap,raw_snap,step,app.state.runtime)
-        except (ValueError, IndexError) as exc:
+        except (ValueError, IndexError, FloatingPointError, OverflowError) as exc:
             raise HTTPException(422, detail=str(exc)) from exc
         return {'run_id':bundle.report['run_id'],
                 'model_training_source':bundle.report['source']['kind'],

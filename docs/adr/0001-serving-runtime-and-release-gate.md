@@ -50,3 +50,9 @@ release gate는 상위 평가기의 수치 판정을 입력으로 받으며, 성
 - runtime 파일 변조나 잘못된 모델 결합을 조용히 허용하지 않습니다.
 - 코드 품질과 모델 품질을 서로 다른 gate로 설명할 수 있습니다.
 - 공개 Render가 어느 backend를 쓰는지는 `/api/metadata`의 `serving_backend`로 확인하며, Docker CI에서 ONNX가 검증됐다는 사실만으로 공개 Render가 ONNX라고 주장하지 않습니다.
+
+### 2026-10-05 추가 감사
+
+데이터·설정의 `run_id`가 같아도 재학습 가중치는 다를 수 있습니다. runtime manifest의 `bundle_identity_sha256`은 검증된 bundle manifest를 정규 JSON으로 직렬화한 SHA-256이며, 각 모델 가중치·scaler·report 파일 해시를 포함합니다. runtime 로딩과 release gate 모두 이 값을 대조합니다. 샘플 출력 parity는 추가 검사이며 모델 파일 identity를 대체하지 않습니다. 이 필드가 없는 기존 runtime은 재생성해야 합니다. 명시적 ONNX는 거절하고 auto만 이유와 함께 PyTorch로 돌아갑니다. 공개 PyTorch 모델은 영향이 없습니다.
+
+온라인 예측은 float 도착 시각과 정확히 비교할 수 있는 정수 시각 범위를 검증하고, 목표 시각도 그 범위 안에 있어야 합니다. 유한 입력이라도 모델 계산이 넘치면 422를 반환합니다. 센서 이름은 반복 `acquired_sensor` 쿼리로 전달해 쉼표를 보존합니다. 기존 쉼표 구분 `acquired`는 호환 경로로 남기되 두 방식을 함께 보내면 거절합니다.

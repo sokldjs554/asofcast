@@ -1,0 +1,188 @@
+{
+  "AppliancesEnergy/mixed_2811": {
+    "mean": {
+      "actual_objective_reduction": 0.0,
+      "additional_cost_penalty": 0.0,
+      "additional_delay_penalty": 0.0,
+      "standardized_error_reduction": 0.0
+    },
+    "seeds": [
+      {
+        "actual_objective_reduction": 0.0,
+        "additional_cost_penalty": 0.0,
+        "additional_delay_penalty": 0.0,
+        "seed": 42,
+        "standardized_error_reduction": 0.0
+      },
+      {
+        "actual_objective_reduction": 0.0,
+        "additional_cost_penalty": 0.0,
+        "additional_delay_penalty": 0.0,
+        "seed": 43,
+        "standardized_error_reduction": 0.0
+      },
+      {
+        "actual_objective_reduction": 0.0,
+        "additional_cost_penalty": 0.0,
+        "additional_delay_penalty": 0.0,
+        "seed": 44,
+        "standardized_error_reduction": 0.0
+      }
+    ]
+  },
+  "AppliancesEnergy/mixed_3811": {
+    "mean": {
+      "actual_objective_reduction": 0.0,
+      "additional_cost_penalty": 0.0,
+      "additional_delay_penalty": 0.0,
+      "standardized_error_reduction": 0.0
+    },
+    "seeds": [
+      {
+        "actual_objective_reduction": 0.0,
+        "additional_cost_penalty": 0.0,
+        "additional_delay_penalty": 0.0,
+        "seed": 42,
+        "standardized_error_reduction": 0.0
+      },
+      {
+        "actual_objective_reduction": 0.0,
+        "additional_cost_penalty": 0.0,
+        "additional_delay_penalty": 0.0,
+        "seed": 43,
+        "standardized_error_reduction": 0.0
+      },
+      {
+        "actual_objective_reduction": 0.0,
+        "additional_cost_penalty": 0.0,
+        "additional_delay_penalty": 0.0,
+        "seed": 44,
+        "standardized_error_reduction": 0.0
+      }
+    ]
+  },
+  "AppliancesEnergy/outage_2811": {
+    "mean": {
+      "actual_objective_reduction": 0.0,
+      "additional_cost_penalty": 0.0,
+      "additional_delay_penalty": 0.0,
+      "standardized_error_reduction": 0.0
+    },
+    "seeds": [
+      {
+        "actual_objective_reduction": 0.0,
+        "additional_cost_penalty": 0.0,
+        "additional_delay_penalty": 0.0,
+        "seed": 42,
+        "standardized_error_reduction": 0.0
+      },
+      {
+        "actual_objective_reduction": 0.0,
+        "additional_cost_penalty": 0.0,
+        "additional_delay_penalty": 0.0,
+        "seed": 43,
+        "standardized_error_reduction": 0.0
+      },
+      {
+        "actual_objective_reduction": 0.0,
+        "additional_cost_penalty": 0.0,
+        "additional_delay_penalty": 0.0,
+        "seed": 44,
+        "standardized_error_reduction": 0.0
+      }
+    ]
+  },
+  "SeoulBike/mixed_2811": {
+    "mean": {
+      "actual_objective_reduction": -0.002013298745536588,
+      "additional_cost_penalty": 0.006715073655300503,
+      "additional_delay_penalty": -0.0014029535864978904,
+      "standardized_error_reduction": 0.003298821323266024
+    },
+    "seeds": [
+      {
+        "actual_objective_reduction": -0.0034157772053535593,
+        "additional_cost_penalty": 0.007441334152900719,
+        "additional_delay_penalty": -0.0018037974683544305,
+        "seed": 42,
+        "standardized_error_reduction": 0.0022217594791927287
+      },
+      {
+        "actual_objective_reduction": -0.001242072709550291,
+        "additional_cost_penalty": 0.01235874481404884,
+        "additional_delay_penalty": -0.003037974683544304,
+        "seed": 43,
+        "standardized_error_reduction": 0.008078697420954246
+      },
+      {
+        "actual_objective_reduction": -0.0013820463217059137,
+        "additional_cost_penalty": 0.00034514199895194816,
+        "additional_delay_penalty": 0.0006329113924050633,
+        "seed": 44,
+        "standardized_error_reduction": -0.00040399293034890235
+      }
+    ]
+  },
+  "SeoulBike/mixed_3811": {
+    "mean": {
+      "actual_objective_reduction": -0.0007634096694335528,
+      "additional_cost_penalty": 0.006263958519395394,
+      "additional_delay_penalty": -0.0014135021097046415,
+      "standardized_error_reduction": 0.004087046740257198
+    },
+    "seeds": [
+      {
+        "actual_objective_reduction": 0.00010165263560039553,
+        "additional_cost_penalty": 0.006986415801168997,
+        "additional_delay_penalty": -0.0018670886075949369,
+        "seed": 42,
+        "standardized_error_reduction": 0.0052209798291744545
+      },
+      {
+        "actual_objective_reduction": -0.0003228803486449259,
+        "additional_cost_penalty": 0.011278647039132783,
+        "additional_delay_penalty": -0.0028481012658227852,
+        "seed": 43,
+        "standardized_error_reduction": 0.008107665424665067
+      },
+      {
+        "actual_objective_reduction": -0.0020690012952561277,
+        "additional_cost_penalty": 0.0005268127178844018,
+        "additional_delay_penalty": 0.00047468354430379756,
+        "seed": 44,
+        "standardized_error_reduction": -0.001067505033067928
+      }
+    ]
+  },
+  "SeoulBike/outage_2811": {
+    "mean": {
+      "actual_objective_reduction": -0.0022887956083876724,
+      "additional_cost_penalty": 0.006861697518372837,
+      "additional_delay_penalty": -0.0014240506329113924,
+      "standardized_error_reduction": 0.0031488512770737717
+    },
+    "seeds": [
+      {
+        "actual_objective_reduction": -0.005889359055550984,
+        "additional_cost_penalty": 0.007166591720490516,
+        "additional_delay_penalty": -0.0018037974683544305,
+        "seed": 42,
+        "standardized_error_reduction": -0.0005265648034148979
+      },
+      {
+        "actual_objective_reduction": 0.00024288878028028133,
+        "additional_cost_penalty": 0.01252721446413028,
+        "additional_delay_penalty": -0.0031012658227848105,
+        "seed": 43,
+        "standardized_error_reduction": 0.00966883742162575
+      },
+      {
+        "actual_objective_reduction": -0.0012199165498923146,
+        "additional_cost_penalty": 0.0008912863704977155,
+        "additional_delay_penalty": 0.0006329113924050633,
+        "seed": 44,
+        "standardized_error_reduction": 0.0003042812130104635
+      }
+    ]
+  }
+}

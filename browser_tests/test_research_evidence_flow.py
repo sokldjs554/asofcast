@@ -9,9 +9,9 @@ def test_research_navigation_preserves_live_decision(page):
     expect(page.locator('#technicalDetails')).to_have_attribute('open', '')
     expect(page.locator('#researchRows tr')).to_have_count(6)
     expect(page.locator('#researchVerdict')).to_contain_text('승격 거절')
-    expect(page.locator('#researchVerdict')).to_contain_text('1 / 6')
-    outage = page.locator('#researchRows tr').filter(has_text='Taylor/outage_2811')
-    expect(outage).to_contain_text('+5.60%')
+    expect(page.locator('#researchVerdict')).to_contain_text('0 / 6')
+    outage = page.locator('#researchRows tr').filter(has_text='SeoulBike/outage_2811')
+    expect(outage).to_contain_text('-0.43%')
     expect(outage).to_contain_text('미달')
     assert page.locator('#forecast').inner_text() == forecast
     assert page.locator('#targetTime').get_attribute('data-timestamp') == target
