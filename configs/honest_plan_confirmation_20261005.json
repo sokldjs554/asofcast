@@ -1,0 +1,432 @@
+{
+  "schema": "asofcast.honest-complete-plan.v1",
+  "new_source_declaration": {
+    "created_at_utc": "2026-10-05T08:03:35.213322+00:00",
+    "purpose": "Independent confirmation only after development method is frozen; no model scores used for source choice",
+    "selection_basis": "public real measurements, chronological length, clear CC BY4.0, energy and mobility domains; no performance-based replacement",
+    "datasets": {
+      "AppliancesEnergy": {
+        "official_page": "https://archive.ics.uci.edu/dataset/374/appliances+energy+prediction",
+        "raw_url": "https://archive.ics.uci.edu/static/public/374/appliances+energy+prediction.zip",
+        "file": "energydata_complete.csv",
+        "columns": [
+          "Appliances",
+          "lights",
+          "T1",
+          "RH_1",
+          "T2",
+          "RH_2",
+          "T_out",
+          "RH_out",
+          "Windspeed"
+        ],
+        "target": "Appliances",
+        "grid_seconds": 600,
+        "doi": "10.24432/C5VC8G",
+        "rule": "entire series, preserve source dates, all selected columns must be finite; no target imputation, no score-based trimming"
+      },
+      "SeoulBike": {
+        "official_page": "https://archive.ics.uci.edu/dataset/560/seoul+bike+sharing+demand",
+        "raw_url": "https://archive.ics.uci.edu/static/public/560/seoul+bike+sharing+demand.zip",
+        "file": "SeoulBikeData.csv",
+        "columns": [
+          "Rented Bike Count",
+          "Temperature",
+          "Humidity",
+          "Wind speed",
+          "Visibility",
+          "Dew point temperature",
+          "Solar Radiation",
+          "Rainfall",
+          "Snowfall"
+        ],
+        "target": "Rented Bike Count",
+        "grid_seconds": 3600,
+        "doi": "10.24432/C5F62R",
+        "rule": "entire series including nonfunctional hours; preserve Date+Hour; numeric selected columns only, exclude Hour/categorical metadata from sensor set, no score-based trimming"
+      }
+    },
+    "source_usage": "Neither new dataset is read, fitted or scored until policy development and method choice are frozen",
+    "gate": "unchanged original gate; all two-data x three original arrival conditions x three seeds, paired block42 and sensitivity6, improvement>=1%, lower95>0, each seed positive, MAE regression<=1% versus both strong simple and legacy joint",
+    "scope": "replicated effects on this predeclared suite only; simulated arrival/cost proxies, not every environment or real operating savings"
+  },
+  "selected_settings": {
+    "algorithm": "value_tree",
+    "fit_fraction": 0.6,
+    "max_depth": 4,
+    "min_samples_leaf": 32,
+    "minimum_calibration_origins": 12,
+    "name": "value_d4_n32",
+    "purge_observations": 54
+  },
+  "strengths": [
+    0.0,
+    0.5,
+    1.0
+  ],
+  "margins": [
+    0.0,
+    0.005,
+    0.01
+  ],
+  "development_conditions": [
+    {
+      "arrival_seed": 1811,
+      "name": "mixed_1811",
+      "profile": "mixed"
+    },
+    {
+      "arrival_seed": 4811,
+      "name": "mixed_4811",
+      "profile": "mixed"
+    },
+    {
+      "arrival_seed": 5811,
+      "name": "outage_5811",
+      "profile": "outage"
+    }
+  ],
+  "protocol": {
+    "added_comparators": [
+      "target-availability conditional waiting, on original and Gaussian forecasters"
+    ],
+    "arrival_mc_seed": 20261002,
+    "arrival_samples": 8,
+    "candidate_family": [
+      "Gaussian VAR+posterior-risk policy",
+      "original selected forecaster+posterior covariance proxy",
+      "strong simple fallback"
+    ],
+    "conditions": [
+      {
+        "arrival_seed": 2811,
+        "name": "mixed_2811",
+        "profile": "mixed"
+      },
+      {
+        "arrival_seed": 3811,
+        "name": "mixed_3811",
+        "profile": "mixed"
+      },
+      {
+        "arrival_seed": 2811,
+        "name": "outage_2811",
+        "profile": "outage"
+      }
+    ],
+    "confirmatory_datasets": {
+      "BikeSharing": {
+        "url": "https://archive.ics.uci.edu/static/public/275/bike%2Bsharing%2Bdataset.zip",
+        "file": "hour.csv",
+        "columns": [
+          "cnt",
+          "temp",
+          "atemp",
+          "hum",
+          "windspeed"
+        ],
+        "target": "cnt",
+        "doi": "10.24432/C5W894",
+        "rows": 17379,
+        "raw_rows": 17379,
+        "excluded_missing_rows": 0,
+        "original_time_gaps": 75,
+        "grid_seconds": 3600,
+        "prepared_sha256": "575010604ea369280941ed8588cb5c9e5f47f010891aa04f502f19019fac478c",
+        "raw_source_sha256": "b70182d0d0508e9abbb79306ce5c0cec34869000f8220175ac83d11dbe845401"
+      },
+      "BeijingPM25": {
+        "url": "https://archive.ics.uci.edu/static/public/381/beijing%2Bpm2%2B5%2Bdata.zip",
+        "file": "PRSA_data_2010.1.1-2014.12.31.csv",
+        "columns": [
+          "pm2.5",
+          "DEWP",
+          "TEMP",
+          "PRES",
+          "Iws",
+          "Is",
+          "Ir"
+        ],
+        "target": "pm2.5",
+        "doi": "10.24432/C5JS49",
+        "rows": 41757,
+        "raw_rows": 43824,
+        "excluded_missing_rows": 2067,
+        "original_time_gaps": 213,
+        "grid_seconds": 3600,
+        "prepared_sha256": "f03b022bbfe6c525552643e10a678538e2a3289277457c3d9e752bcfe6800bce",
+        "raw_source_sha256": "40cdd29c24918e855133dce280ff59779bb0b5852898e05bafcf422a4cc0a175"
+      }
+    },
+    "development_datasets": {
+      "MSFT": {
+        "arrival_timestamps": "simulated, not original delivery records",
+        "columns": [
+          "Open",
+          "High",
+          "Low",
+          "Close",
+          "Volume"
+        ],
+        "complete_series_used": true,
+        "date_mapping_sha256": "5bb227bac0ddf7753cab6aeb8a2e1c1cd82d2eb457f7f3693050d52fd577243d",
+        "decision_deadline": "one trading-observation interval",
+        "forecast_horizon": "6 trading observations",
+        "grid_seconds": 86400,
+        "loader_sha256": "eebb6e734b967d359f54a64ad21ea82aeed62f953b0bcec793d0d57f6b1a999f",
+        "measurement_kind": "real bundled observations, not synthetic",
+        "native_archive_sha256": "667627a7e6486003788c845182aaac5f7edbf74220b500eea9a50a7e4f1c12ba",
+        "not_financial_advice": true,
+        "numeric_cells_preserved": true,
+        "original_provider": "Kaggle price-volume-data-for-all-us-stocks-etfs, cited by pmdarima loader",
+        "pmdarima_version": "2.1.1",
+        "prepared_sha256": "8a3c97ab911a60e2e8e503e7a894ab3b1a69ad285bb453f830bfe0797ec1c101",
+        "raw_numeric_sha256": "f22e98e27d4f53a3ad44ffda9a0ca92fc7a09f347774a28f558d661df87ab620",
+        "rows": 7983,
+        "scored_during_preparation": false,
+        "selection": "availability, length and different domains selected before any model score was inspected",
+        "source": "https://alkaline-ml.com/pmdarima/usecases/stocks.html",
+        "source_period": [
+          "1986-03-13",
+          "2017-11-10"
+        ],
+        "target": "Close",
+        "time_axis": "one computational day = one trading observation; weekends/holidays are not elapsed latency",
+        "unit": "historical close quote as supplied, not verified execution prices or investment returns"
+      },
+      "Taylor": {
+        "arrival_timestamps": "simulated, not original delivery records",
+        "columns": [
+          "demand"
+        ],
+        "complete_series_used": true,
+        "decision_deadline": "one half-hour",
+        "forecast_horizon": "6 half-hour observations = 3 hours",
+        "grid_seconds": 1800,
+        "loader_sha256": "3df2f44f654bfe4338ea39350912140c9710fa776270f50a2529b2f5c87a4e19",
+        "measurement_kind": "real bundled observations, not synthetic",
+        "pmdarima_version": "2.1.1",
+        "prepared_sha256": "ca9e9c01a8d11f90170a94596563d0b78fe767b4e46a96855f4572fef6cce41e",
+        "raw_numeric_sha256": "bf5e0b0766e3717ce810bb8f304ae7cff067f31ffa7d133dd005e05cf6f84d84",
+        "rows": 4032,
+        "scored_during_preparation": false,
+        "selection": "availability, length and different domains selected before any model score was inspected",
+        "source": "https://pkg.robjhyndman.com/forecast/reference/taylor.html",
+        "source_period": "2000-06-05 through 2000-08-27 as documented by provider",
+        "target": "demand",
+        "time_axis": "half-hour order; computational 2000-01-01 epoch is artificial, not a claimed original clock alignment",
+        "unit": "MW"
+      }
+    },
+    "evaluation_contract": "All new data and all three seeds required; prior failures are retained; no automatic deployment",
+    "excluded_candidates": {
+      "short_locally_bundled_series": "insufficient temporal partition length; no performance inspected"
+    },
+    "forecast": {
+      "early_stopping": false,
+      "iterations": 100,
+      "l2_regularization": 10,
+      "leaf_candidates": [
+        7,
+        15
+      ],
+      "loss": "absolute_error",
+      "min_samples_leaf": 40,
+      "weights": [
+        0,
+        0.5,
+        1
+      ]
+    },
+    "freezing_scope": "Local code/protocol commit before any new-series model score; not remotely preregistered",
+    "gate": {
+      "block_origins": 42,
+      "bootstrap_repeats": 2000,
+      "bootstrap_seed": 20260929,
+      "comparators": [
+        "legacy_joint",
+        "validation_simple"
+      ],
+      "confidence": 0.95,
+      "every_confirmatory_condition_passes": true,
+      "every_seed_positive": true,
+      "mae_regression_limit": 0.01,
+      "minimum_relative_improvement": 0.01,
+      "sensitivity_block_origins": 6
+    },
+    "independent_scope": "Two unexposed datasets separately trained; artificial observation order, simulated arrivals and costs; not universal or operational superiority",
+    "objective": {
+      "absolute_error": "training-scale standardized",
+      "cost_weight": 0.03,
+      "deadline_seconds": 3600,
+      "delay_weight": 0.02
+    },
+    "risk_multipliers": [
+      0.5,
+      1.0,
+      2.0
+    ],
+    "rules": [
+      "Keep the original 55/20/10/15 chronological partitions, lookback48,horizon6,stride4.",
+      "VAR training uses only transitions fully known by train cutoff; fit arrival survival on a mature training cohort.",
+      "Calibrate Gaussian absolute-risk scale using policy labels arrived by policy cutoff; choose only on validation.",
+      "ETTh1 is already exposed development data. Never call this an independent confirmation.",
+      "All costs, deadlines and original minimum-improvement gates remain unchanged.",
+      "Freeze code/config before each complete evaluation. Preserve unsuccessful forced candidate and selected fallback.",
+      "Independent new-data evaluation is required before promotion; a passing development gate does not promote.",
+      "No outcome-based dataset selection or period trimming.",
+      "MSFT uses ordered trading observations, not physical calendar-day delays; preserve real-date mapping.",
+      "Taylor uses an explicit artificial epoch for half-hour sequence order.",
+      "Cost weights and all numerical gate conditions remain unchanged.",
+      "Availability-aware simple strategies are added rather than weakening comparators.",
+      "Policy-only uses a Gaussian covariance proxy with a different forecaster; exact Bayes-risk claims do not apply.",
+      "Level calibration uses policy partition, selection uses validation only, final results never select candidates.",
+      "Taylor and MSFT final tests are exposed and never scored for this selection.",
+      "Use entire BikeSharing hourly series and all complete selected-measurement BeijingPM25 rows; no outcome-based trimming.",
+      "Preserve original date mapping; horizon is six retained observations, not necessarily physical hours.",
+      "Do not weaken original strong simple, objective, three arrival conditions, seeds or gate.",
+      "Freeze code/source/settings before any new-dataset model fitting.",
+      "Repeat independent training and policy fitting with identical pinned dependencies.",
+      "Development v1 exposed validation only; add masked per-plan hist regressions before independent fitting. Preserve rejected v1 and full candidate pool."
+    ],
+    "schema": "asofcast.terminal-plan-confirmation.v1",
+    "seeds": [
+      42,
+      43,
+      44
+    ],
+    "selection": "VAR: minimum validation passive MAE across three decision times; policy: validation objective subject to 1% MAE limit; strong simple always admitted",
+    "simple_pool": "base/upgraded/value plus all VAR candidates; each instant/half/deadline x none/target/oldest",
+    "var_candidates": [
+      {
+        "order": 1,
+        "ridge": 10.0
+      },
+      {
+        "order": 1,
+        "ridge": 1000.0
+      },
+      {
+        "order": 2,
+        "ridge": 10.0
+      },
+      {
+        "order": 2,
+        "ridge": 1000.0
+      }
+    ],
+    "plan_learning": {
+      "margins": [
+        0,
+        0.005,
+        0.01,
+        0.03
+      ],
+      "policy_origin_cap": 1024,
+      "augmentation": "one random acquired subset per policy origin and wait plus empty subset",
+      "max_requested_sensors_per_plan": 2,
+      "label": "current abs error minus terminal abs error minus new realized pull cost minus incremental delay; labels offline only",
+      "selection": "global regressor candidate selected on mean relative validation improvement across Taylor/MSFT seed42; per-dataset margin and fallback selected on validation only subject to 1% MAE limit; independent test never selects",
+      "candidate_names": [
+        "extra_depth4",
+        "extra_depth6",
+        "extra_depth8",
+        "hist_leaves7",
+        "hist_leaves15"
+      ],
+      "regressors": {
+        "extra_depth4": {
+          "algorithm": "extra",
+          "n_estimators": 128,
+          "max_depth": 4,
+          "min_samples_leaf": 16
+        },
+        "extra_depth6": {
+          "algorithm": "extra",
+          "n_estimators": 128,
+          "max_depth": 6,
+          "min_samples_leaf": 16
+        },
+        "extra_depth8": {
+          "algorithm": "extra",
+          "n_estimators": 128,
+          "max_depth": 8,
+          "min_samples_leaf": 16
+        },
+        "hist_leaves7": {
+          "algorithm": "hist",
+          "max_leaf_nodes": 7,
+          "max_iter": 80,
+          "min_samples_leaf": 32,
+          "l2_regularization": 10.0,
+          "max_bins": 32,
+          "early_stopping": false
+        },
+        "hist_leaves15": {
+          "algorithm": "hist",
+          "max_leaf_nodes": 15,
+          "max_iter": 80,
+          "min_samples_leaf": 32,
+          "l2_regularization": 10.0,
+          "max_bins": 32,
+          "early_stopping": false
+        }
+      }
+    }
+  },
+  "base_config": {
+    "arrival_seed": 811,
+    "batch_size": 128,
+    "calibration_ridges": [
+      1,
+      10,
+      100,
+      1000,
+      10000,
+      100000
+    ],
+    "cpu_threads": 2,
+    "delay_cost": 0.02,
+    "epochs": 25,
+    "horizon": 6,
+    "learning_rate": 0.001,
+    "lookback": 48,
+    "policy_epochs": 60,
+    "seed": 42,
+    "stride": 4,
+    "target": "OT",
+    "thresholds": [
+      0,
+      0.01,
+      0.02,
+      0.05,
+      0.1,
+      0.2,
+      1000000
+    ],
+    "waits_seconds": [
+      0,
+      1800,
+      3600
+    ],
+    "acquisition_epochs": 40,
+    "acquisition_cost_weight": 0.03,
+    "acquisition_pareto_weights": [
+      0,
+      0.01,
+      0.03,
+      0.05,
+      0.1
+    ]
+  },
+  "selection_rule": "One globally selected settings dictionary using mean development gain across four exposed datasets with MAE-safe fallback; per-new-data validation selects strength/margin by mean gain across fixed three development arrival views subject to every-view MAE regression<=1%; fallback if no positive mean gain. Final tests never select.",
+  "retraining_repeats": 2,
+  "final_gate_unchanged": true,
+  "scope": "Effects across the predeclared suite only; simulated arrivals and relative sensor/delay costs; no universal superiority claim.",
+  "legacy_bundle_export_evaluation": {
+    "permitted": "The unchanged base run_experiment automatically computes and exports legacy forecast/policy test/outage metrics before the per-case router selection. Global method is already frozen before any new-source fitting.",
+    "prohibited": "Those test metrics may not be inspected or used to select reference forecasters, routers, hyperparameters, arrival conditions, sources or periods. All router selection uses only declared policy/validation arrays.",
+    "candidate_boundary": "Per-case router, calibration strength and margin are sealed before any candidate final test scores are computed. This is not a claim that legacy export never computed test metrics."
+  },
+  "calibration_scope": "Router fitting and later distinct-origin router calibration are chronologically separated by54 observations. The forecast ridge calibrator is fitted on the train partition, not policy. Router uncertainty penalties remain heuristic and have no guaranteed coverage."
+}
