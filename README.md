@@ -20,6 +20,8 @@
 
 GitHub Actions는 Python 3.11/3.13 전체 테스트, 실측 ETTh1 학습, ONNX, DLinear 대조, MLflow/DVC, Spark, Docker 서빙, 브라우저 회귀를 서로 다른 job으로 실행합니다. **CI 통과는 실행 계약의 재현을 뜻하고, 모델 성능 우위는 별도의 release gate가 판단합니다.**
 
+승격할 때는 평가 입력에 기록된 모델 실행 ID와 manifest·report 해시가 실제 bundle과 같아야 합니다. MLflow 기록도 모델 파일 검증을 먼저 수행합니다. [평가·모델 연결 계약](docs/adr/0001-serving-runtime-and-release-gate.md)을 참고하세요.
+
 ## 약 30초 데모로 먼저 보기
 
 [![실제 공개 데모 시연 — 세 선택의 시간·비용 비교, 사후 오차 확인, 추천 실행과 직접 센서 취득](docs/assets/live-m2/asofcast-m2-demo.gif)](https://github.com/sokldjs554/asofcast/raw/refs/heads/main/docs/assets/live-m2/asofcast-m2-demo.mp4)

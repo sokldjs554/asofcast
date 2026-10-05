@@ -4,6 +4,8 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
+from asofcast.bundle import load_bundle
+
 
 def _require_mlflow():
     try:
@@ -21,13 +23,10 @@ def selected_policy_metrics(report: dict) -> tuple[str, dict]:
 
 def log_bundle_mlflow(bundle_dir: Path, tracking_uri: str,
                       experiment_name: str = 'AsOfCast') -> dict:
-    """Log one already-verified experiment bundle without selecting on test data."""
+    """Verify and log an experiment bundle without selecting on test data."""
     mlflow = _require_mlflow()
     bundle_dir = Path(bundle_dir)
-    report_path = bundle_dir / 'report.json'
-    if not report_path.is_file():
-        raise ValueError('bundle report.json is missing')
-    report = json.loads(report_path.read_text(encoding='utf-8'))
+    report = load_bundle(bundle_dir).report
     if not report.get('run_id') or 'test_metrics' not in report:
         raise ValueError('invalid experiment report')
     metric_name, learned = selected_policy_metrics(report)

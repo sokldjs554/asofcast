@@ -3,12 +3,32 @@ from __future__ import annotations
 
 import hashlib
 import json
+import re
 from pathlib import Path
 
 from asofcast.bundle import load_bundle, select_serving_forecaster
 from asofcast.serving_runtime import _load_manifest
 
 SCHEMA = 'asofcast.release-decision.v1'
+
+
+def _is_sha256(value: object) -> bool:
+    return isinstance(value, str) and re.fullmatch(r'[0-9a-f]{64}', value) is not None
+
+
+def _validate_evaluated_bundle(identity: object, record: dict) -> dict:
+    if not isinstance(identity, dict):
+        raise ValueError('evaluated bundle identity is required for promotion')
+    run_id = identity.get('run_id')
+    if not isinstance(run_id, str) or not run_id.strip():
+        raise ValueError('evaluated bundle run_id is invalid')
+    for key in ('manifest_sha256', 'report_sha256'):
+        if not _is_sha256(identity.get(key)):
+            raise ValueError(f'evaluated bundle {key} is invalid')
+    fields = ('run_id', 'manifest_sha256', 'report_sha256')
+    if any(identity[key] != record.get(key) for key in fields):
+        raise ValueError('evaluated bundle does not match the promotion bundle')
+    return {key: identity[key] for key in fields}
 
 
 def _sha256(path: Path) -> str:
@@ -72,8 +92,8 @@ def build_release_decision(evaluation_path: Path, out_path: Path, *, bundle_dir:
                            runtime_dir: Path | None = None) -> dict:
     """Build an immutable release decision from an already-computed evaluation gate.
 
-    A passed performance gate requires a verified model bundle. A failed gate may
-    be recorded without a bundle because the candidate must not be promoted.
+    A passed gate must identify the same verified bundle evaluated upstream.
+    A failed gate may be recorded without a bundle because it cannot be promoted.
     """
     evaluation_path = Path(evaluation_path)
     out_path = Path(out_path)
@@ -100,6 +120,9 @@ def build_release_decision(evaluation_path: Path, out_path: Path, *, bundle_dir:
     bundle = None
     if bundle_dir is not None:
         record, bundle = _bundle_record(bundle_dir)
+        if passed:
+            decision['evaluated_bundle'] = _validate_evaluated_bundle(
+                evaluation.get('evaluated_bundle'), record)
         decision['bundle'] = record
     if runtime_dir is not None:
         assert bundle is not None
@@ -140,7 +163,7 @@ def validate_release_decision(path: Path) -> dict:
     if not passed and not reasons:
         raise ValueError('rejected release decision must contain failure reasons')
     evaluation_hash = decision.get('evaluation_sha256')
-    if not isinstance(evaluation_hash, str) or len(evaluation_hash) != 64:
+    if not _is_sha256(evaluation_hash):
         raise ValueError('release decision evaluation hash is invalid')
     if passed:
         bundle = decision.get('bundle')
@@ -148,14 +171,15 @@ def validate_release_decision(path: Path) -> dict:
             raise ValueError('promoted release decision requires a verified bundle record')
         for key in ('manifest_sha256', 'report_sha256'):
             value = bundle.get(key)
-            if not isinstance(value, str) or len(value) != 64:
+            if not _is_sha256(value):
                 raise ValueError(f'promoted release decision {key} is invalid')
+        _validate_evaluated_bundle(decision.get('evaluated_bundle'), bundle)
     runtime = decision.get('runtime')
     if runtime is not None:
         if not isinstance(runtime, dict) or runtime.get('backend') != 'onnxruntime':
             raise ValueError('release decision runtime contract is invalid')
         for key in ('onnx_sha256', 'runtime_manifest_sha256', 'runtime_model_sha256'):
             value = runtime.get(key)
-            if not isinstance(value, str) or len(value) != 64:
+            if not _is_sha256(value):
                 raise ValueError(f'release decision runtime {key} is invalid')
     return decision
