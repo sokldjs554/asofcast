@@ -10,7 +10,7 @@ from urllib.parse import urlparse
 
 from playwright.sync_api import sync_playwright
 
-UI_VERSION = 'submission-20261005'
+UI_VERSION = 'submission-20261005-r2'
 VIEWPORT = {'width': 1440, 'height': 1000}
 
 

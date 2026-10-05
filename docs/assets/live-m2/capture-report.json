@@ -1,8 +1,8 @@
 {
   "status": "captured",
   "source_url": "https://asofcast.onrender.com",
-  "ui_version": "dataflow-20261005",
-  "captured_at_unix": 1791133374,
+  "ui_version": "submission-20261005",
+  "captured_at_unix": 1791194989,
   "browser": "Chromium via Playwright",
   "public_http_verified": true,
   "model_run_id": "bd4b198464ea3244",
@@ -30,11 +30,11 @@
   ],
   "video": "asofcast-m2-demo.webm",
   "comparison_evidence": "comparison-example.json",
-  "video_start_offset_seconds": 2.93,
+  "video_start_offset_seconds": 2.43,
   "research_evidence_verified": {
-    "date": "2026-10-02",
+    "date": "2026-10-05",
     "conditions": 6,
-    "passed_conditions": 1,
+    "passed_conditions": 0,
     "release_status": "rejected",
     "role_evidence_links": 6
   },

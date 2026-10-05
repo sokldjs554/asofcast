@@ -762,8 +762,9 @@
     $('researchVerdict').textContent = '판정 확인 중';
     $('researchStatus').textContent = '보존된 평가 결과를 불러오는 중입니다.';
     try {
-      const research = await requestJSON('/static/research-evidence.json');
+      const research = await requestJSON('/static/research-evidence.json?v=20261005', {cache: 'no-store'});
       if (research.schema !== 'asofcast.demo-research-evidence.v1'
+          || research.research_date !== '2026-10-05'
           || research.rows?.length !== research.total_conditions
           || research.rows.some(row => !Number.isFinite(row.improvement_percent)
             || !Number.isFinite(row.lower95) || !Number.isFinite(row.upper95)
