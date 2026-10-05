@@ -4,7 +4,7 @@
 
 **Goal:** Audit the existing project against Dataflow's AI model developer role, correct defects, and ship matching demo and application evidence.
 
-**Architecture:** Preserve the production model. Import immutable research summaries from the completed independent evaluation; generate the demo table using the same numerical gate. Bind operational artifacts to exact model contents and reject invalid API inputs where review reproduces failures.
+**Architecture:** Preserve the production model. Import immutable research summaries from the completed additional evaluation (with source-reuse correction); generate the demo table using the same numerical gate. Bind operational artifacts to exact model contents and reject invalid API inputs where review reproduces failures.
 
 **Spec:** User's 2026-10-05 comprehensive audit request; `../specs/2026-10-04-dataflow-hardening-design.md` for existing service contracts.
 
@@ -22,23 +22,23 @@
 
 ## Task 1 Research display and company relevance
 
-- [ ] Pin latest research summary, protocol, provenance and cost decomposition in `docs/research-20261005/`.
-- [ ] Add failing tests for latest display and modified evidence, then implement `build_latest_evidence(summary_bytes)` in `scripts/build_demo_evidence.py`.
-- [ ] Update static research copy and browser/capture expectations; retain older results through links.
-- [ ] Update README and role evidence with original job URL and official Model Craft connection.
-- [ ] Verify targeted tests, generated data check and JS syntax.
+- [x] Pin latest research summary, protocol, provenance and cost decomposition in `docs/research-20261005/`.
+- [x] Add failing tests for latest display and modified evidence, then implement `build_latest_evidence(summary_bytes)` in `scripts/build_demo_evidence.py`.
+- [x] Update static research copy and browser/capture expectations; retain older results through links.
+- [x] Update README and role evidence with original job URL and official Model Craft connection.
+- [x] Verify targeted tests, generated data check and JS syntax.
 
 ## Task 2 Correct reproduced operational defects
 
-- [ ] Review independently reported failures and reproduce with tests before production edits.
-- [ ] Correct exact runtime/model identity and request validation where necessary.
-- [ ] Run targeted tests and full CI; review diff before merge.
+- [x] Review independently reported failures and reproduce with tests before production edits.
+- [x] Correct exact runtime/model identity and request validation where necessary.
+- [x] Run targeted tests and full CI; review diff before merge.
 
 ## Task 3 Deliver coherent public project
 
-- [ ] Merge validated correction, verify deployed source and real public behavior.
-- [ ] Capture public demo, preserve media metadata, update application documents with verified results and company fit.
-- [ ] Render and inspect all document pages, save updated versions and submission ZIP.
+- [x] Merge validated correction, verify deployed source and real public behavior.
+- [x] Capture public demo, preserve media metadata, update application documents with verified results and company fit.
+- [ ] Render and inspect all final document pages, save updated versions and submission ZIP.
 
 ## Execution record
 
@@ -46,3 +46,9 @@
 - Official job `rec_idx=54998048` and official Dataflow Model Craft page retrieved 2026-10-05.
 - Independent review started; initial finding under investigation: runtime identity may omit model bytes.
 - Full tests run on CI; local numerical tests avoid optional ONNX runtime initialization following earlier telemetry approval restriction.
+
+- Corrections: exact runtime weights, numeric bounds, non-finite JSON errors, comma sensor names, retained research response.
+- Source correction: AppliancesEnergy reuses the previously evaluated UCI 374 source; SeoulBike alone is newly used.
+- Main 302ef58 passed all 10 CI jobs (37294439349); public capture 37294439342 passed.
+- A returning-browser check reproduced stale research JSON; two Node-backed loader tests reproduced then verified the cache/date fix. Browser regression added.
+- Application document finishing is tracked separately from the code/media completion recorded here.

@@ -1,22 +1,22 @@
 {
-  "capture_workflow_run": 37218822598,
+  "capture_workflow_run": 37294439342,
   "capture_attempt": 1,
-  "artifact_id": 11309945875,
-  "artifact_sha256": "6f0c0e033ae905268e32468e6953b57819e5d347b974afcad2d018f44ea73e07",
-  "capture_workflow_source_commit": "3950a06b00bed814bbc24e52e264e38da8959a1f",
-  "captured_code_commit": "3950a06b00bed814bbc24e52e264e38da8959a1f",
-  "render_deploy_id": "dep-db18c13m8hqs73dohqeg",
+  "artifact_id": 11338345789,
+  "artifact_sha256": "087c773014b0cd3624ad3ca4a2e3bbf74ca05eefbe5a901c4a16b2741225ebb8",
+  "capture_workflow_source_commit": "302ef58fbd4d2f14f3daf8f4dab4f0596e8e0e99",
+  "captured_code_commit": "302ef58fbd4d2f14f3daf8f4dab4f0596e8e0e99",
+  "render_deploy_id": "dep-db1ndcdckfvc73du5f2g",
   "source_url": "https://asofcast.onrender.com",
-  "ui_version": "dataflow-20261005",
+  "ui_version": "submission-20261005",
   "model_run_id": "bd4b198464ea3244",
   "video": {
     "file": "asofcast-m2-demo.mp4",
-    "duration_seconds": 28.36,
+    "duration_seconds": 28.48,
     "width": 1440,
     "height": 1000,
     "codec": "H.264",
     "fps": "25/1",
-    "removed_leading_seconds": 2.93,
+    "removed_leading_seconds": 2.43,
     "playback_speed": 1,
     "edit": "Workflow removes only the initial load interval. Public capture artifact bytes are retained unchanged."
   },
@@ -24,33 +24,11 @@
     "file": "asofcast-m2-demo.gif",
     "width": 800,
     "height": 556,
-    "frames": 113,
+    "frames": 114,
     "preview_fps": 4,
-    "duration_seconds": 28.25
+    "duration_seconds": 28.5
   },
   "files": [
-    {
-      "name": "asofcast-m2-demo.gif",
-      "bytes": 3783862,
-      "sha256": "553ec5c0362e3be25df726cf1b7d6c7611aa101f74a57d1c53282056c9da77f7",
-      "provenance": {
-        "kind": "capture_artifact",
-        "workflow_run": 37218822598,
-        "artifact_id": 11309945875,
-        "capture_date_utc": "2026-10-04"
-      }
-    },
-    {
-      "name": "asofcast-m2-demo.mp4",
-      "bytes": 2974394,
-      "sha256": "13c4ddee15567183b9e0b76e335f22ffac4aa4926dc44fadaaaee2dcb0cd9a0f",
-      "provenance": {
-        "kind": "capture_artifact",
-        "workflow_run": 37218822598,
-        "artifact_id": 11309945875,
-        "capture_date_utc": "2026-10-04"
-      }
-    },
     {
       "name": "browser-ett-check.json",
       "bytes": 1164,
@@ -74,14 +52,36 @@
       }
     },
     {
-      "name": "capture-report.json",
-      "bytes": 1850,
-      "sha256": "5c534bb3ee0f5516f8e16d5a56e3bcc6c2157f39b16850d233eb29b03a46c921",
+      "name": "asofcast-m2-demo.gif",
+      "bytes": 3384379,
+      "sha256": "1db1d4262a3365c7e3f3f4ba939735424d056e42333343f20f06bf441f3d3e1b",
       "provenance": {
         "kind": "capture_artifact",
-        "workflow_run": 37218822598,
-        "artifact_id": 11309945875,
-        "capture_date_utc": "2026-10-04"
+        "workflow_run": 37294439342,
+        "artifact_id": 11338345789,
+        "capture_date_utc": "2026-10-05"
+      }
+    },
+    {
+      "name": "asofcast-m2-demo.mp4",
+      "bytes": 2756732,
+      "sha256": "56fb3b896759acb36c2c8a736deab4e08585c4486e364c7c1fda9d0bef7ed3a1",
+      "provenance": {
+        "kind": "capture_artifact",
+        "workflow_run": 37294439342,
+        "artifact_id": 11338345789,
+        "capture_date_utc": "2026-10-05"
+      }
+    },
+    {
+      "name": "capture-report.json",
+      "bytes": 1852,
+      "sha256": "4a5e4273d8a094db300e102926d97c828262a7ebe2f5aa70fb9a9da9d3a10fda",
+      "provenance": {
+        "kind": "capture_artifact",
+        "workflow_run": 37294439342,
+        "artifact_id": 11338345789,
+        "capture_date_utc": "2026-10-05"
       }
     },
     {
@@ -90,53 +90,53 @@
       "sha256": "977ae9deeecd867dd54d618b3caa1b7785593e7d3d4eb8e74e339a3d1b178e79",
       "provenance": {
         "kind": "capture_artifact",
-        "workflow_run": 37218822598,
-        "artifact_id": 11309945875,
-        "capture_date_utc": "2026-10-04"
+        "workflow_run": 37294439342,
+        "artifact_id": 11338345789,
+        "capture_date_utc": "2026-10-05"
       }
     },
     {
       "name": "m2-after-acquisition.png",
-      "bytes": 268733,
-      "sha256": "32f787effe7e6a049134b1fab085add030147cc486ecdd48c9402b0919bac544",
+      "bytes": 272441,
+      "sha256": "fad3dae3b33eb23e21415c22497f28263108592ffc822174ded7432601e58bc1",
       "provenance": {
         "kind": "capture_artifact",
-        "workflow_run": 37218822598,
-        "artifact_id": 11309945875,
-        "capture_date_utc": "2026-10-04"
+        "workflow_run": 37294439342,
+        "artifact_id": 11338345789,
+        "capture_date_utc": "2026-10-05"
       }
     },
     {
       "name": "m2-choice-audit.png",
-      "bytes": 230767,
-      "sha256": "0eb0f363f7320ed84e97322df5be878c7d9bec926684b8f06cbd6551b5d321c5",
+      "bytes": 230863,
+      "sha256": "5bc96f5517c3c1a64e93eb51a4a4eeff2f8698788fe73e793add22716780952e",
       "provenance": {
         "kind": "capture_artifact",
-        "workflow_run": 37218822598,
-        "artifact_id": 11309945875,
-        "capture_date_utc": "2026-10-04"
+        "workflow_run": 37294439342,
+        "artifact_id": 11338345789,
+        "capture_date_utc": "2026-10-05"
       }
     },
     {
       "name": "m2-choice-comparison.png",
-      "bytes": 226905,
-      "sha256": "42d2e3a89a728b50f3ad28bb220899e0bccacb6fe07dd5017910886d25258e6d",
+      "bytes": 234930,
+      "sha256": "f117e56ef64a3e49618c9d53531e93385277f02786b07809b794c3abaff6903f",
       "provenance": {
         "kind": "capture_artifact",
-        "workflow_run": 37218822598,
-        "artifact_id": 11309945875,
-        "capture_date_utc": "2026-10-04"
+        "workflow_run": 37294439342,
+        "artifact_id": 11338345789,
+        "capture_date_utc": "2026-10-05"
       }
     },
     {
       "name": "m2-counterfactual.png",
-      "bytes": 103829,
-      "sha256": "44f3a5f0f8cf0fc14a6c981cd625d59484e55e61363c78dcbe774fae8e9c26fe",
+      "bytes": 103830,
+      "sha256": "181de220ca2189a89122c679e5850ea3cda9700ada9218be3597a4f05a056852",
       "provenance": {
         "kind": "capture_artifact",
-        "workflow_run": 37218822598,
-        "artifact_id": 11309945875,
-        "capture_date_utc": "2026-10-04"
+        "workflow_run": 37294439342,
+        "artifact_id": 11338345789,
+        "capture_date_utc": "2026-10-05"
       }
     },
     {
@@ -145,31 +145,31 @@
       "sha256": "2857f5965bcbfeb6e4bfe1543f441a38086e7661b1d231ec279fe049aff23ddf",
       "provenance": {
         "kind": "capture_artifact",
-        "workflow_run": 37218822598,
-        "artifact_id": 11309945875,
-        "capture_date_utc": "2026-10-04"
+        "workflow_run": 37294439342,
+        "artifact_id": 11338345789,
+        "capture_date_utc": "2026-10-05"
       }
     },
     {
       "name": "m2-engineering-evidence.png",
-      "bytes": 256829,
-      "sha256": "05ee6a5164863ff66edab3c6ae4f1d1a4a18d3f8fe09979063fee96719e34e82",
+      "bytes": 260695,
+      "sha256": "7946990f40f3f366bd45e18fe64e22f8adb91e2e1a1f28b61117f7995576b87a",
       "provenance": {
         "kind": "capture_artifact",
-        "workflow_run": 37218822598,
-        "artifact_id": 11309945875,
-        "capture_date_utc": "2026-10-04"
+        "workflow_run": 37294439342,
+        "artifact_id": 11338345789,
+        "capture_date_utc": "2026-10-05"
       }
     },
     {
       "name": "m2-full.png",
-      "bytes": 777650,
-      "sha256": "d47053122d8157adf501be0e1ac5a4343381ef645cd59e0560f066d31a98ea7d",
+      "bytes": 781733,
+      "sha256": "f2b4b4b147385a64fbf4d506577e3b78e71afb82ae8bbd59b6877f16846f1225",
       "provenance": {
         "kind": "capture_artifact",
-        "workflow_run": 37218822598,
-        "artifact_id": 11309945875,
-        "capture_date_utc": "2026-10-04"
+        "workflow_run": 37294439342,
+        "artifact_id": 11338345789,
+        "capture_date_utc": "2026-10-05"
       }
     },
     {
@@ -178,53 +178,53 @@
       "sha256": "126c71a459211ec94a1905ee6499b77e80acac518a387892a06e2b34172cfd64",
       "provenance": {
         "kind": "capture_artifact",
-        "workflow_run": 37218822598,
-        "artifact_id": 11309945875,
-        "capture_date_utc": "2026-10-04"
+        "workflow_run": 37294439342,
+        "artifact_id": 11338345789,
+        "capture_date_utc": "2026-10-05"
       }
     },
     {
       "name": "m2-pareto.png",
-      "bytes": 130595,
-      "sha256": "f8af1259d88f4de69f3ce0bc24b690f5b2e55b927269bd6c6ce485b5690d3a4b",
+      "bytes": 127809,
+      "sha256": "f5bbaed4fb34099ef6f307ee0ea0e34244f1a0fac41869bc5bf93ff896925567",
       "provenance": {
         "kind": "capture_artifact",
-        "workflow_run": 37218822598,
-        "artifact_id": 11309945875,
-        "capture_date_utc": "2026-10-04"
+        "workflow_run": 37294439342,
+        "artifact_id": 11338345789,
+        "capture_date_utc": "2026-10-05"
       }
     },
     {
       "name": "m2-recommended-action.png",
-      "bytes": 266646,
-      "sha256": "00fc406eabb9357816c5ab0507ed429ceaea165cb5a3cae4366973144bc7a1ee",
+      "bytes": 270381,
+      "sha256": "a78eb5cf5559bc538a12254ac77b8e4753793b33acf095290644c2c5ef191460",
       "provenance": {
         "kind": "capture_artifact",
-        "workflow_run": 37218822598,
-        "artifact_id": 11309945875,
-        "capture_date_utc": "2026-10-04"
+        "workflow_run": 37294439342,
+        "artifact_id": 11338345789,
+        "capture_date_utc": "2026-10-05"
       }
     },
     {
       "name": "m2-research-evidence.png",
-      "bytes": 162544,
-      "sha256": "5407d496fe1d5a33be6916bcd9ac04caffc7a7859a315e1bfd6318a716b487a7",
+      "bytes": 178131,
+      "sha256": "c89e7079b6080f1029d9b4400dbec522434a409da60773ff8fe79a983cb88c7c",
       "provenance": {
         "kind": "capture_artifact",
-        "workflow_run": 37218822598,
-        "artifact_id": 11309945875,
-        "capture_date_utc": "2026-10-04"
+        "workflow_run": 37294439342,
+        "artifact_id": 11338345789,
+        "capture_date_utc": "2026-10-05"
       }
     },
     {
       "name": "m2-revision.png",
-      "bytes": 132950,
-      "sha256": "dec8bb697366d16a9b9adcb0ae5e362d8a06db4a6b7731a92731557afbd925cb",
+      "bytes": 135678,
+      "sha256": "248f111070e13a4e648cc2e323e98e7d960b0a05c8ccce4904a024a53b683ebb",
       "provenance": {
         "kind": "capture_artifact",
-        "workflow_run": 37218822598,
-        "artifact_id": 11309945875,
-        "capture_date_utc": "2026-10-04"
+        "workflow_run": 37294439342,
+        "artifact_id": 11338345789,
+        "capture_date_utc": "2026-10-05"
       }
     }
   ]

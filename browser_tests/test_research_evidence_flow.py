@@ -46,3 +46,22 @@ def test_expanded_research_and_evidence_links_fit_mobile(page):
     expect(page.locator('#runtimeScope')).to_contain_text(
         'ONNX Runtime' if meta['serving_backend'] == 'onnxruntime' else 'PyTorch'
     )
+
+
+def test_previous_deployment_research_response_is_not_displayed(page):
+    page.locator('.engineering-evidence-head a[href="#researchEvidence"]').click()
+    page.evaluate('''() => {
+      const original = window.fetch;
+      window.fetch = async (url, options) => {
+        const response = await original(url, options);
+        if (!String(url).includes('/static/research-evidence.json')) return response;
+        const payload = await response.json();
+        payload.research_date = '2026-10-02';
+        return new Response(JSON.stringify(payload), {status:200});
+      };
+    }''')
+    page.locator('#reloadResearch').click()
+    expect(page.locator('#researchStatus')).to_contain_text('원문 보고서')
+    expect(page.locator('#researchRows tr')).to_have_count(0)
+    page.locator('#previewChoices').click()
+    expect(page.locator('#choiceComparison .choice-card')).to_have_count(3)
