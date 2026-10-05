@@ -78,6 +78,11 @@ def test_promoted_manifest_binds_verified_bundle_and_runtime(monkeypatch, tmp_pa
         'candidate_id': 'candidate-pass',
         'general_goal_achieved': True,
         'gate': {'passed': True, 'reasons': []},
+        'evaluated_bundle': {
+            'run_id': json.loads((bundle_dir / 'report.json').read_text())['run_id'],
+            'manifest_sha256': hashlib.sha256((bundle_dir / 'manifest.json').read_bytes()).hexdigest(),
+            'report_sha256': hashlib.sha256((bundle_dir / 'report.json').read_bytes()).hexdigest(),
+        },
     })
     out = tmp_path / 'decision.json'
     result = build_release_decision(evaluation, out, bundle_dir=bundle_dir, runtime_dir=runtime_dir)
