@@ -14,7 +14,8 @@ from typing import Annotated, Literal
 import numpy as np
 import torch
 from fastapi import Depends, FastAPI, HTTPException, Query
-from fastapi.responses import FileResponse
+from fastapi.exceptions import RequestValidationError
+from fastapi.responses import FileResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, ConfigDict, Field, FiniteFloat
 
@@ -233,6 +234,14 @@ def _acquisition_state(bundle: Bundle, raw: Timeline, case_id: int, wait_seconds
 
 def create_app(artifact_dir: Path, *, runtime_dir: Path | None = None, backend_mode: str | None = None) -> FastAPI:
     app = FastAPI(title='AsOfCast', version='0.1.0', description='Frozen-origin forecasting with audited data arrivals')
+
+    @app.exception_handler(RequestValidationError)
+    async def request_validation_error(_request, exc):
+        # Pydantic's raw input/context may contain NaN/Inf from JSON exponent
+        # overflow. Do not echo those unencodable values into the JSON error.
+        detail = [{key: error[key] for key in ('loc', 'msg', 'type')}
+                  for error in exc.errors()]
+        return JSONResponse(status_code=422, content={'detail': detail})
     app.state.bundle = None
     app.state.runtime = None
     app.state.runtime_error = None

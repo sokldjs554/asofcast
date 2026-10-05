@@ -61,6 +61,24 @@ def test_acquisition_query_preserves_comma_in_sensor_name(bundle_dir):
         assert response.json()['acquired'] == [renamed]
 
 
+@pytest.mark.parametrize('raw_number', ['1e999', '-1e999', 'NaN', 'Infinity'])
+def test_nonfinite_json_validation_errors_are_serializable(bundle_dir, raw_number):
+    import json
+    from asofcast.bundle import load_bundle
+    from asofcast.service import create_app
+    bundle = load_bundle(bundle_dir)
+    times = bundle.timeline.times[:12].tolist()
+    payload = {'event_times': times, 'values': bundle.timeline.values[:12].tolist(),
+               'arrival_times': [[None] * 7 for _ in times],
+               'columns': list(bundle.timeline.columns), 'wait_seconds': 0}
+    payload['values'][0][0] = 'NUMBER_SENTINEL'
+    raw = json.dumps(payload).replace('"NUMBER_SENTINEL"', raw_number)
+    with TestClient(create_app(bundle_dir, backend_mode='torch'), raise_server_exceptions=False) as client:
+        response = client.post('/api/predict', content=raw, headers={'Content-Type': 'application/json'})
+        assert response.status_code == 422, response.text
+        assert response.json()['detail'][0]['loc'] == ['body', 'values', 0, 0]
+
+
 def test_replay_runs_loaded_model_and_marks_synthetic_provenance(bundle_dir):
     from asofcast.service import create_app
     from asofcast.bundle import load_bundle
