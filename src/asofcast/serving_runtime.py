@@ -33,6 +33,14 @@ def _sha256(path: Path) -> str:
     return h.hexdigest()
 
 
+def _bundle_identity(bundle: Bundle) -> str:
+    # load_bundle has already checked these file hashes before loading weights.
+    # run_id alone identifies data/config and is not a trained-weight identity.
+    encoded = json.dumps(bundle.manifest, sort_keys=True, separators=(',', ':'),
+                         allow_nan=False).encode('utf-8')
+    return hashlib.sha256(encoded).hexdigest()
+
+
 def _optional_runtime():
     try:
         import onnx  # noqa: F401
@@ -95,7 +103,7 @@ def _predict_session(session, x: np.ndarray) -> np.ndarray:
     if result.shape != (len(x),):
         raise RuntimeError(f'ONNX serving output shape mismatch: {result.shape}')
     if not np.isfinite(result).all():
-        raise RuntimeError('ONNX serving output is nonfinite')
+        raise FloatingPointError('ONNX serving output is nonfinite')
     return result.astype(np.float32, copy=False)
 
 
@@ -181,6 +189,7 @@ def prepare_serving_runtime(bundle_dir: Path, out_dir: Path, *, threads: int = 2
         'status': 'verified',
         'backend': 'onnxruntime',
         'bundle_run_id': bundle.report['run_id'],
+        'bundle_identity_sha256': _bundle_identity(bundle),
         'forecaster': forecaster_name,
         'onnx_file': ONNX_NAME,
         'onnx_sha256': _sha256(onnx_path),
@@ -217,6 +226,8 @@ def _load_manifest(bundle: Bundle, runtime_dir: Path) -> tuple[dict, Path]:
         raise RuntimeError('ONNX runtime backend contract mismatch')
     if manifest.get('bundle_run_id') != bundle.report['run_id']:
         raise RuntimeError('ONNX runtime run id does not match the model bundle')
+    if manifest.get('bundle_identity_sha256') != _bundle_identity(bundle):
+        raise RuntimeError('ONNX runtime bundle content identity mismatch; regenerate runtime')
     _, expected_name = select_serving_forecaster(bundle)
     if manifest.get('forecaster') != expected_name:
         raise RuntimeError('ONNX runtime forecaster does not match the model bundle')
@@ -272,7 +283,7 @@ def load_serving_runtime(bundle: Bundle, runtime_dir: Path | None, *, mode: str 
         if runtime_dir is None:
             raise RuntimeError('verified ONNX runtime directory is not configured')
         return _verified_onnx_runtime(bundle, Path(runtime_dir))
-    except (OSError, ValueError, RuntimeError, KeyError) as exc:
+    except (OSError, ValueError, RuntimeError, KeyError, FloatingPointError) as exc:
         if normalized_mode == 'onnx':
             raise RuntimeError(str(exc)) from exc
         return _torch_runtime(bundle, reason=str(exc))

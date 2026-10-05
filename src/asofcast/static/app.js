@@ -575,9 +575,9 @@
       catch (error) { return {action, status: 'error', message: '계산 실패 · 다시 비교해 주세요.'}; }
     };
     const outcomes = await Promise.all([
-      branch('WAIT', wait === undefined ? null : () => requestJSON('/api/acquisition?' + new URLSearchParams({
-        case_id: start.case_id, scenario: start.scenario, wait_seconds: wait, acquired: start.acquired.join(',')
-      }), {signal}), '마지막 판단 시점입니다. 더 기다리는 선택은 제공하지 않습니다.'),
+      branch('WAIT', wait === undefined ? null : () => requestJSON('/api/acquisition?' + acquisitionQuery({
+        case_id: start.case_id, scenario: start.scenario, wait_seconds: wait
+      }, start.acquired), {signal}), '마지막 판단 시점입니다. 더 기다리는 선택은 제공하지 않습니다.'),
       branch('ACQUIRE', sensor ? () => requestJSON('/api/acquire', {method: 'POST', signal,
         body: JSON.stringify({case_id: Number(start.case_id), scenario: start.scenario,
           wait_seconds: Number(start.wait_seconds), acquired: start.acquired, sensor})}) : null,
@@ -616,6 +616,12 @@
     setTimeout(() => URL.revokeObjectURL(url), 1000);
   }
 
+  function acquisitionQuery(values, sensors) {
+    const params = new URLSearchParams(values);
+    for (const sensor of sensors) params.append('acquired_sensor', sensor);
+    return params;
+  }
+
   async function loadState({reset = false, change = null} = {}) {
     if (!metadata) return;
     if (reset) clearSession();
@@ -629,7 +635,7 @@
       if (!op.value.case_id || !Number.isInteger(caseId) || caseId < 0 || caseId >= metadata.cases) {
         throw new Error(`사례 번호는 0부터 ${metadata.cases - 1}까지 정수로 입력해 주세요.`);
       }
-      const params = new URLSearchParams({...op.value, acquired: acquired.join(',')});
+      const params = acquisitionQuery(op.value, acquired);
       const payload = await requestJSON(`/api/acquisition?${params}`, {signal: op.signal});
       if (!isCurrent(op)) return;
       applyState(payload, op, change);

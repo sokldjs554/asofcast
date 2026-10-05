@@ -23,6 +23,44 @@ def test_missing_model_is_alive_but_not_ready(tmp_path):
         assert client.get('/api/metadata').status_code == 503
 
 
+@pytest.mark.parametrize('damage', ['large_values', 'huge_timestamp', 'int64_edge'])
+def test_predict_numeric_boundaries_return_client_error(bundle_dir, damage):
+    from asofcast.bundle import load_bundle
+    from asofcast.service import create_app
+    bundle = load_bundle(bundle_dir)
+    count = bundle.config['lookback']
+    times = bundle.timeline.times[:count].tolist()
+    values = bundle.timeline.values[:count].tolist()
+    if damage == 'large_values':
+        values = [[1e38] * len(bundle.timeline.columns) for _ in times]
+    elif damage == 'huge_timestamp':
+        times = [10**100 + i * bundle.timeline.grid_seconds for i in range(count)]
+    else:
+        times = [2**63 - 1 - (count - 1 - i) * bundle.timeline.grid_seconds for i in range(count)]
+    payload = {'event_times': times, 'values': values,
+               'arrival_times': [[None] * len(bundle.timeline.columns) for _ in times]
+                   if damage != 'large_values' else [[t] * len(bundle.timeline.columns) for t in times],
+               'columns': list(bundle.timeline.columns), 'wait_seconds': 0}
+    with TestClient(create_app(bundle_dir, backend_mode='torch'), raise_server_exceptions=False) as client:
+        response = client.post('/api/predict', json=payload)
+        assert response.status_code == 422, response.text
+        assert response.json()['detail']
+
+
+def test_acquisition_query_preserves_comma_in_sensor_name(bundle_dir):
+    from dataclasses import replace
+    from asofcast.service import create_app
+    app = create_app(bundle_dir, backend_mode='torch')
+    with TestClient(app) as client:
+        renamed = 'HUFL,aux'
+        for scenario, timeline in app.state.timelines.items():
+            columns = (renamed, *timeline.columns[1:])
+            app.state.timelines[scenario] = replace(timeline, columns=columns)
+        response = client.get('/api/acquisition', params=[('case_id', 0), ('acquired_sensor', renamed)])
+        assert response.status_code == 200, response.text
+        assert response.json()['acquired'] == [renamed]
+
+
 def test_replay_runs_loaded_model_and_marks_synthetic_provenance(bundle_dir):
     from asofcast.service import create_app
     from asofcast.bundle import load_bundle
@@ -151,8 +189,8 @@ def test_dashboard_assets_are_local_and_served(bundle_dir):
         assert 'Docker · Render' in html
         assert 'DLinear' in html
         assert 'servingBackend' in html
-        assert '/static/app.js?v=dataflow-20261005' in html
-        assert '/static/style.css?v=dataflow-20261005' in html
+        assert '/static/app.js?v=submission-20261005' in html
+        assert '/static/style.css?v=submission-20261005' in html
 
 
 def test_service_uses_recorded_cpu_thread_budget(bundle_dir):

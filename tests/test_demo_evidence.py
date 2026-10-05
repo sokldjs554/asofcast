@@ -70,7 +70,27 @@ def test_stale_generated_output_is_rejected(tmp_path):
 
 
 def test_packaged_research_evidence_matches_preserved_sources():
-    check_output(ROOT / "src/asofcast/static/research-evidence.json", build_evidence(*sources()))
+    from scripts import build_demo_evidence as builder
+
+    assert hasattr(builder, "build_latest_evidence")
+    source = (ROOT / "docs/research-20261005/confirmation-summary.json").read_bytes()
+    data = builder.build_latest_evidence(source)
+    assert data["research_date"] == "2026-10-05"
+    assert data["passed_conditions"] == 0
+    assert data["status"] == "rejected"
+    seoul = next(r for r in data["rows"] if r["condition"] == "SeoulBike/outage_2811")
+    assert seoul["improvement_percent"] == pytest.approx(-0.4299461546692029)
+    assert seoul["upper95"] < 0
+    check_output(ROOT / "src/asofcast/static/research-evidence.json", data)
+
+
+def test_latest_research_rejects_modified_source_bytes():
+    from scripts import build_demo_evidence as builder
+
+    assert hasattr(builder, "build_latest_evidence")
+    source = (ROOT / "docs/research-20261005/confirmation-summary.json").read_bytes()
+    with pytest.raises(ValueError, match="hash"):
+        builder.build_latest_evidence(source + b" ")
 
 
 def test_demo_repository_evidence_links_resolve_to_tracked_files():

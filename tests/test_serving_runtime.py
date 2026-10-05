@@ -69,6 +69,41 @@ def test_prepare_runtime_writes_verified_hash_bound_manifest(monkeypatch, runtim
     assert manifest['onnx_sha256'] == hashlib.sha256((out / 'forecaster.onnx').read_bytes()).hexdigest()
 
 
+def test_runtime_rejects_other_weights_with_same_data_and_config_run_id(
+        monkeypatch, runtime_bundle, tmp_path):
+    import shutil
+    from asofcast.bundle import load_bundle
+    from asofcast.serving_runtime import _load_manifest, prepare_serving_runtime
+    from asofcast.release_gate import build_release_decision
+
+    _install_fake_onnx(monkeypatch, runtime_bundle)
+    runtime = tmp_path / 'runtime'
+    prepare_serving_runtime(runtime_bundle, runtime, threads=1)
+    other = tmp_path / 'other'
+    shutil.copytree(runtime_bundle, other)
+    weights = other / 'calibrated.pt'
+    state = torch.load(weights, weights_only=True)
+    state['correction.bias'] += 10
+    torch.save(state, weights)
+    manifest_path = other / 'manifest.json'
+    manifest = json.loads(manifest_path.read_text())
+    manifest['files']['calibrated.pt'] = hashlib.sha256(weights.read_bytes()).hexdigest()
+    manifest_path.write_text(json.dumps(manifest))
+    bundle = load_bundle(other)
+    assert bundle.report['run_id'] == load_bundle(runtime_bundle).report['run_id']
+    with pytest.raises(RuntimeError, match='bundle.*identity'):
+        _load_manifest(bundle, runtime)
+    evaluation = tmp_path / 'evaluation.json'
+    evaluation.write_text(json.dumps({'candidate_id': 'other', 'gate': {'passed': True, 'reasons': []},
+        'evaluated_bundle': {'run_id': bundle.report['run_id'],
+            'manifest_sha256': hashlib.sha256(manifest_path.read_bytes()).hexdigest(),
+            'report_sha256': hashlib.sha256((other / 'report.json').read_bytes()).hexdigest()}}))
+    output = tmp_path / 'decision.json'
+    with pytest.raises(RuntimeError, match='bundle.*identity'):
+        build_release_decision(evaluation, output, bundle_dir=other, runtime_dir=runtime)
+    assert not output.exists()
+
+
 def test_explicit_onnx_rejects_tampered_model_but_auto_falls_back(monkeypatch, runtime_bundle, tmp_path):
     from asofcast.bundle import load_bundle
     from asofcast.serving_runtime import load_serving_runtime, prepare_serving_runtime

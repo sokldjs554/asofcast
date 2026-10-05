@@ -6,6 +6,8 @@
 
 [예측 체험](https://asofcast.onrender.com) · [API](https://asofcast.onrender.com/docs) · [데이터플로 공고 대응 근거](docs/dataflow-role-evidence.md) · [검증 기록](docs/verification.md)
 
+데이터플로의 [Model Craft](https://data-flow.co.kr/verta/model-craft)는 시계열 모델의 학습·성능 비교와 REST API 배포를 다룹니다. AsOfCast는 이 흐름에 **데이터가 도착한 시점의 입력 검증과 비용을 고려한 결정**을 더한 개인 프로젝트입니다. 회사 제품과 연동한 결과는 아니며, 공개 제품 설명과 [AI 모델 개발자 공고](https://m.saramin.co.kr/job-search/view?rec_idx=54998048)를 참고해 설계했습니다.
+
 ## 한눈에 보는 엔지니어링 근거
 
 | 영역 | 구현·검증 근거 |
@@ -34,7 +36,7 @@ GitHub Actions는 Python 3.11/3.13 전체 테스트, 실측 ETTh1 학습, ONNX, 
 
 **숫자를 읽는 법:** 예측값이 내려갔다고 더 정확해진 것은 아닙니다. 사후 정답과의 거리인 **절대 오차**가 작아야 더 정확합니다. 기다리거나 센서를 추가해도 오차가 늘 수 있으며, 그 결과도 그대로 표시합니다. 정보 비용은 학습 구간의 도착 지연으로 만든 0.2~1.0의 상대값이고 실제 금액이 아닙니다.
 
-**직무와 연구 근거까지 확인:** 체험 바로 아래의 ‘데이터플로 AI 개발 직무를 위해’에서 기술별 실행 기록을 열 수 있습니다. ‘최신 연구 판정 보기’는 Taylor·MSFT의 여섯 조건을 모두 보여주며, 평균 개선과 채택 실패를 구분합니다. 현재 서비스의 추론 방식은 API 상태로 표시하고 별도 ONNX 벤치마크와 구분합니다.
+**직무와 연구 근거까지 확인:** 체험 바로 아래의 ‘데이터플로 AI 개발 직무를 위해’에서 기술별 실행 기록을 열 수 있습니다. ‘최신 연구 판정 보기’는 AppliancesEnergy·SeoulBike의 여섯 조건을 모두 보여주며, 평균 개선과 채택 실패를 구분합니다. 현재 서비스의 추론 방식은 API 상태로 표시하고 별도 ONNX 벤치마크와 구분합니다.
 
 ![같은 목표에서 세 선택의 예측값·추가 대기·정보 비용과 사후 오차 비교](docs/assets/live-m2/m2-choice-audit.png)
 
@@ -42,13 +44,13 @@ GitHub Actions는 Python 3.11/3.13 전체 테스트, 실측 ETTh1 학습, ONNX, 
 
 ## 연구 상태와 한계
 
-**전체 행동 정책의 일반적인 성능 우위는 아직 입증하지 못했습니다.** 2026-09-29 기상·화학 센서 새 데이터에서는 강한 단순 기준 대비 채택 조건을 통과한 경우가 0/6이었습니다. 2026-10-02 후속 후보는 새 전력·거래 시계열 6개 자료·도착 조건 중 주 수치 기준을 통과한 조건이 1개였지만, 전체 목표에는 미달해 공개 모델로 승격하지 않았습니다.
+**최신 판단은 기존 모델 유지입니다.** 10월 5일 추가 평가에서 AppliancesEnergy는 단순 전략과 같은 결과였고, SeoulBike는 추가 취득 비용 때문에 손실이 0.14~0.43% 늘었습니다. 여섯 조건 모두 채택 기준에 미달했습니다.
 
-이 실패도 결과로 보존했습니다. 비용·합격 기준을 결과를 본 뒤 낮추지 않았고, `docs/research-20261002/release-decision.json`의 release gate는 해당 후보를 **rejected**로 기록합니다. 코드·재현 검사 통과와 성능 목표 달성을 같은 의미로 사용하지 않습니다.
+**출처 정정:** AppliancesEnergy는 이전 Appliances와 같은 UCI 원본을 다른 간격·입력 열로 평가한 자료입니다. 새 독립 자료로 세지 않습니다. SeoulBike만 처음 사용한 자료이며 두 개의 새로운 독립 자료에서 검증했다는 이전 설명을 정정합니다.
 
-[2026-10-02 전체 결과와 실패 조건](docs/research-20261002/RESULTS_KO.md) · [승격 판단](docs/research-20261002/release-decision.json) · [고정 프로토콜](configs/posterior_candidate_confirmation_20261002.json) · [실행기](scripts/run_posterior_confirmation.py)
+[최신 결과와 출처 정정](docs/research-20261005/RESULTS_KO.md) · [전체 수치와 판정 JSON](docs/research-20261005/confirmation-summary.json) · [이전 Taylor·MSFT 결과](docs/research-20261002/RESULTS_KO.md)
 
-데모의 연구 표는 [생성기](scripts/build_demo_evidence.py)가 보존 집계의 고정 SHA-256, 평가 파일 해시, 기존 수치 gate와 승격 판정의 일치를 확인한 뒤 만듭니다. `PYTHONPATH=src python scripts/build_demo_evidence.py --check`와 전체 테스트가 오래되거나 변조된 표시 파일을 거절합니다. 이 과정에서 연구를 다시 학습하거나 현재 체험 모델을 승격하지 않습니다.
+데모의 연구 표는 [생성기](scripts/build_demo_evidence.py)가 보존 집계의 고정 SHA-256, 기존 수치 gate와 보존 판정의 일치를 확인한 뒤 만듭니다. `PYTHONPATH=src python scripts/build_demo_evidence.py --check`와 전체 테스트가 오래되거나 변조된 표시 파일을 거절합니다. 이 과정에서 연구를 다시 학습하거나 현재 체험 모델을 승격하지 않습니다.
 
 [직무별 구현·실행 근거 화면](docs/assets/live-m2/m2-engineering-evidence.png) · [최신 연구 판정 화면](docs/assets/live-m2/m2-research-evidence.png) · [이번 보완의 반복 검증과 범위](docs/submission-verification-20261005-demo/README.md)
 

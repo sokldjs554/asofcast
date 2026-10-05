@@ -10,7 +10,7 @@ from urllib.parse import urlparse
 
 from playwright.sync_api import sync_playwright
 
-UI_VERSION = 'dataflow-20261005'
+UI_VERSION = 'submission-20261005'
 VIEWPORT = {'width': 1440, 'height': 1000}
 
 
@@ -171,7 +171,7 @@ def main() -> None:
         page.locator('.engineering-evidence-head a[href="#researchEvidence"]').click()
         page.wait_for_function("document.querySelectorAll('#researchRows tr').length === 6")
         assert '승격 거절' in page.locator('#researchVerdict').inner_text()
-        assert '1 / 6' in page.locator('#researchVerdict').inner_text()
+        assert '0 / 6' in page.locator('#researchVerdict').inner_text()
         assert page.locator('.engineering-evidence-grid a').count() == 6
         frame(page, 'researchEvidence')
         page.screenshot(path=str(out / 'm2-research-evidence.png'))
@@ -221,8 +221,8 @@ def main() -> None:
         'screenshots': [name for name in names if name.endswith('.png')],
         'video': 'asofcast-m2-demo.webm', 'comparison_evidence': 'comparison-example.json',
         'video_start_offset_seconds': video_start_offset_seconds,
-        'research_evidence_verified': {'date': '2026-10-02', 'conditions': 6,
-            'passed_conditions': 1, 'release_status': 'rejected', 'role_evidence_links': 6},
+        'research_evidence_verified': {'date': '2026-10-05', 'conditions': 6,
+            'passed_conditions': 0, 'release_status': 'rejected', 'role_evidence_links': 6},
         'scopes': [
             'real HTTP assets and model API; not the local TestClient bridge',
             'cold start and expert/mobile checks excluded from short video',

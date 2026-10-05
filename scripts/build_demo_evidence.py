@@ -23,6 +23,40 @@ CONDITIONS = [
     for dataset in ("Taylor", "MSFT")
     for condition in ("mixed_2811", "mixed_3811", "outage_2811")
 ]
+LATEST_SOURCE = ROOT / "docs/research-20261005/confirmation-summary.json"
+LATEST_SHA256 = "1a2ceeaa921c01cb875f1fc177ec083f57ae7447f46f72dc17a0e7c3e2078812"
+
+
+def build_latest_evidence(summary_bytes):
+    """Display the frozen new-data confirmation without importing research models."""
+    digest = hashlib.sha256(summary_bytes).hexdigest()
+    if digest != LATEST_SHA256:
+        raise ValueError("latest research source hash mismatch")
+    summary = json.loads(summary_bytes)
+    conditions = [f"{dataset}/{condition}" for dataset in ("AppliancesEnergy", "SeoulBike")
+                  for condition in ("mixed_2811", "mixed_3811", "outage_2811")]
+    cells = summary["cells"]
+    if set(cells) != set(conditions):
+        raise ValueError("complete confirmatory conditions required")
+    gate = confirmatory_gate(cells, conditions)
+    recorded = summary["primary_gate"]
+    if gate["passed"] != recorded["passed"] or set(gate["reasons"]) != set(recorded["reasons"]):
+        raise ValueError("contradictory numerical gate")
+    rows = []
+    for condition in conditions:
+        record = cells[condition]["comparisons"]["validation_simple"]
+        rows.append({"condition": condition,
+                     "improvement_percent": record["relative_improvement"] * 100,
+                     "lower95": record["lower95"], "upper95": record["upper95"],
+                     "improved_seeds": sum(v > 0 for v in record["seed_improvements"]),
+                     "passed": confirmatory_gate(cells, [condition])["passed"]})
+    return {"schema": "asofcast.demo-research-evidence.v1", "research_date": "2026-10-05",
+            "candidate_id": summary["method"], "status": "promoted" if gate["passed"] else "rejected",
+            "gate_passed": gate["passed"], "evaluation_sha256": digest,
+            "total_conditions": len(rows), "passed_conditions": sum(r["passed"] for r in rows),
+            "training_seeds": 3, "rows": rows,
+            "scope": "AppliancesEnergy reuses UCI 374 previously evaluated as Appliances; SeoulBike is new. Simulated arrivals/costs; no general superiority.",
+            "provenance_correction": "docs/research-20261005/RESULTS_KO.md"}
 
 
 def build_evidence(aggregate, evaluation_bytes, decision):
@@ -96,11 +130,7 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--check", action="store_true")
     args = parser.parse_args()
-    data = build_evidence(
-        json.loads((SOURCE / "confirmation-aggregate.json").read_text(encoding="utf-8")),
-        (SOURCE / "promotion-summary.json").read_bytes(),
-        json.loads((SOURCE / "release-decision.json").read_text(encoding="utf-8")),
-    )
+    data = build_latest_evidence(LATEST_SOURCE.read_bytes())
     if args.check:
         check_output(OUTPUT, data)
     else:
